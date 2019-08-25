@@ -1,0 +1,3 @@
+[submodule "robdef"]
+	path = robdef
+	url = https://github.com/johnwason/robotraconteur_standard_robdef.git
