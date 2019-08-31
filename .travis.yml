@@ -14,8 +14,10 @@ matrix:
           zlib1g zlib1g-dev git cmake g++ make libboost-all-dev autoconf 
           automake libtool bison libpcre3-dev -qq
         - |
+          (
           rm -rf robotraconteur_build
           mkdir -p robotraconteur_build
+          robotraconteur_build
           git clone https://github.com/robotraconteur/robotraconteur.git
           cd robotraconteur
           mkdir build
@@ -23,6 +25,7 @@ matrix:
           cmake .. -DBUILD_GEN=ON
           cmake --build . --config Release
           sudo cmake --build . --config Release --target install
+          )
 script:
   - mkdir -p build
   - cd build
