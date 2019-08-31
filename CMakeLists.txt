@@ -51,3 +51,19 @@ install(FILES
 
 install(DIRECTORY robdef/ DESTINATION ${CMAKE_INSTALL_DATADIR}/robotraconteur/robdef/standard_robdef/ FILES_MATCHING PATTERN "*.robdef")
 
+include(CTest)
+
+if (BUILD_TESTING)
+	find_package(RobotRaconteur REQUIRED)
+	file(GLOB_RECURSE robdef_files_abs FOLLOW_SYMLINKS "${CMAKE_CURRENT_SOURCE_DIR}/robdef/*.robdef")
+	ROBOTRACONTEUR_GENERATE_THUNK(RR_THUNK_SRCS RR_THUNK_HDRS
+		${robdef_files_abs}
+		MASTER_HEADER
+	)
+	include_directories(${RobotRaconteur_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+	add_executable(test_robdef_gen ${RR_THUNK_SRCS} ${RR_THUNK_HDRS} test/test_robdef_gen.cpp)
+	target_link_libraries(test_robdef_gen RobotRaconteurCore ${Boost_LIBRARIES} ${RobotRaconteurCore_Extra_Libraries} )
+
+	add_test(NAME test_robdef_gen COMMAND test_robdef_gen)
+endif()
+
