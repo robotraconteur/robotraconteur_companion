@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.3)
 project(RobotRaconteur_standard_robdef_cpp)
 
+IF (MSVC)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj")
+ENDIF()
+
 if(NOT IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/robdef/group1")
 	message(FATAL_ERROR "RobotRaconteur_standard_robdef_cpp must use git clone --recursive, currently missing robdef files")
 endif()
