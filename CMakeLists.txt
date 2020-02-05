@@ -58,7 +58,7 @@ install(DIRECTORY robdef/ DESTINATION ${CMAKE_INSTALL_DATADIR}/robotraconteur/ro
 include(CTest)
 
 if (BUILD_TESTING)
-	find_package(RobotRaconteur REQUIRED)
+	find_package(RobotRaconteur 0.9.2 REQUIRED)
 	file(GLOB_RECURSE robdef_files_abs FOLLOW_SYMLINKS "${CMAKE_CURRENT_SOURCE_DIR}/robdef/*.robdef")
 	ROBOTRACONTEUR_GENERATE_THUNK(RR_THUNK_SRCS RR_THUNK_HDRS
 		${robdef_files_abs}
