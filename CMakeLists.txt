@@ -1,33 +1,66 @@
 cmake_minimum_required(VERSION 3.3)
-project(RobotRaconteur_standard_robdef_cpp)
+project(RobotRaconteurCompanion)
 
 IF (MSVC)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj")
 ENDIF()
 
 if(NOT IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/robdef/group1")
-	message(FATAL_ERROR "RobotRaconteur_standard_robdef_cpp must use git clone --recursive, currently missing robdef files")
+	message(FATAL_ERROR "RobotRaconteurCompanion must use git clone --recursive, currently missing robdef files")
 endif()
 
-file(GLOB_RECURSE robdef_files FOLLOW_SYMLINKS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}/robdef/" "${CMAKE_CURRENT_SOURCE_DIR}/robdef/*.robdef")
+set(RR_SERVICE_NAMES_GROUP1
+	com.robotraconteur.action
+	com.robotraconteur.actuator
+	com.robotraconteur.bignum
+	com.robotraconteur.color
+	com.robotraconteur.datatype
+	com.robotraconteur.datetime.clock
+	com.robotraconteur.datetime
+	com.robotraconteur.device.isoch
+	com.robotraconteur.device
+	com.robotraconteur.eventlog
+	com.robotraconteur.geometry
+	com.robotraconteur.geometry.shapes
+	com.robotraconteur.geometryf
+	com.robotraconteur.geometryi
+	com.robotraconteur.gps
+	com.robotraconteur.hid.joystick
+	com.robotraconteur.identifier
+	com.robotraconteur.image
+	com.robotraconteur.imaging.camerainfo
+	com.robotraconteur.imaging
+	com.robotraconteur.imu
+	com.robotraconteur.laserscan
+	com.robotraconteur.laserscanner
+	com.robotraconteur.lighting
+	com.robotraconteur.octree
+	com.robotraconteur.param
+	com.robotraconteur.pid
+	com.robotraconteur.pointcloud
+	com.robotraconteur.pointcloud.sensor
+	com.robotraconteur.resource
+	com.robotraconteur.robotics.joints
+	com.robotraconteur.robotics.payload
+	com.robotraconteur.robotics.planning
+	com.robotraconteur.robotics.robot
+	com.robotraconteur.robotics.tool
+	com.robotraconteur.robotics.trajectory
+	com.robotraconteur.sensor
+	com.robotraconteur.sensordata
+	com.robotraconteur.servo
+	com.robotraconteur.signal
+	com.robotraconteur.units
+	com.robotraconteur.uuid
+)
 
-foreach(f1 IN LISTS robdef_files)
-	set(f "${CMAKE_CURRENT_SOURCE_DIR}/robdef/${f1}")
-	FILE (STRINGS "${f}" f_service_name1 REGEX "^[ \t]*service +([A-Za-z0-9\\.]+)" LIMIT_COUNT 1)		
-	IF ("${f_service_name1}" STREQUAL "" )
-		message(FATAL_ERROR "Could not determine service name for ${f}")
-	ENDIF()
-	STRING (REGEX REPLACE "^[ \t]*service +([A-Za-z0-9\\.]+)" "\\1" f_service_name ${f_service_name1})	
-	IF ("${f_service_name}" STREQUAL "" )
-		message(FATAL_ERROR "Could not determine service name for ${f}")
-	ENDIF()	
-	list(APPEND RR_SERVICE_NAMES ${f_service_name})
-	list(APPEND RR_INSTALLED_ROBDEF "$\{RobotRaconteur_STANDARD_ROBDEF_ROOT_DIR\}/${f1}")
-	get_filename_component(p ${f1} DIRECTORY)
-	list(APPEND RR_INSTALLED_ROBDEF_DIRS "$\{RobotRaconteur_STANDARD_ROBDEF_ROOT_DIR\}/${p}")
+foreach(f1 IN LISTS RR_SERVICE_NAMES_GROUP1)
+	list(APPEND RR_INSTALLED_ROBDEF "$\{RobotRaconteur_STANDARD_ROBDEF_ROOT_DIR\}/group1/${f1}.robdef")
 endforeach()
 
-list(REMOVE_DUPLICATES RR_INSTALLED_ROBDEF_DIRS)
+set(RR_SERVICE_NAMES ${RR_SERVICE_NAMES_GROUP1})
+
+set(RR_INSTALLED_ROBDEF_DIRS "$\{RobotRaconteur_STANDARD_ROBDEF_ROOT_DIR\}/group1")
 
 include(GNUInstallDirs)
 
@@ -58,7 +91,7 @@ install(DIRECTORY robdef/ DESTINATION ${CMAKE_INSTALL_DATADIR}/robotraconteur/ro
 include(CTest)
 
 if (BUILD_TESTING)
-	find_package(RobotRaconteur 0.9.2 REQUIRED)
+	find_package(RobotRaconteur 0.12.1 REQUIRED)
 	file(GLOB_RECURSE robdef_files_abs FOLLOW_SYMLINKS "${CMAKE_CURRENT_SOURCE_DIR}/robdef/*.robdef")
 	ROBOTRACONTEUR_GENERATE_THUNK(RR_THUNK_SRCS RR_THUNK_HDRS
 		${robdef_files_abs}
