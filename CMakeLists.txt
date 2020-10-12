@@ -83,6 +83,7 @@ target_include_directories(RobotRaconteurCompanion PUBLIC
 	$<INSTALL_INTERFACE:include/RobotRaconteurCompanion/StdRobDef/group1>
 )
 
+export(TARGETS RobotRaconteurCompanion FILE ${CMAKE_BINARY_DIR}/RobotRaconteurCompanionTargets.cmake  )
 
 include(GNUInstallDirs)
 
