@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.3)
 project(RobotRaconteurCompanion)
 
+set (CMAKE_CXX_STANDARD 11)
+
 find_package(RobotRaconteur 0.12.1 REQUIRED)
 
 IF (MSVC)
