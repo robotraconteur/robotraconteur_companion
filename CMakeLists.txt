@@ -79,6 +79,7 @@ SET_TARGET_PROPERTIES(RobotRaconteurCompanion PROPERTIES PREFIX lib)
 target_link_libraries(RobotRaconteurCompanion PUBLIC RobotRaconteurCore)
 target_include_directories(RobotRaconteurCompanion PUBLIC
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/robdef_gen/>
 	$<INSTALL_INTERFACE:include>
 	$<INSTALL_INTERFACE:include/RobotRaconteurCompanion/StdRobDef/group1>
 )
