@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.3)
 project(RobotRaconteurCompanion)
 
+find_package(RobotRaconteur 0.12.1 REQUIRED)
+
 IF (MSVC)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj")
 ENDIF()
@@ -56,11 +58,29 @@ set(RR_SERVICE_NAMES_GROUP1
 
 foreach(f1 IN LISTS RR_SERVICE_NAMES_GROUP1)
 	list(APPEND RR_INSTALLED_ROBDEF "$\{RobotRaconteur_STANDARD_ROBDEF_ROOT_DIR\}/group1/${f1}.robdef")
+	list(APPEND RR_ROBDEF_SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/robdef/group1/${f1}.robdef")
 endforeach()
 
 set(RR_SERVICE_NAMES ${RR_SERVICE_NAMES_GROUP1})
 
 set(RR_INSTALLED_ROBDEF_DIRS "$\{RobotRaconteur_STANDARD_ROBDEF_ROOT_DIR\}/group1")
+
+ROBOTRACONTEUR_GENERATE_THUNK(RR_THUNK_SRCS RR_THUNK_HDRS
+	${RR_ROBDEF_SOURCE_FILES}
+	OUTDIR ${CMAKE_CURRENT_BINARY_DIR}/robdef_gen
+	CPP_EXTRA_INCLUDE "RobotRaconteurCompanion/StdRobDef/StdRobDef_Macros.h"
+)
+
+add_library(RobotRaconteurCompanion STATIC ${RR_THUNK_SRCS} ${RR_THUNK_HDRS} src/StdRobDefAll.cpp)
+SET_TARGET_PROPERTIES(RobotRaconteurCompanion PROPERTIES PREFIX lib)
+
+target_link_libraries(RobotRaconteurCompanion PUBLIC RobotRaconteurCore)
+target_include_directories(RobotRaconteurCompanion PUBLIC
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>
+	$<INSTALL_INTERFACE:include>
+	$<INSTALL_INTERFACE:include/RobotRaconteurCompanion/StdRobDef/group1>
+)
+
 
 include(GNUInstallDirs)
 
@@ -88,19 +108,31 @@ install(FILES
 
 install(DIRECTORY robdef/ DESTINATION ${CMAKE_INSTALL_DATADIR}/robotraconteur/robdef/standard_robdef/ FILES_MATCHING PATTERN "*.robdef")
 
+install(
+    DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
+    DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+	FILES_MATCHING PATTERN "*.h*")
+	
+install(
+	DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/robdef_gen/
+	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/RobotRaconteurCompanion/StdRobDef/group1
+	FILES_MATCHING PATTERN "*.h*")
+
+install(TARGETS RobotRaconteurCompanion EXPORT RobotRaconteurCompanionTargets DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(EXPORT RobotRaconteurCompanionTargets DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${CMAKE_PROJECT_NAME})
+
 include(CTest)
 
 if (BUILD_TESTING)
-	find_package(RobotRaconteur 0.12.1 REQUIRED)
-	file(GLOB_RECURSE robdef_files_abs FOLLOW_SYMLINKS "${CMAKE_CURRENT_SOURCE_DIR}/robdef/*.robdef")
-	ROBOTRACONTEUR_GENERATE_THUNK(RR_THUNK_SRCS RR_THUNK_HDRS
-		${robdef_files_abs}
-		MASTER_HEADER
-	)
-	include_directories(${RobotRaconteur_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR})
+	include_directories(${RobotRaconteur_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/robdef_gen)
 	add_executable(test_robdef_gen ${RR_THUNK_SRCS} ${RR_THUNK_HDRS} test/test_robdef_gen.cpp)
-	target_link_libraries(test_robdef_gen RobotRaconteurCore ${Boost_LIBRARIES} ${RobotRaconteurCore_Extra_Libraries} )
+	target_link_libraries(test_robdef_gen RobotRaconteurCompanion RobotRaconteurCore)
+
+	find_package (Eigen3 3.3 REQUIRED NO_MODULE)
+	add_executable(test_eigen_converters ${RR_THUNK_SRCS} ${RR_THUNK_HDRS} test/test_eigen_converters.cpp)
+	target_link_libraries(test_eigen_converters RobotRaconteurCompanion RobotRaconteurCore Eigen3::Eigen)
 
 	add_test(NAME test_robdef_gen COMMAND test_robdef_gen)
-endif()
+	add_test(NAME test_eigen_converters COMMAND test_eigen_converters)
+ endif()
 

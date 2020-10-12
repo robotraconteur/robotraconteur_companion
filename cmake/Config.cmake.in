@@ -1,5 +1,7 @@
 @PACKAGE_INIT@
 
+include("${CMAKE_CURRENT_LIST_DIR}/RobotRaconteurCompanionTargets.cmake")
+
 set(RobotRaconteur_STANDARD_ROBDEF_ROOT_DIR @PACKAGE_CMAKE_INSTALL_DATADIR@/robotraconteur/robdef/standard_robdef/)
 
 set(RobotRaconteur_STANDARD_ROBDEF_SERVICE_NAMES @RR_SERVICE_NAMES@)
