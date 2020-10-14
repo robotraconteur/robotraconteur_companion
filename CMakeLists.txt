@@ -5,10 +5,6 @@ set (CMAKE_CXX_STANDARD 11)
 
 find_package(RobotRaconteur 0.12.1 REQUIRED)
 
-IF (MSVC)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /bigobj")
-ENDIF()
-
 if(NOT IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/robdef/group1")
 	message(FATAL_ERROR "RobotRaconteurCompanion must use git clone --recursive, currently missing robdef files")
 endif()
@@ -83,6 +79,14 @@ target_include_directories(RobotRaconteurCompanion PUBLIC
 	$<INSTALL_INTERFACE:include>
 	$<INSTALL_INTERFACE:include/RobotRaconteurCompanion/StdRobDef/group1>
 )
+
+if(CMAKE_COMPILER_IS_GNUCXX)
+	target_compile_options(RobotRaconteurCompanion PRIVATE "-fPIC" )
+endif()
+
+IF (MSVC)
+	target_compile_options(RobotRaconteurCompanion PRIVATE "/wd4251" "/wd4275" "/bigobj")
+ENDIF()
 
 export(TARGETS RobotRaconteurCompanion FILE ${CMAKE_BINARY_DIR}/RobotRaconteurCompanionTargets.cmake  )
 
