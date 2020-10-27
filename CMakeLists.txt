@@ -46,6 +46,7 @@ set(RR_SERVICE_NAMES_GROUP1
 	com.robotraconteur.robotics.robot
 	com.robotraconteur.robotics.tool
 	com.robotraconteur.robotics.trajectory
+	com.robotraconteur.robotics.scene
 	com.robotraconteur.sensor
 	com.robotraconteur.sensordata
 	com.robotraconteur.servo

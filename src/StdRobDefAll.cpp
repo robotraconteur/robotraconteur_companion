@@ -43,6 +43,7 @@ namespace Companion
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::robotics::robot::com__robotraconteur__robotics__robotFactory>());   
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::robotics::tool::com__robotraconteur__robotics__toolFactory>());     
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::robotics::trajectory::com__robotraconteur__robotics__trajectoryFactory>());
+        node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::robotics::scene::com__robotraconteur__robotics__sceneFactory>());
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::sensor::com__robotraconteur__sensorFactory>());
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::sensordata::com__robotraconteur__sensordataFactory>());
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::servo::com__robotraconteur__servoFactory>());

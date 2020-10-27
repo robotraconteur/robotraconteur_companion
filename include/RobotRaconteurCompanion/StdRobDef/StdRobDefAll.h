@@ -70,6 +70,8 @@
 #include "com__robotraconteur__robotics__tool_stubskel.h"
 #include "com__robotraconteur__robotics__trajectory.h"
 #include "com__robotraconteur__robotics__trajectory_stubskel.h"
+#include "com__robotraconteur__robotics__scene.h"
+#include "com__robotraconteur__robotics__scene_stubskel.h"
 #include "com__robotraconteur__sensor.h"
 #include "com__robotraconteur__sensor_stubskel.h"
 #include "com__robotraconteur__sensordata.h"
