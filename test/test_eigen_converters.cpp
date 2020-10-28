@@ -1,6 +1,7 @@
 
 #include <RobotRaconteur.h>
 #include "RobotRaconteurCompanion/Converters/EigenConverters.h"
+#include "RobotRaconteurCompanion/Util/IdentifierUtil.h"
 
 namespace RR = RobotRaconteur;
 namespace RREigen = RobotRaconteur::Companion::Converters::Eigen;
