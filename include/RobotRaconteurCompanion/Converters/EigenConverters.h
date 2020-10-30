@@ -110,7 +110,7 @@ namespace Eigen
         }
     }
 
-    static com::robotraconteur::geometry::Vector2 ToVector2(::Eigen::Ref<::Eigen::Vector2d> vs)
+    static com::robotraconteur::geometry::Vector2 ToVector2(const ::Eigen::Ref<const ::Eigen::Vector2d> vs)
     {
         com::robotraconteur::geometry::Vector2 o;
         o.s.x = vs[0];
@@ -126,7 +126,7 @@ namespace Eigen
         return o;
     }
 
-    static com::robotraconteur::geometry::Vector3 ToVector3(::Eigen::Ref<::Eigen::Vector3d> vs)
+    static com::robotraconteur::geometry::Vector3 ToVector3(const ::Eigen::Ref<const ::Eigen::Vector3d> vs)
     {
         com::robotraconteur::geometry::Vector3 o;
         o.s.x = vs[0];
@@ -144,7 +144,7 @@ namespace Eigen
         return o;
     }
 
-    static com::robotraconteur::geometry::Vector6 ToVector6(::Eigen::Ref<::Eigen::Matrix<double,6,1> > vs)
+    static com::robotraconteur::geometry::Vector6 ToVector6(const ::Eigen::Ref<const ::Eigen::Matrix<double,6,1> > vs)
     {
         com::robotraconteur::geometry::Vector6 o;
         o.s.alpha = vs[0];
@@ -168,7 +168,7 @@ namespace Eigen
         return o;
     }
 
-    static com::robotraconteur::geometry::Point2D ToPoint2D(::Eigen::Ref<::Eigen::Vector2d> vs)
+    static com::robotraconteur::geometry::Point2D ToPoint2D(const ::Eigen::Ref<const ::Eigen::Vector2d> vs)
     {
         com::robotraconteur::geometry::Point2D o;
         o.s.x = vs[0];
@@ -184,7 +184,7 @@ namespace Eigen
         return o;
     }
 
-    static com::robotraconteur::geometry::Point ToPoint(::Eigen::Ref<::Eigen::Vector3d> vs)
+    static com::robotraconteur::geometry::Point ToPoint(const ::Eigen::Ref<const ::Eigen::Vector3d> vs)
     {
         com::robotraconteur::geometry::Point o;
         o.s.x = vs[0];
@@ -202,7 +202,7 @@ namespace Eigen
         return o;
     }
 
-    static com::robotraconteur::geometry::Size2D ToSize2D(::Eigen::Ref<::Eigen::Vector2d> vs)
+    static com::robotraconteur::geometry::Size2D ToSize2D(const ::Eigen::Ref<const ::Eigen::Vector2d> vs)
     {
         com::robotraconteur::geometry::Size2D o;
         o.s.width = vs[0];
@@ -218,7 +218,7 @@ namespace Eigen
         return o;
     }
 
-    static com::robotraconteur::geometry::Size ToSize(::Eigen::Ref<::Eigen::Vector3d> vs)
+    static com::robotraconteur::geometry::Size ToSize(const ::Eigen::Ref<const ::Eigen::Vector3d> vs)
     {
         com::robotraconteur::geometry::Size o;
         o.s.width = vs[0];
@@ -286,7 +286,7 @@ namespace Eigen
         return o;
     }
 
-    static com::robotraconteur::geometry::SpatialVelocity ToSpatialVelocity(::Eigen::Ref<::Eigen::Matrix<double,6,1> > vs)
+    static com::robotraconteur::geometry::SpatialVelocity ToSpatialVelocity(const ::Eigen::Ref<const ::Eigen::Matrix<double,6,1> > vs)
     {
         com::robotraconteur::geometry::SpatialVelocity o;
         o.s.angular.s.x = vs[0];
@@ -310,7 +310,7 @@ namespace Eigen
         return o;
     }
 
-    static com::robotraconteur::geometry::SpatialAcceleration ToSpatialAcceleration(::Eigen::Ref<::Eigen::Matrix<double,6,1> > vs)
+    static com::robotraconteur::geometry::SpatialAcceleration ToSpatialAcceleration(const ::Eigen::Ref<const ::Eigen::Matrix<double,6,1> > vs)
     {
         com::robotraconteur::geometry::SpatialAcceleration o;
         o.s.angular.s.x = vs[0];
@@ -334,7 +334,7 @@ namespace Eigen
         return o;
     }
 
-    static com::robotraconteur::geometry::Wrench ToWrench(::Eigen::Ref<::Eigen::Matrix<double,6,1> > vs)
+    static com::robotraconteur::geometry::Wrench ToWrench(const ::Eigen::Ref<const ::Eigen::Matrix<double,6,1> > vs)
     {
         com::robotraconteur::geometry::Wrench o;
         o.s.torque.s.x = vs[0];
