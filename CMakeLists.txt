@@ -34,6 +34,7 @@ set(RR_SERVICE_NAMES_GROUP1
 	com.robotraconteur.laserscan
 	com.robotraconteur.laserscanner
 	com.robotraconteur.lighting
+	com.robotraconteur.objectrecognition
 	com.robotraconteur.octree
 	com.robotraconteur.param
 	com.robotraconteur.pid
@@ -134,11 +135,11 @@ include(CTest)
 
 if (BUILD_TESTING)
 	include_directories(${RobotRaconteur_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/robdef_gen)
-	add_executable(test_robdef_gen ${RR_THUNK_SRCS} ${RR_THUNK_HDRS} test/test_robdef_gen.cpp)
+	add_executable(test_robdef_gen test/test_robdef_gen.cpp)
 	target_link_libraries(test_robdef_gen RobotRaconteurCompanion RobotRaconteurCore)
 
 	find_package (Eigen3 3.3 REQUIRED NO_MODULE)
-	add_executable(test_eigen_converters ${RR_THUNK_SRCS} ${RR_THUNK_HDRS} test/test_eigen_converters.cpp)
+	add_executable(test_eigen_converters test/test_eigen_converters.cpp)
 	target_link_libraries(test_eigen_converters RobotRaconteurCompanion RobotRaconteurCore Eigen3::Eigen)
 
 	add_test(NAME test_robdef_gen COMMAND test_robdef_gen)
