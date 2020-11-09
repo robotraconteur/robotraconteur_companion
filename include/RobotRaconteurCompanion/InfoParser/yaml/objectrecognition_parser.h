@@ -372,7 +372,7 @@ namespace YAML {
 		static bool decode(const Node& node, com::robotraconteur::objectrecognition::ObjectRecognitionSensorDataPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::ObjectRecognitionSensorData);
 			if(node["sensor_data"]){
-				rhs->sensor_data = node["sensor_data"].as<com::robotraconteur::sensor::SensorDataPtr>();
+				rhs->sensor_data = node["sensor_data"].as<com::robotraconteur::sensordata::SensorDataHeaderPtr>();
 			}
 			return true;
 		}

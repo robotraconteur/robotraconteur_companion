@@ -72,7 +72,7 @@ ROBOTRACONTEUR_GENERATE_THUNK(RR_THUNK_SRCS RR_THUNK_HDRS
 	CPP_EXTRA_INCLUDE "RobotRaconteurCompanion/StdRobDef/StdRobDef_Macros.h"
 )
 
-add_library(RobotRaconteurCompanion STATIC ${RR_THUNK_SRCS} ${RR_THUNK_HDRS} src/StdRobDefAll.cpp src/Yaml_loader_enums.cpp)
+add_library(RobotRaconteurCompanion STATIC ${RR_THUNK_SRCS} ${RR_THUNK_HDRS} src/StdRobDefAll.cpp src/yaml_loader_enums.cpp)
 SET_TARGET_PROPERTIES(RobotRaconteurCompanion PROPERTIES PREFIX lib)
 
 target_link_libraries(RobotRaconteurCompanion PUBLIC RobotRaconteurCore)
