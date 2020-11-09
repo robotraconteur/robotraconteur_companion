@@ -1,8 +1,10 @@
-#include "RobotRaconteurCompanion/YamlConverters/Yaml_loader_enums.h"
+#include "RobotRaconteurCompanion/InfoParser/yaml/yaml_loader_enums.h"
 #include <string>
 
 namespace RobotRaconteur{
 namespace Companion{
+namespace InfoParser{
+namespace yaml{
 int string_to_enum_ActionStatusCode(const std::string &input){
 	if(input =="error") return -3;
 	if(input =="failed") return -2;
@@ -174,12 +176,8 @@ int string_to_enum_ImageEncoding(const std::string &input){
 	if(input =="rgba8") return 4097;
 	if(input =="bgr8") return 4098;
 	if(input =="bgra8") return 4099;
-	if(input =="rgbe8") return 4100;
-	if(input =="bgre8") return 4101;
-	if(input =="rgbm8") return 4102;
-	if(input =="bgrm8") return 4103;
-	if(input =="rgba16") return 4104;
-	if(input =="bgra16") return 4105;
+	if(input =="rgba16") return 4100;
+	if(input =="bgra16") return 4101;
 	if(input =="mono8") return 8192;
 	if(input =="mono16") return 8193;
 	if(input =="mono32") return 8194;
@@ -335,6 +333,7 @@ int string_to_enum_PlannerAlgorithmCapabilityFlags(const std::string &input){
 	if(input =="cylindrical_waypoint") return 256;
 	if(input =="spherical_waypoint") return 512;
 	if(input =="collision_avoidance") return 1024;
+	if(input =="request_time_from_start") return 2048;
 }
 
 int string_to_enum_FilterAlgorithmCapabilityFlags(const std::string &input){
@@ -607,5 +606,7 @@ int string_to_enum_SignalAccessLevel(const std::string &input){
 	if(input =="all") return 4;
 }
 
+}
+}
 }
 }
