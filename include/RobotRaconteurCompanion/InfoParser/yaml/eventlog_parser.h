@@ -47,7 +47,7 @@ namespace YAML {
 			if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogMessageHeader);
 			if(node["level"]){
 				std::string enum_val_string= node["level"].as<std::string>();
-				rhs->level = com::robotraconteur::eventlog::EventLogLevel::EventLogLevel(string_to_enum_EventLogLevel(enum_val_string));
+				rhs->level = com::robotraconteur::eventlog::EventLogLevel::EventLogLevel(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_EventLogLevel(enum_val_string));
 			}
 			if(node["source_device"]){
 				rhs->source_device = node["source_device"].as<com::robotraconteur::identifier::IdentifierPtr>();

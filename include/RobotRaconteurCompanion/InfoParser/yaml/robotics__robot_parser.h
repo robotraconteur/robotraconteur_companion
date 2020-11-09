@@ -136,7 +136,7 @@ namespace YAML {
 			}
 			if(node["robot_type"]){
 				std::string enum_val_string= node["robot_type"].as<std::string>();
-				rhs->robot_type = com::robotraconteur::robotics::robot::RobotTypeCode::RobotTypeCode(string_to_enum_RobotTypeCode(enum_val_string));
+				rhs->robot_type = com::robotraconteur::robotics::robot::RobotTypeCode::RobotTypeCode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_RobotTypeCode(enum_val_string));
 			}
 			if(node["joint_info"]){
 				RobotRaconteur::RRListPtr<com::robotraconteur::robotics::joints::JointInfo> listy = AllocateEmptyRRList<com::robotraconteur::robotics::joints::JointInfo>();
@@ -235,15 +235,15 @@ namespace YAML {
 			}
 			if(node["command_mode"]){
 				std::string enum_val_string= node["command_mode"].as<std::string>();
-				rhs->command_mode = com::robotraconteur::robotics::robot::RobotCommandMode::RobotCommandMode(string_to_enum_RobotCommandMode(enum_val_string));
+				rhs->command_mode = com::robotraconteur::robotics::robot::RobotCommandMode::RobotCommandMode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_RobotCommandMode(enum_val_string));
 			}
 			if(node["operational_mode"]){
 				std::string enum_val_string= node["operational_mode"].as<std::string>();
-				rhs->operational_mode = com::robotraconteur::robotics::robot::RobotOperationalMode::RobotOperationalMode(string_to_enum_RobotOperationalMode(enum_val_string));
+				rhs->operational_mode = com::robotraconteur::robotics::robot::RobotOperationalMode::RobotOperationalMode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_RobotOperationalMode(enum_val_string));
 			}
 			if(node["controller_state"]){
 				std::string enum_val_string= node["controller_state"].as<std::string>();
-				rhs->controller_state = com::robotraconteur::robotics::robot::RobotControllerState::RobotControllerState(string_to_enum_RobotControllerState(enum_val_string));
+				rhs->controller_state = com::robotraconteur::robotics::robot::RobotControllerState::RobotControllerState(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_RobotControllerState(enum_val_string));
 			}
 			if(node["robot_state_flags"]){
 				rhs->robot_state_flags = node["robot_state_flags"].as<uint64_t>();
@@ -306,15 +306,15 @@ namespace YAML {
 			}
 			if(node["command_mode"]){
 				std::string enum_val_string= node["command_mode"].as<std::string>();
-				rhs->command_mode = com::robotraconteur::robotics::robot::RobotCommandMode::RobotCommandMode(string_to_enum_RobotCommandMode(enum_val_string));
+				rhs->command_mode = com::robotraconteur::robotics::robot::RobotCommandMode::RobotCommandMode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_RobotCommandMode(enum_val_string));
 			}
 			if(node["operational_mode"]){
 				std::string enum_val_string= node["operational_mode"].as<std::string>();
-				rhs->operational_mode = com::robotraconteur::robotics::robot::RobotOperationalMode::RobotOperationalMode(string_to_enum_RobotOperationalMode(enum_val_string));
+				rhs->operational_mode = com::robotraconteur::robotics::robot::RobotOperationalMode::RobotOperationalMode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_RobotOperationalMode(enum_val_string));
 			}
 			if(node["controller_state"]){
 				std::string enum_val_string= node["controller_state"].as<std::string>();
-				rhs->controller_state = com::robotraconteur::robotics::robot::RobotControllerState::RobotControllerState(string_to_enum_RobotControllerState(enum_val_string));
+				rhs->controller_state = com::robotraconteur::robotics::robot::RobotControllerState::RobotControllerState(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_RobotControllerState(enum_val_string));
 			}
 			if(node["robot_state_flags"]){
 				rhs->robot_state_flags = node["robot_state_flags"].as<uint64_t>();

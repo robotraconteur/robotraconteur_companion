@@ -29,7 +29,7 @@ namespace YAML {
 			}
 			if(node["encoding"]){
 				std::string enum_val_string= node["encoding"].as<std::string>();
-				rhs->encoding = com::robotraconteur::octree::OcTreeEncoding::OcTreeEncoding(string_to_enum_OcTreeEncoding(enum_val_string));
+				rhs->encoding = com::robotraconteur::octree::OcTreeEncoding::OcTreeEncoding(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_OcTreeEncoding(enum_val_string));
 			}
 			if(node["id"]){
 				rhs->id = node["id"].as<std::string>();

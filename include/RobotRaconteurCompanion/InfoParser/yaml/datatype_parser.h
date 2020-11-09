@@ -29,14 +29,14 @@ namespace YAML {
 			}
 			if(node["type_code"]){
 				std::string enum_val_string= node["type_code"].as<std::string>();
-				rhs->type_code = com::robotraconteur::datatype::DataTypeCode::DataTypeCode(string_to_enum_DataTypeCode(enum_val_string));
+				rhs->type_code = com::robotraconteur::datatype::DataTypeCode::DataTypeCode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_DataTypeCode(enum_val_string));
 			}
 			if(node["type_string"]){
 				rhs->type_string = node["type_string"].as<std::string>();
 			}
 			if(node["array_type_code"]){
 				std::string enum_val_string= node["array_type_code"].as<std::string>();
-				rhs->array_type_code = com::robotraconteur::datatype::ArrayTypeCode::ArrayTypeCode(string_to_enum_ArrayTypeCode(enum_val_string));
+				rhs->array_type_code = com::robotraconteur::datatype::ArrayTypeCode::ArrayTypeCode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_ArrayTypeCode(enum_val_string));
 			}
 			if(node["array_var_len"]){
 				rhs->array_var_len = node["array_var_len"].as<bool>();
@@ -50,7 +50,7 @@ namespace YAML {
 			}
 			if(node["container_type_code"]){
 				std::string enum_val_string= node["container_type_code"].as<std::string>();
-				rhs->container_type_code = com::robotraconteur::datatype::ContainerTypeCode::ContainerTypeCode(string_to_enum_ContainerTypeCode(enum_val_string));
+				rhs->container_type_code = com::robotraconteur::datatype::ContainerTypeCode::ContainerTypeCode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_ContainerTypeCode(enum_val_string));
 			}
 			return true;
 		}

@@ -77,15 +77,15 @@ namespace YAML {
 			}
 			if(node["joint_type"]){
 				std::string enum_val_string= node["joint_type"].as<std::string>();
-				rhs->joint_type = com::robotraconteur::robotics::joints::JointType::JointType(string_to_enum_JointType(enum_val_string));
+				rhs->joint_type = com::robotraconteur::robotics::joints::JointType::JointType(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_JointType(enum_val_string));
 			}
 			if(node["default_units"]){
 				std::string enum_val_string= node["default_units"].as<std::string>();
-				rhs->default_units = com::robotraconteur::robotics::joints::JointPositionUnits::JointPositionUnits(string_to_enum_JointPositionUnits(enum_val_string));
+				rhs->default_units = com::robotraconteur::robotics::joints::JointPositionUnits::JointPositionUnits(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_JointPositionUnits(enum_val_string));
 			}
 			if(node["default_effort_units"]){
 				std::string enum_val_string= node["default_effort_units"].as<std::string>();
-				rhs->default_effort_units = com::robotraconteur::robotics::joints::JointEffortUnits::JointEffortUnits(string_to_enum_JointEffortUnits(enum_val_string));
+				rhs->default_effort_units = com::robotraconteur::robotics::joints::JointEffortUnits::JointEffortUnits(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_JointEffortUnits(enum_val_string));
 			}
 			if(node["passive"]){
 				rhs->passive = node["passive"].as<bool>();

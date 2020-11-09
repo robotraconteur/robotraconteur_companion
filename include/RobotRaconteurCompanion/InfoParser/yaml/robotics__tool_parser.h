@@ -29,7 +29,7 @@ namespace YAML {
 			}
 			if(node["tool_type"]){
 				std::string enum_val_string= node["tool_type"].as<std::string>();
-				rhs->tool_type = com::robotraconteur::robotics::tool::ToolTypeCode::ToolTypeCode(string_to_enum_ToolTypeCode(enum_val_string));
+				rhs->tool_type = com::robotraconteur::robotics::tool::ToolTypeCode::ToolTypeCode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_ToolTypeCode(enum_val_string));
 			}
 			if(node["tool_capabilities"]){
 				rhs->tool_capabilities = node["tool_capabilities"].as<uint32_t>();

@@ -4,6 +4,7 @@ project(RobotRaconteurCompanion)
 set (CMAKE_CXX_STANDARD 11)
 
 find_package(RobotRaconteur 0.12.1 REQUIRED)
+find_package(yaml-cpp REQUIRED)
 
 if(NOT IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/robdef/group1")
 	message(FATAL_ERROR "RobotRaconteurCompanion must use git clone --recursive, currently missing robdef files")
@@ -137,6 +138,8 @@ if (BUILD_TESTING)
 	include_directories(${RobotRaconteur_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/robdef_gen)
 	add_executable(test_robdef_gen test/test_robdef_gen.cpp)
 	target_link_libraries(test_robdef_gen RobotRaconteurCompanion RobotRaconteurCore)
+	add_executable(test_infoparser test/test_infoparser.cpp)
+	target_link_libraries(test_infoparser RobotRaconteurCompanion RobotRaconteurCore yaml-cpp)
 
 	find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 	add_executable(test_eigen_converters test/test_eigen_converters.cpp)

@@ -29,7 +29,7 @@ namespace YAML {
 			}
 			if(node["servo_type"]){
 				std::string enum_val_string= node["servo_type"].as<std::string>();
-				rhs->servo_type = com::robotraconteur::servo::ServoTypeCode::ServoTypeCode(string_to_enum_ServoTypeCode(enum_val_string));
+				rhs->servo_type = com::robotraconteur::servo::ServoTypeCode::ServoTypeCode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_ServoTypeCode(enum_val_string));
 			}
 			if(node["capabilities"]){
 				rhs->capabilities = node["capabilities"].as<uint32_t>();
@@ -197,7 +197,7 @@ namespace YAML {
 			}
 			if(node["mode"]){
 				std::string enum_val_string= node["mode"].as<std::string>();
-				rhs->mode = com::robotraconteur::servo::ServoMode::ServoMode(string_to_enum_ServoMode(enum_val_string));
+				rhs->mode = com::robotraconteur::servo::ServoMode::ServoMode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_ServoMode(enum_val_string));
 			}
 			if(node["position"]){
 				RRArrayPtr<double> my_array = AllocateEmptyRRArray<double>(node["position"].size());

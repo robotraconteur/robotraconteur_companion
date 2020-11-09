@@ -29,7 +29,7 @@ namespace YAML {
 			}
 			if(node["clock_type"]){
 				std::string enum_val_string= node["clock_type"].as<std::string>();
-				rhs->clock_type = com::robotraconteur::datetime::ClockTypeCode::ClockTypeCode(string_to_enum_ClockTypeCode(enum_val_string));
+				rhs->clock_type = com::robotraconteur::datetime::ClockTypeCode::ClockTypeCode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_ClockTypeCode(enum_val_string));
 			}
 			if(node["timezone_utc_offset_seconds"]){
 				rhs->timezone_utc_offset_seconds = node["timezone_utc_offset_seconds"].as<int>();

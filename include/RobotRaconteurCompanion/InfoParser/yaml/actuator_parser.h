@@ -29,7 +29,7 @@ namespace YAML {
 			}
 			if(node["actuator_type"]){
 				std::string enum_val_string= node["actuator_type"].as<std::string>();
-				rhs->actuator_type = com::robotraconteur::actuator::ActuatorTypeCode::ActuatorTypeCode(string_to_enum_ActuatorTypeCode(enum_val_string));
+				rhs->actuator_type = com::robotraconteur::actuator::ActuatorTypeCode::ActuatorTypeCode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_ActuatorTypeCode(enum_val_string));
 			}
 			if(node["command_units"]){
 				RobotRaconteur::RRListPtr<com::robotraconteur::units::SIUnit> listy = AllocateEmptyRRList<com::robotraconteur::units::SIUnit>();

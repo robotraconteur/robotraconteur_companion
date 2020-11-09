@@ -83,7 +83,16 @@ file2.write("namespace Companion{\n")
 file2.write("namespace InfoParser{\n")
 file2.write("namespace yaml{\n")
 
-file4.write("#pragma once")
+file4.write("#pragma once\n")
+
+test_dir = source_dir.joinpath("test")
+testfilename = test_dir.joinpath("test_infoparser.cpp")
+testfile=open(testfilename,"w")
+testfile.write("#include <RobotRaconteurCompanion/StdRobDef/StdRobDefAll.h>\n")
+testfile.write("#include <RobotRaconteurCompanion/InfoParser/yaml/yaml_parser_all.h>\n\n")
+testfile.write("void testfunction()\n{\n")
+testfile.write("// Not a full test, just make sure everything compiles\n")
+testfile.write("YAML::Node node = YAML::Load(\"[1, 2, 3]\");\n")
 
 for key in my_service_defs:
    
@@ -98,7 +107,7 @@ for key in my_service_defs:
     else:
         filename=my_service_defs[key].Name
     filename = yaml_dir.joinpath(filename.replace(".","__")+"_parser.h")    
-    file4.write("#include \"%s\"\n"%(filename.stem))
+    file4.write("#include \"%s\"\n"%(filename.name))
     file1=open(filename,"w")
     filenames.append(filename)
     file1.write("#pragma once\n")
@@ -220,7 +229,7 @@ for key in my_service_defs:
         file1.write("\t\t}\n")
         file1.write("\t};\n\n")
     
-    
+        testfile.write("node.as<%s::%s>();\n"%(name,n.Name))
         
     for e in my_service_defs[key].Structures:
         file1.write("\n\ttemplate<> \n\tstruct convert<%s::%sPtr>{\n"%(name,e.Name))
@@ -463,7 +472,7 @@ for key in my_service_defs:
                     #rhs->array_type_code = com::robotraconteur::datatype::ArrayTypeCode::ArrayTypeCode(string_to_enum_ArrayTypeCode(array_type_code));
                     file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
                     file1.write("\t\t\t\tstd::string enum_val_string= node[\"%s\"].as<std::string>();\n"%(f[2]))
-                    file1.write("\t\t\t\trhs->%s = %s::%s(string_to_enum_%s(enum_val_string));\n"%(f[2],enum_dict.get(f[1]),f[1],f[1]))
+                    file1.write("\t\t\t\trhs->%s = %s::%s(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_%s(enum_val_string));\n"%(f[2],enum_dict.get(f[1]),f[1],f[1]))
                     file1.write("\t\t\t}\n")
                     #print("\t\t\t\trhs->%s = %s::%s(string_to_enum_%s(enum_val_string));\n"%(f[2],usingdict.get(f[1]),f[1],f[1]))
                 
@@ -608,6 +617,8 @@ for key in my_service_defs:
         file1.write("\t\t\treturn true;\n")
         file1.write("\t\t}\n")
         file1.write("\t};\n\n\n")
+
+        testfile.write("node.as<%s::%sPtr>();\n"%(name,e.Name))
     
     if(len(error_names)>0):
         file1.write("//TODO: Fix the following structures or namedarrays: \n")
@@ -621,6 +632,10 @@ file2.write("}\n")
 file2.write("}\n")
 file2.write("}\n")
 file2.write("}\n")
+
+testfile.write("}\n\n")
+testfile.write("int main(int ac, char** av)\n{\n")
+testfile.write("return 0;\n}\n")
 
 print(error_names)
 

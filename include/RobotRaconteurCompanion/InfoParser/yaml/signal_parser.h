@@ -43,11 +43,11 @@ namespace YAML {
 			}
 			if(node["signal_type"]){
 				std::string enum_val_string= node["signal_type"].as<std::string>();
-				rhs->signal_type = com::robotraconteur::signal::SignalType::SignalType(string_to_enum_SignalType(enum_val_string));
+				rhs->signal_type = com::robotraconteur::signal::SignalType::SignalType(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_SignalType(enum_val_string));
 			}
 			if(node["access_level"]){
 				std::string enum_val_string= node["access_level"].as<std::string>();
-				rhs->access_level = com::robotraconteur::signal::SignalAccessLevel::SignalAccessLevel(string_to_enum_SignalAccessLevel(enum_val_string));
+				rhs->access_level = com::robotraconteur::signal::SignalAccessLevel::SignalAccessLevel(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_SignalAccessLevel(enum_val_string));
 			}
 			if(node["address"]){
 				RRArrayPtr<uint32_t> my_array = AllocateEmptyRRArray<uint32_t>(node["address"].size());

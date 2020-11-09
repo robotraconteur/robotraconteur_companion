@@ -40,7 +40,7 @@ namespace YAML {
 			}
 			if(node["motion_type"]){
 				std::string enum_val_string= node["motion_type"].as<std::string>();
-				rhs->motion_type = com::robotraconteur::robotics::planning::PlannerMotionTypeCode::PlannerMotionTypeCode(string_to_enum_PlannerMotionTypeCode(enum_val_string));
+				rhs->motion_type = com::robotraconteur::robotics::planning::PlannerMotionTypeCode::PlannerMotionTypeCode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_PlannerMotionTypeCode(enum_val_string));
 			}
 			if(node["time_from_start"]){
 				rhs->time_from_start = node["time_from_start"].as<double>();
@@ -162,7 +162,7 @@ namespace YAML {
 			}
 			if(node["motion_type"]){
 				std::string enum_val_string= node["motion_type"].as<std::string>();
-				rhs->motion_type = com::robotraconteur::robotics::planning::PlannerMotionTypeCode::PlannerMotionTypeCode(string_to_enum_PlannerMotionTypeCode(enum_val_string));
+				rhs->motion_type = com::robotraconteur::robotics::planning::PlannerMotionTypeCode::PlannerMotionTypeCode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_PlannerMotionTypeCode(enum_val_string));
 			}
 			if(node["time_from_start"]){
 				rhs->time_from_start = node["time_from_start"].as<double>();
@@ -328,7 +328,7 @@ namespace YAML {
 			}
 			if(node["motion_type"]){
 				std::string enum_val_string= node["motion_type"].as<std::string>();
-				rhs->motion_type = com::robotraconteur::robotics::planning::PlannerMotionTypeCode::PlannerMotionTypeCode(string_to_enum_PlannerMotionTypeCode(enum_val_string));
+				rhs->motion_type = com::robotraconteur::robotics::planning::PlannerMotionTypeCode::PlannerMotionTypeCode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_PlannerMotionTypeCode(enum_val_string));
 			}
 			if(node["time_from_start"]){
 				rhs->time_from_start = node["time_from_start"].as<double>();
@@ -621,7 +621,7 @@ namespace YAML {
 			if (!rhs) rhs.reset(new com::robotraconteur::robotics::planning::PlanningResponse);
 			if(node["status_code"]){
 				std::string enum_val_string= node["status_code"].as<std::string>();
-				rhs->status_code = com::robotraconteur::robotics::planning::PlannerStatusCode::PlannerStatusCode(string_to_enum_PlannerStatusCode(enum_val_string));
+				rhs->status_code = com::robotraconteur::robotics::planning::PlannerStatusCode::PlannerStatusCode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_PlannerStatusCode(enum_val_string));
 			}
 			if(node["joint_trajectory"]){
 				rhs->joint_trajectory = node["joint_trajectory"].as<com::robotraconteur::robotics::trajectory::JointTrajectoryPtr>();

@@ -194,7 +194,7 @@ namespace YAML {
 			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Mesh);
 			if(node["mesh_type"]){
 				std::string enum_val_string= node["mesh_type"].as<std::string>();
-				rhs->mesh_type = com::robotraconteur::geometry::shapes::MeshType::MeshType(string_to_enum_MeshType(enum_val_string));
+				rhs->mesh_type = com::robotraconteur::geometry::shapes::MeshType::MeshType(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_MeshType(enum_val_string));
 			}
 			return true;
 		}

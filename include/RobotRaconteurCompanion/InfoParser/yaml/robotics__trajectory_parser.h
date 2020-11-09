@@ -54,11 +54,11 @@ namespace YAML {
 			}
 			if(node["interpolation_mode"]){
 				std::string enum_val_string= node["interpolation_mode"].as<std::string>();
-				rhs->interpolation_mode = com::robotraconteur::robotics::trajectory::InterpolationMode::InterpolationMode(string_to_enum_InterpolationMode(enum_val_string));
+				rhs->interpolation_mode = com::robotraconteur::robotics::trajectory::InterpolationMode::InterpolationMode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_InterpolationMode(enum_val_string));
 			}
 			if(node["waypoint_type"]){
 				std::string enum_val_string= node["waypoint_type"].as<std::string>();
-				rhs->waypoint_type = com::robotraconteur::robotics::trajectory::TrajectoryWaypointType::TrajectoryWaypointType(string_to_enum_TrajectoryWaypointType(enum_val_string));
+				rhs->waypoint_type = com::robotraconteur::robotics::trajectory::TrajectoryWaypointType::TrajectoryWaypointType(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_TrajectoryWaypointType(enum_val_string));
 			}
 			if(node["time_from_start"]){
 				rhs->time_from_start = node["time_from_start"].as<double>();
@@ -154,7 +154,7 @@ namespace YAML {
 			}
 			if(node["action_status"]){
 				std::string enum_val_string= node["action_status"].as<std::string>();
-				rhs->action_status = com::robotraconteur::action::ActionStatusCode::ActionStatusCode(string_to_enum_ActionStatusCode(enum_val_string));
+				rhs->action_status = com::robotraconteur::action::ActionStatusCode::ActionStatusCode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_ActionStatusCode(enum_val_string));
 			}
 			if(node["current_waypoint"]){
 				rhs->current_waypoint = node["current_waypoint"].as<uint32_t>();
@@ -256,11 +256,11 @@ namespace YAML {
 			}
 			if(node["interpolation_mode"]){
 				std::string enum_val_string= node["interpolation_mode"].as<std::string>();
-				rhs->interpolation_mode = com::robotraconteur::robotics::trajectory::InterpolationMode::InterpolationMode(string_to_enum_InterpolationMode(enum_val_string));
+				rhs->interpolation_mode = com::robotraconteur::robotics::trajectory::InterpolationMode::InterpolationMode(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_InterpolationMode(enum_val_string));
 			}
 			if(node["waypoint_type"]){
 				std::string enum_val_string= node["waypoint_type"].as<std::string>();
-				rhs->waypoint_type = com::robotraconteur::robotics::trajectory::TrajectoryWaypointType::TrajectoryWaypointType(string_to_enum_TrajectoryWaypointType(enum_val_string));
+				rhs->waypoint_type = com::robotraconteur::robotics::trajectory::TrajectoryWaypointType::TrajectoryWaypointType(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_TrajectoryWaypointType(enum_val_string));
 			}
 			if(node["signals"]){
 				RR::RRMapPtr<std::string, RR::RRValue> vars;
