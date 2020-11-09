@@ -50,6 +50,7 @@ namespace Companion
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::signal::com__robotraconteur__signalFactory>());
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::units::com__robotraconteur__unitsFactory>());
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::uuid::com__robotraconteur__uuidFactory>());
+        node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::objectrecognition::com__robotraconteur__objectrecognitionFactory>());
         
     }
 

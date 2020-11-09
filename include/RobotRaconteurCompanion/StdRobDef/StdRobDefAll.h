@@ -46,6 +46,7 @@
 #include "com__robotraconteur__laserscanner_stubskel.h"
 #include "com__robotraconteur__lighting.h"
 #include "com__robotraconteur__objectrecognition.h"
+#include "com__robotraconteur__objectrecognition_stubskel.h"
 #include "com__robotraconteur__lighting_stubskel.h"
 #include "com__robotraconteur__octree.h"
 #include "com__robotraconteur__octree_stubskel.h"
