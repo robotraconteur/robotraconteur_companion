@@ -256,9 +256,6 @@ namespace YAML {
 			if(node["device_origin_pose"]){
 				rhs->device_origin_pose = node["device_origin_pose"].as<com::robotraconteur::geometry::NamedPosePtr>();
 			}
-			if(node["config_nonce"]){
-				rhs->config_nonce = node["config_nonce"].as<std::string>();
-			}
 			if(node["extended"]){
 				RR::RRMapPtr<std::string, RR::RRValue> vars;
 				for (YAML::const_iterator it = node["extended"].begin(); it != node["extended"].end(); ++it) {
