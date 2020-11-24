@@ -1,17 +1,6 @@
-#pragma once
-#include <RobotRaconteur.h>
-#include "yaml-cpp/yaml.h"
-#include <boost/uuid/uuid_io.hpp>
-#include "RobotRaconteurCompanion/StdRobDef/StdRobDefAll.h"
-#include "yaml_loader_enums.h"
-
-using namespace RobotRaconteur;
-using namespace Companion;
-using namespace boost;
+#include "yaml_parser_common_include.h"
 
 #pragma once
-
-namespace RR = RobotRaconteur;
 
 namespace YAML {
 
@@ -24,13 +13,7 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::bignum::BigNumPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::bignum::BigNum);
-			if(node["data"]){
-				RRArrayPtr<uint8_t> my_array = AllocateEmptyRRArray<uint8_t>(node["data"].size());
-				for (int i = 0; i < node["data"].size(); i++) {
-					my_array->at(i) = node["data"][i].as<uint8_t>();
-				}
-				rhs->data = my_array;
-			}
+			rhs->data = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"data",true,true,0);
 			return true;
 		}
 	};
@@ -46,13 +29,7 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::bignum::UnsignedBigNumPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::bignum::UnsignedBigNum);
-			if(node["data"]){
-				RRArrayPtr<uint8_t> my_array = AllocateEmptyRRArray<uint8_t>(node["data"].size());
-				for (int i = 0; i < node["data"].size(); i++) {
-					my_array->at(i) = node["data"][i].as<uint8_t>();
-				}
-				rhs->data = my_array;
-			}
+			rhs->data = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"data",true,true,0);
 			return true;
 		}
 	};
@@ -68,12 +45,13 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::bignum::BigFloatPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::bignum::BigFloat);
+			rhs->num = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::bignum::BigNumPtr>(node,"num",true);
+			rhs->den = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::bignum::BigNumPtr>(node,"den",true);
+			rhs->radix = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::bignum::BigNumPtr>(node,"radix",true);
 			return true;
 		}
 	};
 
 
-//TODO: Fix the following structures or namedarrays: 
-// com::robotraconteur::bignum::BigFloat 
 
 }

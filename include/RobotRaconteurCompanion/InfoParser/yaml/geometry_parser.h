@@ -1,17 +1,6 @@
-#pragma once
-#include <RobotRaconteur.h>
-#include "yaml-cpp/yaml.h"
-#include <boost/uuid/uuid_io.hpp>
-#include "RobotRaconteurCompanion/StdRobDef/StdRobDefAll.h"
-#include "yaml_loader_enums.h"
-
-using namespace RobotRaconteur;
-using namespace Companion;
-using namespace boost;
+#include "yaml_parser_common_include.h"
 
 #pragma once
-
-namespace RR = RobotRaconteur;
 
 namespace YAML {
 	template<> 
@@ -22,8 +11,8 @@ namespace YAML {
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::Vector2& rhs){
-			rhs.s.x = node["x"].as<double>();
-			rhs.s.y = node["y"].as<double>();
+			rhs.s.x = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"x",false);
+			rhs.s.y = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"y",false);
 			return true;
 		}
 	};
@@ -36,9 +25,9 @@ namespace YAML {
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::Vector3& rhs){
-			rhs.s.x = node["x"].as<double>();
-			rhs.s.y = node["y"].as<double>();
-			rhs.s.z = node["z"].as<double>();
+			rhs.s.x = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"x",false);
+			rhs.s.y = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"y",false);
+			rhs.s.z = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"z",false);
 			return true;
 		}
 	};
@@ -51,12 +40,12 @@ namespace YAML {
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::Vector6& rhs){
-			rhs.s.alpha = node["alpha"].as<double>();
-			rhs.s.beta = node["beta"].as<double>();
-			rhs.s.gamma = node["gamma"].as<double>();
-			rhs.s.x = node["x"].as<double>();
-			rhs.s.y = node["y"].as<double>();
-			rhs.s.z = node["z"].as<double>();
+			rhs.s.alpha = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"alpha",false);
+			rhs.s.beta = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"beta",false);
+			rhs.s.gamma = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"gamma",false);
+			rhs.s.x = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"x",false);
+			rhs.s.y = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"y",false);
+			rhs.s.z = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"z",false);
 			return true;
 		}
 	};
@@ -69,8 +58,8 @@ namespace YAML {
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::Point2D& rhs){
-			rhs.s.x = node["x"].as<double>();
-			rhs.s.y = node["y"].as<double>();
+			rhs.s.x = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"x",false);
+			rhs.s.y = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"y",false);
 			return true;
 		}
 	};
@@ -83,9 +72,9 @@ namespace YAML {
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::Point& rhs){
-			rhs.s.x = node["x"].as<double>();
-			rhs.s.y = node["y"].as<double>();
-			rhs.s.z = node["z"].as<double>();
+			rhs.s.x = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"x",false);
+			rhs.s.y = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"y",false);
+			rhs.s.z = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"z",false);
 			return true;
 		}
 	};
@@ -98,8 +87,8 @@ namespace YAML {
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::Size2D& rhs){
-			rhs.s.width = node["width"].as<double>();
-			rhs.s.height = node["height"].as<double>();
+			rhs.s.width = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"width",false);
+			rhs.s.height = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"height",false);
 			return true;
 		}
 	};
@@ -112,9 +101,9 @@ namespace YAML {
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::Size& rhs){
-			rhs.s.width = node["width"].as<double>();
-			rhs.s.height = node["height"].as<double>();
-			rhs.s.depth = node["depth"].as<double>();
+			rhs.s.width = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"width",false);
+			rhs.s.height = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"height",false);
+			rhs.s.depth = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"depth",false);
 			return true;
 		}
 	};
@@ -127,8 +116,8 @@ namespace YAML {
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::Rect& rhs){
-			rhs.s.origin = node["origin"].as<com::robotraconteur::geometry::Point2D>();
-			rhs.s.size = node["size"].as<com::robotraconteur::geometry::Size2D>();
+			rhs.s.origin = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Point2D>(node,"origin",false);
+			rhs.s.size = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Size2D>(node,"size",false);
 			return true;
 		}
 	};
@@ -141,8 +130,8 @@ namespace YAML {
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::Box& rhs){
-			rhs.s.origin = node["origin"].as<com::robotraconteur::geometry::Point>();
-			rhs.s.size = node["size"].as<com::robotraconteur::geometry::Size>();
+			rhs.s.origin = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Point>(node,"origin",false);
+			rhs.s.size = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Size>(node,"size",false);
 			return true;
 		}
 	};
@@ -155,10 +144,10 @@ namespace YAML {
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::Quaternion& rhs){
-			rhs.s.w = node["w"].as<double>();
-			rhs.s.x = node["x"].as<double>();
-			rhs.s.y = node["y"].as<double>();
-			rhs.s.z = node["z"].as<double>();
+			rhs.s.w = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"w",false);
+			rhs.s.x = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"x",false);
+			rhs.s.y = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"y",false);
+			rhs.s.z = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"z",false);
 			return true;
 		}
 	};
@@ -171,8 +160,8 @@ namespace YAML {
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::Plane& rhs){
-			rhs.s.normal = node["normal"].as<com::robotraconteur::geometry::Vector3>();
-			rhs.s.a = node["a"].as<double>();
+			rhs.s.normal = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector3>(node,"normal",false);
+			rhs.s.a = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"a",false);
 			return true;
 		}
 	};
@@ -185,8 +174,8 @@ namespace YAML {
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::Transform& rhs){
-			rhs.s.rotation = node["rotation"].as<com::robotraconteur::geometry::Quaternion>();
-			rhs.s.translation = node["translation"].as<com::robotraconteur::geometry::Vector3>();
+			rhs.s.rotation = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Quaternion>(node,"rotation",false);
+			rhs.s.translation = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector3>(node,"translation",false);
 			return true;
 		}
 	};
@@ -199,8 +188,8 @@ namespace YAML {
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::Pose& rhs){
-			rhs.s.orientation = node["orientation"].as<com::robotraconteur::geometry::Quaternion>();
-			rhs.s.position = node["position"].as<com::robotraconteur::geometry::Point>();
+			rhs.s.orientation = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Quaternion>(node,"orientation",false);
+			rhs.s.position = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Point>(node,"position",false);
 			return true;
 		}
 	};
@@ -213,8 +202,8 @@ namespace YAML {
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::Pose2D& rhs){
-			rhs.s.orientation = node["orientation"].as<double>();
-			rhs.s.position = node["position"].as<com::robotraconteur::geometry::Point2D>();
+			rhs.s.orientation = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"orientation",false);
+			rhs.s.position = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Point2D>(node,"position",false);
 			return true;
 		}
 	};
@@ -227,8 +216,8 @@ namespace YAML {
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::SpatialVelocity& rhs){
-			rhs.s.angular = node["angular"].as<com::robotraconteur::geometry::Vector3>();
-			rhs.s.linear = node["linear"].as<com::robotraconteur::geometry::Vector3>();
+			rhs.s.angular = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector3>(node,"angular",false);
+			rhs.s.linear = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector3>(node,"linear",false);
 			return true;
 		}
 	};
@@ -241,8 +230,8 @@ namespace YAML {
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::SpatialAcceleration& rhs){
-			rhs.s.angular = node["angular"].as<com::robotraconteur::geometry::Vector3>();
-			rhs.s.linear = node["linear"].as<com::robotraconteur::geometry::Vector3>();
+			rhs.s.angular = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector3>(node,"angular",false);
+			rhs.s.linear = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector3>(node,"linear",false);
 			return true;
 		}
 	};
@@ -255,8 +244,8 @@ namespace YAML {
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::Wrench& rhs){
-			rhs.s.torque = node["torque"].as<com::robotraconteur::geometry::Vector3>();
-			rhs.s.force = node["force"].as<com::robotraconteur::geometry::Vector3>();
+			rhs.s.torque = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector3>(node,"torque",false);
+			rhs.s.force = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector3>(node,"force",false);
 			return true;
 		}
 	};
@@ -269,14 +258,14 @@ namespace YAML {
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::SpatialInertia& rhs){
-			rhs.s.m = node["m"].as<double>();
-			rhs.s.com = node["com"].as<com::robotraconteur::geometry::Vector3>();
-			rhs.s.ixx = node["ixx"].as<double>();
-			rhs.s.ixy = node["ixy"].as<double>();
-			rhs.s.ixz = node["ixz"].as<double>();
-			rhs.s.iyy = node["iyy"].as<double>();
-			rhs.s.iyz = node["iyz"].as<double>();
-			rhs.s.izz = node["izz"].as<double>();
+			rhs.s.m = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"m",false);
+			rhs.s.com = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector3>(node,"com",false);
+			rhs.s.ixx = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"ixx",false);
+			rhs.s.ixy = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"ixy",false);
+			rhs.s.ixz = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"ixz",false);
+			rhs.s.iyy = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"iyy",false);
+			rhs.s.iyz = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"iyz",false);
+			rhs.s.izz = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"izz",false);
 			return true;
 		}
 	};
@@ -291,15 +280,9 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::NamedTransformPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedTransform);
-			if(node["parent_frame"]){
-				rhs->parent_frame = node["parent_frame"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["child_frame"]){
-				rhs->child_frame = node["child_frame"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["transform"]){
-				rhs->transform = node["transform"].as<com::robotraconteur::geometry::Transform>();
-			}
+			rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
+			rhs->child_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"child_frame",true);
+			rhs->transform = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Transform>(node,"transform",true);
 			return true;
 		}
 	};
@@ -315,15 +298,9 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::NamedPosePtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedPose);
-			if(node["parent_frame"]){
-				rhs->parent_frame = node["parent_frame"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["frame"]){
-				rhs->frame = node["frame"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["pose"]){
-				rhs->pose = node["pose"].as<com::robotraconteur::geometry::Pose>();
-			}
+			rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
+			rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
+			rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Pose>(node,"pose",true);
 			return true;
 		}
 	};
@@ -339,19 +316,8 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::PoseWithCovariancePtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::geometry::PoseWithCovariance);
-			if(node["pose"]){
-				rhs->pose = node["pose"].as<com::robotraconteur::geometry::Pose>();
-			}
-			if(node["covariance"]){
-				std::vector<uint32_t> dims = {6,6};
-				RRMultiDimArrayPtr<double> my_multidimarray = AllocateEmptyRRMultiDimArray<double>(dims);
-				for(int i =0; i< 6; i++){
-					for(int j=0; j< 6; j++){
-						my_multidimarray->Array->at(i+(j * 6)) = node["covariance"][j+ (i * 6)].as<double>();
-					}
-				}
-				rhs->covariance = my_multidimarray;
-			}
+			rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Pose>(node,"pose",true);
+			rhs->covariance = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_multidimarray<double>(node,"covariance",true,6,6);
 			return true;
 		}
 	};
@@ -367,16 +333,8 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::NamedPoseWithCovariancePtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedPoseWithCovariance);
-			if(node["covariance"]){
-				std::vector<uint32_t> dims = {6,6};
-				RRMultiDimArrayPtr<double> my_multidimarray = AllocateEmptyRRMultiDimArray<double>(dims);
-				for(int i =0; i< 6; i++){
-					for(int j=0; j< 6; j++){
-						my_multidimarray->Array->at(i+(j * 6)) = node["covariance"][j+ (i * 6)].as<double>();
-					}
-				}
-				rhs->covariance = my_multidimarray;
-			}
+			rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::NamedPosePtr>(node,"pose",true);
+			rhs->covariance = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_multidimarray<double>(node,"covariance",true,6,6);
 			return true;
 		}
 	};
@@ -392,15 +350,9 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::NamedPose2DPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedPose2D);
-			if(node["parent_frame"]){
-				rhs->parent_frame = node["parent_frame"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["frame"]){
-				rhs->frame = node["frame"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["pose"]){
-				rhs->pose = node["pose"].as<com::robotraconteur::geometry::Pose2D>();
-			}
+			rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
+			rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
+			rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Pose2D>(node,"pose",true);
 			return true;
 		}
 	};
@@ -416,15 +368,9 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::NamedSpatialVelocityPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedSpatialVelocity);
-			if(node["parent_frame"]){
-				rhs->parent_frame = node["parent_frame"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["frame"]){
-				rhs->frame = node["frame"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["velocity"]){
-				rhs->velocity = node["velocity"].as<com::robotraconteur::geometry::SpatialVelocity>();
-			}
+			rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
+			rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
+			rhs->velocity = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::SpatialVelocity>(node,"velocity",true);
 			return true;
 		}
 	};
@@ -440,15 +386,9 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::NamedSpatialAccelerationPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedSpatialAcceleration);
-			if(node["parent_frame"]){
-				rhs->parent_frame = node["parent_frame"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["frame"]){
-				rhs->frame = node["frame"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["Acceleration"]){
-				rhs->Acceleration = node["Acceleration"].as<com::robotraconteur::geometry::SpatialAcceleration>();
-			}
+			rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
+			rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
+			rhs->Acceleration = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::SpatialAcceleration>(node,"Acceleration",true);
 			return true;
 		}
 	};
@@ -464,15 +404,9 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::NamedWrenchPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedWrench);
-			if(node["parent_frame"]){
-				rhs->parent_frame = node["parent_frame"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["frame"]){
-				rhs->frame = node["frame"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["wrench"]){
-				rhs->wrench = node["wrench"].as<com::robotraconteur::geometry::Wrench>();
-			}
+			rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
+			rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
+			rhs->wrench = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Wrench>(node,"wrench",true);
 			return true;
 		}
 	};
@@ -488,12 +422,8 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::NamedSpatialInertiaPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedSpatialInertia);
-			if(node["frame"]){
-				rhs->frame = node["frame"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["inertia"]){
-				rhs->inertia = node["inertia"].as<com::robotraconteur::geometry::SpatialInertia>();
-			}
+			rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
+			rhs->inertia = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::SpatialInertia>(node,"inertia",true);
 			return true;
 		}
 	};
@@ -509,9 +439,8 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::BoundingBox2DPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::geometry::BoundingBox2D);
-			if(node["size"]){
-				rhs->size = node["size"].as<com::robotraconteur::geometry::Size2D>();
-			}
+			rhs->center = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::NamedPose2DPtr>(node,"center",true);
+			rhs->size = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Size2D>(node,"size",true);
 			return true;
 		}
 	};
@@ -527,17 +456,12 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::BoundingBoxPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::geometry::BoundingBox);
-			if(node["size"]){
-				rhs->size = node["size"].as<com::robotraconteur::geometry::Size>();
-			}
+			rhs->center = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::NamedPosePtr>(node,"center",true);
+			rhs->size = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Size>(node,"size",true);
 			return true;
 		}
 	};
 
 
-//TODO: Fix the following structures or namedarrays: 
-// com::robotraconteur::geometry::NamedPoseWithCovariance 
-// com::robotraconteur::geometry::BoundingBox2D 
-// com::robotraconteur::geometry::BoundingBox 
 
 }

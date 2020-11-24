@@ -1,17 +1,6 @@
-#pragma once
-#include <RobotRaconteur.h>
-#include "yaml-cpp/yaml.h"
-#include <boost/uuid/uuid_io.hpp>
-#include "RobotRaconteurCompanion/StdRobDef/StdRobDefAll.h"
-#include "yaml_loader_enums.h"
-
-using namespace RobotRaconteur;
-using namespace Companion;
-using namespace boost;
+#include "yaml_parser_common_include.h"
 
 #pragma once
-
-namespace RR = RobotRaconteur;
 
 namespace YAML {
 
@@ -24,15 +13,9 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::imu::ImuStatePtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::imu::ImuState);
-			if(node["angular_velocity"]){
-				rhs->angular_velocity = node["angular_velocity"].as<com::robotraconteur::geometry::Vector3>();
-			}
-			if(node["linear_acceleration"]){
-				rhs->linear_acceleration = node["linear_acceleration"].as<com::robotraconteur::geometry::Vector3>();
-			}
-			if(node["orientation"]){
-				rhs->orientation = node["orientation"].as<com::robotraconteur::geometry::Quaternion>();
-			}
+			rhs->angular_velocity = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector3>(node,"angular_velocity",true);
+			rhs->linear_acceleration = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector3>(node,"linear_acceleration",true);
+			rhs->orientation = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Quaternion>(node,"orientation",true);
 			return true;
 		}
 	};

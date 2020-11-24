@@ -1,54 +1,86 @@
 #pragma once
 #include <string>
+#include "yaml-cpp/yaml.h"
+#include <RobotRaconteurCompanion/StdRobDef/StdRobDefAll.h>
+#include "yaml_loader_enums_impl.h"
+
 namespace RobotRaconteur{
 namespace Companion{
 namespace InfoParser{
 namespace yaml{
-int string_to_enum_RobotTypeCode(const std::string &input);
-int string_to_enum_RobotCommandMode(const std::string &input);
-int string_to_enum_RobotOperationalMode(const std::string &input);
-int string_to_enum_RobotControllerState(const std::string &input);
-int string_to_enum_RobotCapabilities(const std::string &input);
-int string_to_enum_RobotStateFlags(const std::string &input);
-int string_to_enum_SensorTypeCode(const std::string &input);
-int string_to_enum_MeshType(const std::string &input);
-int string_to_enum_PlannerStatusCode(const std::string &input);
-int string_to_enum_PlannerMotionTypeCode(const std::string &input);
-int string_to_enum_PlannerAlgorithmCapabilityFlags(const std::string &input);
-int string_to_enum_FilterAlgorithmCapabilityFlags(const std::string &input);
-int string_to_enum_PlanningSceneCapabilityFlags(const std::string &input);
-int string_to_enum_ContactTestTypeCode(const std::string &input);
-int string_to_enum_ClockTypeCode(const std::string &input);
-int string_to_enum_ServoTypeCode(const std::string &input);
-int string_to_enum_ServoCapabilities(const std::string &input);
-int string_to_enum_ServoMode(const std::string &input);
-int string_to_enum_OcTreeEncoding(const std::string &input);
-int string_to_enum_ActuatorTypeCode(const std::string &input);
-int string_to_enum_ActuatorMode(const std::string &input);
-int string_to_enum_TriggerMode(const std::string &input);
-int string_to_enum_Capabilities(const std::string &input);
-int string_to_enum_DataTypeCode(const std::string &input);
-int string_to_enum_ArrayTypeCode(const std::string &input);
-int string_to_enum_ContainerTypeCode(const std::string &input);
-int string_to_enum_JointPositionUnits(const std::string &input);
-int string_to_enum_JointVelocityUnits(const std::string &input);
-int string_to_enum_JointAccelerationUnits(const std::string &input);
-int string_to_enum_JointJerkUnits(const std::string &input);
-int string_to_enum_JointEffortUnits(const std::string &input);
-int string_to_enum_JointType(const std::string &input);
-int string_to_enum_ActionStatusCode(const std::string &input);
-int string_to_enum_InterpolationMode(const std::string &input);
-int string_to_enum_TrajectoryWaypointType(const std::string &input);
-int string_to_enum_SignalType(const std::string &input);
-int string_to_enum_SignalAccessLevel(const std::string &input);
-int string_to_enum_ToolTypeCode(const std::string &input);
-int string_to_enum_ToolCapabilities(const std::string &input);
-int string_to_enum_ToolStateFlags(const std::string &input);
-int string_to_enum_JoystickCapabilities(const std::string &input);
-int string_to_enum_GamepadButtons(const std::string &input);
-int string_to_enum_JoystickHatState(const std::string &input);
-int string_to_enum_EventLogLevel(const std::string &input);
-int string_to_enum_ImageEncoding(const std::string &input);
+
+template<typename T>
+T parse_enum(const YAML::Node& node, const std::string& key, bool optional)
+{
+    if (node[key])
+    {
+        return string_to_enum_traits<T>::string_to_enum(node[key].as<std::string>(),node[key]);
+    }
+    else
+    {
+        if (optional)
+        {
+            return T();
+        }
+        else
+        {
+            throw YAML::KeyNotFound(node.Mark(), key);
+        }
+    }
+}
+
+template<typename T>
+RobotRaconteur::RRListPtr<RRArray<int32_t> > parse_enum_list(const YAML::Node& node, const std::string& key, bool optional)
+{
+    if (node[key])
+    {
+        auto ret = RobotRaconteur::AllocateEmptyRRList<RRArray<int32_t> >();
+        std::vector<std::string> vals = node[key].as<std::vector<std::string> >();
+        for (auto v : vals)
+        {
+            ret->push_back(RobotRaconteur::ScalarToRRArray((int32_t)string_to_enum_traits<T>::string_to_enum(v,node[key])));
+        }
+        return ret;
+    }
+    else
+    {
+        if (optional)
+        {
+            return T();
+        }
+        else
+        {
+            throw YAML::KeyNotFound(node.Mark(), key);
+        }
+    }
+}
+
+template<typename T>
+uint32_t parse_enum_flags(const YAML::Node& node, const std::string& key, bool optional)
+{
+    if (node[key])
+    {
+        uint32_t ret = 0;
+        std::vector<std::string> vals = node[key].as<std::vector<std::string> >();
+        for (auto v : vals)
+        {
+            ret |= ((int32_t)string_to_enum_traits<T>::string_to_enum(v,node[key]));
+        }
+        return ret;
+    }
+    else
+    {
+        if (optional)
+        {
+            return T();
+        }
+        else
+        {
+            throw YAML::KeyNotFound(node.Mark(), key);
+        }
+    }
+}
+
 }
 }
 }

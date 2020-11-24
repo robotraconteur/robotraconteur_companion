@@ -1,17 +1,6 @@
-#pragma once
-#include <RobotRaconteur.h>
-#include "yaml-cpp/yaml.h"
-#include <boost/uuid/uuid_io.hpp>
-#include "RobotRaconteurCompanion/StdRobDef/StdRobDefAll.h"
-#include "yaml_loader_enums.h"
-
-using namespace RobotRaconteur;
-using namespace Companion;
-using namespace boost;
+#include "yaml_parser_common_include.h"
 
 #pragma once
-
-namespace RR = RobotRaconteur;
 
 namespace YAML {
 
@@ -24,24 +13,13 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::gps::GpsStatePtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::gps::GpsState);
-			if(node["altitude"]){
-				rhs->altitude = node["altitude"].as<double>();
-			}
-			if(node["latitude_deg"]){
-				rhs->latitude_deg = node["latitude_deg"].as<double>();
-			}
-			if(node["longitude_deg"]){
-				rhs->longitude_deg = node["longitude_deg"].as<double>();
-			}
-			if(node["velocity_east"]){
-				rhs->velocity_east = node["velocity_east"].as<double>();
-			}
-			if(node["velocity_north"]){
-				rhs->velocity_north = node["velocity_north"].as<double>();
-			}
-			if(node["velocity_up"]){
-				rhs->velocity_up = node["velocity_up"].as<double>();
-			}
+			// TODO: parse field com.robotraconteur.datetime.DateTimeUTC time
+			rhs->altitude = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"altitude",true);
+			rhs->latitude_deg = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"latitude_deg",true);
+			rhs->longitude_deg = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"longitude_deg",true);
+			rhs->velocity_east = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"velocity_east",true);
+			rhs->velocity_north = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"velocity_north",true);
+			rhs->velocity_up = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"velocity_up",true);
 			return true;
 		}
 	};

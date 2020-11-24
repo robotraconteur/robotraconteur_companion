@@ -1,17 +1,6 @@
-#pragma once
-#include <RobotRaconteur.h>
-#include "yaml-cpp/yaml.h"
-#include <boost/uuid/uuid_io.hpp>
-#include "RobotRaconteurCompanion/StdRobDef/StdRobDefAll.h"
-#include "yaml_loader_enums.h"
-
-using namespace RobotRaconteur;
-using namespace Companion;
-using namespace boost;
+#include "yaml_parser_common_include.h"
 
 #pragma once
-
-namespace RR = RobotRaconteur;
 
 namespace YAML {
 
@@ -24,36 +13,16 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::hid::joystick::JoystickInfoPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::JoystickInfo);
-			if(node["device_info"]){
-				rhs->device_info = node["device_info"].as<com::robotraconteur::device::DeviceInfoPtr>();
-			}
-			if(node["id"]){
-				rhs->id = node["id"].as<uint32_t>();
-			}
-			if(node["axes_count"]){
-				rhs->axes_count = node["axes_count"].as<uint32_t>();
-			}
-			if(node["button_count"]){
-				rhs->button_count = node["button_count"].as<uint32_t>();
-			}
-			if(node["hat_count"]){
-				rhs->hat_count = node["hat_count"].as<uint32_t>();
-			}
-			if(node["joystick_capabilities"]){
-				rhs->joystick_capabilities = node["joystick_capabilities"].as<uint32_t>();
-			}
-			if(node["joystick_device_vendor"]){
-				rhs->joystick_device_vendor = node["joystick_device_vendor"].as<uint16_t>();
-			}
-			if(node["joystick_device_product"]){
-				rhs->joystick_device_product = node["joystick_device_product"].as<uint16_t>();
-			}
-			if(node["joystick_device_version"]){
-				rhs->joystick_device_version = node["joystick_device_version"].as<uint16_t>();
-			}
-			if(node["joystick_uuid"]){
-				rhs->joystick_uuid = node["joystick_uuid"].as<com::robotraconteur::uuid::UUID>();
-			}
+			rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
+			rhs->id = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"id",true);
+			rhs->axes_count = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"axes_count",true);
+			rhs->button_count = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"button_count",true);
+			rhs->hat_count = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"hat_count",true);
+			rhs->joystick_capabilities = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"joystick_capabilities",true);
+			rhs->joystick_device_vendor = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint16_t>(node,"joystick_device_vendor",true);
+			rhs->joystick_device_product = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint16_t>(node,"joystick_device_product",true);
+			rhs->joystick_device_version = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint16_t>(node,"joystick_device_version",true);
+			rhs->joystick_uuid = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::uuid::UUID>(node,"joystick_uuid",true);
 			return true;
 		}
 	};
@@ -69,27 +38,9 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::hid::joystick::JoystickStatePtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::JoystickState);
-			if(node["axes"]){
-				RRArrayPtr<int16_t> my_array = AllocateEmptyRRArray<int16_t>(node["axes"].size());
-				for (int i = 0; i < node["axes"].size(); i++) {
-					my_array->at(i) = node["axes"][i].as<int16_t>();
-				}
-				rhs->axes = my_array;
-			}
-			if(node["buttons"]){
-				RRArrayPtr<uint8_t> my_array = AllocateEmptyRRArray<uint8_t>(node["buttons"].size());
-				for (int i = 0; i < node["buttons"].size(); i++) {
-					my_array->at(i) = node["buttons"][i].as<uint8_t>();
-				}
-				rhs->buttons = my_array;
-			}
-			if(node["hats"]){
-				RRArrayPtr<uint8_t> my_array = AllocateEmptyRRArray<uint8_t>(node["hats"].size());
-				for (int i = 0; i < node["hats"].size(); i++) {
-					my_array->at(i) = node["hats"][i].as<uint8_t>();
-				}
-				rhs->hats = my_array;
-			}
+			rhs->axes = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<int16_t>(node,"axes",true,true,0);
+			rhs->buttons = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"buttons",true,true,0);
+			rhs->hats = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"hats",true,true,0);
 			return true;
 		}
 	};
@@ -105,27 +56,13 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::hid::joystick::GamepadStatePtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::GamepadState);
-			if(node["left_x"]){
-				rhs->left_x = node["left_x"].as<int16_t>();
-			}
-			if(node["left_y"]){
-				rhs->left_y = node["left_y"].as<int16_t>();
-			}
-			if(node["right_x"]){
-				rhs->right_x = node["right_x"].as<int16_t>();
-			}
-			if(node["right_y"]){
-				rhs->right_y = node["right_y"].as<int16_t>();
-			}
-			if(node["trigger_left"]){
-				rhs->trigger_left = node["trigger_left"].as<int16_t>();
-			}
-			if(node["trigger_right"]){
-				rhs->trigger_right = node["trigger_right"].as<int16_t>();
-			}
-			if(node["buttons"]){
-				rhs->buttons = node["buttons"].as<uint16_t>();
-			}
+			rhs->left_x = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int16_t>(node,"left_x",true);
+			rhs->left_y = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int16_t>(node,"left_y",true);
+			rhs->right_x = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int16_t>(node,"right_x",true);
+			rhs->right_y = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int16_t>(node,"right_y",true);
+			rhs->trigger_left = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int16_t>(node,"trigger_left",true);
+			rhs->trigger_right = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int16_t>(node,"trigger_right",true);
+			rhs->buttons = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint16_t>(node,"buttons",true);
 			return true;
 		}
 	};
@@ -141,15 +78,13 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::hid::joystick::JoystickStateSensorDataPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::JoystickStateSensorData);
-			if(node["data_header"]){
-				rhs->data_header = node["data_header"].as<com::robotraconteur::sensordata::SensorDataHeaderPtr>();
-			}
+			rhs->data_header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"data_header",true);
+			rhs->joystick_state = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::hid::joystick::JoystickStatePtr>(node,"joystick_state",true);
+			rhs->gamepad_state = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::hid::joystick::GamepadStatePtr>(node,"gamepad_state",true);
 			return true;
 		}
 	};
 
 
-//TODO: Fix the following structures or namedarrays: 
-// com::robotraconteur::hid::joystick::JoystickStateSensorData 
 
 }

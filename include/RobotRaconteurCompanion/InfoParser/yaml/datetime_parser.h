@@ -1,17 +1,6 @@
-#pragma once
-#include <RobotRaconteur.h>
-#include "yaml-cpp/yaml.h"
-#include <boost/uuid/uuid_io.hpp>
-#include "RobotRaconteurCompanion/StdRobDef/StdRobDefAll.h"
-#include "yaml_loader_enums.h"
-
-using namespace RobotRaconteur;
-using namespace Companion;
-using namespace boost;
+#include "yaml_parser_common_include.h"
 
 #pragma once
-
-namespace RR = RobotRaconteur;
 
 namespace YAML {
 
@@ -24,24 +13,15 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::datetime::DateTimeLocalPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::datetime::DateTimeLocal);
-			if(node["seconds"]){
-				rhs->seconds = node["seconds"].as<int64_t>();
-			}
-			if(node["nanoseconds"]){
-				rhs->nanoseconds = node["nanoseconds"].as<int>();
-			}
-			if(node["utc_offset_seconds"]){
-				rhs->utc_offset_seconds = node["utc_offset_seconds"].as<int>();
-			}
-			if(node["timezone_name"]){
-				rhs->timezone_name = node["timezone_name"].as<std::string>();
-			}
+			// TODO: parse field ClockInfo clock_info
+			rhs->seconds = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int64_t>(node,"seconds",true);
+			rhs->nanoseconds = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int32_t>(node,"nanoseconds",true);
+			rhs->utc_offset_seconds = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int32_t>(node,"utc_offset_seconds",true);
+			rhs->timezone_name = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"timezone_name",true);
 			return true;
 		}
 	};
 
 
-//TODO: Fix the following structures or namedarrays: 
-// com::robotraconteur::datetime::DateTimeLocal 
 
 }

@@ -1,17 +1,6 @@
-#pragma once
-#include <RobotRaconteur.h>
-#include "yaml-cpp/yaml.h"
-#include <boost/uuid/uuid_io.hpp>
-#include "RobotRaconteurCompanion/StdRobDef/StdRobDefAll.h"
-#include "yaml_loader_enums.h"
-
-using namespace RobotRaconteur;
-using namespace Companion;
-using namespace boost;
+#include "yaml_parser_common_include.h"
 
 #pragma once
-
-namespace RR = RobotRaconteur;
 
 namespace YAML {
 
@@ -24,12 +13,8 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::eventlog::EventLogTypePtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogType);
-			if(node["event_category"]){
-				rhs->event_category = node["event_category"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["event_type"]){
-				rhs->event_type = node["event_type"].as<std::string>();
-			}
+			rhs->event_category = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"event_category",true);
+			rhs->event_type = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"event_type",true);
 			return true;
 		}
 	};
@@ -45,22 +30,13 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::eventlog::EventLogMessageHeaderPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogMessageHeader);
-			if(node["level"]){
-				std::string enum_val_string= node["level"].as<std::string>();
-				rhs->level = com::robotraconteur::eventlog::EventLogLevel::EventLogLevel(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_EventLogLevel(enum_val_string));
-			}
-			if(node["source_device"]){
-				rhs->source_device = node["source_device"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["source_component"]){
-				rhs->source_component = node["source_component"].as<std::string>();
-			}
-			if(node["source_object"]){
-				rhs->source_object = node["source_object"].as<std::string>();
-			}
-			if(node["message_number"]){
-				rhs->message_number = node["message_number"].as<uint64_t>();
-			}
+			rhs->type = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::eventlog::EventLogTypePtr>(node,"type",true);
+			rhs->level = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::eventlog::EventLogLevel::EventLogLevel>(node,"level",true);
+			rhs->source_device = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"source_device",true);
+			rhs->source_component = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"source_component",true);
+			rhs->source_object = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"source_object",true);
+			rhs->message_number = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"message_number",true);
+			// TODO: parse field com.robotraconteur.datetime.DateTimeUTC timestamp
 			return true;
 		}
 	};
@@ -76,59 +52,10 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::eventlog::EventLogMessagePtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogMessage);
-			if(node["title"]){
-				rhs->title = node["title"].as<std::string>();
-			}
-			if(node["message"]){
-				rhs->message = node["message"].as<std::string>();
-			}
-			if(node["extended"]){
-				RR::RRMapPtr<std::string, RR::RRValue> vars;
-				for (YAML::const_iterator it = node["extended"].begin(); it != node["extended"].end(); ++it) {
-					std::string name = it->first.as<std::string>();
-					std::string type = node["extended"]["type"].as<std::string>();
-					RR::RRValuePtr varval;
-					if(type=="string"){
-						std::string value = node["extended"]["value"].as<std::string>();
-						varval=RR::stringToRRArray(value);
-					}
-					if(type=="double"){
-						double value = node["extended"]["value"].as<double>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="int32"){
-						int value = node["extended"]["value"].as<int>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="uint32"){
-						uint32_t value = node["extended"]["value"].as<uint32_t>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="double[]"){
-						RRArrayPtr<double> my_array = AllocateEmptyRRArray<double>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<double>();
-						}
-						varval=my_array;
-					}
-					if(type=="int32[]"){
-						RR::RRArrayPtr<int> my_array = AllocateEmptyRRArray<int>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<int>();
-						}
-						varval=my_array;
-					}
-					if(type=="uint32[]"){
-						RR::RRArrayPtr<uint32_t> my_array = AllocateEmptyRRArray<uint32_t>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<uint32_t>();
-						}
-						varval=my_array;
-					}
-					vars->insert(std::make_pair(name,varval));
-				}
-				rhs->extended = vars;
-			}
+			rhs->header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::eventlog::EventLogMessageHeaderPtr>(node,"header",true);
+			rhs->title = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"title",true);
+			rhs->message = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"message",true);
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};
@@ -144,72 +71,15 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::eventlog::EventLogInfoPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogInfo);
-			if(node["device_info"]){
-				rhs->device_info = node["device_info"].as<com::robotraconteur::device::DeviceInfoPtr>();
-			}
-			if(node["logged_device"]){
-				rhs->logged_device = node["logged_device"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["min_message_number"]){
-				rhs->min_message_number = node["min_message_number"].as<uint64_t>();
-			}
-			if(node["max_message_number"]){
-				rhs->max_message_number = node["max_message_number"].as<uint64_t>();
-			}
-			if(node["extended"]){
-				RR::RRMapPtr<std::string, RR::RRValue> vars;
-				for (YAML::const_iterator it = node["extended"].begin(); it != node["extended"].end(); ++it) {
-					std::string name = it->first.as<std::string>();
-					std::string type = node["extended"]["type"].as<std::string>();
-					RR::RRValuePtr varval;
-					if(type=="string"){
-						std::string value = node["extended"]["value"].as<std::string>();
-						varval=RR::stringToRRArray(value);
-					}
-					if(type=="double"){
-						double value = node["extended"]["value"].as<double>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="int32"){
-						int value = node["extended"]["value"].as<int>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="uint32"){
-						uint32_t value = node["extended"]["value"].as<uint32_t>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="double[]"){
-						RRArrayPtr<double> my_array = AllocateEmptyRRArray<double>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<double>();
-						}
-						varval=my_array;
-					}
-					if(type=="int32[]"){
-						RR::RRArrayPtr<int> my_array = AllocateEmptyRRArray<int>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<int>();
-						}
-						varval=my_array;
-					}
-					if(type=="uint32[]"){
-						RR::RRArrayPtr<uint32_t> my_array = AllocateEmptyRRArray<uint32_t>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<uint32_t>();
-						}
-						varval=my_array;
-					}
-					vars->insert(std::make_pair(name,varval));
-				}
-				rhs->extended = vars;
-			}
+			rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
+			rhs->logged_device = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"logged_device",true);
+			rhs->min_message_number = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"min_message_number",true);
+			rhs->max_message_number = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"max_message_number",true);
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};
 
 
-//TODO: Fix the following structures or namedarrays: 
-// com::robotraconteur::eventlog::EventLogMessageHeader 
-// com::robotraconteur::eventlog::EventLogMessage 
 
 }

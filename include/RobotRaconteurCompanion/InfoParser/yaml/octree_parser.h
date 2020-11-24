@@ -1,17 +1,6 @@
-#pragma once
-#include <RobotRaconteur.h>
-#include "yaml-cpp/yaml.h"
-#include <boost/uuid/uuid_io.hpp>
-#include "RobotRaconteurCompanion/StdRobDef/StdRobDefAll.h"
-#include "yaml_loader_enums.h"
-
-using namespace RobotRaconteur;
-using namespace Companion;
-using namespace boost;
+#include "yaml_parser_common_include.h"
 
 #pragma once
-
-namespace RR = RobotRaconteur;
 
 namespace YAML {
 
@@ -24,19 +13,10 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::octree::OcTreeInfoPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::octree::OcTreeInfo);
-			if(node["data_header"]){
-				rhs->data_header = node["data_header"].as<com::robotraconteur::sensordata::SensorDataHeaderPtr>();
-			}
-			if(node["encoding"]){
-				std::string enum_val_string= node["encoding"].as<std::string>();
-				rhs->encoding = com::robotraconteur::octree::OcTreeEncoding::OcTreeEncoding(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_OcTreeEncoding(enum_val_string));
-			}
-			if(node["id"]){
-				rhs->id = node["id"].as<std::string>();
-			}
-			if(node["resolution"]){
-				rhs->resolution = node["resolution"].as<double>();
-			}
+			rhs->data_header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"data_header",true);
+			rhs->encoding = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::octree::OcTreeEncoding::OcTreeEncoding>(node,"encoding",true);
+			rhs->id = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"id",true);
+			rhs->resolution = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"resolution",true);
 			return true;
 		}
 	};
@@ -52,13 +32,8 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::octree::OcTreePtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::octree::OcTree);
-			if(node["data"]){
-				RRArrayPtr<uint8_t> my_array = AllocateEmptyRRArray<uint8_t>(node["data"].size());
-				for (int i = 0; i < node["data"].size(); i++) {
-					my_array->at(i) = node["data"][i].as<uint8_t>();
-				}
-				rhs->data = my_array;
-			}
+			rhs->octree_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::octree::OcTreeInfoPtr>(node,"octree_info",true);
+			rhs->data = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"data",true,true,0);
 			return true;
 		}
 	};
@@ -74,19 +49,10 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::octree::OcTreePartPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::octree::OcTreePart);
-			if(node["data_offset"]){
-				rhs->data_offset = node["data_offset"].as<uint32_t>();
-			}
-			if(node["data_total_len"]){
-				rhs->data_total_len = node["data_total_len"].as<uint32_t>();
-			}
-			if(node["data"]){
-				RRArrayPtr<uint8_t> my_array = AllocateEmptyRRArray<uint8_t>(node["data"].size());
-				for (int i = 0; i < node["data"].size(); i++) {
-					my_array->at(i) = node["data"][i].as<uint8_t>();
-				}
-				rhs->data = my_array;
-			}
+			rhs->octree_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::octree::OcTreeInfoPtr>(node,"octree_info",true);
+			rhs->data_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_offset",true);
+			rhs->data_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_total_len",true);
+			rhs->data = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"data",true,true,0);
 			return true;
 		}
 	};
@@ -102,16 +68,11 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::octree::OcTreeResourcePtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::octree::OcTreeResource);
-			if(node["octree_resource"]){
-				rhs->octree_resource = node["octree_resource"].as<com::robotraconteur::resource::ResourceIdentifierPtr>();
-			}
+			rhs->octree_resource = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::resource::ResourceIdentifierPtr>(node,"octree_resource",true);
 			return true;
 		}
 	};
 
 
-//TODO: Fix the following structures or namedarrays: 
-// com::robotraconteur::octree::OcTree 
-// com::robotraconteur::octree::OcTreePart 
 
 }

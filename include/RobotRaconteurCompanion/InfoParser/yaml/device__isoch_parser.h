@@ -1,17 +1,6 @@
-#pragma once
-#include <RobotRaconteur.h>
-#include "yaml-cpp/yaml.h"
-#include <boost/uuid/uuid_io.hpp>
-#include "RobotRaconteurCompanion/StdRobDef/StdRobDefAll.h"
-#include "yaml_loader_enums.h"
-
-using namespace RobotRaconteur;
-using namespace Companion;
-using namespace boost;
+#include "yaml_parser_common_include.h"
 
 #pragma once
-
-namespace RR = RobotRaconteur;
 
 namespace YAML {
 
@@ -24,12 +13,9 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::device::isoch::IsochInfoPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::device::isoch::IsochInfo);
-			if(node["update_rate"]){
-				rhs->update_rate = node["update_rate"].as<double>();
-			}
-			if(node["max_downsample"]){
-				rhs->max_downsample = node["max_downsample"].as<uint32_t>();
-			}
+			rhs->update_rate = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"update_rate",true);
+			// TODO: parse field com.robotraconteur.datetime.DateTimeUTC isoch_epoch
+			rhs->max_downsample = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"max_downsample",true);
 			return true;
 		}
 	};

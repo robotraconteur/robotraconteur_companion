@@ -1,17 +1,6 @@
-#pragma once
-#include <RobotRaconteur.h>
-#include "yaml-cpp/yaml.h"
-#include <boost/uuid/uuid_io.hpp>
-#include "RobotRaconteurCompanion/StdRobDef/StdRobDefAll.h"
-#include "yaml_loader_enums.h"
-
-using namespace RobotRaconteur;
-using namespace Companion;
-using namespace boost;
+#include "yaml_parser_common_include.h"
 
 #pragma once
-
-namespace RR = RobotRaconteur;
 
 namespace YAML {
 
@@ -24,68 +13,12 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::robotics::scene::JointPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::robotics::scene::Joint);
-			if(node["joint_info"]){
-				rhs->joint_info = node["joint_info"].as<com::robotraconteur::robotics::joints::JointInfoPtr>();
-			}
-			if(node["axis"]){
-				rhs->axis = node["axis"].as<com::robotraconteur::geometry::Vector3>();
-			}
-			if(node["child_link_name"]){
-				rhs->child_link_name = node["child_link_name"].as<std::string>();
-			}
-			if(node["parent_link_name"]){
-				rhs->parent_link_name = node["parent_link_name"].as<std::string>();
-			}
-			if(node["parent_to_joint_origin_transform"]){
-				rhs->parent_to_joint_origin_transform = node["parent_to_joint_origin_transform"].as<com::robotraconteur::geometry::Pose>();
-			}
-			if(node["extended"]){
-				RR::RRMapPtr<std::string, RR::RRValue> vars;
-				for (YAML::const_iterator it = node["extended"].begin(); it != node["extended"].end(); ++it) {
-					std::string name = it->first.as<std::string>();
-					std::string type = node["extended"]["type"].as<std::string>();
-					RR::RRValuePtr varval;
-					if(type=="string"){
-						std::string value = node["extended"]["value"].as<std::string>();
-						varval=RR::stringToRRArray(value);
-					}
-					if(type=="double"){
-						double value = node["extended"]["value"].as<double>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="int32"){
-						int value = node["extended"]["value"].as<int>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="uint32"){
-						uint32_t value = node["extended"]["value"].as<uint32_t>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="double[]"){
-						RRArrayPtr<double> my_array = AllocateEmptyRRArray<double>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<double>();
-						}
-						varval=my_array;
-					}
-					if(type=="int32[]"){
-						RR::RRArrayPtr<int> my_array = AllocateEmptyRRArray<int>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<int>();
-						}
-						varval=my_array;
-					}
-					if(type=="uint32[]"){
-						RR::RRArrayPtr<uint32_t> my_array = AllocateEmptyRRArray<uint32_t>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<uint32_t>();
-						}
-						varval=my_array;
-					}
-					vars->insert(std::make_pair(name,varval));
-				}
-				rhs->extended = vars;
-			}
+			rhs->joint_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::robotics::joints::JointInfoPtr>(node,"joint_info",true);
+			rhs->axis = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector3>(node,"axis",true);
+			rhs->child_link_name = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"child_link_name",true);
+			rhs->parent_link_name = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"parent_link_name",true);
+			rhs->parent_to_joint_origin_transform = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Pose>(node,"parent_to_joint_origin_transform",true);
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};
@@ -101,12 +34,8 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::robotics::scene::JointDynamicsPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::robotics::scene::JointDynamics);
-			if(node["damping"]){
-				rhs->damping = node["damping"].as<double>();
-			}
-			if(node["friction"]){
-				rhs->friction = node["friction"].as<double>();
-			}
+			rhs->damping = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"damping",true);
+			rhs->friction = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"friction",true);
 			return true;
 		}
 	};
@@ -122,18 +51,10 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::robotics::scene::JointSafetyPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::robotics::scene::JointSafety);
-			if(node["soft_upper_limit"]){
-				rhs->soft_upper_limit = node["soft_upper_limit"].as<double>();
-			}
-			if(node["soft_lower_limit"]){
-				rhs->soft_lower_limit = node["soft_lower_limit"].as<double>();
-			}
-			if(node["k_position"]){
-				rhs->k_position = node["k_position"].as<double>();
-			}
-			if(node["k_velocity"]){
-				rhs->k_velocity = node["k_velocity"].as<double>();
-			}
+			rhs->soft_upper_limit = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"soft_upper_limit",true);
+			rhs->soft_lower_limit = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"soft_lower_limit",true);
+			rhs->k_position = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"k_position",true);
+			rhs->k_velocity = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"k_velocity",true);
 			return true;
 		}
 	};
@@ -149,15 +70,9 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::robotics::scene::JointCalibrationPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::robotics::scene::JointCalibration);
-			if(node["reference_position"]){
-				rhs->reference_position = node["reference_position"].as<double>();
-			}
-			if(node["rising"]){
-				rhs->rising = node["rising"].as<double>();
-			}
-			if(node["falling"]){
-				rhs->falling = node["falling"].as<double>();
-			}
+			rhs->reference_position = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"reference_position",true);
+			rhs->rising = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"rising",true);
+			rhs->falling = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"falling",true);
 			return true;
 		}
 	};
@@ -173,15 +88,9 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::robotics::scene::JointMimicPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::robotics::scene::JointMimic);
-			if(node["offset"]){
-				rhs->offset = node["offset"].as<double>();
-			}
-			if(node["multiplier"]){
-				rhs->multiplier = node["multiplier"].as<double>();
-			}
-			if(node["joint_name"]){
-				rhs->joint_name = node["joint_name"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
+			rhs->offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"offset",true);
+			rhs->multiplier = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"multiplier",true);
+			rhs->joint_name = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"joint_name",true);
 			return true;
 		}
 	};
@@ -197,75 +106,11 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::robotics::scene::LinkPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::robotics::scene::Link);
-			if(node["link_identifier"]){
-				rhs->link_identifier = node["link_identifier"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["inertia"]){
-				rhs->inertia = node["inertia"].as<com::robotraconteur::geometry::SpatialInertia>();
-			}
-			if(node["visual"]){
-				RobotRaconteur::RRListPtr<com::robotraconteur::geometry::shapes::ShapeObject> listy = AllocateEmptyRRList<com::robotraconteur::geometry::shapes::ShapeObject>();
-				for(int j=0; j< node["visual"].size(); j++){
-					com::robotraconteur::geometry::shapes::ShapeObjectPtr item= node["visual"][j].as<com::robotraconteur::geometry::shapes::ShapeObjectPtr>();
-					listy->push_back(item);
-				}
-				rhs->visual = listy;
-			}
-			if(node["collision"]){
-				RobotRaconteur::RRListPtr<com::robotraconteur::geometry::shapes::ShapeObject> listy = AllocateEmptyRRList<com::robotraconteur::geometry::shapes::ShapeObject>();
-				for(int j=0; j< node["collision"].size(); j++){
-					com::robotraconteur::geometry::shapes::ShapeObjectPtr item= node["collision"][j].as<com::robotraconteur::geometry::shapes::ShapeObjectPtr>();
-					listy->push_back(item);
-				}
-				rhs->collision = listy;
-			}
-			if(node["extended"]){
-				RR::RRMapPtr<std::string, RR::RRValue> vars;
-				for (YAML::const_iterator it = node["extended"].begin(); it != node["extended"].end(); ++it) {
-					std::string name = it->first.as<std::string>();
-					std::string type = node["extended"]["type"].as<std::string>();
-					RR::RRValuePtr varval;
-					if(type=="string"){
-						std::string value = node["extended"]["value"].as<std::string>();
-						varval=RR::stringToRRArray(value);
-					}
-					if(type=="double"){
-						double value = node["extended"]["value"].as<double>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="int32"){
-						int value = node["extended"]["value"].as<int>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="uint32"){
-						uint32_t value = node["extended"]["value"].as<uint32_t>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="double[]"){
-						RRArrayPtr<double> my_array = AllocateEmptyRRArray<double>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<double>();
-						}
-						varval=my_array;
-					}
-					if(type=="int32[]"){
-						RR::RRArrayPtr<int> my_array = AllocateEmptyRRArray<int>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<int>();
-						}
-						varval=my_array;
-					}
-					if(type=="uint32[]"){
-						RR::RRArrayPtr<uint32_t> my_array = AllocateEmptyRRArray<uint32_t>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<uint32_t>();
-						}
-						varval=my_array;
-					}
-					vars->insert(std::make_pair(name,varval));
-				}
-				rhs->extended = vars;
-			}
+			rhs->link_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"link_identifier",true);
+			rhs->inertia = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::SpatialInertia>(node,"inertia",true);
+			rhs->visual = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::geometry::shapes::ShapeObjectPtr>(node,"visual",true);
+			rhs->collision = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::geometry::shapes::ShapeObjectPtr>(node,"collision",true);
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};
@@ -281,59 +126,11 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::robotics::scene::ModelPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::robotics::scene::Model);
-			if(node["model_identifier"]){
-				rhs->model_identifier = node["model_identifier"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["parent_identifier"]){
-				rhs->parent_identifier = node["parent_identifier"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["extended"]){
-				RR::RRMapPtr<std::string, RR::RRValue> vars;
-				for (YAML::const_iterator it = node["extended"].begin(); it != node["extended"].end(); ++it) {
-					std::string name = it->first.as<std::string>();
-					std::string type = node["extended"]["type"].as<std::string>();
-					RR::RRValuePtr varval;
-					if(type=="string"){
-						std::string value = node["extended"]["value"].as<std::string>();
-						varval=RR::stringToRRArray(value);
-					}
-					if(type=="double"){
-						double value = node["extended"]["value"].as<double>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="int32"){
-						int value = node["extended"]["value"].as<int>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="uint32"){
-						uint32_t value = node["extended"]["value"].as<uint32_t>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="double[]"){
-						RRArrayPtr<double> my_array = AllocateEmptyRRArray<double>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<double>();
-						}
-						varval=my_array;
-					}
-					if(type=="int32[]"){
-						RR::RRArrayPtr<int> my_array = AllocateEmptyRRArray<int>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<int>();
-						}
-						varval=my_array;
-					}
-					if(type=="uint32[]"){
-						RR::RRArrayPtr<uint32_t> my_array = AllocateEmptyRRArray<uint32_t>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<uint32_t>();
-						}
-						varval=my_array;
-					}
-					vars->insert(std::make_pair(name,varval));
-				}
-				rhs->extended = vars;
-			}
+			rhs->model_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"model_identifier",true);
+			rhs->parent_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_identifier",true);
+			rhs->joints = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::robotics::scene::JointPtr>(node,"joints",true);
+			rhs->links = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::robotics::scene::LinkPtr>(node,"links",true);
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};
@@ -349,59 +146,12 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::robotics::scene::ScenePtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::robotics::scene::Scene);
-			if(node["scene_identifier"]){
-				rhs->scene_identifier = node["scene_identifier"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["revision"]){
-				rhs->revision = node["revision"].as<uint64_t>();
-			}
-			if(node["extended"]){
-				RR::RRMapPtr<std::string, RR::RRValue> vars;
-				for (YAML::const_iterator it = node["extended"].begin(); it != node["extended"].end(); ++it) {
-					std::string name = it->first.as<std::string>();
-					std::string type = node["extended"]["type"].as<std::string>();
-					RR::RRValuePtr varval;
-					if(type=="string"){
-						std::string value = node["extended"]["value"].as<std::string>();
-						varval=RR::stringToRRArray(value);
-					}
-					if(type=="double"){
-						double value = node["extended"]["value"].as<double>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="int32"){
-						int value = node["extended"]["value"].as<int>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="uint32"){
-						uint32_t value = node["extended"]["value"].as<uint32_t>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="double[]"){
-						RRArrayPtr<double> my_array = AllocateEmptyRRArray<double>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<double>();
-						}
-						varval=my_array;
-					}
-					if(type=="int32[]"){
-						RR::RRArrayPtr<int> my_array = AllocateEmptyRRArray<int>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<int>();
-						}
-						varval=my_array;
-					}
-					if(type=="uint32[]"){
-						RR::RRArrayPtr<uint32_t> my_array = AllocateEmptyRRArray<uint32_t>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<uint32_t>();
-						}
-						varval=my_array;
-					}
-					vars->insert(std::make_pair(name,varval));
-				}
-				rhs->extended = vars;
-			}
+			rhs->scene_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"scene_identifier",true);
+			rhs->joints = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::robotics::scene::JointPtr>(node,"joints",true);
+			rhs->links = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::robotics::scene::LinkPtr>(node,"links",true);
+			rhs->models = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::robotics::scene::ModelPtr>(node,"models",true);
+			rhs->revision = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"revision",true);
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};

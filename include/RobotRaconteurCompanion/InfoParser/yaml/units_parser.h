@@ -1,17 +1,6 @@
-#pragma once
-#include <RobotRaconteur.h>
-#include "yaml-cpp/yaml.h"
-#include <boost/uuid/uuid_io.hpp>
-#include "RobotRaconteurCompanion/StdRobDef/StdRobDefAll.h"
-#include "yaml_loader_enums.h"
-
-using namespace RobotRaconteur;
-using namespace Companion;
-using namespace boost;
+#include "yaml_parser_common_include.h"
 
 #pragma once
-
-namespace RR = RobotRaconteur;
 
 namespace YAML {
 
@@ -24,12 +13,8 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::units::SIUnitPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::units::SIUnit);
-			if(node["display_units"]){
-				rhs->display_units = node["display_units"].as<std::string>();
-			}
-			if(node["encoded_units"]){
-				rhs->encoded_units = node["encoded_units"].as<std::string>();
-			}
+			rhs->display_units = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"display_units",true);
+			rhs->encoded_units = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"encoded_units",true);
 			return true;
 		}
 	};

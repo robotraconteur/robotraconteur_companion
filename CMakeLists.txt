@@ -140,6 +140,8 @@ if (BUILD_TESTING)
 	target_link_libraries(test_robdef_gen RobotRaconteurCompanion RobotRaconteurCore)
 	add_executable(test_infoparser test/test_infoparser.cpp)
 	target_link_libraries(test_infoparser RobotRaconteurCompanion RobotRaconteurCore yaml-cpp)
+	add_executable(test_robotinfo_parser test/test_robotinfo_parser.cpp)
+	target_link_libraries(test_robotinfo_parser RobotRaconteurCompanion RobotRaconteurCore yaml-cpp)
 
 	find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 	add_executable(test_eigen_converters test/test_eigen_converters.cpp)

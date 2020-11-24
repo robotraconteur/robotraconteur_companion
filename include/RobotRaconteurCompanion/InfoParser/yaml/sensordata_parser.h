@@ -1,17 +1,6 @@
-#pragma once
-#include <RobotRaconteur.h>
-#include "yaml-cpp/yaml.h"
-#include <boost/uuid/uuid_io.hpp>
-#include "RobotRaconteurCompanion/StdRobDef/StdRobDefAll.h"
-#include "yaml_loader_enums.h"
-
-using namespace RobotRaconteur;
-using namespace Companion;
-using namespace boost;
+#include "yaml_parser_common_include.h"
 
 #pragma once
-
-namespace RR = RobotRaconteur;
 
 namespace YAML {
 
@@ -24,9 +13,9 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::sensordata::SensorDataHeaderPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::sensordata::SensorDataHeader);
-			if(node["seqno"]){
-				rhs->seqno = node["seqno"].as<uint64_t>();
-			}
+			// TODO: parse field com.robotraconteur.datetime.DateTimeUTC ts
+			rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
+			rhs->source_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataSourceInfoPtr>(node,"source_info",true);
 			return true;
 		}
 	};
@@ -42,115 +31,15 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::sensordata::SensorDataSourceInfoPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::sensordata::SensorDataSourceInfo);
-			if(node["source"]){
-				rhs->source = node["source"].as<com::robotraconteur::identifier::IdentifierPtr>();
-			}
-			if(node["source_world_pose"]){
-				rhs->source_world_pose = node["source_world_pose"].as<com::robotraconteur::geometry::Pose>();
-			}
-			if(node["source_config_nonce"]){
-				rhs->source_config_nonce = node["source_config_nonce"].as<std::string>();
-			}
-			if(node["source_params"]){
-				RR::RRMapPtr<std::string, RR::RRValue> vars;
-				for (YAML::const_iterator it = node["source_params"].begin(); it != node["source_params"].end(); ++it) {
-					std::string name = it->first.as<std::string>();
-					std::string type = node["source_params"]["type"].as<std::string>();
-					RR::RRValuePtr varval;
-					if(type=="string"){
-						std::string value = node["source_params"]["value"].as<std::string>();
-						varval=RR::stringToRRArray(value);
-					}
-					if(type=="double"){
-						double value = node["source_params"]["value"].as<double>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="int32"){
-						int value = node["source_params"]["value"].as<int>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="uint32"){
-						uint32_t value = node["source_params"]["value"].as<uint32_t>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="double[]"){
-						RRArrayPtr<double> my_array = AllocateEmptyRRArray<double>(node["source_params"]["value"].size());
-						for (int i = 0; i < node["source_params"]["value"].size(); i++) {
-							my_array->at(i) = node["source_params"]["value"][i].as<double>();
-						}
-						varval=my_array;
-					}
-					if(type=="int32[]"){
-						RR::RRArrayPtr<int> my_array = AllocateEmptyRRArray<int>(node["source_params"]["value"].size());
-						for (int i = 0; i < node["source_params"]["value"].size(); i++) {
-							my_array->at(i) = node["source_params"]["value"][i].as<int>();
-						}
-						varval=my_array;
-					}
-					if(type=="uint32[]"){
-						RR::RRArrayPtr<uint32_t> my_array = AllocateEmptyRRArray<uint32_t>(node["source_params"]["value"].size());
-						for (int i = 0; i < node["source_params"]["value"].size(); i++) {
-							my_array->at(i) = node["source_params"]["value"][i].as<uint32_t>();
-						}
-						varval=my_array;
-					}
-					vars->insert(std::make_pair(name,varval));
-				}
-				rhs->source_params = vars;
-			}
-			if(node["extended"]){
-				RR::RRMapPtr<std::string, RR::RRValue> vars;
-				for (YAML::const_iterator it = node["extended"].begin(); it != node["extended"].end(); ++it) {
-					std::string name = it->first.as<std::string>();
-					std::string type = node["extended"]["type"].as<std::string>();
-					RR::RRValuePtr varval;
-					if(type=="string"){
-						std::string value = node["extended"]["value"].as<std::string>();
-						varval=RR::stringToRRArray(value);
-					}
-					if(type=="double"){
-						double value = node["extended"]["value"].as<double>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="int32"){
-						int value = node["extended"]["value"].as<int>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="uint32"){
-						uint32_t value = node["extended"]["value"].as<uint32_t>();
-						varval=RR::ScalarToRRArray(value);
-					}
-					if(type=="double[]"){
-						RRArrayPtr<double> my_array = AllocateEmptyRRArray<double>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<double>();
-						}
-						varval=my_array;
-					}
-					if(type=="int32[]"){
-						RR::RRArrayPtr<int> my_array = AllocateEmptyRRArray<int>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<int>();
-						}
-						varval=my_array;
-					}
-					if(type=="uint32[]"){
-						RR::RRArrayPtr<uint32_t> my_array = AllocateEmptyRRArray<uint32_t>(node["extended"]["value"].size());
-						for (int i = 0; i < node["extended"]["value"].size(); i++) {
-							my_array->at(i) = node["extended"]["value"][i].as<uint32_t>();
-						}
-						varval=my_array;
-					}
-					vars->insert(std::make_pair(name,varval));
-				}
-				rhs->extended = vars;
-			}
+			rhs->source = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"source",true);
+			rhs->source_world_pose = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Pose>(node,"source_world_pose",true);
+			rhs->source_config_nonce = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"source_config_nonce",true);
+			// TODO: parse field varvalue{string} source_params
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};
 
 
-//TODO: Fix the following structures or namedarrays: 
-// com::robotraconteur::sensordata::SensorDataHeader 
 
 }
