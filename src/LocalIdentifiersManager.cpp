@@ -389,7 +389,9 @@ LocalIdentifierLockPtr GetIdentifierForNameAndLock(const std::string& category, 
     }
 
     std::string category2 = boost::to_lower_copy(category);
-    boost::filesystem::path p = detail::GetUserIdentifierPath() / category / name;
+    boost::filesystem::path p1 = detail::GetUserIdentifierPath() / category;
+    boost::filesystem::create_directories(p1);
+    boost::filesystem::path p = p1 / name;
 
 #ifdef ROBOTRACONTEUR_WINDOWS
 
@@ -409,8 +411,9 @@ LocalIdentifierLockPtr GetIdentifierForNameAndLock(const std::string& category, 
 
 
 #else
-    boost::filesystem::path p_lock = detail::GetUserRunPath() / "identifiers" / category / name;
-    boost::filesystem::create_directories(p_lock);
+    boost::filesystem::path p_lock1 = detail::GetUserRunPath() / "identifiers" / category;
+    boost::filesystem::create_directories(p_lock1);
+    boost::filesystem::path p_lock = p_lock1 / name;
     p_lock /= name + ".pid";
 
     RR_SHARED_PTR<detail::LocalIdentifierFD> fd_run = RR_MAKE_SHARED<detail::LocalIdentifierFD>();
@@ -468,6 +471,7 @@ LocalIdentifierLockPtr GetIdentifierForNameAndLock(const std::string& category, 
         try
         {
             boost::trim(nodeid_str);
+            boost::trim_if(nodeid_str,boost::is_any_of("{}"));
             ret_uuid = boost::lexical_cast<boost::uuids::uuid>(nodeid_str);
         }
         catch (std::exception&)
