@@ -13,7 +13,7 @@ int string_to_enum_ActionStatusCode(const std::string &input, const YAML::Node& 
 	if(input =="queued") return 1;
 	if(input =="running") return 2;
 	if(input =="complete") return 3;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_ActuatorTypeCode(const std::string &input, const YAML::Node& node){
@@ -38,7 +38,7 @@ int string_to_enum_ActuatorTypeCode(const std::string &input, const YAML::Node& 
 	if(input =="conveyor") return 18;
 	if(input =="voltage") return 19;
 	if(input =="current") return 20;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_ActuatorMode(const std::string &input, const YAML::Node& node){
@@ -47,7 +47,7 @@ int string_to_enum_ActuatorMode(const std::string &input, const YAML::Node& node
 	if(input =="halt") return 0;
 	if(input =="reduced_performance") return 1;
 	if(input =="normal") return 2;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_DataTypeCode(const std::string &input, const YAML::Node& node){
@@ -82,14 +82,14 @@ int string_to_enum_DataTypeCode(const std::string &input, const YAML::Node& node
 	if(input =="namedarray_array_c") return 115;
 	if(input =="namedarray_multidimarray_c") return 116;
 	if(input =="multidimarray_c") return 117;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_ArrayTypeCode(const std::string &input, const YAML::Node& node){
 	if(input =="none_c") return 0;
 	if(input =="array_c") return 1;
 	if(input =="multidimarray_c") return 2;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_ContainerTypeCode(const std::string &input, const YAML::Node& node){
@@ -98,7 +98,7 @@ int string_to_enum_ContainerTypeCode(const std::string &input, const YAML::Node&
 	if(input =="map_int32_c") return 2;
 	if(input =="map_string_c") return 3;
 	if(input =="generator_c") return 4;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_ClockTypeCode(const std::string &input, const YAML::Node& node){
@@ -129,7 +129,7 @@ int string_to_enum_ClockTypeCode(const std::string &input, const YAML::Node& nod
 	if(input =="aux_5") return 4101;
 	if(input =="aux_6") return 4102;
 	if(input =="aux_7") return 4103;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_EventLogLevel(const std::string &input, const YAML::Node& node){
@@ -143,14 +143,14 @@ int string_to_enum_EventLogLevel(const std::string &input, const YAML::Node& nod
 	if(input =="fatal_error") return 7;
 	if(input =="emergency_error") return 8;
 	if(input =="catastrophic_error") return 9;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_MeshType(const std::string &input, const YAML::Node& node){
 	if(input =="mesh") return 0;
 	if(input =="convex_mesh") return 1;
 	if(input =="sdf_mesh") return 2;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_JoystickCapabilities(const std::string &input, const YAML::Node& node){
@@ -158,7 +158,7 @@ int string_to_enum_JoystickCapabilities(const std::string &input, const YAML::No
 	if(input =="rumble") return 1;
 	if(input =="force_feedback") return 2;
 	if(input =="standard_gamepad") return 4;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_GamepadButtons(const std::string &input, const YAML::Node& node){
@@ -177,7 +177,7 @@ int string_to_enum_GamepadButtons(const std::string &input, const YAML::Node& no
 	if(input =="button_dpad_down") return 12;
 	if(input =="button_dpad_left") return 13;
 	if(input =="button_dpad_right") return 14;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_JoystickHatState(const std::string &input, const YAML::Node& node){
@@ -190,7 +190,7 @@ int string_to_enum_JoystickHatState(const std::string &input, const YAML::Node& 
 	if(input =="hat_rightdown") return 6;
 	if(input =="hat_leftup") return 9;
 	if(input =="hat_leftdown") return 12;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_ImageEncoding(const std::string &input, const YAML::Node& node){
@@ -217,7 +217,7 @@ int string_to_enum_ImageEncoding(const std::string &input, const YAML::Node& nod
 	if(input =="depth_f64") return 16388;
 	if(input =="freeform") return 20480;
 	if(input =="compressed") return 24576;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_TriggerMode(const std::string &input, const YAML::Node& node){
@@ -229,7 +229,7 @@ int string_to_enum_TriggerMode(const std::string &input, const YAML::Node& node)
 	if(input =="aux2") return 5;
 	if(input =="aux3") return 6;
 	if(input =="aux4") return 7;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_Capabilities(const std::string &input, const YAML::Node& node){
@@ -241,7 +241,7 @@ int string_to_enum_Capabilities(const std::string &input, const YAML::Node& node
 	if(input =="continuous_trigger") return 32;
 	if(input =="external_trigger") return 64;
 	if(input =="aux_trigger") return 128;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_CameraStateFlags(const std::string &input, const YAML::Node& node){
@@ -251,7 +251,7 @@ int string_to_enum_CameraStateFlags(const std::string &input, const YAML::Node& 
 	if(input =="warning") return 4;
 	if(input =="error") return 8;
 	if(input =="fatal_error") return 16;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_OcTreeEncoding(const std::string &input, const YAML::Node& node){
@@ -259,7 +259,7 @@ int string_to_enum_OcTreeEncoding(const std::string &input, const YAML::Node& no
 	if(input =="octomap_ot") return 1;
 	if(input =="octomap_bt") return 2;
 	if(input =="other") return 3;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_JointPositionUnits(const std::string &input, const YAML::Node& node){
@@ -271,7 +271,7 @@ int string_to_enum_JointPositionUnits(const std::string &input, const YAML::Node
 	if(input =="ticks_rot") return 5;
 	if(input =="nanoticks_lin") return 6;
 	if(input =="nanoticks_rot") return 7;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_JointVelocityUnits(const std::string &input, const YAML::Node& node){
@@ -283,7 +283,7 @@ int string_to_enum_JointVelocityUnits(const std::string &input, const YAML::Node
 	if(input =="ticks_rot_second") return 20;
 	if(input =="nanoticks_lin_second") return 21;
 	if(input =="nanoticks_rot_second") return 22;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_JointAccelerationUnits(const std::string &input, const YAML::Node& node){
@@ -295,7 +295,7 @@ int string_to_enum_JointAccelerationUnits(const std::string &input, const YAML::
 	if(input =="ticks_rot_second2") return 36;
 	if(input =="nanoticks_lin_second2") return 37;
 	if(input =="nanoticks_rot_second2") return 38;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_JointJerkUnits(const std::string &input, const YAML::Node& node){
@@ -307,7 +307,7 @@ int string_to_enum_JointJerkUnits(const std::string &input, const YAML::Node& no
 	if(input =="ticks_rot_second3") return 52;
 	if(input =="nanoticks_lin_second3") return 53;
 	if(input =="nanoticks_rot_second3") return 54;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_JointEffortUnits(const std::string &input, const YAML::Node& node){
@@ -323,7 +323,7 @@ int string_to_enum_JointEffortUnits(const std::string &input, const YAML::Node& 
 	if(input =="meter_second2") return 72;
 	if(input =="radian_second2") return 73;
 	if(input =="degree_second2") return 74;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_JointType(const std::string &input, const YAML::Node& node){
@@ -341,7 +341,7 @@ int string_to_enum_JointType(const std::string &input, const YAML::Node& node){
 	if(input =="floating") return 11;
 	if(input =="other_compound") return 12;
 	if(input =="fixed") return 13;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_PlannerStatusCode(const std::string &input, const YAML::Node& node){
@@ -351,7 +351,7 @@ int string_to_enum_PlannerStatusCode(const std::string &input, const YAML::Node&
 	if(input =="is_configured") return 1;
 	if(input =="running") return 2;
 	if(input =="success") return 3;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_PlannerMotionTypeCode(const std::string &input, const YAML::Node& node){
@@ -362,7 +362,7 @@ int string_to_enum_PlannerMotionTypeCode(const std::string &input, const YAML::N
 	if(input =="cylindrical") return 4;
 	if(input =="spherical") return 5;
 	if(input =="other") return 6;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_PlannerAlgorithmCapabilityFlags(const std::string &input, const YAML::Node& node){
@@ -379,7 +379,7 @@ int string_to_enum_PlannerAlgorithmCapabilityFlags(const std::string &input, con
 	if(input =="spherical_waypoint") return 512;
 	if(input =="collision_avoidance") return 1024;
 	if(input =="request_time_from_start") return 2048;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_FilterAlgorithmCapabilityFlags(const std::string &input, const YAML::Node& node){
@@ -391,7 +391,7 @@ int string_to_enum_FilterAlgorithmCapabilityFlags(const std::string &input, cons
 	if(input =="acceleration_limit") return 16;
 	if(input =="jerk_limit") return 32;
 	if(input =="collision_avoidance") return 64;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_PlanningSceneCapabilityFlags(const std::string &input, const YAML::Node& node){
@@ -404,7 +404,7 @@ int string_to_enum_PlanningSceneCapabilityFlags(const std::string &input, const 
 	if(input =="supports_models") return 32;
 	if(input =="models_mutable") return 64;
 	if(input =="robot_info_mutable") return 128;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_ContactTestTypeCode(const std::string &input, const YAML::Node& node){
@@ -412,7 +412,7 @@ int string_to_enum_ContactTestTypeCode(const std::string &input, const YAML::Nod
 	if(input =="closest") return 1;
 	if(input =="all") return 2;
 	if(input =="limited") return 3;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_RobotTypeCode(const std::string &input, const YAML::Node& node){
@@ -424,7 +424,7 @@ int string_to_enum_RobotTypeCode(const std::string &input, const YAML::Node& nod
 	if(input =="floating") return 5;
 	if(input =="freeform") return 6;
 	if(input =="other") return 7;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_RobotCommandMode(const std::string &input, const YAML::Node& node){
@@ -435,7 +435,7 @@ int string_to_enum_RobotCommandMode(const std::string &input, const YAML::Node& 
 	if(input =="position_command") return 3;
 	if(input =="velocity_command") return 4;
 	if(input =="homing") return 5;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_RobotOperationalMode(const std::string &input, const YAML::Node& node){
@@ -444,7 +444,7 @@ int string_to_enum_RobotOperationalMode(const std::string &input, const YAML::No
 	if(input =="manual_full_speed") return 2;
 	if(input =="auto") return 3;
 	if(input =="cobot") return 4;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_RobotControllerState(const std::string &input, const YAML::Node& node){
@@ -455,7 +455,7 @@ int string_to_enum_RobotControllerState(const std::string &input, const YAML::No
 	if(input =="guard_stop") return 4;
 	if(input =="emergency_stop") return 5;
 	if(input =="emergency_stop_reset") return 6;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_RobotCapabilities(const std::string &input, const YAML::Node& node){
@@ -471,7 +471,7 @@ int string_to_enum_RobotCapabilities(const std::string &input, const YAML::Node&
 	if(input =="raster_trajectory") return 256;
 	if(input =="trajectory_queueing") return 512;
 	if(input =="speed_ratio") return 1024;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_RobotStateFlags(const std::string &input, const YAML::Node& node){
@@ -501,7 +501,7 @@ int string_to_enum_RobotStateFlags(const std::string &input, const YAML::Node& n
 	if(input =="valid_position_command") return 16777216;
 	if(input =="valid_velocity_command") return 33554432;
 	if(input =="trajectory_running") return 67108864;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_ToolTypeCode(const std::string &input, const YAML::Node& node){
@@ -516,7 +516,7 @@ int string_to_enum_ToolTypeCode(const std::string &input, const YAML::Node& node
 	if(input =="hand") return 8;
 	if(input =="palletizer") return 9;
 	if(input =="other") return 10;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_ToolCapabilities(const std::string &input, const YAML::Node& node){
@@ -527,7 +527,7 @@ int string_to_enum_ToolCapabilities(const std::string &input, const YAML::Node& 
 	if(input =="software_reset_errors") return 8;
 	if(input =="software_enable") return 16;
 	if(input =="sensor_feedback") return 32;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_ToolStateFlags(const std::string &input, const YAML::Node& node){
@@ -547,7 +547,7 @@ int string_to_enum_ToolStateFlags(const std::string &input, const YAML::Node& no
 	if(input =="homed") return 4096;
 	if(input =="gripping") return 8192;
 	if(input =="missed") return 16384;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_InterpolationMode(const std::string &input, const YAML::Node& node){
@@ -559,7 +559,7 @@ int string_to_enum_InterpolationMode(const std::string &input, const YAML::Node&
 	if(input =="joint_cubic_spline") return 5;
 	if(input =="cubic_spline") return 6;
 	if(input =="custom") return 7;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_TrajectoryWaypointType(const std::string &input, const YAML::Node& node){
@@ -570,7 +570,7 @@ int string_to_enum_TrajectoryWaypointType(const std::string &input, const YAML::
 	if(input =="intermediate_stop") return 4;
 	if(input =="raster") return 5;
 	if(input =="other") return 6;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_SensorTypeCode(const std::string &input, const YAML::Node& node){
@@ -614,7 +614,7 @@ int string_to_enum_SensorTypeCode(const std::string &input, const YAML::Node& no
 	if(input =="object_color") return 37;
 	if(input =="altitude") return 38;
 	if(input =="other") return 39;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_SensorDataFlags(const std::string &input, const YAML::Node& node){
@@ -629,7 +629,7 @@ int string_to_enum_SensorDataFlags(const std::string &input, const YAML::Node& n
 	if(input =="warning") return 128;
 	if(input =="error") return 256;
 	if(input =="fatal_error") return 512;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_ServoTypeCode(const std::string &input, const YAML::Node& node){
@@ -639,7 +639,7 @@ int string_to_enum_ServoTypeCode(const std::string &input, const YAML::Node& nod
 	if(input =="revolute_electric") return 3;
 	if(input =="revolute_linear") return 4;
 	if(input =="rc_servo") return 5;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_ServoCapabilities(const std::string &input, const YAML::Node& node){
@@ -649,7 +649,7 @@ int string_to_enum_ServoCapabilities(const std::string &input, const YAML::Node&
 	if(input =="effort_command") return 4;
 	if(input =="trapezoidal_command") return 8;
 	if(input =="signals") return 4096;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_ServoMode(const std::string &input, const YAML::Node& node){
@@ -660,7 +660,7 @@ int string_to_enum_ServoMode(const std::string &input, const YAML::Node& node){
 	if(input =="velocity_command") return 2;
 	if(input =="effort_command") return 3;
 	if(input =="trapezoidal_command") return 4;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_SignalType(const std::string &input, const YAML::Node& node){
@@ -675,7 +675,7 @@ int string_to_enum_SignalType(const std::string &input, const YAML::Node& node){
 	if(input =="pose") return 8;
 	if(input =="transform") return 9;
 	if(input =="other") return 10;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 int string_to_enum_SignalAccessLevel(const std::string &input, const YAML::Node& node){
@@ -684,7 +684,7 @@ int string_to_enum_SignalAccessLevel(const std::string &input, const YAML::Node&
 	if(input =="restricted") return 2;
 	if(input =="readonly") return 3;
 	if(input =="all") return 4;
-	throw YAML::BadConversion(node.Mark());
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
 }

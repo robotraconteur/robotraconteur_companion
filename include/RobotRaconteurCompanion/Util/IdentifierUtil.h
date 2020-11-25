@@ -1,6 +1,7 @@
 #include "com__robotraconteur__identifier.h"
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_io.hpp>
+#include "UuidUtil.h"
 
 #pragma once
 
@@ -114,6 +115,57 @@ namespace Util
         ret->name = name;
         std::fill(ret->uuid.a.begin(), ret->uuid.a.end(), 0);
         return ret;
+    }
+
+    static std::string IdentifierToString(const com::robotraconteur::identifier::IdentifierPtr& id)
+    {
+        if (!id)
+        {
+            return "";
+        }
+        if (!IsIdentifierAnyName(id) && !IsIdentifierAnyUuid(id))
+        {
+            return id->name + "|" + UuidToString(id->uuid);
+        }
+        if (!IsIdentifierAny(id))
+        {
+            return id->name;
+        }
+        if (!IsIdentifierAnyUuid(id))
+        {
+            return UuidToString(id->uuid);
+        }
+    }
+
+    static com::robotraconteur::identifier::IdentifierPtr StringToIdentifier(const std::string& string_id)
+    {
+        static std::string name_regex_str = "(?:[a-zA-Z](?:\\w*[a-zA-Z0-9])?)(?:\\.[a-zA-Z](?:\\w*[a-zA-Z0-9])?)+";
+        static std::string uuid_regex_str = "\\{?[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\\}?";
+        static std::string identifier_regex = "(?:(" + name_regex_str + ")\\|(" + uuid_regex_str + "))|(" + name_regex_str + ")|(" + uuid_regex_str + ")";
+        static boost::regex r_identifier = boost::regex(identifier_regex);
+
+        boost::smatch r_res;
+        if (!boost::regex_match(string_id, r_res, r_identifier))
+        {
+            throw RobotRaconteur::InvalidArgumentException("Invalid identifier string");
+        }
+
+        if(r_res[1].matched && r_res[2].matched)
+        {
+            return CreateIdentifier(r_res[1].str(), r_res[2].str());
+        }
+
+        if (r_res[3].matched)
+        {
+            return CreateIdentifierFromName(r_res[3].str());
+        }
+
+        if (r_res[4].matched)
+        {
+            return CreateIdentifier("", r_res[4].str());
+        }
+
+        throw RobotRaconteur::InvalidArgumentException("Invalid identifier string");
     }
 
 }

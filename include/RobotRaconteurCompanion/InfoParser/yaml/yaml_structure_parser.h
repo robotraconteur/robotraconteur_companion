@@ -26,7 +26,7 @@ T parse_structure(const YAML::Node& node, const std::string& key, bool optional)
         }
         else
         {
-            throw YAML::KeyNotFound(node.Mark(), key);
+            throw RobotRaconteur::InvalidArgumentException("Key not found: " + key);
         }
     }
 }
@@ -55,7 +55,7 @@ struct parse_structure_container_traits<boost::intrusive_ptr<T> >
             }
             else
             {
-                throw YAML::KeyNotFound(node.Mark(), key);
+                throw RobotRaconteur::InvalidArgumentException("Key not found: " + key);
             }
         }
     }
@@ -78,7 +78,7 @@ struct parse_structure_container_traits<boost::intrusive_ptr<T> >
             }
             else
             {
-                throw YAML::KeyNotFound(node.Mark(), key);
+                throw RobotRaconteur::InvalidArgumentException("Key not found: " + key);
             }
         }
     }
@@ -101,7 +101,7 @@ struct parse_structure_container_traits<boost::intrusive_ptr<T> >
             }
             else
             {
-                throw YAML::KeyNotFound(node.Mark(), key);
+                throw RobotRaconteur::InvalidArgumentException("Key not found: " + key);
             }
         }
     }

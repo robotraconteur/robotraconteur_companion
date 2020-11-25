@@ -29,7 +29,7 @@ T parse_namedarray(const YAML::Node& node, const std::string& key, bool optional
         }
         else
         {
-            throw YAML::KeyNotFound(node.Mark(), key);
+            throw RobotRaconteur::InvalidArgumentException("Key not found: " + key);
         }
     }
 }
@@ -46,14 +46,14 @@ RobotRaconteur::RRNamedArrayPtr<T> parse_namedarray_array(const YAML::Node& node
             {
                 if (vec.size() != len)
                 {
-                    throw YAML::BadConversion(node[key].Mark());
+                    throw RobotRaconteur::InvalidArgumentException("Bad conversion");
                 }                
             }
             else if (len != 0)
             {
                 if (vec.size() >= len)
                 {
-                    throw YAML::BadConversion(node[key].Mark());
+                    throw RobotRaconteur::InvalidArgumentException("Bad conversion");
                 } 
             }
         }
@@ -79,7 +79,7 @@ RobotRaconteur::RRNamedArrayPtr<T> parse_namedarray_array(const YAML::Node& node
         }
         else
         {
-            throw YAML::KeyNotFound(node.Mark(), key);
+            throw RobotRaconteur::InvalidArgumentException("Key not found: " + key);
         }
     }
 }

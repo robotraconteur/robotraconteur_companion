@@ -27,7 +27,7 @@ namespace yaml
         }
         else
         {        
-            throw YAML::KeyNotFound(node.Mark(), key);
+            throw RobotRaconteur::InvalidArgumentException("Key not found: " + key);
         }
     }
 
@@ -62,7 +62,7 @@ namespace yaml
             }
             else
             {
-                throw YAML::KeyNotFound(node.Mark(), key);
+                throw RobotRaconteur::InvalidArgumentException("Key not found: " + key);
             }
         }        
     }

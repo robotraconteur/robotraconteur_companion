@@ -24,7 +24,7 @@ T parse_enum(const YAML::Node& node, const std::string& key, bool optional)
         }
         else
         {
-            throw YAML::KeyNotFound(node.Mark(), key);
+            throw RobotRaconteur::InvalidArgumentException("Key not found: " + key);
         }
     }
 }
@@ -46,11 +46,11 @@ RobotRaconteur::RRListPtr<RRArray<int32_t> > parse_enum_list(const YAML::Node& n
     {
         if (optional)
         {
-            return T();
+            return RobotRaconteur::AllocateEmptyRRList<RRArray<int32_t> >();
         }
         else
         {
-            throw YAML::KeyNotFound(node.Mark(), key);
+            throw RobotRaconteur::InvalidArgumentException("Key not found: " + key);
         }
     }
 }
@@ -72,11 +72,11 @@ uint32_t parse_enum_flags(const YAML::Node& node, const std::string& key, bool o
     {
         if (optional)
         {
-            return T();
+            return 0;
         }
         else
         {
-            throw YAML::KeyNotFound(node.Mark(), key);
+            throw RobotRaconteur::InvalidArgumentException("Key not found: " + key);
         }
     }
 }

@@ -287,7 +287,7 @@ for key in my_service_defs:
             file2.write("\tif(input ==\""+e_value.Name + "\") return " + str(e_value.Value)+";\n")
             #else:
             #    file1.write("\t"+e_value.Name + " = " + str(e_value.Value)+",\n")
-        file2.write("\tthrow YAML::BadConversion(node.Mark());\n")
+        file2.write("\tthrow RobotRaconteur::InvalidArgumentException(\"Invalid enum value\");\n")
         file2.write("}\n")
         file2.write("\n")
     
