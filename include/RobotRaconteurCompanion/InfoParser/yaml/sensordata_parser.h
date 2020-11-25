@@ -13,7 +13,7 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::sensordata::SensorDataHeaderPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::sensordata::SensorDataHeader);
-			// TODO: parse field com.robotraconteur.datetime.DateTimeUTC ts
+			// TODO: parse field com.robotraconteur.datetime.TimeSpec2 ts
 			rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 			rhs->source_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataSourceInfoPtr>(node,"source_info",true);
 			return true;

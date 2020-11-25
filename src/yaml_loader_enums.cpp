@@ -107,9 +107,19 @@ int string_to_enum_ClockTypeCode(const std::string &input, const YAML::Node& nod
 	if(input =="system_rtc_clock") return 2;
 	if(input =="system_ntp_clock") return 3;
 	if(input =="system_ptp_clock") return 4;
-	if(input =="system_other_clock") return 5;
-	if(input =="sim_clock_realtime") return 6;
-	if(input =="sim_clock_scaled") return 7;
+	if(input =="system_arb_clock") return 5;
+	if(input =="system_gps_clock") return 6;
+	if(input =="system_tai_clock") return 7;
+	if(input =="system_other_clock") return 8;
+	if(input =="sim_clock_realtime") return 9;
+	if(input =="sim_clock_scaled") return 10;
+	if(input =="node_rtc_clock") return 11;
+	if(input =="node_ntp_clock") return 12;
+	if(input =="node_ptp_clock") return 13;
+	if(input =="node_arb_clock") return 14;
+	if(input =="node_gps_clock") return 15;
+	if(input =="node_tai_clock") return 16;
+	if(input =="node_other_clock") return 17;
 	if(input =="aux_0") return 4096;
 	if(input =="aux_1") return 4097;
 	if(input =="aux_2") return 4098;
@@ -230,6 +240,16 @@ int string_to_enum_Capabilities(const std::string &input, const YAML::Node& node
 	if(input =="continuous_trigger") return 32;
 	if(input =="external_trigger") return 64;
 	if(input =="aux_trigger") return 128;
+	throw YAML::BadConversion(node.Mark());
+}
+
+int string_to_enum_CameraStateFlags(const std::string &input, const YAML::Node& node){
+	if(input =="unknown") return 0;
+	if(input =="ready") return 1;
+	if(input =="streaming") return 2;
+	if(input =="warning") return 4;
+	if(input =="error") return 8;
+	if(input =="fatal_error") return 16;
 	throw YAML::BadConversion(node.Mark());
 }
 
@@ -593,6 +613,21 @@ int string_to_enum_SensorTypeCode(const std::string &input, const YAML::Node& no
 	if(input =="object_color") return 37;
 	if(input =="altitude") return 38;
 	if(input =="other") return 39;
+	throw YAML::BadConversion(node.Mark());
+}
+
+int string_to_enum_SensorDataFlags(const std::string &input, const YAML::Node& node){
+	if(input =="unknown") return 0;
+	if(input =="enabled") return 1;
+	if(input =="streaming") return 2;
+	if(input =="calibrated") return 4;
+	if(input =="calibration_error") return 8;
+	if(input =="out_of_range") return 16;
+	if(input =="out_of_range_high") return 32;
+	if(input =="out_of_range_low") return 64;
+	if(input =="warning") return 128;
+	if(input =="error") return 256;
+	if(input =="fatal_error") return 512;
 	throw YAML::BadConversion(node.Mark());
 }
 

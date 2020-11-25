@@ -18,6 +18,7 @@ set(RR_SERVICE_NAMES_GROUP1
 	com.robotraconteur.datatype
 	com.robotraconteur.datetime.clock
 	com.robotraconteur.datetime
+	com.robotraconteur.device.clock
 	com.robotraconteur.device.isoch
 	com.robotraconteur.device
 	com.robotraconteur.eventlog

@@ -14,7 +14,7 @@ namespace YAML {
 		static bool decode(const Node& node, com::robotraconteur::device::isoch::IsochInfoPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::device::isoch::IsochInfo);
 			rhs->update_rate = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"update_rate",true);
-			// TODO: parse field com.robotraconteur.datetime.DateTimeUTC isoch_epoch
+			// TODO: parse field com.robotraconteur.datetime.TimeSpec2 isoch_epoch
 			rhs->max_downsample = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"max_downsample",true);
 			return true;
 		}

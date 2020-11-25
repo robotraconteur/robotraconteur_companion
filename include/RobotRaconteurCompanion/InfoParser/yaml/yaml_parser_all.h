@@ -6,6 +6,7 @@
 #include "datatype_parser.h"
 #include "datetime__clock_parser.h"
 #include "datetime_parser.h"
+#include "device__clock_parser.h"
 #include "device__isoch_parser.h"
 #include "device_parser.h"
 #include "eventlog_parser.h"

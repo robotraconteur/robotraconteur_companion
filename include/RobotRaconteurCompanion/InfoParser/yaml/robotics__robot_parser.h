@@ -69,6 +69,7 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::robotics::robot::RobotStatePtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotState);
+			rhs->ts = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::datetime::TimeSpec3>(node,"ts",true);
 			rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 			rhs->command_mode = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::robotics::robot::RobotCommandMode::RobotCommandMode>(node,"command_mode",true);
 			rhs->operational_mode = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::robotics::robot::RobotOperationalMode::RobotOperationalMode>(node,"operational_mode",true);
@@ -97,6 +98,7 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::robotics::robot::AdvancedRobotStatePtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::AdvancedRobotState);
+			rhs->ts = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::datetime::TimeSpec3>(node,"ts",true);
 			rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 			rhs->command_mode = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::robotics::robot::RobotCommandMode::RobotCommandMode>(node,"command_mode",true);
 			rhs->operational_mode = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::robotics::robot::RobotOperationalMode::RobotOperationalMode>(node,"operational_mode",true);

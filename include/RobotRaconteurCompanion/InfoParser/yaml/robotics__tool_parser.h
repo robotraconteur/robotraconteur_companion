@@ -45,6 +45,7 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::robotics::tool::ToolStatePtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::robotics::tool::ToolState);
+			rhs->ts = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::datetime::TimeSpec3>(node,"ts",true);
 			rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 			rhs->tool_state_flags = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"tool_state_flags",true);
 			rhs->position = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"position",true);
