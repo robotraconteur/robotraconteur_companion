@@ -1,6 +1,7 @@
 #include <RobotRaconteurCompanion/StdRobDef/StdRobDefAll.h>
 #include <RobotRaconteurCompanion/InfoParser/yaml/yaml_parser_all.h>
-
+#include <RobotRaconteurCompanion/Util/AttributesUtil.h>
+#include <RobotRaconteurCompanion/Util/DateTimeUtil.h>
 void testfunction()
 {
 // Not a full test, just make sure everything compiles
@@ -252,6 +253,12 @@ node.as<com::robotraconteur::servo::ServoCommandPtr>();
 node.as<com::robotraconteur::signal::SignalInfoPtr>();
 node.as<com::robotraconteur::signal::SignalGroupInfoPtr>();
 node.as<com::robotraconteur::units::SIUnitPtr>();
+}
+
+void testfunction2()
+{
+com::robotraconteur::device::DeviceInfoPtr info;
+RobotRaconteur::Companion::Util::GetDefaultServiceAttributesFromDeviceInfo(info);
 }
 
 int main(int ac, char** av)
