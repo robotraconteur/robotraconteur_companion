@@ -10,7 +10,7 @@ The Robot Raconteur Companion library contains the following utilities:
 
 ## Standard Service Types Usage
 
-The library contains compiled stardard service type thunk code. To use the standard service types without custom types,
+The library contains compiled standard service type thunk code. To use the standard service types without custom types,
 use the following in the CMake lists:
 
     find_package(RobotRaconteurCompanion REQUIRED)
