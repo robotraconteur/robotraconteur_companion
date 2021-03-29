@@ -14,7 +14,7 @@ namespace YAML {
 		static bool decode(const Node& node, com::robotraconteur::fiducial::FiducialPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::fiducial::Fiducial);
 			rhs->fiducial_marker_class = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"fiducial_marker_class",true);
-			rhs->fiducial_marker_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"fiducial_marker_identifier",true);
+			rhs->fiducial_marker = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"fiducial_marker",true);
 			rhs->fiducial_pose = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::NamedPosePtr>(node,"fiducial_pose",true);
 			rhs->fiducial_scale = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"fiducial_scale",true);
 			rhs->foreground_color = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::color::ColorRGBA>(node,"foreground_color",true);
@@ -35,8 +35,8 @@ namespace YAML {
 		static bool decode(const Node& node, com::robotraconteur::fiducial::FiducialInfoPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::fiducial::FiducialInfo);
 			rhs->fiducial_marker_class = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"fiducial_marker_class",true);
-			rhs->fiducial_marker_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"fiducial_marker_identifier",true);
-			rhs->fiducial_marker_name_range = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"fiducial_marker_name_range",true);
+			rhs->fiducial_marker = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"fiducial_marker",true);
+			rhs->fiducial_marker_range = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"fiducial_marker_range",true);
 			rhs->default_size = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Size2D>(node,"default_size",true);
 			rhs->default_foreground_color = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::color::ColorRGBA>(node,"default_foreground_color",true);
 			rhs->default_background_color = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::color::ColorRGBA>(node,"default_background_color",true);
@@ -59,7 +59,7 @@ namespace YAML {
 		static bool decode(const Node& node, com::robotraconteur::fiducial::RecognizedFiducialPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::fiducial::RecognizedFiducial);
 			rhs->fiducial_marker_class = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"fiducial_marker_class",true);
-			rhs->fiducial_marker_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"fiducial_marker_identifier",true);
+			rhs->fiducial_marker = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"fiducial_marker",true);
 			rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::NamedPoseWithCovariancePtr>(node,"pose",true);
 			rhs->confidence = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"confidence",true);
 			// TODO: parse field varvalue{string} extended
