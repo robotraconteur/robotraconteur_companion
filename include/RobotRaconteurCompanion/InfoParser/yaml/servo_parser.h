@@ -50,6 +50,7 @@ namespace YAML {
 			if (!rhs) rhs.reset(new com::robotraconteur::servo::ServoState);
 			rhs->ts = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::datetime::TimeSpec3>(node,"ts",true);
 			rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
+			rhs->servo_state_flags = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"servo_state_flags",true);
 			rhs->mode = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::servo::ServoMode::ServoMode>(node,"mode",true);
 			rhs->position = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<double>(node,"position",true,true,0);
 			rhs->velocity = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<double>(node,"velocity",true,true,0);

@@ -18,6 +18,7 @@ namespace YAML {
 			rhs->P = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometry::Vector3>(node,"P",true,true,0);
 			rhs->link_inertias = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometry::SpatialInertia>(node,"link_inertias",true,true,0);
 			rhs->link_identifiers = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::identifier::IdentifierPtr>(node,"link_identifiers",true);
+			rhs->link_fiducials = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::fiducial::FiducialPtr>(node,"link_fiducials",true);
 			rhs->joint_numbers = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint32_t>(node,"joint_numbers",true,true,0);
 			rhs->flange_pose = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Pose>(node,"flange_pose",true);
 			rhs->flange_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"flange_identifier",true);

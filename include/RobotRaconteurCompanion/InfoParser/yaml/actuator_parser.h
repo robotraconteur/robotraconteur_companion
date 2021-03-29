@@ -5,6 +5,25 @@
 namespace YAML {
 
 	template<> 
+	struct convert<com::robotraconteur::actuator::ActuatorStatePtr>{
+		static Node encode(const com::robotraconteur::actuator::ActuatorStatePtr& rhs){
+			Node node;
+			return node;
+		}
+
+		static bool decode(const Node& node, com::robotraconteur::actuator::ActuatorStatePtr& rhs){
+			if (!rhs) rhs.reset(new com::robotraconteur::actuator::ActuatorState);
+			rhs->ts = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::datetime::TimeSpec3>(node,"ts",true);
+			rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
+			rhs->actuator_state_flags = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"actuator_state_flags",true);
+			rhs->actuator_command = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<double>(node,"actuator_command",true,true,0);
+			return true;
+		}
+	};
+
+
+
+	template<> 
 	struct convert<com::robotraconteur::actuator::ActuatorInfoPtr>{
 		static Node encode(const com::robotraconteur::actuator::ActuatorInfoPtr& rhs){
 			Node node;

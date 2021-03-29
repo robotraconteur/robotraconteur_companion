@@ -38,6 +38,8 @@ int string_to_enum_ActuatorTypeCode(const std::string &input, const YAML::Node& 
 	if(input =="conveyor") return 18;
 	if(input =="voltage") return 19;
 	if(input =="current") return 20;
+	if(input =="pneumatic_cylinder") return 21;
+	if(input =="hydraulic_cylinder") return 22;
 	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
@@ -47,6 +49,22 @@ int string_to_enum_ActuatorMode(const std::string &input, const YAML::Node& node
 	if(input =="halt") return 0;
 	if(input =="reduced_performance") return 1;
 	if(input =="normal") return 2;
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
+}
+
+int string_to_enum_ActuatorStateFlags(const std::string &input, const YAML::Node& node){
+	if(input =="unknown") return 0;
+	if(input =="ready") return 1;
+	if(input =="streaming") return 2;
+	if(input =="warning") return 4;
+	if(input =="error") return 8;
+	if(input =="fatal_error") return 16;
+	if(input =="e_stop") return 32;
+	if(input =="homed") return 64;
+	if(input =="homing_required") return 128;
+	if(input =="communication_failure") return 256;
+	if(input =="valid_command") return 512;
+	if(input =="enabled") return 1024;
 	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
@@ -153,6 +171,36 @@ int string_to_enum_MeshType(const std::string &input, const YAML::Node& node){
 	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
+int string_to_enum_GpsMeasurementStatusCode(const std::string &input, const YAML::Node& node){
+	if(input =="no_fix") return -1;
+	if(input =="fix") return 0;
+	if(input =="sbas_fix") return 1;
+	if(input =="gbas_fix") return 2;
+	if(input =="dgps_fix") return 18;
+	if(input =="waas_fix") return 33;
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
+}
+
+int string_to_enum_GpsMeasureSourceFlags(const std::string &input, const YAML::Node& node){
+	if(input =="none") return 0;
+	if(input =="gps") return 1;
+	if(input =="points") return 2;
+	if(input =="doppler") return 4;
+	if(input =="altimeter") return 8;
+	if(input =="magnetic") return 16;
+	if(input =="gyro") return 32;
+	if(input =="accel") return 64;
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
+}
+
+int string_to_enum_GpsCovarianceTypeCode(const std::string &input, const YAML::Node& node){
+	if(input =="unknown") return 0;
+	if(input =="approximated") return 1;
+	if(input =="diagonal_known") return 2;
+	if(input =="known") return 3;
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
+}
+
 int string_to_enum_JoystickCapabilities(const std::string &input, const YAML::Node& node){
 	if(input =="none") return 0;
 	if(input =="rumble") return 1;
@@ -162,21 +210,21 @@ int string_to_enum_JoystickCapabilities(const std::string &input, const YAML::No
 }
 
 int string_to_enum_GamepadButtons(const std::string &input, const YAML::Node& node){
-	if(input =="button_A") return 0;
-	if(input =="button_B") return 1;
-	if(input =="button_X") return 2;
-	if(input =="button_Y") return 3;
-	if(input =="button_back") return 4;
-	if(input =="button_guide") return 5;
-	if(input =="button_start") return 6;
-	if(input =="button_left_stick") return 7;
-	if(input =="button_right_stick") return 8;
-	if(input =="button_left_shoulder") return 9;
-	if(input =="button_right_shoulder") return 10;
-	if(input =="button_dpad_up") return 11;
-	if(input =="button_dpad_down") return 12;
-	if(input =="button_dpad_left") return 13;
-	if(input =="button_dpad_right") return 14;
+	if(input =="button_A") return 1;
+	if(input =="button_B") return 2;
+	if(input =="button_X") return 4;
+	if(input =="button_Y") return 8;
+	if(input =="button_back") return 16;
+	if(input =="button_guide") return 32;
+	if(input =="button_start") return 64;
+	if(input =="button_left_stick") return 128;
+	if(input =="button_right_stick") return 256;
+	if(input =="button_left_shoulder") return 512;
+	if(input =="button_right_shoulder") return 1024;
+	if(input =="button_dpad_up") return 2048;
+	if(input =="button_dpad_down") return 4096;
+	if(input =="button_dpad_left") return 8192;
+	if(input =="button_dpad_right") return 16384;
 	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
@@ -341,77 +389,6 @@ int string_to_enum_JointType(const std::string &input, const YAML::Node& node){
 	if(input =="floating") return 11;
 	if(input =="other_compound") return 12;
 	if(input =="fixed") return 13;
-	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
-}
-
-int string_to_enum_PlannerStatusCode(const std::string &input, const YAML::Node& node){
-	if(input =="is_not_configured") return -2;
-	if(input =="failure") return -1;
-	if(input =="unknown") return 0;
-	if(input =="is_configured") return 1;
-	if(input =="running") return 2;
-	if(input =="success") return 3;
-	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
-}
-
-int string_to_enum_PlannerMotionTypeCode(const std::string &input, const YAML::Node& node){
-	if(input =="default") return 0;
-	if(input =="start") return 1;
-	if(input =="freespace") return 2;
-	if(input =="linear") return 3;
-	if(input =="cylindrical") return 4;
-	if(input =="spherical") return 5;
-	if(input =="other") return 6;
-	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
-}
-
-int string_to_enum_PlannerAlgorithmCapabilityFlags(const std::string &input, const YAML::Node& node){
-	if(input =="none") return 0;
-	if(input =="joint_waypoint") return 1;
-	if(input =="cartesian_waypoint") return 2;
-	if(input =="other_waypoint") return 4;
-	if(input =="freespace_plan") return 8;
-	if(input =="cartesian_plan") return 16;
-	if(input =="raster_plan") return 32;
-	if(input =="freespace_waypoint") return 64;
-	if(input =="linear_waypoint") return 128;
-	if(input =="cylindrical_waypoint") return 256;
-	if(input =="spherical_waypoint") return 512;
-	if(input =="collision_avoidance") return 1024;
-	if(input =="request_time_from_start") return 2048;
-	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
-}
-
-int string_to_enum_FilterAlgorithmCapabilityFlags(const std::string &input, const YAML::Node& node){
-	if(input =="none") return 0;
-	if(input =="time_parameterization") return 1;
-	if(input =="retime") return 2;
-	if(input =="add_waypoints") return 4;
-	if(input =="velocity_limit") return 8;
-	if(input =="acceleration_limit") return 16;
-	if(input =="jerk_limit") return 32;
-	if(input =="collision_avoidance") return 64;
-	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
-}
-
-int string_to_enum_PlanningSceneCapabilityFlags(const std::string &input, const YAML::Node& node){
-	if(input =="none") return 0;
-	if(input =="geometry") return 1;
-	if(input =="robot_info") return 2;
-	if(input =="link_mutable") return 4;
-	if(input =="joint_mutable") return 8;
-	if(input =="move_joint_origin") return 16;
-	if(input =="supports_models") return 32;
-	if(input =="models_mutable") return 64;
-	if(input =="robot_info_mutable") return 128;
-	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
-}
-
-int string_to_enum_ContactTestTypeCode(const std::string &input, const YAML::Node& node){
-	if(input =="first") return 0;
-	if(input =="closest") return 1;
-	if(input =="all") return 2;
-	if(input =="limited") return 3;
 	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
@@ -613,7 +590,35 @@ int string_to_enum_SensorTypeCode(const std::string &input, const YAML::Node& no
 	if(input =="light_intensity") return 36;
 	if(input =="object_color") return 37;
 	if(input =="altitude") return 38;
-	if(input =="other") return 39;
+	if(input =="generic_word") return 39;
+	if(input =="generic_vector") return 40;
+	if(input =="position") return 41;
+	if(input =="angle") return 42;
+	if(input =="acceleration") return 43;
+	if(input =="angular_acceleration") return 44;
+	if(input =="inclinometer") return 45;
+	if(input =="tilt") return 46;
+	if(input =="motion") return 47;
+	if(input =="radiation") return 48;
+	if(input =="photoelectric") return 49;
+	if(input =="leak") return 50;
+	if(input =="chemical") return 51;
+	if(input =="particle") return 52;
+	if(input =="metal") return 53;
+	if(input =="smoke") return 54;
+	if(input =="flame") return 55;
+	if(input =="vibration") return 56;
+	if(input =="mark") return 57;
+	if(input =="contamination") return 58;
+	if(input =="inertial") return 59;
+	if(input =="magnetometer") return 60;
+	if(input =="navigation") return 61;
+	if(input =="tactile") return 62;
+	if(input =="meteorological") return 63;
+	if(input =="horizon") return 64;
+	if(input =="sun") return 65;
+	if(input =="star") return 66;
+	if(input =="other") return 67;
 	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
@@ -629,6 +634,7 @@ int string_to_enum_SensorDataFlags(const std::string &input, const YAML::Node& n
 	if(input =="warning") return 128;
 	if(input =="error") return 256;
 	if(input =="fatal_error") return 512;
+	if(input =="ready") return 1024;
 	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
@@ -637,7 +643,7 @@ int string_to_enum_ServoTypeCode(const std::string &input, const YAML::Node& nod
 	if(input =="generic_revolute") return 1;
 	if(input =="generic_prismatic") return 2;
 	if(input =="revolute_electric") return 3;
-	if(input =="revolute_linear") return 4;
+	if(input =="prismatic_electric") return 4;
 	if(input =="rc_servo") return 5;
 	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
@@ -663,6 +669,22 @@ int string_to_enum_ServoMode(const std::string &input, const YAML::Node& node){
 	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
+int string_to_enum_ServoStateFlags(const std::string &input, const YAML::Node& node){
+	if(input =="unknown") return 0;
+	if(input =="ready") return 1;
+	if(input =="streaming") return 2;
+	if(input =="warning") return 4;
+	if(input =="error") return 8;
+	if(input =="fatal_error") return 16;
+	if(input =="e_stop") return 32;
+	if(input =="homed") return 64;
+	if(input =="homing_required") return 128;
+	if(input =="communication_failure") return 256;
+	if(input =="valid_command") return 512;
+	if(input =="enabled") return 1024;
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
+}
+
 int string_to_enum_SignalType(const std::string &input, const YAML::Node& node){
 	if(input =="unknown") return 0;
 	if(input =="digital") return 1;
@@ -684,6 +706,19 @@ int string_to_enum_SignalAccessLevel(const std::string &input, const YAML::Node&
 	if(input =="restricted") return 2;
 	if(input =="readonly") return 3;
 	if(input =="all") return 4;
+	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
+}
+
+int string_to_enum_SignalDeviceStateFlags(const std::string &input, const YAML::Node& node){
+	if(input =="unknown") return 0;
+	if(input =="ready") return 1;
+	if(input =="streaming") return 2;
+	if(input =="warning") return 4;
+	if(input =="error") return 8;
+	if(input =="fatal_error") return 16;
+	if(input =="calibrated") return 32;
+	if(input =="calibration_required") return 64;
+	if(input =="communication_failure") return 128;
 	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 

@@ -49,8 +49,7 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::pointcloud::PointCloudPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloud);
-			rhs->width = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"width",true);
-			rhs->height = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"height",true);
+			rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::BoundingBoxPtr>(node,"bounds",true);
 			rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 			rhs->points = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometry::Point>(node,"points",true,true,0);
 			return true;
@@ -68,8 +67,7 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::pointcloud::PointCloudPartPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloudPart);
-			rhs->width = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"width",true);
-			rhs->height = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"height",true);
+			rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::BoundingBoxPtr>(node,"bounds",true);
 			rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 			rhs->points_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_offset",true);
 			rhs->points_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_total_len",true);
@@ -89,8 +87,7 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::pointcloud::PointCloudfPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloudf);
-			rhs->width = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"width",true);
-			rhs->height = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"height",true);
+			rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometryf::BoundingBoxPtr>(node,"bounds",true);
 			rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 			rhs->points = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometryf::Point>(node,"points",true,true,0);
 			return true;
@@ -108,8 +105,7 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::pointcloud::PointCloudPartfPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloudPartf);
-			rhs->width = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"width",true);
-			rhs->height = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"height",true);
+			rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometryf::BoundingBoxPtr>(node,"bounds",true);
 			rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 			rhs->points_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_offset",true);
 			rhs->points_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_total_len",true);
@@ -129,8 +125,7 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::pointcloud::PointCloud2Ptr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloud2);
-			rhs->width = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"width",true);
-			rhs->height = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"height",true);
+			rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::BoundingBoxPtr>(node,"bounds",true);
 			rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 			rhs->points = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::pointcloud::PointCloud2Point>(node,"points",true,true,0);
 			return true;
@@ -148,8 +143,7 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::pointcloud::PointCloud2PartPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloud2Part);
-			rhs->width = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"width",true);
-			rhs->height = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"height",true);
+			rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::BoundingBoxPtr>(node,"bounds",true);
 			rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 			rhs->points_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_offset",true);
 			rhs->points_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_total_len",true);
@@ -169,8 +163,7 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::pointcloud::PointCloud2fPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloud2f);
-			rhs->width = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"width",true);
-			rhs->height = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"height",true);
+			rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometryf::BoundingBoxPtr>(node,"bounds",true);
 			rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 			rhs->points = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::pointcloud::PointCloud2Pointf>(node,"points",true,true,0);
 			return true;
@@ -188,8 +181,7 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::pointcloud::PointCloud2PartfPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloud2Partf);
-			rhs->width = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"width",true);
-			rhs->height = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"height",true);
+			rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometryf::BoundingBoxPtr>(node,"bounds",true);
 			rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 			rhs->points_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_offset",true);
 			rhs->points_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_total_len",true);
@@ -209,8 +201,7 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::pointcloud::FreeformPointCloudPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::FreeformPointCloud);
-			rhs->width = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"width",true);
-			rhs->height = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"height",true);
+			rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::BoundingBoxPtr>(node,"bounds",true);
 			rhs->encoding = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"encoding",true);
 			rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 			// TODO: parse field varvalue points
@@ -230,8 +221,7 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::pointcloud::FreeformPointCloudPartPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::FreeformPointCloudPart);
-			rhs->width = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"width",true);
-			rhs->height = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"height",true);
+			rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::BoundingBoxPtr>(node,"bounds",true);
 			rhs->encoding = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"encoding",true);
 			rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 			rhs->points_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_offset",true);

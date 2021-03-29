@@ -16,6 +16,7 @@ namespace YAML {
 			rhs->object_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"object_identifier",true);
 			rhs->object_class = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceClassPtr>(node,"object_class",true);
 			rhs->object_shape = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::shapes::ShapeObjectPtr>(node,"object_shape",true);
+			rhs->object_fiducials = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::fiducial::FiducialPtr>(node,"object_fiducials",true);
 			// TODO: parse field varvalue{string} extended
 			return true;
 		}
@@ -71,8 +72,7 @@ namespace YAML {
 		static bool decode(const Node& node, com::robotraconteur::objectrecognition::ObjectRecognitionSensorInfoPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::ObjectRecognitionSensorInfo);
 			rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
-			rhs->range_min = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Point>(node,"range_min",true);
-			rhs->range_max = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Point>(node,"range_max",true);
+			rhs->range = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::BoundingBoxPtr>(node,"range",true);
 			rhs->resolution = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector3>(node,"resolution",true);
 			rhs->param_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::param::ParameterInfoPtr>(node,"param_info",true);
 			rhs->object_template_identifiers = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::identifier::IdentifierPtr>(node,"object_template_identifiers",true);

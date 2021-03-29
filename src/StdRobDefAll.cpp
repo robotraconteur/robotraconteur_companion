@@ -18,6 +18,7 @@ namespace Companion
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::device::com__robotraconteur__deviceFactory>());
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::device::clock::com__robotraconteur__device__clockFactory>());
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::eventlog::com__robotraconteur__eventlogFactory>());
+        node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::fiducial::com__robotraconteur__fiducialFactory>());
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::geometry::com__robotraconteur__geometryFactory>());
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::geometry::shapes::com__robotraconteur__geometry__shapesFactory>()); 
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::geometryf::com__robotraconteur__geometryfFactory>());
@@ -38,13 +39,12 @@ namespace Companion
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::pointcloud::com__robotraconteur__pointcloudFactory>());
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::pointcloud::sensor::com__robotraconteur__pointcloud__sensorFactory>());
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::resource::com__robotraconteur__resourceFactory>());
+        node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::resource::device::com__robotraconteur__resource__deviceFactory>());
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::robotics::joints::com__robotraconteur__robotics__jointsFactory>()); 
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::robotics::payload::com__robotraconteur__robotics__payloadFactory>());
-        node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::robotics::planning::com__robotraconteur__robotics__planningFactory>());
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::robotics::robot::com__robotraconteur__robotics__robotFactory>());   
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::robotics::tool::com__robotraconteur__robotics__toolFactory>());     
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::robotics::trajectory::com__robotraconteur__robotics__trajectoryFactory>());
-        node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::robotics::scene::com__robotraconteur__robotics__sceneFactory>());
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::sensor::com__robotraconteur__sensorFactory>());
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::sensordata::com__robotraconteur__sensordataFactory>());
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::servo::com__robotraconteur__servoFactory>());

@@ -75,6 +75,7 @@ namespace YAML {
 			rhs->width = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"width",true);
 			rhs->step = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"step",true);
 			rhs->encoding = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::image::ImageEncoding::ImageEncoding>(node,"encoding",true);
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};
@@ -202,43 +203,6 @@ namespace YAML {
 			rhs->data_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_offset",true);
 			rhs->data_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_total_len",true);
 			// TODO: parse field varvalue data_part
-			// TODO: parse field varvalue{string} extended
-			return true;
-		}
-	};
-
-
-
-	template<> 
-	struct convert<com::robotraconteur::image::DepthImagePtr>{
-		static Node encode(const com::robotraconteur::image::DepthImagePtr& rhs){
-			Node node;
-			return node;
-		}
-
-		static bool decode(const Node& node, com::robotraconteur::image::DepthImagePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::image::DepthImage);
-			rhs->depth_image = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::image::ImagePtr>(node,"depth_image",true);
-			rhs->intensity_image = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::image::ImagePtr>(node,"intensity_image",true);
-			rhs->depth_ticks_per_meter = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"depth_ticks_per_meter",true);
-			return true;
-		}
-	};
-
-
-
-	template<> 
-	struct convert<com::robotraconteur::image::FreeformDepthImagePtr>{
-		static Node encode(const com::robotraconteur::image::FreeformDepthImagePtr& rhs){
-			Node node;
-			return node;
-		}
-
-		static bool decode(const Node& node, com::robotraconteur::image::FreeformDepthImagePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::image::FreeformDepthImage);
-			rhs->depth_image = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::image::FreeformImagePtr>(node,"depth_image",true);
-			rhs->intensity_image = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::image::FreeformImagePtr>(node,"intensity_image",true);
-			rhs->depth_ticks_per_meter = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"depth_ticks_per_meter",true);
 			// TODO: parse field varvalue{string} extended
 			return true;
 		}

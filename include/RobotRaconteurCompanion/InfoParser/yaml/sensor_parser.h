@@ -38,7 +38,7 @@ namespace YAML {
 		static bool decode(const Node& node, com::robotraconteur::sensor::SensorDataPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::sensor::SensorData);
 			rhs->data_header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"data_header",true);
-			rhs->data_flags = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int32_t>(node,"data_flags",true);
+			rhs->data_flags = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_flags",true);
 			rhs->data = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<double>(node,"data",true,true,0);
 			rhs->data_type = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::datatype::DataTypePtr>(node,"data_type",true);
 			rhs->data_units = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::units::SIUnitPtr>(node,"data_units",true);

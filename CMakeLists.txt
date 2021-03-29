@@ -22,6 +22,7 @@ set(RR_SERVICE_NAMES_GROUP1
 	com.robotraconteur.device.isoch
 	com.robotraconteur.device
 	com.robotraconteur.eventlog
+	com.robotraconteur.fiducial
 	com.robotraconteur.geometry
 	com.robotraconteur.geometry.shapes
 	com.robotraconteur.geometryf
@@ -43,13 +44,12 @@ set(RR_SERVICE_NAMES_GROUP1
 	com.robotraconteur.pointcloud
 	com.robotraconteur.pointcloud.sensor
 	com.robotraconteur.resource
+	com.robotraconteur.resource.device
 	com.robotraconteur.robotics.joints
 	com.robotraconteur.robotics.payload
-	com.robotraconteur.robotics.planning
 	com.robotraconteur.robotics.robot
 	com.robotraconteur.robotics.tool
 	com.robotraconteur.robotics.trajectory
-	com.robotraconteur.robotics.scene
 	com.robotraconteur.sensor
 	com.robotraconteur.sensordata
 	com.robotraconteur.servo
@@ -141,6 +141,9 @@ if (BUILD_TESTING)
 	target_link_libraries(test_robdef_gen RobotRaconteurCompanion RobotRaconteurCore)
 	add_executable(test_infoparser test/test_infoparser.cpp)
 	target_link_libraries(test_infoparser RobotRaconteurCompanion RobotRaconteurCore yaml-cpp)
+	IF (MSVC)
+		target_compile_options(test_infoparser PRIVATE "/wd4251" "/wd4275" "/bigobj")
+	ENDIF()
 	add_executable(test_robotinfo_parser test/test_robotinfo_parser.cpp)
 	target_link_libraries(test_robotinfo_parser RobotRaconteurCompanion RobotRaconteurCore yaml-cpp)
 

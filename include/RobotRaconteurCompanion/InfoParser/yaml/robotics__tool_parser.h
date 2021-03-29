@@ -18,6 +18,7 @@ namespace YAML {
 			rhs->tool_capabilities = RobotRaconteur::Companion::InfoParser::yaml::parse_enum_flags<com::robotraconteur::robotics::tool::ToolCapabilities::ToolCapabilities>(node,"tool_capabilities",true);
 			rhs->tcp = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Transform>(node,"tcp",true);
 			rhs->inertia = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::SpatialInertia>(node,"inertia",true);
+			rhs->fiducials = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::fiducial::FiducialPtr>(node,"fiducials",true);
 			rhs->actuation_time = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"actuation_time",true);
 			rhs->close_position = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"close_position",true);
 			rhs->open_position = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"open_position",true);

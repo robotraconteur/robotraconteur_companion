@@ -112,6 +112,7 @@ namespace YAML {
 			rhs->description_resource = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::resource::ResourceIdentifierPtr>(node,"description_resource",true);
 			rhs->implemented_types = RobotRaconteur::Companion::InfoParser::yaml::parse_string_list(node,"implemented_types",true);
 			rhs->device_origin_pose = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::NamedPosePtr>(node,"device_origin_pose",true);
+			rhs->associated_devices = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_map_string<com::robotraconteur::identifier::IdentifierPtr>(node,"associated_devices",true);
 			// TODO: parse field varvalue{string} extended
 			return true;
 		}

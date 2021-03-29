@@ -31,41 +31,6 @@ namespace yaml
         }
     }
 
-    
-    static uint64_t parse_planner_algorithm_flags_override(const YAML::Node& node, const std::string& key, bool optional)
-    {
-        if (node[key])
-        {
-            uint32_t ret = 0;
-            std::vector<std::string> vals = node[key].as<std::vector<std::string> >();
-            for (auto v : vals)
-            {
-                try
-                {
-                    ret |= string_to_enum_FilterAlgorithmCapabilityFlags(v,node[key]);
-                    continue;
-                }
-                catch(const std::exception&)
-                {
-                    
-                }                
-                
-                ret |= string_to_enum_PlanningSceneCapabilityFlags(v,node[key]);
-            }
-            return ret;
-        }
-        else
-        {
-            if (optional)
-            {
-                return 0;
-            }
-            else
-            {
-                throw RobotRaconteur::InvalidArgumentException("Key not found: " + key);
-            }
-        }        
-    }
 }
 }
 }

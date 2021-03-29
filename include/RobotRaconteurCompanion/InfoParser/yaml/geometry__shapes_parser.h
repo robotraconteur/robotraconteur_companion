@@ -133,7 +133,7 @@ namespace YAML {
 		static bool decode(const Node& node, com::robotraconteur::geometry::shapes::MeshTexturePtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::MeshTexture);
 			rhs->image = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::image::CompressedImagePtr>(node,"image",true);
-			rhs->uvs = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector2>(node,"uvs",true);
+			rhs->uvs = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometry::Vector2>(node,"uvs",true,true,0);
 			return true;
 		}
 	};
@@ -170,12 +170,11 @@ namespace YAML {
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::shapes::MaterialPtr& rhs){
 			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Material);
-			rhs->albedo = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::color::ColorRGB>(node,"albedo",true);
-			rhs->alpha = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"alpha",true);
-			rhs->reflectivity = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::color::ColorRGB>(node,"reflectivity",true);
-			rhs->roughness = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"roughness",true);
-			rhs->emissivity = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"emissivity",true);
-			// TODO: parse field varvalue pbr
+			rhs->base_color_factor = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::color::ColorRGBA>(node,"base_color_factor",true);
+			rhs->metallic_factor = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"metallic_factor",true);
+			rhs->roughness_factor = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"roughness_factor",true);
+			rhs->emissive_factor = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::color::ColorRGBA>(node,"emissive_factor",true);
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};
@@ -196,6 +195,7 @@ namespace YAML {
 			// TODO: parse field com.robotraconteur.geometry.Pose{list} shape_poses
 			rhs->shape_materials = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::geometry::shapes::MaterialPtr>(node,"shape_materials",true);
 			rhs->inertia = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::SpatialInertia>(node,"inertia",true);
+			rhs->fiducials = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::fiducial::FiducialPtr>(node,"fiducials",true);
 			// TODO: parse field varvalue{string} extended
 			return true;
 		}

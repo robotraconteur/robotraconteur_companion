@@ -31,6 +31,24 @@ namespace YAML {
 
 
 	template<> 
+	struct convert<com::robotraconteur::signal::SignalDeviceStatePtr>{
+		static Node encode(const com::robotraconteur::signal::SignalDeviceStatePtr& rhs){
+			Node node;
+			return node;
+		}
+
+		static bool decode(const Node& node, com::robotraconteur::signal::SignalDeviceStatePtr& rhs){
+			if (!rhs) rhs.reset(new com::robotraconteur::signal::SignalDeviceState);
+			rhs->ts = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::datetime::TimeSpec3>(node,"ts",true);
+			rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
+			rhs->signal_device_state_flags = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"signal_device_state_flags",true);
+			return true;
+		}
+	};
+
+
+
+	template<> 
 	struct convert<com::robotraconteur::signal::SignalGroupInfoPtr>{
 		static Node encode(const com::robotraconteur::signal::SignalGroupInfoPtr& rhs){
 			Node node;

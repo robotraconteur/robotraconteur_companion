@@ -1,11 +1,11 @@
 #include <RobotRaconteurCompanion/StdRobDef/StdRobDefAll.h>
 #include <RobotRaconteurCompanion/InfoParser/yaml/yaml_parser_all.h>
-#include <RobotRaconteurCompanion/Util/AttributesUtil.h>
-#include <RobotRaconteurCompanion/Util/DateTimeUtil.h>
+
 void testfunction()
 {
 // Not a full test, just make sure everything compiles
 YAML::Node node = YAML::Load("[1, 2, 3]");
+node.as<com::robotraconteur::actuator::ActuatorStatePtr>();
 node.as<com::robotraconteur::actuator::ActuatorInfoPtr>();
 node.as<com::robotraconteur::bignum::BigNumPtr>();
 node.as<com::robotraconteur::bignum::UnsignedBigNumPtr>();
@@ -33,6 +33,12 @@ node.as<com::robotraconteur::eventlog::EventLogTypePtr>();
 node.as<com::robotraconteur::eventlog::EventLogMessageHeaderPtr>();
 node.as<com::robotraconteur::eventlog::EventLogMessagePtr>();
 node.as<com::robotraconteur::eventlog::EventLogInfoPtr>();
+node.as<com::robotraconteur::fiducial::FiducialPtr>();
+node.as<com::robotraconteur::fiducial::FiducialInfoPtr>();
+node.as<com::robotraconteur::fiducial::RecognizedFiducialPtr>();
+node.as<com::robotraconteur::fiducial::RecognizedFiducialsPtr>();
+node.as<com::robotraconteur::fiducial::FiducialSensorInfoPtr>();
+node.as<com::robotraconteur::fiducial::FiducialSensorDataPtr>();
 node.as<com::robotraconteur::geometry::Vector2>();
 node.as<com::robotraconteur::geometry::Vector3>();
 node.as<com::robotraconteur::geometry::Vector6>();
@@ -131,6 +137,7 @@ node.as<com::robotraconteur::geometryi::NamedWrenchPtr>();
 node.as<com::robotraconteur::geometryi::NamedSpatialInertiaPtr>();
 node.as<com::robotraconteur::geometryi::BoundingBox2DPtr>();
 node.as<com::robotraconteur::geometryi::BoundingBoxPtr>();
+node.as<com::robotraconteur::gps::GpsStatusPtr>();
 node.as<com::robotraconteur::gps::GpsStatePtr>();
 node.as<com::robotraconteur::hid::joystick::JoystickInfoPtr>();
 node.as<com::robotraconteur::hid::joystick::JoystickStatePtr>();
@@ -148,8 +155,6 @@ node.as<com::robotraconteur::image::FreeformImagePtr>();
 node.as<com::robotraconteur::image::ImagePartPtr>();
 node.as<com::robotraconteur::image::CompressedImagePartPtr>();
 node.as<com::robotraconteur::image::FreeformImagePartPtr>();
-node.as<com::robotraconteur::image::DepthImagePtr>();
-node.as<com::robotraconteur::image::FreeformDepthImagePtr>();
 node.as<com::robotraconteur::image::ImageResourcePtr>();
 node.as<com::robotraconteur::imaging::camerainfo::PlumbBobDistortionInfoPtr>();
 node.as<com::robotraconteur::imaging::camerainfo::CameraCalibrationPtr>();
@@ -201,35 +206,12 @@ node.as<com::robotraconteur::resource::ResourcePartPtr>();
 node.as<com::robotraconteur::robotics::joints::JointLimitsPtr>();
 node.as<com::robotraconteur::robotics::joints::JointInfoPtr>();
 node.as<com::robotraconteur::robotics::payload::PayloadInfoPtr>();
-node.as<com::robotraconteur::robotics::planning::JointWaypointPtr>();
-node.as<com::robotraconteur::robotics::planning::CartesianWaypointPtr>();
-node.as<com::robotraconteur::robotics::planning::OtherWaypointPtr>();
-node.as<com::robotraconteur::robotics::planning::PlanningRequestPtr>();
-node.as<com::robotraconteur::robotics::planning::PlanningResponsePtr>();
-node.as<com::robotraconteur::robotics::planning::ContactResultPtr>();
-node.as<com::robotraconteur::robotics::planning::InvKinResultPtr>();
-node.as<com::robotraconteur::robotics::planning::PlannerAlgorithmInfoPtr>();
-node.as<com::robotraconteur::robotics::planning::PlannerInfoPtr>();
-node.as<com::robotraconteur::robotics::planning::PlanningSceneInfoPtr>();
-node.as<com::robotraconteur::robotics::planning::PlannerModelJointPositionsPtr>();
-node.as<com::robotraconteur::robotics::planning::PlannerJointPositionsPtr>();
-node.as<com::robotraconteur::robotics::planning::EnvStatePtr>();
-node.as<com::robotraconteur::robotics::planning::AllowedCollisionEntryPtr>();
-node.as<com::robotraconteur::robotics::planning::AllowedCollisionMatrixPtr>();
 node.as<com::robotraconteur::robotics::robot::RobotKinChainInfoPtr>();
 node.as<com::robotraconteur::robotics::robot::RobotInfoPtr>();
 node.as<com::robotraconteur::robotics::robot::RobotStatePtr>();
 node.as<com::robotraconteur::robotics::robot::AdvancedRobotStatePtr>();
 node.as<com::robotraconteur::robotics::robot::RobotStateSensorDataPtr>();
 node.as<com::robotraconteur::robotics::robot::RobotJointCommandPtr>();
-node.as<com::robotraconteur::robotics::scene::JointPtr>();
-node.as<com::robotraconteur::robotics::scene::JointDynamicsPtr>();
-node.as<com::robotraconteur::robotics::scene::JointSafetyPtr>();
-node.as<com::robotraconteur::robotics::scene::JointCalibrationPtr>();
-node.as<com::robotraconteur::robotics::scene::JointMimicPtr>();
-node.as<com::robotraconteur::robotics::scene::LinkPtr>();
-node.as<com::robotraconteur::robotics::scene::ModelPtr>();
-node.as<com::robotraconteur::robotics::scene::ScenePtr>();
 node.as<com::robotraconteur::robotics::tool::ToolInfoPtr>();
 node.as<com::robotraconteur::robotics::tool::ToolStatePtr>();
 node.as<com::robotraconteur::robotics::tool::ToolStateSensorDataPtr>();
@@ -251,14 +233,9 @@ node.as<com::robotraconteur::servo::ServoStatePtr>();
 node.as<com::robotraconteur::servo::ServoStateSensorDataPtr>();
 node.as<com::robotraconteur::servo::ServoCommandPtr>();
 node.as<com::robotraconteur::signal::SignalInfoPtr>();
+node.as<com::robotraconteur::signal::SignalDeviceStatePtr>();
 node.as<com::robotraconteur::signal::SignalGroupInfoPtr>();
 node.as<com::robotraconteur::units::SIUnitPtr>();
-}
-
-void testfunction2()
-{
-com::robotraconteur::device::DeviceInfoPtr info;
-RobotRaconteur::Companion::Util::GetDefaultServiceAttributesFromDeviceInfo(info);
 }
 
 int main(int ac, char** av)
