@@ -243,28 +243,33 @@ int string_to_enum_JoystickHatState(const std::string &input, const YAML::Node& 
 
 int string_to_enum_ImageEncoding(const std::string &input, const YAML::Node& node){
 	if(input =="unknown") return 0;
-	if(input =="rgb8") return 4096;
-	if(input =="rgba8") return 4097;
-	if(input =="bgr8") return 4098;
-	if(input =="bgra8") return 4099;
-	if(input =="rgba16") return 4100;
-	if(input =="bgra16") return 4101;
+	if(input =="rgb888") return 4096;
+	if(input =="rgba8888") return 4097;
+	if(input =="bgr888") return 4098;
+	if(input =="bgra8888") return 4099;
+	if(input =="rgba16_16_16_16") return 4100;
+	if(input =="bgra16_16_16_16") return 4101;
 	if(input =="mono8") return 8192;
 	if(input =="mono16") return 8193;
 	if(input =="mono32") return 8194;
-	if(input =="monof32") return 8195;
-	if(input =="monof64") return 8196;
-	if(input =="bayer_rggb8") return 12288;
-	if(input =="bayer_bggr8") return 12289;
-	if(input =="bayer_gbrg8") return 12290;
-	if(input =="bayer_grbg8") return 12291;
+	if(input =="mono_f16") return 8195;
+	if(input =="mono_f32") return 8196;
+	if(input =="mono_f64") return 8197;
+	if(input =="bayer_rggb8888") return 12288;
+	if(input =="bayer_bggr8888") return 12289;
+	if(input =="bayer_gbrg8888") return 12290;
+	if(input =="bayer_grbg8888") return 12291;
 	if(input =="depth_u16") return 16384;
-	if(input =="depth_u32") return 16385;
-	if(input =="depth_i64") return 16386;
-	if(input =="depth_f32") return 16387;
-	if(input =="depth_f64") return 16388;
+	if(input =="depth_i16") return 16385;
+	if(input =="depth_u32") return 16386;
+	if(input =="depth_i32") return 16387;
+	if(input =="depth_u64") return 16388;
+	if(input =="depth_i64") return 16389;
+	if(input =="depth_f32") return 16390;
+	if(input =="depth_f64") return 16391;
 	if(input =="freeform") return 20480;
 	if(input =="compressed") return 24576;
+	if(input =="other") return 32768;
 	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 
