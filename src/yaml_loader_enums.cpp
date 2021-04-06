@@ -623,7 +623,16 @@ int string_to_enum_SensorTypeCode(const std::string &input, const YAML::Node& no
 	if(input =="horizon") return 64;
 	if(input =="sun") return 65;
 	if(input =="star") return 66;
-	if(input =="other") return 67;
+	if(input =="moon") return 67;
+	if(input =="attitude") return 68;
+	if(input =="airspeed") return 69;
+	if(input =="distance") return 70;
+	if(input =="heading") return 71;
+	if(input =="safety") return 72;
+	if(input =="door") return 73;
+	if(input =="security") return 74;
+	if(input =="other") return 32768;
+	if(input =="vendor_defined") return 524288;
 	throw RobotRaconteur::InvalidArgumentException("Invalid enum value");
 }
 

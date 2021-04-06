@@ -52,6 +52,7 @@ namespace YAML {
 			rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::BoundingBoxPtr>(node,"bounds",true);
 			rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 			rhs->points = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometry::Point>(node,"points",true,true,0);
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};
@@ -72,6 +73,7 @@ namespace YAML {
 			rhs->points_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_offset",true);
 			rhs->points_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_total_len",true);
 			rhs->points = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometry::Point>(node,"points",true,true,0);
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};
@@ -90,6 +92,7 @@ namespace YAML {
 			rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometryf::BoundingBoxPtr>(node,"bounds",true);
 			rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 			rhs->points = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometryf::Point>(node,"points",true,true,0);
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};
@@ -110,6 +113,7 @@ namespace YAML {
 			rhs->points_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_offset",true);
 			rhs->points_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_total_len",true);
 			rhs->points = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometryf::Point>(node,"points",true,true,0);
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};
@@ -128,6 +132,7 @@ namespace YAML {
 			rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::BoundingBoxPtr>(node,"bounds",true);
 			rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 			rhs->points = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::pointcloud::PointCloud2Point>(node,"points",true,true,0);
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};
@@ -148,6 +153,7 @@ namespace YAML {
 			rhs->points_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_offset",true);
 			rhs->points_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_total_len",true);
 			rhs->points = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::pointcloud::PointCloud2Point>(node,"points",true,true,0);
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};
@@ -166,6 +172,7 @@ namespace YAML {
 			rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometryf::BoundingBoxPtr>(node,"bounds",true);
 			rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 			rhs->points = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::pointcloud::PointCloud2Pointf>(node,"points",true,true,0);
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};
@@ -186,6 +193,7 @@ namespace YAML {
 			rhs->points_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_offset",true);
 			rhs->points_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_total_len",true);
 			rhs->points = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::pointcloud::PointCloud2Pointf>(node,"points",true,true,0);
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};

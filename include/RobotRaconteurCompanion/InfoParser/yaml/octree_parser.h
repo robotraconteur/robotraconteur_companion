@@ -34,6 +34,7 @@ namespace YAML {
 			if (!rhs) rhs.reset(new com::robotraconteur::octree::OcTree);
 			rhs->octree_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::octree::OcTreeInfoPtr>(node,"octree_info",true);
 			rhs->data = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"data",true,true,0);
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};
@@ -53,6 +54,7 @@ namespace YAML {
 			rhs->data_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_offset",true);
 			rhs->data_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_total_len",true);
 			rhs->data = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"data",true,true,0);
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};

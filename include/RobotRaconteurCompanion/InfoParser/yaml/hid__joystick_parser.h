@@ -23,6 +23,7 @@ namespace YAML {
 			rhs->joystick_device_product = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint16_t>(node,"joystick_device_product",true);
 			rhs->joystick_device_version = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint16_t>(node,"joystick_device_version",true);
 			rhs->joystick_uuid = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::uuid::UUID>(node,"joystick_uuid",true);
+			// TODO: parse field varvalue{string} extended
 			return true;
 		}
 	};
