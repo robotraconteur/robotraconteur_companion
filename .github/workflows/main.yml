@@ -41,7 +41,7 @@ jobs:
         sudo cmake --install rr-build --config Release
     - name: cmake
       run: >
-        cmake -S src -B build 
+        cmake -G Ninja -S src -B build 
         -DCMAKE_TOOLCHAIN_FILE=${{ github.workspace }}/vcpkg-robotraconteur/scripts/buildsystems/vcpkg.cmake
         -DVCPKG_TARGET_TRIPLET=x64-windows-release
         -DCMAKE_BUILD_TYPE=Release
