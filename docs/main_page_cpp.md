@@ -3,7 +3,7 @@ Robot Raconteur Companion Library C++ {#mainpage}
 
 ![](logo-header.svg)
 
-* \ref readme_page
+* \ref README.md
 * Converters
   * [EigenConverters.h File Reference](@ref EigenConverters.h)
 * StdRobDef
