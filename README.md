@@ -243,6 +243,31 @@ joy_sensor_data->gamepad_state = pad_state;
 
 See the doxygen documentation for `RobotRaconteurCompanion/Util/SensorDataUtil.h` for more information on the available functions.
 
+## Compiling
+
+The companion library can be built using the standard CMake build process.
+
+`vcpkg` can also be used to build the companion library for use with your application. 
+See https://github.com/microsoft/vcpkg for installation instructions.
+
+To build Robot Raconteur, clone the `vcpkg-robotraconteur` overlay repo in the vcpkg directory:
+
+```
+git clone https://github.com/robotraconteur/vcpkg-robotraconteur.git
+```
+
+and build the library:
+
+```
+vcpkg --overlay-ports=vcpkg-robotraconteur\ports install robotraconteur-companion
+```
+
+To build x64, use:
+
+```
+vcpkg --overlay-ports=vcpkg-robotraconteur\ports install robotraconteur-companion:x64-windows
+```
+
 ## License
 
 Apache 2.0
