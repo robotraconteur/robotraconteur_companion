@@ -73,6 +73,9 @@ jobs:
         triplet: x64-windows-release
         token: ${{ github.token }}
         extra-args: --overlay-ports=${{ github.workspace }}/vcpkg-robotraconteur/ports
+    - uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: x64
     - name: cmake
       run: >
         cmake -G Ninja -S src -B build 
