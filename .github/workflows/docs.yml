@@ -1,0 +1,42 @@
+name: docs
+
+on:
+  workflow_dispatch:
+    inputs:
+      run_number:
+        description: 'Run number of the build to pull documentation from'
+        required: true
+
+jobs:
+  collect_documentation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dawidd6/action-download-artifact@v2
+        with:
+          workflow: 'wheels.yml'
+          run_number: ${{ github.event.inputs.run_number }}
+          name: 'docs'
+          path: 'docs'
+      - uses: actions/upload-pages-artifact@v1
+        with:
+          path: 'docs'
+  deploy_documentation:
+    # Add a dependency to the build job
+    needs: collect_documentation
+
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+
+    # Deploy to the github-pages environment
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    # Specify runner + deployment step
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v1

@@ -48,11 +48,13 @@ jobs:
         -DBULID_TESTING=ON
     - name: cmake build
       run: cmake --build build --config Release
+    - name: cmake build
+      run: cmake --build build --config Release --target RobotRaconteurCompanion_doc
     - name: archive docs
       uses: actions/upload-artifact@v2
       with:
         name: 'docs'
-        path: build/docs/*
+        path: build/docs/html/*
 
   build-windows:
     runs-on: windows-2019
