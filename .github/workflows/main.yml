@@ -71,7 +71,7 @@ jobs:
         pkgs: robotraconteur yaml-cpp eigen3
         triplet: x64-windows-release
         token: ${{ github.token }}
-        extra-args: --head --overlay-ports=${{ github.workspace }}/vcpkg-robotraconteur/ports
+        extra-args: --overlay-ports=${{ github.workspace }}/vcpkg-robotraconteur/ports
     - name: cmake
       run: >
         cmake -G Ninja -S src -B build 
