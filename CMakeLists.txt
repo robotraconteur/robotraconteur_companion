@@ -155,3 +155,23 @@ if (BUILD_TESTING)
 	add_test(NAME test_eigen_converters COMMAND test_eigen_converters)
  endif()
 
+ find_package(Doxygen)
+ option(BUILD_DOCUMENTATION "Build documentation using Doxygen" ${DOXYGEN_FOUND})
+
+# https://p5r.uk/blog/2014/cmake-doxygen.html
+if(BUILD_DOCUMENTATION)
+    if(NOT DOXYGEN_FOUND)
+        message(FATAL_ERROR "Doxygen is needed to build the documentation")
+    endif()
+
+    file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/docs)
+    configure_file(${CMAKE_SOURCE_DIR}/docs/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+
+    add_custom_target(
+        RobotRaconteurCompanion_doc
+        COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Generating API documentation with Doxygen"
+        VERBATIM)
+endif()
+

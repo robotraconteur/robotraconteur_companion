@@ -1,4 +1,9 @@
+<!---
+\page readme_page Robot Raconteur Companion Library (C++)
+-->
 # Robot Raconteur Companion Library (C++)
+
+<p align="center"><img src="docs/figures/logo-header.svg"></p>
 
 The Robot Raconteur companion library contains utilities for working with Robot Raconteur services and devices.
 This companion library is intended to be used with the Robot Raconteur Core library
