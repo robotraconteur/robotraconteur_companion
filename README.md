@@ -1,6 +1,3 @@
-<!---
-\page readme_page Robot Raconteur Companion Library (C++)
--->
 # Robot Raconteur Companion Library (C++)
 
 <p align="center"><img src="docs/figures/logo-header.svg"></p>
