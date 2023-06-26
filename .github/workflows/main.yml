@@ -48,7 +48,7 @@ jobs:
         -DBULID_TESTING=ON
     - name: cmake build
       run: cmake --build build --config Release
-    - name: cmake build
+    - name: cmake build docs
       run: cmake --build build --config Release --target RobotRaconteurCompanion_doc
     - name: archive docs
       uses: actions/upload-artifact@v2
