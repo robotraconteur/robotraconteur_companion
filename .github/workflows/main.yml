@@ -28,10 +28,11 @@ jobs:
         sudo apt-get install 
         zlib1g zlib1g-dev libssl-dev libusb-1.0-0
         libusb-1.0-0-dev libdbus-1-3 libdbus-1-dev libbluetooth3 libbluetooth-dev zlib1g zlib1g-dev 
-        git cmake g++ make libboost-all-dev curl libgtest-dev doxygen libyaml-cpp-dev libeigen3-dev -qq    
+        git cmake g++ make libboost-all-dev curl libgtest-dev doxygen libyaml-cpp-dev libeigen3-dev
+        ninja-build -qq    
     - name: cmake rr
       run: >
-        cmake -S rr-src -B rr-build 
+        cmake -G Ninja -S rr-src -B rr-build 
         -DCMAKE_BUILD_TYPE=Release
         -DBUILD_GEN=ON -DBUILD_TESTING=OFF
     - name: cmake rr build
