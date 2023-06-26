@@ -31,6 +31,25 @@ namespace detail
     }
 }
 
+/**
+ * @brief Get the Default Service Attributes From Device Info object
+ * 
+ * Get the default attributes from a DeviceInfo object. These attributes are
+ * used to populate the default service attributes when registering a service
+ * with a device.
+ * 
+ * The following attributes are used:
+ * 
+ * - device
+ * - parent_device
+ * - manufacturer
+ * - model
+ * - serial_number
+ * - user_description
+ *  
+ * @param info The DeviceInfo object
+ * @return std::map<std::string,RobotRaconteur::RRValuePtr> The default attributes
+ */
 static std::map<std::string,RobotRaconteur::RRValuePtr> GetDefaultServiceAttributesFromDeviceInfo(const com::robotraconteur::device::DeviceInfoPtr& info)
 {
     std::map<std::string,RobotRaconteur::RRValuePtr> o;

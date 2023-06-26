@@ -13,7 +13,13 @@ namespace Util
 {
 
     
-
+    /**
+     * @brief Check if an identifier is "any" (UUID is all zeros)
+     * 
+     * @param identifier The identifier to check
+     * @return true 
+     * @return false 
+     */
     static bool IsIdentifierAnyUuid(com::robotraconteur::identifier::IdentifierPtr identifier)
     {
         if (!identifier)
@@ -27,7 +33,14 @@ namespace Util
         }
         return true;
     }
-
+    
+    /**
+     * @brief Check if an identifier is "any" name (Name is empty)
+     * 
+     * @param identifier The identifier to check
+     * @return true 
+     * @return false 
+     */
     static bool IsIdentifierAnyName(com::robotraconteur::identifier::IdentifierPtr identifier)
     {
         if (!identifier)
@@ -38,6 +51,13 @@ namespace Util
         return identifier->name.empty();
     }
 
+    /**
+     * @brief Check if an identifier is "any" (UUID is all zeros and name is empty)
+     * 
+     * @param identifier The identifier to check
+     * @return true 
+     * @return false 
+     */
     static bool IsIdentifierAny(com::robotraconteur::identifier::IdentifierPtr identifier)
     {
         if (!identifier)
@@ -55,6 +75,23 @@ namespace Util
         return true;
     }
 
+    /**
+     * @brief Check if two identifiers match
+     * 
+     * Identifiers have a complex matching rules:
+     * 
+     * - If both identifiers are "any", they match
+     * - If either identifier is "any", they match
+     * - If both identifiers have the same name and UUID, they match
+     * - If the name is Any for either identifier and UUID matches, they match
+     * - If the UUID is Any for either identifier and name matches, they match
+     * - Otherwise, they do not match 
+     * 
+     * @param expected The expected identifier
+     * @param test The identifier to test
+     * @return true 
+     * @return false 
+     */
     static bool IsIdentifierMatch(com::robotraconteur::identifier::IdentifierPtr expected, com::robotraconteur::identifier::IdentifierPtr test)
     {
         if (IsIdentifierAny(expected) || IsIdentifierAny(test))
@@ -92,6 +129,13 @@ namespace Util
         return name_match && uuid_match;
     }
 
+    /**
+     * @brief Create an identifier from a name and UUID
+     * 
+     * @param name The name
+     * @param uuid The UUID
+     * @return com::robotraconteur::identifier::IdentifierPtr 
+     */
     static com::robotraconteur::identifier::IdentifierPtr CreateIdentifier(const std::string& name, const std::string& uuid)
     {
         com::robotraconteur::identifier::IdentifierPtr ret(new com::robotraconteur::identifier::Identifier());
@@ -101,6 +145,13 @@ namespace Util
         return ret;
     }
 
+    /**
+     * @brief Create an identifier from a name and UUID
+     * 
+     * @param name The name
+     * @param boost_uuid The UUID
+     * @return com::robotraconteur::identifier::IdentifierPtr 
+     */
     static com::robotraconteur::identifier::IdentifierPtr CreateIdentifier(const std::string& name, const boost::uuids::uuid& boost_uuid)
     {
         com::robotraconteur::identifier::IdentifierPtr ret(new com::robotraconteur::identifier::Identifier());
@@ -109,6 +160,14 @@ namespace Util
         return ret;
     }
 
+    /**
+     * @brief Create a Identifier From Name object
+     * 
+     * The UUID will be set to all zeros
+     * 
+     * @param name The name
+     * @return com::robotraconteur::identifier::IdentifierPtr 
+     */
     static com::robotraconteur::identifier::IdentifierPtr CreateIdentifierFromName(const std::string& name)
     {
         com::robotraconteur::identifier::IdentifierPtr ret(new com::robotraconteur::identifier::Identifier());
@@ -117,6 +176,14 @@ namespace Util
         return ret;
     }
 
+    /**
+     * @brief Convert an identifier to a string
+     * 
+     * The string format is "name|uuid". If the name is empty, it is omitted. If the UUID is all zeros, it is omitted.
+     * 
+     * @param id The identifier to convert
+     * @return std::string The string representation of the identifier
+     */
     static std::string IdentifierToString(const com::robotraconteur::identifier::IdentifierPtr& id)
     {
         if (!id)
@@ -137,6 +204,14 @@ namespace Util
         }
     }
 
+    /**
+     * @brief Convert a string to an identifier
+     * 
+     * The string format is "name|uuid". If the name is empty, it is omitted. If the UUID is all zeros, it is omitted.
+     * 
+     * @param string_id The string representation of the identifier
+     * @return com::robotraconteur::identifier::IdentifierPtr The identifier
+     */
     static com::robotraconteur::identifier::IdentifierPtr StringToIdentifier(const std::string& string_id)
     {
         static std::string name_regex_str = "(?:[a-zA-Z](?:\\w*[a-zA-Z0-9])?)(?:\\.[a-zA-Z](?:\\w*[a-zA-Z0-9])?)*";
