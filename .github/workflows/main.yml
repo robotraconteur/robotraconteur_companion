@@ -17,6 +17,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         path: src
+        submodules: recursive
     - uses: actions/checkout@v3
       with:
         path: rr-src
@@ -61,6 +62,7 @@ jobs:
     - uses: actions/checkout@v3
       with:
         path: src
+        submodules: recursive
     - uses: actions/checkout@v3
       with:
         path: vcpkg-robotraconteur
