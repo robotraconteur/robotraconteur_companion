@@ -1,0 +1,88 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  release:
+    types:
+      - created
+  workflow_dispatch:
+
+jobs:
+  build-ubuntu:
+    runs-on: ubuntu-20.04
+    env:
+      DEBIAN_FRONTEND: noninteractive
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        path: src
+        submodules: recursive
+    - uses: actions/checkout@v3
+      with:
+        path: rr-src
+        repository: robotraconteur/robotraconteur
+    - name: apt update
+      run: sudo apt update
+    - name: apt
+      run: >
+        sudo apt-get install 
+        zlib1g zlib1g-dev libssl-dev libusb-1.0-0
+        libusb-1.0-0-dev libdbus-1-3 libdbus-1-dev libbluetooth3 libbluetooth-dev zlib1g zlib1g-dev 
+        git cmake g++ make libboost-all-dev curl libgtest-dev doxygen libyaml-cpp-dev libeigen3-dev
+        ninja-build -qq    
+    - name: cmake rr
+      run: >
+        cmake -G Ninja -S rr-src -B rr-build 
+        -DCMAKE_BUILD_TYPE=Release
+        -DBUILD_GEN=ON -DBUILD_TESTING=OFF
+    - name: cmake rr build
+      run: |
+        cmake --build rr-build --config Release
+        sudo cmake --install rr-build --config Release
+    - name: cmake
+      run: >
+        cmake -G Ninja -S src -B build 
+        -DCMAKE_BUILD_TYPE=Release
+        -DBUILD_DOCUMENATION=ON
+        -DBULID_TESTING=ON
+    - name: cmake build
+      run: cmake --build build --config Release
+    - name: cmake build docs
+      run: cmake --build build --config Release --target RobotRaconteurCompanion_doc
+    - name: archive docs
+      uses: actions/upload-artifact@v2
+      with:
+        name: 'docs'
+        path: build/docs/html/*
+
+  build-windows:
+    runs-on: windows-2019
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        path: src
+        submodules: recursive
+    - uses: actions/checkout@v3
+      with:
+        path: vcpkg-robotraconteur
+        repository: robotraconteur/vcpkg-robotraconteur
+    - name: vcpkg build
+      uses: johnwason/vcpkg-action@v5
+      id: vcpkg
+      with:
+        pkgs: robotraconteur yaml-cpp eigen3
+        triplet: x64-windows-release
+        token: ${{ github.token }}
+        extra-args: --overlay-ports=${{ github.workspace }}/vcpkg-robotraconteur/ports
+    - uses: ilammy/msvc-dev-cmd@v1
+      with:
+        arch: x64
+    - name: cmake
+      run: >
+        cmake -G Ninja -S src -B build 
+        ${{ steps.vcpkg.outputs.vcpkg-cmake-config }}
+        -DCMAKE_BUILD_TYPE=Release
+        -DBULID_TESTING=ON
+    - name: cmake build
+      run: cmake --build build --config Release
