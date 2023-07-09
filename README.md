@@ -20,7 +20,7 @@ The companion library is licensed under the Apache 2.0 license.
 
 The Robot Raconteur Companion library contains the following utilities:
 
-* Stand Service Definition (robdef) types
+* Standard Service Definition (robdef) types
 * YAML parsers for device info structures
 * Eigen converters
 * Date/time converters
