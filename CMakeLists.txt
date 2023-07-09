@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.3)
-project(RobotRaconteurCompanion)
+project(RobotRaconteurCompanion VERSION 0.2.0 LANGUAGES CXX)
 
 set (CMAKE_CXX_STANDARD 11)
 
-find_package(RobotRaconteur 0.12.1 REQUIRED)
+find_package(RobotRaconteur 0.17.0 REQUIRED)
 find_package(yaml-cpp REQUIRED)
 
 if(NOT IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/robdef/group1")
@@ -109,7 +109,7 @@ configure_package_config_file(
 )
 
 write_basic_package_version_file("${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}Version.cmake" 
-    VERSION 0.1.0 COMPATIBILITY AnyNewerVersion)
+    COMPATIBILITY AnyNewerVersion)
 
 install(FILES
         ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}Config.cmake
