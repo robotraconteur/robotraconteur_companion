@@ -8,7 +8,7 @@ This companion library is intended to be used with the Robot Raconteur Core libr
 C++11 and later.
 
 Robot Raconteur Core focuses on the core capabilities of Robot Raconteur, such as transport, discovery, and
-communication. The companion contains a number of miscelanous utilities that are useful for working with other libraries
+communication. The companion contains a number of miscellaneous utilities that are useful for working with other libraries
 such as Eigen, and for working with standard Robot Raconteur service types 
 (https://github.com/robotraconteur/robotraconteur_standard_robdef).
 
@@ -20,7 +20,7 @@ The companion library is licensed under the Apache 2.0 license.
 
 The Robot Raconteur Companion library contains the following utilities:
 
-* Stand Service Definition (robdef) types
+* Standard Service Definition (robdef) types
 * YAML parsers for device info structures
 * Eigen converters
 * Date/time converters
@@ -28,6 +28,10 @@ The Robot Raconteur Companion library contains the following utilities:
 * UUID utilities
 * Service attribute utilities
 * Sensor Data Structure Utilities
+
+## Documentation
+
+Documentation can be found at https://robotraconteur.github.io/robotraconteur_companion/
 
 ## Standard Service Types Usage
 

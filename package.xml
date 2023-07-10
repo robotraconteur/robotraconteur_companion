@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package format="2">
   <name>robotraconteur_companion</name>
-  <version>0.1.0</version>
+  <version>0.3.0</version>
   <description>Robot Raconteur Companion library for C++</description>
 
   <maintainer email="wason@wasontech.com">John Wason</maintainer>
