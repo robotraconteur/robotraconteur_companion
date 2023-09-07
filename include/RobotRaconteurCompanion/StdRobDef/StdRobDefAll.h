@@ -131,7 +131,7 @@ namespace Companion
      * 
      * @param node The node to register service types to
      */
-    void RegisterStdRobDefServiceTypes(RR_SHARED_PTR<RobotRaconteurNode> node);
+    ROBOTRACONTEUR_COMPANION_STDROBDEF_API void RegisterStdRobDefServiceTypes(RR_SHARED_PTR<RobotRaconteurNode> node);
 
     /**
      * @brief Register standard robdef service types to the default singleton node
@@ -143,7 +143,7 @@ namespace Companion
      * they will not be included in the master header. Use this function before node
      * setup to register the standard types.
      */
-    void RegisterStdRobDefServiceTypes();
+    ROBOTRACONTEUR_COMPANION_STDROBDEF_API void RegisterStdRobDefServiceTypes();
 
 }
 }

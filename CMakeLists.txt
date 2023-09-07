@@ -73,7 +73,7 @@ ROBOTRACONTEUR_GENERATE_THUNK(RR_THUNK_SRCS RR_THUNK_HDRS
 	CPP_EXTRA_INCLUDE "RobotRaconteurCompanion/StdRobDef/StdRobDef_Macros.h"
 )
 
-add_library(RobotRaconteurCompanion STATIC ${RR_THUNK_SRCS} ${RR_THUNK_HDRS} src/StdRobDefAll.cpp src/yaml_loader_enums.cpp src/LocalIdentifiersManager.cpp)
+add_library(RobotRaconteurCompanion ${RR_THUNK_SRCS} ${RR_THUNK_HDRS} src/StdRobDefAll.cpp src/yaml_loader_enums.cpp src/LocalIdentifiersManager.cpp)
 SET_TARGET_PROPERTIES(RobotRaconteurCompanion PROPERTIES PREFIX lib)
 
 target_link_libraries(RobotRaconteurCompanion PUBLIC RobotRaconteurCore)
@@ -91,6 +91,14 @@ endif()
 IF (MSVC)
 	target_compile_options(RobotRaconteurCompanion PRIVATE "/wd4251" "/wd4275" "/bigobj")
 ENDIF()
+
+if (BUILD_SHARED_LIBS AND WIN32)
+	set(CMAKE_DEBUG_POSTFIX "d")
+	target_compile_definitions(RobotRaconteurCompanion PRIVATE ROBOTRACONTEUR_COMPANION_STDROBDEF_EXPORTS
+		ROBOTRACONTEUR_COMPANION_INFOPARSER_EXPORTS ROBOTRACONTEUR_COMPANION_UTIL_EXPORTS
+		INTERFACE ROBOTRACONTEUR_COMPANION_STDROBDEF_IMPORTS ROBOTRACONTEUR_COMPANION_INFOPARSER_IMPORTS
+		ROBOTRACONTEUR_COMPANION_UTIL_IMPORTS)
+endif()
 
 export(TARGETS RobotRaconteurCompanion FILE ${CMAKE_BINARY_DIR}/RobotRaconteurCompanionTargets.cmake  )
 
@@ -130,7 +138,10 @@ install(
 	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/RobotRaconteurCompanion/StdRobDef/group1
 	FILES_MATCHING PATTERN "*.h*")
 
-install(TARGETS RobotRaconteurCompanion EXPORT RobotRaconteurCompanionTargets DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(TARGETS RobotRaconteurCompanion EXPORT RobotRaconteurCompanionTargets 
+LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(EXPORT RobotRaconteurCompanionTargets DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/${CMAKE_PROJECT_NAME})
 
 include(CTest)
