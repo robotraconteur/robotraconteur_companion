@@ -186,3 +186,11 @@ if(BUILD_DOCUMENTATION)
         VERBATIM)
 endif()
 
+file(STRINGS "${CMAKE_SOURCE_DIR}/package.xml" ROS_PKG_VERSION_1
+     REGEX "<version>[0-9]+\\.[0-9]+\\.[0-9]+</version>")
+string(REGEX REPLACE "<version>([0-9]+\\.[0-9]+\\.[0-9]+)</version>" "\\1" ROS_PKG_VERSION
+                     ${ROS_PKG_VERSION_1})
+if(NOT "${ROS_PKG_VERSION}" VERSION_EQUAL "${PROJECT_VERSION}")
+    message(
+        FATAL_ERROR "Found ROS package version ${ROS_PKG_VERSION} mismatch ${VERSION}")
+endif()
