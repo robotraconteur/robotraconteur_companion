@@ -101,7 +101,7 @@ namespace Util
             }
             if (aborted)
             {
-                throw RobotRaconteur::OperationAbortedException("Scanning Procedure operation was aborted");
+                throw RobotRaconteur::OperationAbortedException("Operation was aborted");
             }
             if ((closed && !started) || completed)
             {

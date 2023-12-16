@@ -205,7 +205,7 @@ TEST(CompanionUtil, AsyncTaskGenerator)
     EXPECT_THROW(run_task_gen_test(1000, 2000, 10, 150, 200),RR::OperationAbortedException);
     EXPECT_THROW(run_task_gen_test(1000, 300, 500, 2000, 0),RR::OperationFailedException);
     EXPECT_THROW(run_task_gen_test(1000, 100, 10, 2000, 200),RR::OperationFailedException);
-    EXPECT_NO_THROW(run_task_gen_test(2000, 5000, 50, 100, 25););
+    EXPECT_NO_THROW(run_task_gen_test(2000, 5000, 50, 200, 25););
 }
 
 TEST(CompanionUtil, SyncTaskGenerator)
@@ -216,7 +216,7 @@ TEST(CompanionUtil, SyncTaskGenerator)
     EXPECT_THROW(run_sync_task_gen_test(1000, 2000, 10, 150, 200),RR::OperationAbortedException);
     EXPECT_THROW(run_sync_task_gen_test(1000, 300, 500, 2000, 0),RR::OperationFailedException);
     EXPECT_THROW(run_sync_task_gen_test(1000, 100, 10, 2000, 200),RR::OperationFailedException);
-    EXPECT_NO_THROW(run_sync_task_gen_test(2000, 5000, 50, 100, 25););
+    EXPECT_NO_THROW(run_sync_task_gen_test(2000, 5000, 50, 200, 25););
 }
 
 int main(int argc, char **argv)
