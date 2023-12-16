@@ -31,6 +31,25 @@ namespace Companion
 {
 namespace Util
 {
+    /**
+     * @brief Base class for asynchronous task generators
+     * 
+     * Base class for asynchronous task generators. This utility class is used
+     * to help implement generators that represent long running operations.
+     * 
+     * Subclasses should override the following functions:
+     * 
+     * * StartTask() - Called when the generator is started
+     * * FillStatus() - Called to fill the next intermediate status report
+     * * CloseRequested() - Called when the generator is closed
+     * * AbortRequested() - Called when the generator is aborted
+     * 
+     * The operation should call SetResult() or SetResultException() when the
+     * operation is complete. The generator will then return the result to the
+     * caller.
+     * 
+     * @tparam StatusType The status type for the generator
+     */
     template<typename StatusType>
     class AsyncTaskGenerator : public virtual RobotRaconteur::Generator<RR_INTRUSIVE_PTR<StatusType>, void>, public RR_ENABLE_SHARED_FROM_THIS<AsyncTaskGenerator<StatusType>>
     {
@@ -170,6 +189,14 @@ namespace Util
         }
     protected:
 
+        /**
+         * @brief Set the result of the generator
+         * 
+         * This method sets the result of the generator. The generator will return
+         * the result to the caller.
+         * 
+         * @param result The result to return
+         */
         virtual void SetResult(RR_INTRUSIVE_PTR<StatusType>& result)
         {
             boost::mutex::scoped_lock lock(this_lock);
@@ -178,6 +205,14 @@ namespace Util
             do_result();            
         }
 
+        /**
+         * @brief Set the exception result of the generator
+         * 
+         * This method sets the exception result of the generator. The generator will return
+         * the exception to the caller.
+         * 
+         * @param exp The exception to return
+         */
         virtual void SetResultException(RR_SHARED_PTR<RobotRaconteur::RobotRaconteurException>& exp)
         {
             boost::mutex::scoped_lock lock(this_lock);
@@ -221,12 +256,34 @@ namespace Util
             handler(ret,nullptr);
         }
 
+        /**
+         * @brief Start the task
+         * 
+         * This method is called when the generator is started. Subclasses should
+         * override this method to start the task.
+         * 
+         */
         virtual void StartTask() = 0;
 
+        
+        /**
+         * @brief This method is called when a close request is received.
+         */
         virtual void CloseRequested() {}
 
+        /**
+         * @brief This method is called when an abort request is received.
+         */
         virtual void AbortRequested() {}
 
+        /**
+         * @brief This method is called to fill the next status report
+         * 
+         * This method is called to fill the next status report. Subclasses should
+         * override this method to fill the next status report.
+         * 
+         * @param status The status report to fill
+         */
         virtual void FillStatus(RR_INTRUSIVE_PTR<StatusType>& status) {}
 
         static void next_timer_handler(RR_WEAK_PTR<AsyncTaskGenerator> weak_this, const RobotRaconteur::TimerEvent& evt)
