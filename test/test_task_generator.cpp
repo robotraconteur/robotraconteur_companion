@@ -62,6 +62,40 @@ class TestTaskGenImpl : public virtual RRC_Util::AsyncTaskGenerator<rr_gentest::
     }    
 };
 
+class SyncTestTaskGenImpl : public RRC_Util::SyncTaskGenerator<rr_gentest::TestGenStatus>
+{
+    public:
+    int32_t done_time;
+    int32_t fail_time;
+    RR_SHARED_PTR<RR::Timer> task_complete_timer;
+    RR_SHARED_PTR<RR::Timer> task_failed_timer;
+    
+    SyncTestTaskGenImpl(RR_SHARED_PTR<RR::RobotRaconteurNode> node, int32_t done_time, int32_t fail_time, int32_t next_timeout, int32_t watchdog_timeout) 
+        : RRC_Util::SyncTaskGenerator<rr_gentest::TestGenStatus>(node, next_timeout, watchdog_timeout)
+    {
+        this->done_time = done_time;
+        this->fail_time = fail_time;
+    }
+
+    RR_OVIRTUAL RR_INTRUSIVE_PTR<rr_gentest::TestGenStatus> RunTask() RR_OVERRIDE
+    {
+        if (done_time <= fail_time)
+        {
+            boost::this_thread::sleep(boost::posix_time::milliseconds(done_time));
+            RR_INTRUSIVE_PTR<rr_gentest::TestGenStatus> status(new rr_gentest::TestGenStatus());
+            status->message= "Task completed";
+            status->data = RR::AllocateEmptyRRMap<std::string,RR::RRValue>();
+            status->data->insert(std::make_pair("test",RR::ScalarToRRArray<int32_t>(5)));
+            return status;
+        }
+        else
+        {
+            boost::this_thread::sleep(boost::posix_time::milliseconds(fail_time));
+            throw RR::OperationFailedException("Task failed");
+        }
+    }
+};
+
 class TestGenObjectImpl : public virtual rr_gentest::TestGenObject_default_impl
 {
     private:
@@ -76,6 +110,12 @@ class TestGenObjectImpl : public virtual rr_gentest::TestGenObject_default_impl
     RR_OVIRTUAL RR_SHARED_PTR<RR::Generator<RR_INTRUSIVE_PTR<rr_gentest::TestGenStatus >,void > > test_task_generator(int32_t done_time, int32_t fail_time, int32_t next_timeout, int32_t watchdog_timeout) RR_OVERRIDE
     {
         RR_SHARED_PTR<TestTaskGenImpl> gen = RR_MAKE_SHARED<TestTaskGenImpl>(node, done_time, fail_time, next_timeout, watchdog_timeout);
+        return gen;
+    }
+
+    RR_OVIRTUAL RR_SHARED_PTR<RR::Generator<RR_INTRUSIVE_PTR<rr_gentest::TestGenStatus >,void > > test_sync_task_generator(int32_t done_time, int32_t fail_time, int32_t next_timeout, int32_t watchdog_timeout) RR_OVERRIDE
+    {
+        RR_SHARED_PTR<SyncTestTaskGenImpl> gen = RR_MAKE_SHARED<SyncTestTaskGenImpl>(node, done_time, fail_time, next_timeout, watchdog_timeout);
         return gen;
     }
 };
@@ -105,6 +145,11 @@ class TaskGenTestFixture
     {
         return test_gen_obj_client->test_task_generator(done_time, fail_time, next_timeout, watchdog_timeout);
     }
+
+    task_gen_type test_sync_task_generator(int32_t done_time, int32_t fail_time, int32_t next_timeout, int32_t watchdog_timeout)
+    {
+        return test_gen_obj_client->test_sync_task_generator(done_time, fail_time, next_timeout, watchdog_timeout);
+    }
 };
 
 
@@ -130,7 +175,29 @@ void run_task_gen_test(int32_t done_time, int32_t fail_time, int32_t next_timeou
     } while (res);
 }
 
-TEST(CompanionUtil, TaskGenerator)
+void run_sync_task_gen_test(int32_t done_time, int32_t fail_time, int32_t next_timeout, int32_t watchdog_timeout, int32_t next_delay)
+{
+    TaskGenTestFixture fixture;
+    task_gen_type gen = fixture.test_sync_task_generator(done_time, fail_time, next_timeout, watchdog_timeout);
+    
+    RR_INTRUSIVE_PTR<rr_gentest::TestGenStatus> status;
+    bool res = false;
+    do
+    {
+        
+        res = gen->TryNext(status);
+        if (res)
+        {        
+            std::cout << "Status: " << status->message << std::endl;
+        }
+        if (res && next_delay > 0)
+        {
+            boost::this_thread::sleep(boost::posix_time::milliseconds(next_delay));
+        }
+    } while (res);
+}
+
+TEST(CompanionUtil, AsyncTaskGenerator)
 {
     EXPECT_NO_THROW(run_task_gen_test(100, 1000, 1000, -1, 0););
     EXPECT_NO_THROW(run_task_gen_test(200, 1000, 10, -1, 1200););
@@ -139,6 +206,17 @@ TEST(CompanionUtil, TaskGenerator)
     EXPECT_THROW(run_task_gen_test(1000, 300, 500, 2000, 0),RR::OperationFailedException);
     EXPECT_THROW(run_task_gen_test(1000, 100, 10, 2000, 200),RR::OperationFailedException);
     EXPECT_NO_THROW(run_task_gen_test(2000, 5000, 50, 100, 25););
+}
+
+TEST(CompanionUtil, SyncTaskGenerator)
+{
+    EXPECT_NO_THROW(run_sync_task_gen_test(100, 1000, 1000, -1, 0););
+    EXPECT_NO_THROW(run_sync_task_gen_test(200, 1000, 10, -1, 1200););
+    EXPECT_NO_THROW(run_sync_task_gen_test(1000, 2000, 10, -1, 1););
+    EXPECT_THROW(run_sync_task_gen_test(1000, 2000, 10, 150, 200),RR::OperationAbortedException);
+    EXPECT_THROW(run_sync_task_gen_test(1000, 300, 500, 2000, 0),RR::OperationFailedException);
+    EXPECT_THROW(run_sync_task_gen_test(1000, 100, 10, 2000, 200),RR::OperationFailedException);
+    EXPECT_NO_THROW(run_sync_task_gen_test(2000, 5000, 50, 100, 25););
 }
 
 int main(int argc, char **argv)

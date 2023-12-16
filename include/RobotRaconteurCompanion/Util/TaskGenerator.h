@@ -54,6 +54,17 @@ namespace Util
     class AsyncTaskGenerator : public virtual RobotRaconteur::Generator<RR_INTRUSIVE_PTR<StatusType>, void>, public RR_ENABLE_SHARED_FROM_THIS<AsyncTaskGenerator<StatusType>>
     {
     public:
+        
+        /**
+         * @brief Represents an asynchronous task generator.
+         *
+         * The AsyncTaskGenerator class is used to generate asynchronous tasks in RobotRaconteurCompanion.
+         * It takes a RobotRaconteurNode, next_timeout, and watchdog_timeout as parameters.
+         * 
+         * @param node The RobotRaconteurNode instance.
+         * @param next_timeout The timeout to return from the Next() function.
+         * @param watchdog_timeout The timeout for the watchdog. -1 to disable.
+         */
         AsyncTaskGenerator(RR_SHARED_PTR<RobotRaconteur::RobotRaconteurNode> node, int32_t next_timeout, int32_t watchdog_timeout)
         {
             this->node = node;
@@ -330,6 +341,69 @@ namespace Util
         RR_INTRUSIVE_PTR<StatusType> result;
         RR_SHARED_PTR<RobotRaconteurException> exception_result;
 
+    };
+
+    /**
+     * @brief A template class for generating synchronous tasks.
+     * 
+     * This class is derived from the AsyncTaskGenerator class and provides a framework for generating synchronous tasks.
+     * It allows the user to define a RunTask() function that performs the actual task and returns a result of type StatusType.
+     * The task is executed in a separate thread and the result is set using the SetResult() function.
+     * If an exception occurs during task execution, it is caught and converted to a RobotRaconteurException, which is then set as the result exception.
+     * 
+     * The user should override the RunTask() function to perform the actual task. The StartTask(),
+     * SetResult(), and SetResultException() functions should not be called by the user.
+     * 
+     * @tparam StatusType The type of the task result.
+     */
+    template <typename StatusType>
+    class SyncTaskGenerator : public AsyncTaskGenerator<StatusType>
+    {
+        public:
+        /**
+         * @brief Constructor for SyncTaskGenerator.
+         * 
+         * @param node The RobotRaconteurNode instance.
+         * @param next_timeout The timeout to return from the Next() function.
+         * @param watchdog_timeout The timeout for the watchdog. -1 to disable.
+         */
+        SyncTaskGenerator(RR_SHARED_PTR<RobotRaconteur::RobotRaconteurNode> node, int32_t next_timeout, int32_t watchdog_timeout) 
+            : AsyncTaskGenerator<StatusType>(node, next_timeout, watchdog_timeout)
+        {
+            
+        }
+
+        protected:
+        /**
+         * @brief Pure virtual function to be implemented by the user.
+         * 
+         * This function should perform the actual task and return a result of type StatusType.
+         * 
+         * @return RR_INTRUSIVE_PTR<StatusType> The result of the task.
+         */
+        virtual RR_INTRUSIVE_PTR<StatusType> RunTask() = 0;
+
+       
+        void run_task_thread()
+        {
+            try
+            {
+                RR_INTRUSIVE_PTR<StatusType> ret = RunTask();
+                this->SetResult(ret);
+            }
+            catch (std::exception& exp)
+            {
+                RR_SHARED_PTR<RobotRaconteurException> exp1 = RR::RobotRaconteurExceptionUtil::ExceptionToSharedPtr(exp);
+                this->SetResultException(exp1);
+            }
+        }
+
+
+        RR_OVIRTUAL void StartTask() RR_OVERRIDE
+        {
+            RR_SHARED_PTR<SyncTaskGenerator> this_ = RR_DYNAMIC_POINTER_CAST<SyncTaskGenerator>(this->shared_from_this());
+            boost::thread(boost::bind(&SyncTaskGenerator::run_task_thread, this_));
+        }
     };
 }
 }
