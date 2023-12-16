@@ -71,7 +71,7 @@ jobs:
       uses: johnwason/vcpkg-action@v5
       id: vcpkg
       with:
-        pkgs: robotraconteur yaml-cpp eigen3
+        pkgs: robotraconteur yaml-cpp eigen3 gtest
         triplet: x64-windows-release
         token: ${{ github.token }}
         extra-args: --overlay-ports=${{ github.workspace }}/vcpkg-robotraconteur/ports
