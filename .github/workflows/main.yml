@@ -50,6 +50,11 @@ jobs:
       run: cmake --build build --config Release
     - name: cmake build docs
       run: cmake --build build --config Release --target RobotRaconteurCompanion_doc
+    - name: run ctest
+      working-directory: build
+      run: |
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GITHUB_WORKSPACE/build
+        ctest . -C Release --output-on-failure
     - name: archive docs
       uses: actions/upload-artifact@v2
       with:
@@ -71,7 +76,7 @@ jobs:
       uses: johnwason/vcpkg-action@v5
       id: vcpkg
       with:
-        pkgs: robotraconteur yaml-cpp eigen3
+        pkgs: robotraconteur yaml-cpp eigen3 gtest
         triplet: x64-windows-release
         token: ${{ github.token }}
         extra-args: --overlay-ports=${{ github.workspace }}/vcpkg-robotraconteur/ports
@@ -86,3 +91,10 @@ jobs:
         -DBULID_TESTING=ON
     - name: cmake build
       run: cmake --build build --config Release
+    - name: run ctest
+      working-directory: build
+      shell: cmd
+      run: |
+        set PATH=%PATH%;%GITHUB_WORKSPACE%\build
+        ctest . -C Release --output-on-failure
+

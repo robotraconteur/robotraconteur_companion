@@ -18,3 +18,5 @@ Robot Raconteur Companion Library C++ {#mainpage}
   * [LocalIdentifiersManager.h File Reference](@ref LocalIdentifiersManager.h)
   * [SensorDataUtil.h File Reference](@ref SensorDataUtil.h)
   * [UuidUtil.h File Reference](@ref UuidUtil.h)
+  * [TaskGenerator.h File Reference](@ref TaskGenerator.h)
+  * [TestFixtures.h File Reference](@ref TestFixtures.h)
