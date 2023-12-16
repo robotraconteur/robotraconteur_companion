@@ -8,6 +8,18 @@ namespace Companion
 {
 namespace Util
 {
+    /**
+     * @brief A test fixture for intra-process testing using Robot Raconteur.
+     * 
+     * The IntraTestFixture class provides a convenient way to set up and tear down
+     * the necessary components for intra-process testing using Robot Raconteur.
+     * It initializes client and server nodes, registers transport, service types,
+     * and provides methods to register services and connect to services.
+     * 
+     * To use this test fixture, create an instance of IntraTestFixture in your test
+     * and call the necessary methods to set up the test environment. The fixture will
+     * automatically clean up the resources when it goes out of scope.
+     */
     class IntraTestFixture
     {
     public:
@@ -17,6 +29,13 @@ namespace Util
         RR_SHARED_PTR<RobotRaconteur::IntraTransport> client_transport;
         RR_SHARED_PTR<RobotRaconteur::IntraTransport> server_transport;
 
+        /**
+         * @brief Construct a new IntraTestFixture object
+         * 
+         * The constructor initializes the client and server nodes, registers the
+         * intra-process transport, and starts the transport.
+         * 
+         */
         IntraTestFixture()
         {
             client_node = RR_MAKE_SHARED<RobotRaconteur::RobotRaconteurNode>();
@@ -38,6 +57,13 @@ namespace Util
             server_transport->StartServer();
         }
 
+        /**
+         * @brief Register a service type to the client and server nodes
+         * 
+         * This method registers a service type to the client and server nodes.
+         * 
+         * @tparam T The service type to register
+         */
         template<typename T>
         void RegisterServiceType()
         {
@@ -45,16 +71,38 @@ namespace Util
             server_node->RegisterServiceType(RR_MAKE_SHARED<T>());
         }
 
+        /**
+         * @brief Register a service to the server node
+         * 
+         * 
+         * @param name The name of the service
+         * @param type The service type
+         * @param obj The service object
+         */
         void RegisterService(const std::string& name, const std::string& type, RR_SHARED_PTR<RRObject> obj)
         {
             server_node->RegisterService(name, type, obj);
         }
 
+        /**
+         * @brief Connect to a service on the server node
+         * 
+         * 
+         * @param url The URL of the service
+         * @return RR_SHARED_PTR<RRObject> 
+         */
         RR_SHARED_PTR<RRObject> ConnectService(const std::string& url)
         {
             return client_node->ConnectService(url);
         }
 
+        /**
+         * @brief Shutdown the client and server nodes
+         * 
+         * This method shuts down the client and server nodes and stops the transport.
+         * Shutdown is also automatically called when the fixture goes out of scope.
+         * 
+         */
         void Shutdown()
         {
             if (!client_node) return;
