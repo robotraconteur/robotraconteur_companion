@@ -393,7 +393,7 @@ namespace Util
             }
             catch (std::exception& exp)
             {
-                RR_SHARED_PTR<RobotRaconteurException> exp1 = RR::RobotRaconteurExceptionUtil::ExceptionToSharedPtr(exp);
+                RR_SHARED_PTR<RobotRaconteur::RobotRaconteurException> exp1 = RobotRaconteur::RobotRaconteurExceptionUtil::ExceptionToSharedPtr(exp);
                 this->SetResultException(exp1);
             }
         }
