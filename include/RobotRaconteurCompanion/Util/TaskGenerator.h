@@ -23,7 +23,7 @@
 
 #include <RobotRaconteur/Generator.h>
 
-#include <RobotRaconteurCompanion/StdRobDef/group1/com__robotraconteur__action.h>
+#include "com__robotraconteur__action.h"
 
 namespace RobotRaconteur
 {
@@ -35,7 +35,7 @@ namespace Util
     class AsyncTaskGenerator : public virtual RobotRaconteur::Generator<RR_INTRUSIVE_PTR<StatusType>, void>, public RR_ENABLE_SHARED_FROM_THIS<AsyncTaskGenerator<StatusType>>
     {
     public:
-        AsyncTaskGenerator(RR_SHARED_PTR<RobotRaconteur::RobotRaconteurNode> node)
+        AsyncTaskGenerator(RR_SHARED_PTR<RobotRaconteur::RobotRaconteurNode> node, int32_t next_timeout, int32_t watchdog_timeout)
         {
             this->node = node;
             started = false;
@@ -43,12 +43,32 @@ namespace Util
             aborted = false;
             completed = false;
             task_completed = false;
+            if (next_timeout < 0)
+            {
+                throw RobotRaconteur::InvalidArgumentException("next_timeout must be >= 0");
+            }
+
+            if (watchdog_timeout > 0 && watchdog_timeout < next_timeout)
+            {
+                throw RobotRaconteur::InvalidArgumentException("watchdog_timeout must be >= next_timeout");
+            }
+            this->next_timeout = next_timeout;
+            this->watchdog_timeout = watchdog_timeout;
         }
 
         RR_OVIRTUAL void AsyncNext(boost::function<void(const RR_INTRUSIVE_PTR<StatusType>&,
                 const RobotRaconteur::RobotRaconteurExceptionPtr&)> handler, int32_t timeout = RR_TIMEOUT_INFINITE ) RR_OVERRIDE
         {
             boost::mutex::scoped_lock lock(this_lock);
+            if (watchdog_timer)
+            {
+                try
+                {
+                    watchdog_timer->Stop();
+                }
+                catch (std::exception&) {}
+                watchdog_timer.reset();
+            }
             if (aborted)
             {
                 throw RobotRaconteur::OperationAbortedException("Scanning Procedure operation was aborted");
@@ -83,9 +103,15 @@ namespace Util
             next_handler = handler;
 
             RR_WEAK_PTR<AsyncTaskGenerator<StatusType> > weak_this = this->shared_from_this();
-            next_timer = RobotRaconteur::RobotRaconteurNode::s()->CreateTimer(boost::posix_time::seconds(5), 
+            next_timer = RobotRaconteur::RobotRaconteurNode::s()->CreateTimer(boost::posix_time::milliseconds(next_timeout), 
                 boost::bind(&AsyncTaskGenerator::next_timer_handler, weak_this, RR_BOOST_PLACEHOLDERS(_1)), true);
             next_timer->Start();
+            if (watchdog_timeout > 0)
+            {
+                watchdog_timer = RobotRaconteur::RobotRaconteurNode::s()->CreateTimer(boost::posix_time::milliseconds(watchdog_timeout), 
+                    boost::bind(&AsyncTaskGenerator::watchdog_timer_handler, weak_this, RR_BOOST_PLACEHOLDERS(_1)), true);
+                watchdog_timer->Start();
+            }
         }
                 
 
@@ -147,6 +173,7 @@ namespace Util
         virtual void SetResult(RR_INTRUSIVE_PTR<StatusType>& result)
         {
             boost::mutex::scoped_lock lock(this_lock);
+            if (task_completed) return;
             this->result = result;
             do_result();            
         }
@@ -154,6 +181,7 @@ namespace Util
         virtual void SetResultException(RR_SHARED_PTR<RobotRaconteur::RobotRaconteurException>& exp)
         {
             boost::mutex::scoped_lock lock(this_lock);
+            if (task_completed) return;
             this->exception_result = exp;
             do_result();            
         }
@@ -199,6 +227,8 @@ namespace Util
 
         virtual void AbortRequested() {}
 
+        virtual void FillStatus(RR_INTRUSIVE_PTR<StatusType>& status) {}
+
         static void next_timer_handler(RR_WEAK_PTR<AsyncTaskGenerator> weak_this, const RobotRaconteur::TimerEvent& evt)
         {
             RR_SHARED_PTR<AsyncTaskGenerator> shared_this = weak_this.lock();
@@ -210,18 +240,33 @@ namespace Util
             {
                 RR_INTRUSIVE_PTR<StatusType> ret(new StatusType());
                 ret->action_status = com::robotraconteur::action::ActionStatusCode::running;
+                shared_this->FillStatus(ret);
                 h(ret, nullptr);
                 return;
             }
         }
 
+        static void watchdog_timer_handler(RR_WEAK_PTR<AsyncTaskGenerator> weak_this, const RobotRaconteur::TimerEvent& evt)
+        {
+            RR_SHARED_PTR<AsyncTaskGenerator> shared_this = weak_this.lock();
+            if (!shared_this) return;
+            if (evt.stopped) return;
+            boost::mutex::scoped_lock lock(shared_this->this_lock);
+            if (shared_this->task_completed) return;
+            shared_this->aborted = true;
+            shared_this->AbortRequested();
+        }
+
         RR_WEAK_PTR<RobotRaconteur::RobotRaconteurNode> node;
         RR_SHARED_PTR<RobotRaconteur::Timer> next_timer;
+        RR_SHARED_PTR<RobotRaconteur::Timer> watchdog_timer;
         bool started;
         bool closed;
         bool aborted;
         bool completed;
         bool task_completed;
+        int32_t next_timeout;
+        int32_t watchdog_timeout;
         boost::mutex this_lock;
         boost::function<void(const RR_INTRUSIVE_PTR<StatusType>&,
                 const RobotRaconteur::RobotRaconteurExceptionPtr&)> next_handler;

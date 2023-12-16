@@ -73,7 +73,7 @@ ROBOTRACONTEUR_GENERATE_THUNK(RR_THUNK_SRCS RR_THUNK_HDRS
 	CPP_EXTRA_INCLUDE "RobotRaconteurCompanion/StdRobDef/StdRobDef_Macros.h"
 )
 
-add_library(RobotRaconteurCompanion ${RR_THUNK_SRCS} ${RR_THUNK_HDRS} src/StdRobDefAll.cpp src/yaml_loader_enums.cpp src/LocalIdentifiersManager.cpp)
+add_library(RobotRaconteurCompanion ${RR_THUNK_SRCS} ${RR_THUNK_HDRS} src/StdRobDefAll.cpp src/yaml_loader_enums.cpp src/LocalIdentifiersManager.cpp src/UuidUtil.cpp)
 SET_TARGET_PROPERTIES(RobotRaconteurCompanion PROPERTIES PREFIX lib)
 
 target_link_libraries(RobotRaconteurCompanion PUBLIC RobotRaconteurCore)
@@ -98,6 +98,14 @@ if (BUILD_SHARED_LIBS AND WIN32)
 		ROBOTRACONTEUR_COMPANION_INFOPARSER_EXPORTS ROBOTRACONTEUR_COMPANION_UTIL_EXPORTS
 		INTERFACE ROBOTRACONTEUR_COMPANION_STDROBDEF_IMPORTS ROBOTRACONTEUR_COMPANION_INFOPARSER_IMPORTS
 		ROBOTRACONTEUR_COMPANION_UTIL_IMPORTS)
+endif()
+
+if (WIN32)
+	if(BUILD_SHARED_LIBS)
+		target_link_libraries(RobotRaconteurCompanion PRIVATE Bcrypt.lib)
+	else()
+		target_link_libraries(RobotRaconteurCompanion PUBLIC Bcrypt.lib)
+	endif()
 endif()
 
 export(TARGETS RobotRaconteurCompanion FILE ${CMAKE_BINARY_DIR}/RobotRaconteurCompanionTargets.cmake  )
@@ -147,23 +155,7 @@ install(EXPORT RobotRaconteurCompanionTargets DESTINATION ${CMAKE_INSTALL_LIBDIR
 include(CTest)
 
 if (BUILD_TESTING)
-	include_directories(${RobotRaconteur_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/robdef_gen)
-	add_executable(test_robdef_gen test/test_robdef_gen.cpp)
-	target_link_libraries(test_robdef_gen RobotRaconteurCompanion RobotRaconteurCore)
-	add_executable(test_infoparser test/test_infoparser.cpp)
-	target_link_libraries(test_infoparser RobotRaconteurCompanion RobotRaconteurCore yaml-cpp)
-	IF (MSVC)
-		target_compile_options(test_infoparser PRIVATE "/wd4251" "/wd4275" "/bigobj")
-	ENDIF()
-	add_executable(test_robotinfo_parser test/test_robotinfo_parser.cpp)
-	target_link_libraries(test_robotinfo_parser RobotRaconteurCompanion RobotRaconteurCore yaml-cpp)
-
-	find_package (Eigen3 3.3 REQUIRED NO_MODULE)
-	add_executable(test_eigen_converters test/test_eigen_converters.cpp)
-	target_link_libraries(test_eigen_converters RobotRaconteurCompanion RobotRaconteurCore Eigen3::Eigen)
-
-	add_test(NAME test_robdef_gen COMMAND test_robdef_gen)
-	add_test(NAME test_eigen_converters COMMAND test_eigen_converters)
+	add_subdirectory(test)
  endif()
 
  find_package(Doxygen)
