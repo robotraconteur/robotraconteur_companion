@@ -93,6 +93,7 @@ jobs:
       run: cmake --build build --config Release
     - name: run ctest
       working-directory: build
+      shell: cmd
       run: |
         set PATH=%PATH%;%GITHUB_WORKSPACE%\build
         ctest . -C Release --output-on-failure
