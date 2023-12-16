@@ -73,6 +73,7 @@ namespace Util
             aborted = false;
             completed = false;
             task_completed = false;
+            send_update = false;
             if (next_timeout < 0)
             {
                 throw RobotRaconteur::InvalidArgumentException("next_timeout must be >= 0");
@@ -127,6 +128,17 @@ namespace Util
             if (task_completed)
             {
                 complete_gen(handler);
+                return;
+            }
+
+            if (send_update)
+            {
+                send_update = false;
+                RR_INTRUSIVE_PTR<StatusType> ret(new StatusType());
+                ret->action_status = com::robotraconteur::action::ActionStatusCode::running;
+                FillStatus(ret);
+                lock.unlock();
+                handler(ret, nullptr);
                 return;
             }
 
@@ -268,6 +280,30 @@ namespace Util
         }
 
         /**
+         * @brief Send an update to the caller
+         * 
+         * This method triggers Next() to return an intermediate status report. Override
+         * FillStatus() to fill the status report.
+         * 
+         */
+        void SendUpdate()
+        {
+            boost::mutex::scoped_lock lock(this_lock);
+            if (task_completed || aborted || closed) return;
+            if (!next_handler)
+            {
+                send_update = true;
+                return;
+            }
+            try
+            {
+                next_timer->Stop();
+            }
+            catch (std::exception&) {}
+            do_send_update();
+        }
+
+        /**
          * @brief Start the task
          * 
          * This method is called when the generator is started. Subclasses should
@@ -302,13 +338,18 @@ namespace Util
             RR_SHARED_PTR<AsyncTaskGenerator> shared_this = weak_this.lock();
             if (!shared_this) return;
             boost::mutex::scoped_lock lock(shared_this->this_lock);
-            auto h = shared_this->next_handler;
-            shared_this->next_handler.clear();
+            shared_this->do_send_update();
+        }
+
+        void do_send_update()
+        {
+            auto h = next_handler;
+            next_handler.clear();
             if (h)
             {
                 RR_INTRUSIVE_PTR<StatusType> ret(new StatusType());
                 ret->action_status = com::robotraconteur::action::ActionStatusCode::running;
-                shared_this->FillStatus(ret);
+                FillStatus(ret);
                 h(ret, nullptr);
                 return;
             }
@@ -333,6 +374,7 @@ namespace Util
         bool aborted;
         bool completed;
         bool task_completed;
+        bool send_update;
         int32_t next_timeout;
         int32_t watchdog_timeout;
         boost::mutex this_lock;
