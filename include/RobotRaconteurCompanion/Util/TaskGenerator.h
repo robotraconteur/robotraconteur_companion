@@ -25,6 +25,8 @@
 
 #include "com__robotraconteur__action.h"
 
+#pragma once
+
 namespace RobotRaconteur
 {
 namespace Companion
