@@ -114,7 +114,8 @@ namespace Util
                 StartTask();
                 started = true;
                 RR_INTRUSIVE_PTR<StatusType> ret(new StatusType());
-                ret->action_status = com::robotraconteur::action::ActionStatusCode::running;                
+                ret->action_status = com::robotraconteur::action::ActionStatusCode::running;
+                FillStatus(ret);               
                 lock.unlock();
                 handler(ret, nullptr);
                 return;
