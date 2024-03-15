@@ -13,7 +13,7 @@ target_link_libraries(test_robotinfo_parser RobotRaconteurCompanion RobotRaconte
 
 find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 add_executable(test_eigen_converters test_eigen_converters.cpp)
-target_link_libraries(test_eigen_converters RobotRaconteurCompanion RobotRaconteurCore Eigen3::Eigen)
+target_link_libraries(test_eigen_converters RobotRaconteurCompanion RobotRaconteurCore Eigen3::Eigen  GTest::Main)
 
 add_test(NAME test_robdef_gen COMMAND test_robdef_gen)
 add_test(NAME test_eigen_converters COMMAND test_eigen_converters)

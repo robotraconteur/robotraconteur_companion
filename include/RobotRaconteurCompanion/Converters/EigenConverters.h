@@ -116,8 +116,8 @@ namespace Eigen
      * @param eigen_in The Eigen matrix
      * @return RobotRaconteur::RRMultiDimArrayPtr<T> The RRMultiDimArray
      */
-    template<typename T>
-    RobotRaconteur::RRMultiDimArrayPtr<T> EigenToRRMultiDimArray(const ::Eigen::Matrix<T,::Eigen::Dynamic,::Eigen::Dynamic>& eigen_in)
+    template<typename T, int R, int C>
+    RobotRaconteur::RRMultiDimArrayPtr<T> EigenToRRMultiDimArray(const ::Eigen::Matrix<T,R,C>& eigen_in)
     {
         std::vector<uint32_t> dims {(uint32_t)eigen_in.rows(),(uint32_t)eigen_in.cols()};
         RobotRaconteur::RRMultiDimArrayPtr<T> out = RobotRaconteur::AllocateEmptyRRMultiDimArray<T>(dims);

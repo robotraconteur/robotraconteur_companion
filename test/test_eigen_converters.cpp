@@ -3,26 +3,36 @@
 #include "RobotRaconteurCompanion/Converters/EigenConverters.h"
 #include "RobotRaconteurCompanion/Util/IdentifierUtil.h"
 
+#include <gtest/gtest.h>
+
 namespace RR = RobotRaconteur;
 namespace RREigen = RobotRaconteur::Companion::Converters::Eigen;
 
 template<typename T,int N>
 void eigen_ca(Eigen::Matrix<T,N,1> eig, RR::RRArrayPtr<T> a)
 {
-    if (eig.rows() != a->size())
-    {
-        throw std::runtime_error("");
-    }
+    ASSERT_EQ(eig.rows(), a->size());
+
     for (size_t i=0; i<a->size(); i++)
     {
-        if (a->at(i) != eig[i])
-        {
-            throw std::runtime_error("");
-        }
+        EXPECT_EQ(a->at(i), eig[i]);
     }
 }
 
-void test_vectors()
+// eigen_ca for Eigen::Matrix
+template<typename T,int R,int C>
+void eigen_ca(Eigen::Matrix<T,R,C> eig, RR::RRMultiDimArrayPtr<T> a)
+{
+    ASSERT_EQ(eig.rows(), a->Dims->at(0));
+    ASSERT_EQ(eig.cols(),  a->Dims->at(1));
+
+    for (size_t i=0; i<a->Array->size(); i++)
+    {
+        EXPECT_EQ(a->Array->at(i), eig(i%eig.rows(),i/eig.rows()));
+    }
+}
+
+TEST(EigenConverters,Vectors)
 {
     const double a1_1[] {1, 2, 3};
     RR::RRArrayPtr<double> a1 = RR::AttachRRArrayCopy(a1_1,3);
@@ -42,31 +52,30 @@ void test_vectors()
     eigen_ca(b2,b2_a);
 }
 
-void test_matrices()
+TEST(EigenConverters,Matrices)
 {
     const double a1_1[] {1,2,3,4,5,6};
     const uint32_t a1_dims[] = {3,2};
     RR::RRMultiDimArrayPtr<double> a1 = RR::AllocateRRMultiDimArray<double>(RR::AttachRRArrayCopy(a1_dims,2),RR::AttachRRArrayCopy(a1_1,6));
     ::Eigen::MatrixXd a1_e = RREigen::RRMultiDimArrayToEigen(a1);
 
-    std::cout << a1_e << std::endl;
+    eigen_ca(a1_e,a1);
 
     ::Eigen::MatrixXd b1(3,3);
     b1 << 7,8,9,10,11,12,13,14,15;
     RR::RRMultiDimArrayPtr<double> b1_a = RREigen::EigenToRRMultiDimArray(b1);
 
-    for (size_t i=0; i<9; i++)
-    {
-        std::cout << b1_a->Array->at(i) << std::endl;
-    }
+    eigen_ca(b1,b1_a);
+
+    ::Eigen::Matrix3d c1(3,3);
+    c1 << 7,8,9,10,11,12,13,14,15;
+    RR::RRMultiDimArrayPtr<double> c1_a = RREigen::EigenToRRMultiDimArray(c1);
+
+    eigen_ca(c1,c1_a);
 }
 
-int main(int ac, char** av)
+int main(int argc, char** argv)
 {
-	test_vectors();
-
-    test_matrices();
-
-    std::cout << "Done" << std::endl;
-    return 0;
+    testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
 }
