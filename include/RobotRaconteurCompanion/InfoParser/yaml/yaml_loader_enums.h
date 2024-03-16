@@ -36,7 +36,7 @@ RobotRaconteur::RRListPtr<RRArray<int32_t> > parse_enum_list(const YAML::Node& n
     {
         auto ret = RobotRaconteur::AllocateEmptyRRList<RRArray<int32_t> >();
         std::vector<std::string> vals = node[key].as<std::vector<std::string> >();
-        for (auto v : vals)
+        for (const auto& v : vals)
         {
             ret->push_back(RobotRaconteur::ScalarToRRArray((int32_t)string_to_enum_traits<T>::string_to_enum(v,node[key])));
         }
@@ -62,7 +62,7 @@ uint32_t parse_enum_flags(const YAML::Node& node, const std::string& key, bool o
     {
         uint32_t ret = 0;
         std::vector<std::string> vals = node[key].as<std::vector<std::string> >();
-        for (auto v : vals)
+        for (const auto& v : vals)
         {
             ret |= ((int32_t)string_to_enum_traits<T>::string_to_enum(v,node[key]));
         }

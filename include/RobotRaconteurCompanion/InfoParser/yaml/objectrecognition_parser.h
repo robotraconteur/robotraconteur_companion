@@ -7,12 +7,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::objectrecognition::ObjectRecognitionTemplatePtr>{
 		static Node encode(const com::robotraconteur::objectrecognition::ObjectRecognitionTemplatePtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::objectrecognition::ObjectRecognitionTemplatePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::ObjectRecognitionTemplate);
+			if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::ObjectRecognitionTemplate); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->object_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"object_identifier",true);
 			rhs->object_class = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceClassPtr>(node,"object_class",true);
 			rhs->object_shape = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::shapes::ShapeObjectPtr>(node,"object_shape",true);
@@ -27,12 +28,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::objectrecognition::RecognizedObjectPtr>{
 		static Node encode(const com::robotraconteur::objectrecognition::RecognizedObjectPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::objectrecognition::RecognizedObjectPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::RecognizedObject);
+			if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::RecognizedObject); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->recognized_object = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"recognized_object",true);
 			rhs->recognized_object_class = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceClassPtr>(node,"recognized_object_class",true);
 			rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::NamedPoseWithCovariancePtr>(node,"pose",true);
@@ -47,12 +49,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::objectrecognition::RecognizedObjectsPtr>{
 		static Node encode(const com::robotraconteur::objectrecognition::RecognizedObjectsPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::objectrecognition::RecognizedObjectsPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::RecognizedObjects);
+			if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::RecognizedObjects); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->recognized_objects = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::objectrecognition::RecognizedObjectPtr>(node,"recognized_objects",true);
 			// TODO: parse field varvalue source_data
 			// TODO: parse field varvalue{string} extended
@@ -65,12 +68,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::objectrecognition::ObjectRecognitionSensorInfoPtr>{
 		static Node encode(const com::robotraconteur::objectrecognition::ObjectRecognitionSensorInfoPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::objectrecognition::ObjectRecognitionSensorInfoPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::ObjectRecognitionSensorInfo);
+			if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::ObjectRecognitionSensorInfo); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 			rhs->range = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::BoundingBoxPtr>(node,"range",true);
 			rhs->resolution = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector3>(node,"resolution",true);
@@ -87,12 +91,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::objectrecognition::ObjectRecognitionSensorDataPtr>{
 		static Node encode(const com::robotraconteur::objectrecognition::ObjectRecognitionSensorDataPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::objectrecognition::ObjectRecognitionSensorDataPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::ObjectRecognitionSensorData);
+			if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::ObjectRecognitionSensorData); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->sensor_data = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"sensor_data",true);
 			rhs->recognized_objects = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::objectrecognition::RecognizedObjectsPtr>(node,"recognized_objects",true);
 			return true;

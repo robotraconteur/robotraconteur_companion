@@ -7,12 +7,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::servo::ServoInfoPtr>{
 		static Node encode(const com::robotraconteur::servo::ServoInfoPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::servo::ServoInfoPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::servo::ServoInfo);
+			if (!rhs) rhs.reset(new com::robotraconteur::servo::ServoInfo); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 			rhs->servo_type = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::servo::ServoTypeCode::ServoTypeCode>(node,"servo_type",true);
 			rhs->capabilities = RobotRaconteur::Companion::InfoParser::yaml::parse_enum_flags<com::robotraconteur::servo::ServoCapabilities::ServoCapabilities>(node,"capabilities",true);
@@ -42,12 +43,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::servo::ServoStatePtr>{
 		static Node encode(const com::robotraconteur::servo::ServoStatePtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::servo::ServoStatePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::servo::ServoState);
+			if (!rhs) rhs.reset(new com::robotraconteur::servo::ServoState); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->ts = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::datetime::TimeSpec3>(node,"ts",true);
 			rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 			rhs->servo_state_flags = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"servo_state_flags",true);
@@ -68,12 +70,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::servo::ServoStateSensorDataPtr>{
 		static Node encode(const com::robotraconteur::servo::ServoStateSensorDataPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::servo::ServoStateSensorDataPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::servo::ServoStateSensorData);
+			if (!rhs) rhs.reset(new com::robotraconteur::servo::ServoStateSensorData); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->data_header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"data_header",true);
 			rhs->servo_state = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::servo::ServoStatePtr>(node,"servo_state",true);
 			// TODO: parse field varvalue{string} extended
@@ -86,12 +89,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::servo::ServoCommandPtr>{
 		static Node encode(const com::robotraconteur::servo::ServoCommandPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::servo::ServoCommandPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::servo::ServoCommand);
+			if (!rhs) rhs.reset(new com::robotraconteur::servo::ServoCommand); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 			rhs->status_seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"status_seqno",true);
 			rhs->command = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<double>(node,"command",true,true,0);

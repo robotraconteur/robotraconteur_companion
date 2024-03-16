@@ -7,12 +7,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::device::DeviceOptionPtr>{
 		static Node encode(const com::robotraconteur::device::DeviceOptionPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::device::DeviceOptionPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceOption);
+			if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceOption); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->option_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"option_identifier",true);
 			rhs->suboptions = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::device::DeviceSubOptionPtr>(node,"suboptions",true);
 			return true;
@@ -24,12 +25,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::device::DeviceSubOptionPtr>{
 		static Node encode(const com::robotraconteur::device::DeviceSubOptionPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::device::DeviceSubOptionPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceSubOption);
+			if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceSubOption); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->suboption_name = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"suboption_name",true);
 			rhs->suboption_level = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"suboption_level",true);
 			// TODO: parse field varvalue{string} extended
@@ -42,12 +44,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::device::DeviceCapabilityPtr>{
 		static Node encode(const com::robotraconteur::device::DeviceCapabilityPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::device::DeviceCapabilityPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceCapability);
+			if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceCapability); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->capability_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"capability_identifier",true);
 			rhs->subcapabilities = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::device::DeviceSubCapabilityPtr>(node,"subcapabilities",true);
 			return true;
@@ -59,12 +62,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::device::DeviceSubCapabilityPtr>{
 		static Node encode(const com::robotraconteur::device::DeviceSubCapabilityPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::device::DeviceSubCapabilityPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceSubCapability);
+			if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceSubCapability); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->subcapability_name = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"subcapability_name",true);
 			rhs->subcapability_level = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"subcapability_level",true);
 			// TODO: parse field varvalue{string} extended
@@ -77,12 +81,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::device::DeviceClassPtr>{
 		static Node encode(const com::robotraconteur::device::DeviceClassPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::device::DeviceClassPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceClass);
+			if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceClass); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->class_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"class_identifier",true);
 			rhs->subclasses = RobotRaconteur::Companion::InfoParser::yaml::parse_string_list(node,"subclasses",true);
 			return true;
@@ -94,12 +99,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::device::DeviceInfoPtr>{
 		static Node encode(const com::robotraconteur::device::DeviceInfoPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::device::DeviceInfoPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceInfo);
+			if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceInfo); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->device = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"device",true);
 			rhs->parent_device = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_device",true);
 			rhs->manufacturer = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"manufacturer",true);

@@ -43,18 +43,14 @@ namespace Util
      * @return true 
      * @return false 
      */
-    static bool IsIdentifierAnyUuid(com::robotraconteur::identifier::IdentifierPtr identifier)
+    static bool IsIdentifierAnyUuid(const com::robotraconteur::identifier::IdentifierPtr& identifier)
     {
         if (!identifier)
         {
             return true;
         }
 
-        for(auto b : identifier->uuid.a)
-        {
-            if (b != 0) return false;
-        }
-        return true;
+        return std::all_of(identifier->uuid.a.begin(), identifier->uuid.a.end(), [](uint8_t b){ return b == 0; });
     }
     
     /**
@@ -64,7 +60,7 @@ namespace Util
      * @return true 
      * @return false 
      */
-    static bool IsIdentifierAnyName(com::robotraconteur::identifier::IdentifierPtr identifier)
+    static bool IsIdentifierAnyName(const com::robotraconteur::identifier::IdentifierPtr& identifier)
     {
         if (!identifier)
         {
@@ -81,7 +77,7 @@ namespace Util
      * @return true 
      * @return false 
      */
-    static bool IsIdentifierAny(com::robotraconteur::identifier::IdentifierPtr identifier)
+    static bool IsIdentifierAny(const com::robotraconteur::identifier::IdentifierPtr& identifier)
     {
         if (!identifier)
         {
@@ -115,7 +111,7 @@ namespace Util
      * @return true 
      * @return false 
      */
-    static bool IsIdentifierMatch(com::robotraconteur::identifier::IdentifierPtr expected, com::robotraconteur::identifier::IdentifierPtr test)
+    static bool IsIdentifierMatch(const com::robotraconteur::identifier::IdentifierPtr& expected, const com::robotraconteur::identifier::IdentifierPtr& test)
     {
         if (IsIdentifierAny(expected) || IsIdentifierAny(test))
         {
@@ -225,6 +221,7 @@ namespace Util
         {
             return UuidToString(id->uuid);
         }
+        return "";
     }
 
     /**

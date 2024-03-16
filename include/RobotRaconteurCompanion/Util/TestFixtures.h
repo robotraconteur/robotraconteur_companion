@@ -118,7 +118,7 @@ namespace Util
          * @param type The service type
          * @param obj The service object
          */
-        void RegisterService(const std::string& name, const std::string& type, RR_SHARED_PTR<RRObject> obj)
+        void RegisterService(const std::string& name, const std::string& type, const RR_SHARED_PTR<RRObject>& obj) const
         {
             server_node->RegisterService(name, type, obj);
         }
@@ -130,7 +130,7 @@ namespace Util
          * @param url The URL of the service
          * @return RR_SHARED_PTR<RRObject> 
          */
-        RR_SHARED_PTR<RRObject> ConnectService(const std::string& url)
+        RR_SHARED_PTR<RRObject> ConnectService(const std::string& url) const
         {
             return client_node->ConnectService(url);
         }

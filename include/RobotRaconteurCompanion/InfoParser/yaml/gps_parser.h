@@ -7,12 +7,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::gps::GpsStatusPtr>{
 		static Node encode(const com::robotraconteur::gps::GpsStatusPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::gps::GpsStatusPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::gps::GpsStatus);
+			if (!rhs) rhs.reset(new com::robotraconteur::gps::GpsStatus); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->satellites_used = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint16_t>(node,"satellites_used",true);
 			rhs->satellite_used_prn = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<int32_t>(node,"satellite_used_prn",true,true,0);
 			rhs->satellites_visible = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint16_t>(node,"satellites_visible",true);
@@ -33,12 +34,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::gps::GpsStatePtr>{
 		static Node encode(const com::robotraconteur::gps::GpsStatePtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::gps::GpsStatePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::gps::GpsState);
+			if (!rhs) rhs.reset(new com::robotraconteur::gps::GpsState); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->status = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::gps::GpsStatusPtr>(node,"status",true);
 			// TODO: parse field com.robotraconteur.datetime.DateTimeUTC time
 			rhs->latitude_deg = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"latitude_deg",true);

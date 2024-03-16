@@ -7,12 +7,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::datatype::DataTypePtr>{
 		static Node encode(const com::robotraconteur::datatype::DataTypePtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::datatype::DataTypePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::datatype::DataType);
+			if (!rhs) rhs.reset(new com::robotraconteur::datatype::DataType); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->name = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"name",true);
 			rhs->type_code = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::datatype::DataTypeCode::DataTypeCode>(node,"type_code",true);
 			rhs->type_string = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"type_string",true);

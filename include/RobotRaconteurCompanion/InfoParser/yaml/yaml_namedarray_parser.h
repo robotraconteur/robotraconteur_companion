@@ -23,7 +23,7 @@ T parse_namedarray(const YAML::Node& node, const std::string& key, bool optional
     {
         if (optional)
         {
-            T ret;
+            T ret{};
             memset(&ret,0,sizeof(T));
             return ret;
         }

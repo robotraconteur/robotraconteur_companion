@@ -7,12 +7,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::laserscan::LaserScanInfoPtr>{
 		static Node encode(const com::robotraconteur::laserscan::LaserScanInfoPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::laserscan::LaserScanInfoPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanInfo);
+			if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanInfo); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->data_header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"data_header",true);
 			rhs->angle_min = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"angle_min",true);
 			rhs->angle_max = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"angle_max",true);
@@ -36,12 +37,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::laserscan::LaserScanPtr>{
 		static Node encode(const com::robotraconteur::laserscan::LaserScanPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::laserscan::LaserScanPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScan);
+			if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScan); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->scan_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::laserscan::LaserScanInfoPtr>(node,"scan_info",true);
 			rhs->ranges = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<double>(node,"ranges",true,true,0);
 			rhs->intensities = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<double>(node,"intensities",true,true,0);
@@ -57,12 +59,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::laserscan::LaserScanInfofPtr>{
 		static Node encode(const com::robotraconteur::laserscan::LaserScanInfofPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::laserscan::LaserScanInfofPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanInfof);
+			if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanInfof); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->data_header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"data_header",true);
 			rhs->angle_min = RobotRaconteur::Companion::InfoParser::yaml::parse_number<float>(node,"angle_min",true);
 			rhs->angle_max = RobotRaconteur::Companion::InfoParser::yaml::parse_number<float>(node,"angle_max",true);
@@ -86,12 +89,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::laserscan::LaserScanfPtr>{
 		static Node encode(const com::robotraconteur::laserscan::LaserScanfPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::laserscan::LaserScanfPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanf);
+			if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanf); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->scan_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::laserscan::LaserScanInfofPtr>(node,"scan_info",true);
 			rhs->ranges = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<float>(node,"ranges",true,true,0);
 			rhs->intensities = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<float>(node,"intensities",true,true,0);
@@ -107,12 +111,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::laserscan::LaserScanPartPtr>{
 		static Node encode(const com::robotraconteur::laserscan::LaserScanPartPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::laserscan::LaserScanPartPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanPart);
+			if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanPart); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->scan_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::laserscan::LaserScanInfoPtr>(node,"scan_info",true);
 			rhs->data_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_offset",true);
 			rhs->data_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_total_len",true);
@@ -130,12 +135,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::laserscan::LaserScanPartfPtr>{
 		static Node encode(const com::robotraconteur::laserscan::LaserScanPartfPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::laserscan::LaserScanPartfPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanPartf);
+			if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanPartf); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->scan_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::laserscan::LaserScanInfofPtr>(node,"scan_info",true);
 			rhs->data_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_offset",true);
 			rhs->data_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_total_len",true);

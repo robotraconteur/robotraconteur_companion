@@ -21,7 +21,7 @@ class TestTaskGenImpl : public virtual RRC_Util::AsyncTaskGenerator<rr_gentest::
     RR_SHARED_PTR<RR::Timer> task_failed_timer;
     RR_SHARED_PTR<RR::Timer> status_update_timer;
     
-    TestTaskGenImpl(RR_SHARED_PTR<RR::RobotRaconteurNode> node, int32_t done_time, int32_t fail_time, int32_t status_update_time, int32_t next_timeout, int32_t watchdog_timeout) 
+    TestTaskGenImpl(const RR_SHARED_PTR<RR::RobotRaconteurNode>& node, int32_t done_time, int32_t fail_time, int32_t status_update_time, int32_t next_timeout, int32_t watchdog_timeout) 
         : RRC_Util::AsyncTaskGenerator<rr_gentest::TestGenStatus>(node, next_timeout, watchdog_timeout)
     {
         this->done_time = done_time;
@@ -82,7 +82,7 @@ class SyncTestTaskGenImpl : public RRC_Util::SyncTaskGenerator<rr_gentest::TestG
     RR_SHARED_PTR<RR::Timer> task_complete_timer;
     RR_SHARED_PTR<RR::Timer> task_failed_timer;
     
-    SyncTestTaskGenImpl(RR_SHARED_PTR<RR::RobotRaconteurNode> node, int32_t done_time, int32_t fail_time, int32_t next_timeout, int32_t watchdog_timeout) 
+    SyncTestTaskGenImpl(const RR_SHARED_PTR<RR::RobotRaconteurNode>& node, int32_t done_time, int32_t fail_time, int32_t next_timeout, int32_t watchdog_timeout) 
         : RRC_Util::SyncTaskGenerator<rr_gentest::TestGenStatus>(node, next_timeout, watchdog_timeout)
     {
         this->done_time = done_time;
@@ -114,7 +114,7 @@ class TestGenObjectImpl : public virtual rr_gentest::TestGenObject_default_impl
     RR_SHARED_PTR<RR::RobotRaconteurNode> node;
 
     public:
-    TestGenObjectImpl(RR_SHARED_PTR<RR::RobotRaconteurNode> node)
+    TestGenObjectImpl(const RR_SHARED_PTR<RR::RobotRaconteurNode>& node)
     {
         this->node = node;
     }
@@ -153,12 +153,12 @@ class TaskGenTestFixture
         test_gen_obj_client = RR::rr_cast<rr_gentest::TestGenObject>(fixture.ConnectService("rr+intra:///?nodename=server_node&service=test_gen&servicepath=/test_gen"));
     }
 
-    task_gen_type test_task_generator(int32_t done_time, int32_t fail_time, int32_t status_update_time, int32_t next_timeout, int32_t watchdog_timeout)
+    task_gen_type test_task_generator(int32_t done_time, int32_t fail_time, int32_t status_update_time, int32_t next_timeout, int32_t watchdog_timeout) const
     {
         return test_gen_obj_client->test_task_generator(done_time, fail_time, status_update_time, next_timeout, watchdog_timeout);
     }
 
-    task_gen_type test_sync_task_generator(int32_t done_time, int32_t fail_time, int32_t next_timeout, int32_t watchdog_timeout)
+    task_gen_type test_sync_task_generator(int32_t done_time, int32_t fail_time, int32_t next_timeout, int32_t watchdog_timeout) const
     {
         return test_gen_obj_client->test_sync_task_generator(done_time, fail_time, next_timeout, watchdog_timeout);
     }

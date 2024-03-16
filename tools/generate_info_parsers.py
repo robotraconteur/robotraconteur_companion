@@ -279,6 +279,7 @@ for key in my_service_defs:
    
     for e in my_service_defs[key].Enums:
         file2.write("int string_to_enum_%s(const std::string &input, const YAML::Node& node){\n"%(e.Name))
+        file2.write("\tRR_UNUSED(node);\n")
         # Compare e.Name to the enum you are looking for
         #print(e.Values[-1].Name)
         enum_list.append(e.Name)
@@ -302,6 +303,7 @@ for key in my_service_defs:
             continue
         file1.write("\ttemplate<> \n\tstruct convert<%s::%s>{\n"%(name,n.Name))
         file1.write("\t\tstatic Node encode(const %s::%s& rhs){\n"%(name,n.Name))
+        file1.write("\t\t\tRR_UNUSED(rhs);\n")
         file1.write("\t\t\tNode node;\n")
         file1.write("\t\t\treturn node;\n")
         file1.write("\t\t}\n\n")
@@ -329,11 +331,12 @@ for key in my_service_defs:
             continue
         file1.write("\n\ttemplate<> \n\tstruct convert<%s::%sPtr>{\n"%(name,e.Name))
         file1.write("\t\tstatic Node encode(const %s::%sPtr& rhs){\n"%(name,e.Name))
+        file1.write("\t\t\tRR_UNUSED(rhs);\n")
         file1.write("\t\t\tNode node;\n")
         file1.write("\t\t\treturn node;\n")
         file1.write("\t\t}\n\n")
         file1.write("\t\tstatic bool decode(const Node& node, %s::%sPtr& rhs){\n"%(name,e.Name))
-        file1.write("\t\t\tif (!rhs) rhs.reset(new %s::%s);\n"%(name,e.Name))
+        file1.write("\t\t\tif (!rhs) rhs.reset(new %s::%s); // NOLINT(cppcoreguidelines-owning-memory)\n"%(name,e.Name))
         qualifiedname=name+"::"+e.Name
         #usingdict[e.Name]=qualifiedname
         for i in range(len(e.Members)):

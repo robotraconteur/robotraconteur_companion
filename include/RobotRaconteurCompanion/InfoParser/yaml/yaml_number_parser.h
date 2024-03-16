@@ -87,7 +87,7 @@ boost::array<T,N> parse_numeric_array_na(const YAML::Node& node, const std::stri
         {
             throw RobotRaconteur::InvalidArgumentException("Invalid array length");
         }
-        boost::array<T,N> ret;
+        boost::array<T,N> ret{};
         std::copy(arr.begin(),arr.end(),ret.begin());
         return ret;
     }
@@ -98,7 +98,7 @@ boost::array<T,N> parse_numeric_array_na(const YAML::Node& node, const std::stri
 }
 
 
-RobotRaconteur::rr_bool parse_bool(const YAML::Node& node, const std::string& key, bool optional)
+static RobotRaconteur::rr_bool parse_bool(const YAML::Node& node, const std::string& key, bool optional)
 {
     if (node[key])
     {
@@ -122,7 +122,7 @@ RobotRaconteur::rr_bool parse_bool(const YAML::Node& node, const std::string& ke
     }
 }
 
-std::string parse_string(const YAML::Node& node, const std::string& key, bool optional)
+static std::string parse_string(const YAML::Node& node, const std::string& key, bool optional)
 {
     if (node[key])
     {
@@ -142,7 +142,7 @@ std::string parse_string(const YAML::Node& node, const std::string& key, bool op
     }
 }
 
-RobotRaconteur::RRListPtr<RRArray<char> > parse_string_list(const YAML::Node& node, const std::string& key, bool optional)
+static RobotRaconteur::RRListPtr<RRArray<char> > parse_string_list(const YAML::Node& node, const std::string& key, bool optional)
 {
     if (node[key])
     {

@@ -7,12 +7,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::eventlog::EventLogTypePtr>{
 		static Node encode(const com::robotraconteur::eventlog::EventLogTypePtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::eventlog::EventLogTypePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogType);
+			if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogType); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->event_category = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"event_category",true);
 			rhs->event_type = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"event_type",true);
 			return true;
@@ -24,12 +25,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::eventlog::EventLogMessageHeaderPtr>{
 		static Node encode(const com::robotraconteur::eventlog::EventLogMessageHeaderPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::eventlog::EventLogMessageHeaderPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogMessageHeader);
+			if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogMessageHeader); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->type = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::eventlog::EventLogTypePtr>(node,"type",true);
 			rhs->level = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::eventlog::EventLogLevel::EventLogLevel>(node,"level",true);
 			rhs->source_device = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"source_device",true);
@@ -46,12 +48,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::eventlog::EventLogMessagePtr>{
 		static Node encode(const com::robotraconteur::eventlog::EventLogMessagePtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::eventlog::EventLogMessagePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogMessage);
+			if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogMessage); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::eventlog::EventLogMessageHeaderPtr>(node,"header",true);
 			rhs->title = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"title",true);
 			rhs->message = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"message",true);
@@ -65,12 +68,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::eventlog::EventLogInfoPtr>{
 		static Node encode(const com::robotraconteur::eventlog::EventLogInfoPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::eventlog::EventLogInfoPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogInfo);
+			if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogInfo); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 			rhs->logged_device = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"logged_device",true);
 			rhs->min_message_number = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"min_message_number",true);

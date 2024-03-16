@@ -24,7 +24,7 @@ void eigen_ca(Eigen::Matrix<T,N,1> eig, RR::RRArrayPtr<T> a)
 
 void test_vectors()
 {
-    const double a1_1[] {1, 2, 3};
+    const double a1_1[] {1, 2, 3}; // NOLINT
     RR::RRArrayPtr<double> a1 = RR::AttachRRArrayCopy(a1_1,3);
     Eigen::VectorXd a1_e = RREigen::RRArrayToEigen<Eigen::VectorXd>(a1);
     eigen_ca(a1_e,a1);
@@ -44,8 +44,8 @@ void test_vectors()
 
 void test_matrices()
 {
-    const double a1_1[] {1,2,3,4,5,6};
-    const uint32_t a1_dims[] = {3,2};
+    const double a1_1[] {1,2,3,4,5,6}; // NOLINT
+    const uint32_t a1_dims[] = {3,2}; // NOLINT
     RR::RRMultiDimArrayPtr<double> a1 = RR::AllocateRRMultiDimArray<double>(RR::AttachRRArrayCopy(a1_dims,2),RR::AttachRRArrayCopy(a1_1,6));
     ::Eigen::MatrixXd a1_e = RREigen::RRMultiDimArrayToEigen(a1);
 
@@ -61,7 +61,7 @@ void test_matrices()
     }
 }
 
-int main(int ac, char** av)
+int main(int ac, char** av) // NOLINT
 {
 	test_vectors();
 
