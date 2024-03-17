@@ -114,7 +114,7 @@ jobs:
     - name: apt
       run: >
         sudo apt-get install
-        zlib1g zlib1g-dev libssl-dev libusb-1.0-0
+        zlib1g zlib1g-dev libssl-dev libusb-1.0-0 ninja-build
         libusb-1.0-0-dev libdbus-1-3 libdbus-1-dev libbluetooth3 libbluetooth-dev
         git cmake g++ make libboost-all-dev autoconf libyaml-cpp-dev libeigen3-dev
         automake libtool bison libpcre3-dev curl libgtest-dev -qq
