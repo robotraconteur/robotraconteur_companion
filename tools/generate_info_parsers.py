@@ -238,13 +238,18 @@ file5.write("}\n")
 file5.close()
 src_dir = source_dir.joinpath("src")
 filename8=src_dir.joinpath("yaml_loader_enums.cpp")
+filename9=src_dir.joinpath("yaml_loader_impl.cpp")
 file2=open(filename8,"w")
+file6=open(filename9,"w")
 file2.write("#include \"RobotRaconteurCompanion/InfoParser/yaml/yaml_loader_enums.h\"\n")
 file2.write("#include <string>\n\n")
 file2.write("namespace RobotRaconteur{\n")
 file2.write("namespace Companion{\n")
 file2.write("namespace InfoParser{\n")
 file2.write("namespace yaml{\n")
+
+file6.write("#include \"RobotRaconteurCompanion/InfoParser/yaml/yaml_parser_all.h\"\n")
+file6.write("namespace YAML {\n")
 
 file4.write("""/**
  * @file yaml_parser_all.h
@@ -329,13 +334,17 @@ for key in my_service_defs_keys:
     for n in my_service_defs[key].NamedArrays:
         if (name + "::" + n.Name) in OVERRIDE_TYPES:
             continue
-        file1.write("\ttemplate<> \n\tstruct convert<%s::%s>{\n"%(name,n.Name))
-        file1.write("\t\tstatic Node encode(const %s::%s& rhs){\n"%(name,n.Name))
-        file1.write("\t\t\tRR_UNUSED(rhs);\n")
-        file1.write("\t\t\tNode node;\n")
-        file1.write("\t\t\treturn node;\n")
-        file1.write("\t\t}\n\n")
-        file1.write("\t\tstatic bool decode(const Node& node, %s::%s& rhs){\n"%(name,n.Name))
+        file1.write("\ttemplate<> \n\tstruct ROBOTRACONTEUR_COMPANION_INFOPARSER_API convert<%s::%s>{\n"%(name,n.Name))
+        file1.write("\t\tstatic Node encode(const %s::%s& rhs);\n"%(name,n.Name))
+        file1.write("\t\tstatic bool decode(const Node& node, %s::%s& rhs);\n"%(name,n.Name))
+        file1.write("\t};\n\n")
+        
+        file6.write("\tNode convert<%s::%s>::encode(const %s::%s& rhs){\n"%(name,n.Name,name,n.Name))
+        file6.write("\t\tRR_UNUSED(rhs);\n")
+        file6.write("\t\tNode node;\n")
+        file6.write("\t\treturn node;\n")
+        file6.write("\t}\n\n")
+        file6.write("\tbool convert<%s::%s>::decode(const Node& node, %s::%s& rhs){\n"%(name,n.Name,name,n.Name))
         qualifiedname=name+"::"+n.Name
         #print(qualifiedname)
         usingdict[n.Name]=qualifiedname
@@ -346,25 +355,31 @@ for key in my_service_defs_keys:
                        
             #print(f)
             if(isinstance(field_def,RR.PropertyDefinition)):
-                file1.write(f"\t\t\trhs.s.{fieldname} = {parse_namedarray_field(field_def,my_service_defs[key])};\n")                    
+                file6.write(f"\t\trhs.s.{fieldname} = {parse_namedarray_field(field_def,my_service_defs[key])};\n")                    
             count+=1
-        file1.write("\t\t\treturn true;\n")
-        file1.write("\t\t}\n")
-        file1.write("\t};\n\n")
+        file6.write("\t\treturn true;\n")
+        file6.write("\t}\n")
+        
+        
     
         testfile.write("node.as<%s::%s>();\n"%(name,n.Name))
         
     for e in my_service_defs[key].Structures:
         if (name + "::" + e.Name) in OVERRIDE_TYPES:
             continue
-        file1.write("\n\ttemplate<> \n\tstruct convert<%s::%sPtr>{\n"%(name,e.Name))
-        file1.write("\t\tstatic Node encode(const %s::%sPtr& rhs){\n"%(name,e.Name))
-        file1.write("\t\t\tRR_UNUSED(rhs);\n")
-        file1.write("\t\t\tNode node;\n")
-        file1.write("\t\t\treturn node;\n")
-        file1.write("\t\t}\n\n")
-        file1.write("\t\tstatic bool decode(const Node& node, %s::%sPtr& rhs){\n"%(name,e.Name))
-        file1.write("\t\t\tif (!rhs) rhs.reset(new %s::%s); // NOLINT(cppcoreguidelines-owning-memory)\n"%(name,e.Name))
+
+        file1.write("\n\ttemplate<> \n\tstruct ROBOTRACONTEUR_COMPANION_INFOPARSER_API convert<%s::%sPtr>{\n"%(name,e.Name))
+        file1.write("\t\tstatic Node encode(const %s::%sPtr& rhs);\n"%(name,e.Name))
+        file1.write("\t\tstatic bool decode(const Node& node, %s::%sPtr& rhs);\n"%(name,e.Name))
+        file1.write("\t};\n\n")
+
+        file6.write("\tNode convert<%s::%sPtr>::encode(const %s::%sPtr& rhs){\n"%(name,e.Name,name,e.Name))
+        file6.write("\t\tRR_UNUSED(rhs);\n")
+        file6.write("\t\tNode node;\n")
+        file6.write("\t\treturn node;\n")
+        file6.write("\t}\n\n")
+        file6.write("\tbool convert<%s::%sPtr>::decode(const Node& node, %s::%sPtr& rhs){\n"%(name,e.Name,name,e.Name))
+        file6.write("\t\tif (!rhs) rhs.reset(new %s::%s); // NOLINT(cppcoreguidelines-owning-memory)\n"%(name,e.Name))
         qualifiedname=name+"::"+e.Name
         #usingdict[e.Name]=qualifiedname
         for i in range(len(e.Members)):
@@ -375,378 +390,11 @@ for key in my_service_defs_keys:
             if(isinstance(field_def,RR.PropertyDefinition)):
                 field_parse_str = parse_struct_field(field_def,my_service_defs[key],my_service_defs)
                 if field_parse_str is not None:
-                    file1.write(f"\t\t\trhs->{fieldname} = {field_parse_str};\n")
+                    file6.write(f"\t\trhs->{fieldname} = {field_parse_str};\n")
                 else:
-                    file1.write(f"\t\t\t// TODO: parse field {field_def.Type.ToString().split()[0]} {fieldname}\n")
-                """if(f[1]=="single"):
-                    file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                    file1.write("\t\t\t\trhs->%s = node[\"%s\"].as<float>();\n"%(f[2],f[2]))
-                    file1.write("\t\t\t}\n")
-                elif(f[1]=="double"):
-                    file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                    file1.write("\t\t\t\trhs->%s = node[\"%s\"].as<double>();\n"%(f[2],f[2]))
-                    file1.write("\t\t\t}\n")
-                elif(f[1]=="int32"):
-                    file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                    file1.write("\t\t\t\trhs->%s = node[\"%s\"].as<int>();\n"%(f[2],f[2]))
-                    file1.write("\t\t\t}\n")
-                elif(f[1]=="uint32"):
-                    file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                    file1.write("\t\t\t\trhs->%s = node[\"%s\"].as<uint32_t>();\n"%(f[2],f[2]))
-                    file1.write("\t\t\t}\n")
-                elif(f[1]=="int8"):
-                    file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                    file1.write("\t\t\t\trhs->%s = node[\"%s\"].as<int8_t>();\n"%(f[2],f[2]))
-                    file1.write("\t\t\t}\n")
-                elif(f[1]=="uint8"):
-                    file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                    file1.write("\t\t\t\trhs->%s = node[\"%s\"].as<uint8_t>();\n"%(f[2],f[2]))
-                    file1.write("\t\t\t}\n")
-                elif(f[1]=="int16"):
-                    file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                    file1.write("\t\t\t\trhs->%s = node[\"%s\"].as<int16_t>();\n"%(f[2],f[2]))
-                    file1.write("\t\t\t}\n")
-                elif(f[1]=="uint16"):
-                    file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                    file1.write("\t\t\t\trhs->%s = node[\"%s\"].as<uint16_t>();\n"%(f[2],f[2]))
-                    file1.write("\t\t\t}\n")
-                elif(f[1]=="int64"):
-                    file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                    file1.write("\t\t\t\trhs->%s = node[\"%s\"].as<int64_t>();\n"%(f[2],f[2]))
-                    file1.write("\t\t\t}\n")
-                elif(f[1]=="uint64"):
-                    file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                    file1.write("\t\t\t\trhs->%s = node[\"%s\"].as<uint64_t>();\n"%(f[2],f[2]))
-                    file1.write("\t\t\t}\n")
-                elif(f[1]=="string"):
-                    file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                    file1.write("\t\t\t\trhs->%s = node[\"%s\"].as<std::string>();\n"%(f[2],f[2]))
-                    file1.write("\t\t\t}\n")
-                elif(f[1]=="bool"):
-                    file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                    file1.write("\t\t\t\trhs->%s = node[\"%s\"].as<bool>();\n"%(f[2],f[2]))
-                    file1.write("\t\t\t}\n")
-                elif("[" in f[1]):
-                    if("," in f[1]):
-                        if("single" in f[1]):
-                            size=f[1].replace("single[","").replace("]","")
-                            numbers=size.split(",")
-                            file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                            file1.write("\t\t\t\tstd::vector<uint32_t> dims = {%s,%s};\n"%(numbers[0],numbers[1]))
-                            file1.write("\t\t\t\tRobotRaconteur::RRMultiDimArrayPtr<float> my_multidimarray = RobotRaconteur::AllocateEmptyRRMultiDimArray<float>(dims);\n")
-                            file1.write("\t\t\t\tfor(int i =0; i< %s; i++){\n"%(numbers[0]))
-                            file1.write("\t\t\t\t\tfor(int j=0; j< %s; j++){\n"%(numbers[1]))
-                            
-                            file1.write("\t\t\t\t\t\tmy_multidimarray->Array->at(i+(j * %s)) = node[\"%s\"][j+ (i * %s)].as<float>();\n"%(numbers[0],f[2],numbers[1]))
-                            file1.write("\t\t\t\t\t}\n")
-                            file1.write("\t\t\t\t}\n")
-                            file1.write("\t\t\t\trhs->%s = my_multidimarray;\n"%(f[2]))
-                            file1.write("\t\t\t}\n")
-                        elif("double" in f[1]):
-                            size=f[1].replace("double[","").replace("]","")
-                            numbers=size.split(",")
-                            file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                            file1.write("\t\t\t\tstd::vector<uint32_t> dims = {%s,%s};\n"%(numbers[0],numbers[1]))
-                            file1.write("\t\t\t\tRobotRaconteur::RRMultiDimArrayPtr<double> my_multidimarray = RobotRaconteur::AllocateEmptyRRMultiDimArray<double>(dims);\n")
-                            file1.write("\t\t\t\tfor(int i =0; i< %s; i++){\n"%(numbers[0]))
-                            file1.write("\t\t\t\t\tfor(int j=0; j< %s; j++){\n"%(numbers[1]))
-                            
-                            file1.write("\t\t\t\t\t\tmy_multidimarray->Array->at(i+(j * %s)) = node[\"%s\"][j+ (i * %s)].as<double>();\n"%(numbers[0],f[2],numbers[1]))
-                            file1.write("\t\t\t\t\t}\n")
-                            file1.write("\t\t\t\t}\n")
-                            file1.write("\t\t\t\trhs->%s = my_multidimarray;\n"%(f[2]))
-                            file1.write("\t\t\t}\n")
-                    else:
-                        if("{string}" in f[1]):
-                            file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                            file1.write("\t\t\t\tRobotRaconteur::RRMapPtr<std::string, RobotRaconteur::RRArray<double>> joints;\n")
-                            file1.write("\t\t\t\tfor (YAML::const_iterator it = node[\"%s\"].begin(); it != node[\"%s\"].end(); ++it) {\n"%(f[2],f[2]))
-                            file1.write("\t\t\t\t\tstd::string name = it->first.as<std::string>();\n")
-                            file1.write("\t\t\t\t\tRobotRaconteur::RRArrayPtr<double> my_array = RobotRaconteur::AllocateEmptyRRArray<double>(node[name].size());\n")
-                            file1.write("\t\t\t\t\tfor (int i = 0; i < node[name].size(); i++) {\n")
-                            file1.write("\t\t\t\t\t\tmy_array->at(i) = node[name][i].as<double>();\n")
-                            file1.write("\t\t\t\t\t}\n")
-                            file1.write("\t\t\t\t\tjoints->insert(std::make_pair(name,my_array));\n")
-                            file1.write("\t\t\t\t}\n")
-                            file1.write("\t\t\t\trhs->%s = joints;\n"%(f[2]))
-                            file1.write("\t\t\t}\n")
-                        
-                        elif("{list}" in f[1]):
-                            file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                            file1.write("\t\t\t\tRobotRaconteur::RRListPtr<RobotRaconteur::RRArray<double>> listy = RobotRaconteur::AllocateEmptyRRList<RobotRaconteur::RRArray<double>>();\n")
-                            #file1.write("\t\t\t\tRobotRaconteur::RRListPtr<%s> listy = RobotRaconteur::AllocateEmptyRRList<%s>();\n"%(usingdict.get(f[1].replace("{list}","")),usingdict.get(f[1].replace("{list}",""))))
-                            file1.write("\t\t\t\tfor(int i =0; i<node[\"%s\"].size(); i++) {\n"%(f[2]))
-                            file1.write("\t\t\t\t\tRobotRaconteur::RRArrayPtr<double> my_array = RobotRaconteur::AllocateEmptyRRArray<double>(node[\"%s\"][i].size());\n"%(f[2]))
-                            file1.write("\t\t\t\t\tfor(int k =0; k<node[\"%s\"][i].size(); k++) {\n"%(f[2]))
-                            file1.write("\t\t\t\t\t\tmy_array->at(k)=node[\"%s\"][i][k].as<double>();\n"%(f[2]))
-                            file1.write("\t\t\t\t\t}\n")
-                            file1.write("\t\t\t\t\tlisty->push_back(my_array);\n")
-                            file1.write("\t\t\t\t}\n")
-                            file1.write("\t\t\t\trhs->%s = listy;\n"%(f[2]))
-                            file1.write("\t\t\t}\n")
-                            
-                            
-                            
-                        elif("single" in f[1]):
-                            file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                            file1.write("\t\t\t\tRobotRaconteur::RRArrayPtr<float> my_array = RobotRaconteur::AllocateEmptyRRArray<float>(node[\"%s\"].size());\n"%(f[2]))
-                            file1.write("\t\t\t\tfor (int i = 0; i < node[\"%s\"].size(); i++) {\n"%(f[2]))
-                            file1.write("\t\t\t\t\tmy_array->at(i) = node[\"%s\"][i].as<float>();\n"%(f[2]))
-                            file1.write("\t\t\t\t}\n")
-                            file1.write("\t\t\t\trhs->%s = my_array;\n"%(f[2]))
-                            file1.write("\t\t\t}\n")
-                        elif("double" in f[1]):
-                            file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                            file1.write("\t\t\t\tRobotRaconteur::RRArrayPtr<double> my_array = RobotRaconteur::AllocateEmptyRRArray<double>(node[\"%s\"].size());\n"%(f[2]))
-                            file1.write("\t\t\t\tfor (int i = 0; i < node[\"%s\"].size(); i++) {\n"%(f[2]))
-                            file1.write("\t\t\t\t\tmy_array->at(i) = node[\"%s\"][i].as<double>();\n"%(f[2]))
-                            file1.write("\t\t\t\t}\n")
-                            file1.write("\t\t\t\trhs->%s = my_array;\n"%(f[2]))
-                            file1.write("\t\t\t}\n")
-                            
-                        elif("uint32" in f[1]):
-                            file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                            file1.write("\t\t\t\tRobotRaconteur::RRArrayPtr<uint32_t> my_array = RobotRaconteur::AllocateEmptyRRArray<uint32_t>(node[\"%s\"].size());\n"%(f[2]))
-                            file1.write("\t\t\t\tfor (int i = 0; i < node[\"%s\"].size(); i++) {\n"%(f[2]))
-                            file1.write("\t\t\t\t\tmy_array->at(i) = node[\"%s\"][i].as<uint32_t>();\n"%(f[2]))
-                            file1.write("\t\t\t\t}\n")
-                            file1.write("\t\t\t\trhs->%s = my_array;\n"%(f[2]))
-                            file1.write("\t\t\t}\n")
-                            
-                        elif("uint8" in f[1]):
-                            file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                            file1.write("\t\t\t\tRobotRaconteur::RRArrayPtr<uint8_t> my_array = RobotRaconteur::AllocateEmptyRRArray<uint8_t>(node[\"%s\"].size());\n"%(f[2]))
-                            file1.write("\t\t\t\tfor (int i = 0; i < node[\"%s\"].size(); i++) {\n"%(f[2]))
-                            file1.write("\t\t\t\t\tmy_array->at(i) = node[\"%s\"][i].as<uint8_t>();\n"%(f[2]))
-                            file1.write("\t\t\t\t}\n")
-                            file1.write("\t\t\t\trhs->%s = my_array;\n"%(f[2]))
-                            file1.write("\t\t\t}\n")
-                        elif("int16" in f[1]):
-                            file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                            file1.write("\t\t\t\tRobotRaconteur::RRArrayPtr<int16_t> my_array = RobotRaconteur::AllocateEmptyRRArray<int16_t>(node[\"%s\"].size());\n"%(f[2]))
-                            file1.write("\t\t\t\tfor (int i = 0; i < node[\"%s\"].size(); i++) {\n"%(f[2]))
-                            file1.write("\t\t\t\t\tmy_array->at(i) = node[\"%s\"][i].as<int16_t>();\n"%(f[2]))
-                            file1.write("\t\t\t\t}\n")
-                            file1.write("\t\t\t\trhs->%s = my_array;\n"%(f[2]))
-                            file1.write("\t\t\t}\n")
-                        elif("int32" in f[1]):
-                            file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                            file1.write("\t\t\t\tRobotRaconteur::RRArrayPtr<int32_t> my_array = RobotRaconteur::AllocateEmptyRRArray<int32_t>(node[\"%s\"].size());\n"%(f[2]))
-                            file1.write("\t\t\t\tfor (int i = 0; i < node[\"%s\"].size(); i++) {\n"%(f[2]))
-                            file1.write("\t\t\t\t\tmy_array->at(i) = node[\"%s\"][i].as<int32_t>();\n"%(f[2]))
-                            file1.write("\t\t\t\t}\n")
-                            file1.write("\t\t\t\trhs->%s = my_array;\n"%(f[2]))
-                            file1.write("\t\t\t}\n")
-                            
-                        elif(f[1].replace("[]","") in usingdict.keys()):
-                            if(usingdict.get(f[1]) in Structureslist):
-                                file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                                file1.write("\t\t\t\tRobotRaconteur::RRArrayPtr<%sPtr> my_array = RobotRaconteur::AllocateEmptyRRArray<%sPtr>(node[\"%s\"].size());\n"%(usingdict.get(f[1]),usingdict.get(f[1]),f[2]))
-                                file1.write("\t\t\t\tfor (int i = 0; i < node[\"%s\"].size(); i++) {\n"%(f[2]))
-                                file1.write("\t\t\t\t\tmy_array->at(i) = node[\"%s\"][i].as<%sPtr>();\n"%(f[2],usingdict.get(f[1])))
-                                file1.write("\t\t\t\t}\n")
-                                file1.write("\t\t\t\trhs->%s = my_array;\n"%(f[2]))
-                                file1.write("\t\t\t}\n")
-                            if(usingdict.get(f[1]) in Named_arrayslist):
-                                file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                                file1.write("\t\t\t\tRobotRaconteur::RRArrayPtr<%s> my_array = RobotRaconteur::AllocateEmptyRRArray<%s>(node[\"%s\"].size());\n"%(usingdict.get(f[1]),usingdict.get(f[1]),f[2]))
-                                file1.write("\t\t\t\tfor (int i = 0; i < node[\"%s\"].size(); i++) {\n"%(f[2]))
-                                file1.write("\t\t\t\t\tmy_array->at(i) = node[\"%s\"][i].as<%s>();\n"%(f[2],usingdict.get(f[1])))
-                                file1.write("\t\t\t\t}\n")
-                                file1.write("\t\t\t\trhs->%s = my_array;\n"%(f[2]))
-                                file1.write("\t\t\t}\n")
-                
-                elif("{list}" in f[1]):
-                    #RobotRaconteur::RRListPtr<imaging::camerainfo::CameraInfo> camerainfos = RobotRaconteur::AllocateEmptyRRList<imaging::camerainfo::CameraInfo>();
-                    
-                    if(f[1].replace("{list}","")=="string"):
-                        file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                        file1.write("\t\t\t\tRobotRaconteur::RRListPtr<RobotRaconteur::RRArray<char>> listy = RobotRaconteur::AllocateEmptyRRList<RobotRaconteur::RRArray<char>>();\n")
-                        file1.write("\t\t\t\tfor(int j=0; j< node[\"%s\"].size(); j++){\n"%(f[2]))
-                        file1.write("\t\t\t\t\tstd::string item= node[\"%s\"][j].as<std::string>();\n"%(f[2]))
-                        file1.write("\t\t\t\t\tRobotRaconteur::RRArrayPtr<char> itemRR= RobotRaconteur::stringToRRArray(item);\n")
-                        file1.write("\t\t\t\t\tlisty->push_back(itemRR);\n")
-                        file1.write("\t\t\t\t}\n")
-                        file1.write("\t\t\t\trhs->%s = listy;\n"%(f[2]))
-                        file1.write("\t\t\t}\n")
-                        
-                    elif(f[1].replace("{list}","") in usingdict.keys()):
-                        #print(f[1].replace("{list}",""))
-                        #print(usingdict.get(f[1].replace("{list}","")))
-                        if(usingdict.get(f[1].replace("{list}","")) in Structureslist):
-                            file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                            #file1.write("\t\t\t\tRobotRaconteur::RRListPtr<%sPtr> listy = RobotRaconteur::AllocateEmptyRRList<%sPtr>();\n"%(usingdict.get(f[1].replace("{list}","")),usingdict.get(f[1].replace("{list}",""))))
-                            file1.write("\t\t\t\tRobotRaconteur::RRListPtr<%s> listy = RobotRaconteur::AllocateEmptyRRList<%s>();\n"%(usingdict.get(f[1].replace("{list}","")),usingdict.get(f[1].replace("{list}",""))))
-                            file1.write("\t\t\t\tfor(int j=0; j< node[\"%s\"].size(); j++){\n"%(f[2]))
-                            file1.write("\t\t\t\t\t%sPtr item= node[\"%s\"][j].as<%sPtr>();\n"%(usingdict.get(f[1].replace("{list}","")),f[2],usingdict.get(f[1].replace("{list}",""))))
-                            file1.write("\t\t\t\t\tlisty->push_back(item);\n")
-                            file1.write("\t\t\t\t}\n")
-                            file1.write("\t\t\t\trhs->%s = listy;\n"%(f[2]))
-                            file1.write("\t\t\t}\n")
-                            #print("\t%s item= node[\"%s\"][j].as<%s>();\n"%(usingdict.get(f[1].replace("{list}","")),f[2],usingdict.get(f[1].replace("{list}",""))))
-                        if(usingdict.get(f[1].replace("{list}","")) in Named_arrayslist):
-                            file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                            file1.write("\t\t\t\tRobotRaconteur::RRListPtr<RobotRaconteur::RRNamedArray<%s>> listy = RobotRaconteur::AllocateEmptyRRList<RobotRaconteur::RRNamedArray<%s>>();\n"%(usingdict.get(f[1].replace("{list}","")),usingdict.get(f[1].replace("{list}",""))))
-                            file1.write("\t\t\t\tfor(int j=0; j< node[\"%s\"].size(); j++){\n"%(f[2]))
-                            file1.write("\t\t\t\t\t%s item= node[\"%s\"][j].as<%s>();\n"%(usingdict.get(f[1].replace("{list}","")),f[2],usingdict.get(f[1].replace("{list}",""))))
-                            
-                            file1.write("\t\t\t\t\tlisty->push_back(RobotRaconteur::ScalarToRRNamedArray(item));\n")
-                            file1.write("\t\t\t\t}\n")
-                            file1.write("\t\t\t\trhs->%s = listy;\n"%(f[2]))
-                            file1.write("\t\t\t}\n")
-                            #print("\t%s item= node[\"%s\"][j].as<%s>();\n"%(usingdict.get(f[1].replace("{list}","")),f[2],usingdict.get(f[1].replace("{list}",""))))
-                            
-                    
-                elif(f[1] in enum_list):
-                    #std::string array_type_code = node["array_type_code"].as<std::string>();
-                    #rhs->array_type_code = com::robotraconteur::datatype::ArrayTypeCode::ArrayTypeCode(string_to_enum_ArrayTypeCode(array_type_code));
-                    file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                    file1.write("\t\t\t\tstd::string enum_val_string= node[\"%s\"].as<std::string>();\n"%(f[2]))
-                    file1.write("\t\t\t\trhs->%s = %s::%s(RobotRaconteur::Companion::InfoParser::yaml::string_to_enum_%s(enum_val_string,node[\"%s\"]));\n"%(f[2],enum_dict.get(f[1]),f[1],f[1],f[1]))
-                    file1.write("\t\t\t}\n")
-                    #print("\t\t\t\trhs->%s = %s::%s(string_to_enum_%s(enum_val_string));\n"%(f[2],usingdict.get(f[1]),f[1],f[1]))
-                
-                
-                elif(f[1] in usingdict.keys()):
-                    if(usingdict.get(f[1]) in Structureslist):
-                        file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                        file1.write("\t\t\t\trhs->%s = node[\"%s\"].as<%sPtr>();\n"%(f[2],f[2],usingdict.get(f[1])))
-                        file1.write("\t\t\t}\n")
-                    if(usingdict.get(f[1]) in Named_arrayslist):
-                        file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                        file1.write("\t\t\t\trhs->%s = node[\"%s\"].as<%s>();\n"%(f[2],f[2],usingdict.get(f[1])))
-                        file1.write("\t\t\t}\n")
-                
-                elif(f[1].replace("{string}","") in usingdict.keys()):
-                    if(usingdict.get(f[1]) in Structureslist):
-                        file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                        file1.write("\t\t\t\tRobotRaconteur::RRMapPtr<std::string, %sPtr> joints;\n"%(usingdict.get(f[1])))
-                        file1.write("\t\t\t\tfor (YAML::const_iterator it = node[\"%s\"].begin(); it != node[\"%s\"].end(); ++it) {\n"%(f[2],f[2]))
-                        file1.write("\t\t\t\t\tstd::string name = it->first.as<std::string>();\n")
-                        
-                        file1.write("\t\t\t\t\tjoints->insert(std::make_pair(name,node[name].as<%sPtr>()));\n"%(usingdict.get(f[1])))
-                        file1.write("\t\t\t\t}\n")
-                        file1.write("\t\t\t\trhs->%s = joints;\n"%(f[2]))
-                        file1.write("\t\t\t}\n")
-                    if(usingdict.get(f[1]) in Named_arrayslist):
-                        file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                        file1.write("\t\t\t\tRobotRaconteur::RRMapPtr<std::string, %s> joints;\n"%(usingdict.get(f[1])))
-                        file1.write("\t\t\t\tfor (YAML::const_iterator it = node[\"%s\"].begin(); it != node[\"%s\"].end(); ++it) {\n"%(f[2],f[2]))
-                        file1.write("\t\t\t\t\tstd::string name = it->first.as<std::string>();\n")
-                        
-                        file1.write("\t\t\t\t\tjoints->insert(std::make_pair(name,node[name].as<%s>()));\n"%(usingdict.get(f[1])))
-                        file1.write("\t\t\t\t}\n")
-                        file1.write("\t\t\t\trhs->%s = joints;\n"%(f[2]))
-                        file1.write("\t\t\t}\n")
-                    
-                elif(f[1]=="varvalue{string}"):
-                    #print("varvalue seen")
-                    file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                    file1.write("\t\t\t\tRobotRaconteur::RRMapPtr<std::string, RobotRaconteur::RRValue> vars;\n")
-                    file1.write("\t\t\t\tfor (YAML::const_iterator it = node[\"%s\"].begin(); it != node[\"%s\"].end(); ++it) {\n"%(f[2],f[2]))
-                    file1.write("\t\t\t\t\tstd::string name = it->first.as<std::string>();\n")
-                    file1.write("\t\t\t\t\tstd::string type = node[\"%s\"][\"type\"].as<std::string>();\n"%(f[2]))
-                    file1.write("\t\t\t\t\tRobotRaconteur::RRValuePtr varval;\n")
-                    file1.write("\t\t\t\t\tif(type==\"string\"){\n")
-                    file1.write("\t\t\t\t\t\tstd::string value = node[\"%s\"][\"value\"].as<std::string>();\n"%(f[2]))
-                    file1.write("\t\t\t\t\t\tvarval=RobotRaconteur::stringToRRArray(value);\n")
-                    file1.write("\t\t\t\t\t}\n")
-                    file1.write("\t\t\t\t\tif(type==\"double\"){\n")
-                    file1.write("\t\t\t\t\t\tdouble value = node[\"%s\"][\"value\"].as<double>();\n"%(f[2]))
-                    file1.write("\t\t\t\t\t\tvarval=RobotRaconteur::ScalarToRRArray(value);\n")
-                    file1.write("\t\t\t\t\t}\n")
-                    file1.write("\t\t\t\t\tif(type==\"int32\"){\n")
-                    file1.write("\t\t\t\t\t\tint value = node[\"%s\"][\"value\"].as<int>();\n"%(f[2]))
-                    file1.write("\t\t\t\t\t\tvarval=RobotRaconteur::ScalarToRRArray(value);\n")
-                    file1.write("\t\t\t\t\t}\n")
-                    file1.write("\t\t\t\t\tif(type==\"uint32\"){\n")
-                    file1.write("\t\t\t\t\t\tuint32_t value = node[\"%s\"][\"value\"].as<uint32_t>();\n"%(f[2]))
-                    file1.write("\t\t\t\t\t\tvarval=RobotRaconteur::ScalarToRRArray(value);\n")
-                    file1.write("\t\t\t\t\t}\n")
-                    file1.write("\t\t\t\t\tif(type==\"double[]\"){\n")
-                    file1.write("\t\t\t\t\t\tRobotRaconteur::RRArrayPtr<double> my_array = RobotRaconteur::AllocateEmptyRRArray<double>(node[\"%s\"][\"value\"].size());\n"%(f[2]))
-                    file1.write("\t\t\t\t\t\tfor (int i = 0; i < node[\"%s\"][\"value\"].size(); i++) {\n"%(f[2]))
-                    file1.write("\t\t\t\t\t\t\tmy_array->at(i) = node[\"%s\"][\"value\"][i].as<double>();\n"%(f[2]))
-                    file1.write("\t\t\t\t\t\t}\n")
-                    file1.write("\t\t\t\t\t\tvarval=my_array;\n")
-                    file1.write("\t\t\t\t\t}\n")
-                    file1.write("\t\t\t\t\tif(type==\"int32[]\"){\n")
-                    file1.write("\t\t\t\t\t\tRobotRaconteur::RRArrayPtr<int> my_array = RobotRaconteur::AllocateEmptyRRArray<int>(node[\"%s\"][\"value\"].size());\n"%(f[2]))
-                    file1.write("\t\t\t\t\t\tfor (int i = 0; i < node[\"%s\"][\"value\"].size(); i++) {\n"%(f[2]))
-                    file1.write("\t\t\t\t\t\t\tmy_array->at(i) = node[\"%s\"][\"value\"][i].as<int>();\n"%(f[2]))
-                    file1.write("\t\t\t\t\t\t}\n")
-                    file1.write("\t\t\t\t\t\tvarval=my_array;\n")
-                    file1.write("\t\t\t\t\t}\n")
-                    file1.write("\t\t\t\t\tif(type==\"uint32[]\"){\n")
-                    file1.write("\t\t\t\t\t\tRobotRaconteur::RRArrayPtr<uint32_t> my_array = RobotRaconteur::AllocateEmptyRRArray<uint32_t>(node[\"%s\"][\"value\"].size());\n"%(f[2]))
-                    file1.write("\t\t\t\t\t\tfor (int i = 0; i < node[\"%s\"][\"value\"].size(); i++) {\n"%(f[2]))
-                    file1.write("\t\t\t\t\t\t\tmy_array->at(i) = node[\"%s\"][\"value\"][i].as<uint32_t>();\n"%(f[2]))
-                    file1.write("\t\t\t\t\t\t}\n")
-                    file1.write("\t\t\t\t\t\tvarval=my_array;\n")
-                    file1.write("\t\t\t\t\t}\n")
-                    
-                    
-                    #file1.write("\t\t\t\t\tRRValuePtr my_array = RobotRaconteur::AllocateEmptyRRArray<double>(node[name].size());\n")
-                    #file1.write("\t\t\t\t\tfor (int i = 0; i < node[name].size(); i++) {\n")
-                    #file1.write("\t\t\t\t\t\tmy_array->at(i) = node[name][i].as<double>();\n")
-                    #file1.write("\t\t\t\t\t}\n")
-                    file1.write("\t\t\t\t\tvars->insert(std::make_pair(name,varval));\n")
-                    file1.write("\t\t\t\t}\n")
-                    file1.write("\t\t\t\trhs->%s = vars;\n"%(f[2]))
-                    file1.write("\t\t\t}\n")
-                
-                elif(f[1]=="varvalue"):
-                    file1.write("\t\t\tif(node[\"%s\"]){\n"%(f[2]))
-                    
-                    file1.write("\t\t\t\tstd::string type = node[\"%s\"][\"type\"].as<std::string>();\n"%(f[2]))
-                    file1.write("\t\t\t\tRobotRaconteur::RRValuePtr varval;\n")
-                    file1.write("\t\t\t\tif(type==\"string\"){\n")
-                    file1.write("\t\t\t\t\tstd::string value = node[\"%s\"][\"value\"].as<std::string>();\n"%(f[2]))
-                    file1.write("\t\t\t\t\tvarval =RobotRaconteur::stringToRRArray(value);\n")
-                    file1.write("\t\t\t\t}\n")
-                    file1.write("\t\t\t\tif(type==\"double\"){\n")
-                    file1.write("\t\t\t\t\tdouble value = node[\"%s\"][\"value\"].as<double>();\n"%(f[2]))
-                    file1.write("\t\t\t\t\tvarval=RobotRaconteur::ScalarToRRArray(value);\n")
-                    file1.write("\t\t\t\t}\n")
-                    file1.write("\t\t\t\tif(type==\"int32\"){\n")
-                    file1.write("\t\t\t\t\tint value= node[\"%s\"][\"value\"].as<int>();\n"%(f[2]))
-                    file1.write("\t\t\t\t\tvarval=RobotRaconteur::ScalarToRRArray(value);\n")
-                    file1.write("\t\t\t\t}\n")
-                    file1.write("\t\t\t\tif(type==\"uint32\"){\n")
-                    file1.write("\t\t\t\t\tuint32_t value= node[\"%s\"][\"value\"].as<uint32_t>();\n"%(f[2]))
-                    file1.write("\t\t\t\t\tvarval=RobotRaconteur::ScalarToRRArray(value);\n")
-                    file1.write("\t\t\t\t}\n")
-                    file1.write("\t\t\t\tif(type==\"double[]\"){\n")
-                    file1.write("\t\t\t\t\tRobotRaconteur::RRArrayPtr<double> my_array = RobotRaconteur::AllocateEmptyRRArray<double>(node[\"%s\"][\"value\"].size());\n"%(f[2]))
-                    file1.write("\t\t\t\t\tfor (int i = 0; i < node[\"%s\"][\"value\"].size(); i++) {\n"%(f[2]))
-                    file1.write("\t\t\t\t\t\tmy_array->at(i) = node[\"%s\"][\"value\"][i].as<double>();\n"%(f[2]))
-                    file1.write("\t\t\t\t\t}\n")
-                    file1.write("\t\t\t\t\tvarval=my_array;\n")
-                    file1.write("\t\t\t\t}\n")
-                    file1.write("\t\t\t\tif(type==\"int32[]\"){\n")
-                    file1.write("\t\t\t\t\tRobotRaconteur::RRArrayPtr<int> my_array = RobotRaconteur::AllocateEmptyRRArray<int>(node[\"%s\"][\"value\"].size());\n"%(f[2]))
-                    file1.write("\t\t\t\t\tfor (int i = 0; i < node[\"%s\"][\"value\"].size(); i++) {\n"%(f[2]))
-                    file1.write("\t\t\t\t\t\tmy_array->at(i) = node[\"%s\"][\"value\"][i].as<int>();\n"%(f[2]))
-                    file1.write("\t\t\t\t\t}\n")
-                    file1.write("\t\t\t\t\tvarval=my_array;\n")
-                    file1.write("\t\t\t\t}\n")
-                    file1.write("\t\t\t\tif(type==\"uint32[]\"){\n")
-                    file1.write("\t\t\t\t\tRobotRaconteur::RRArrayPtr<uint32_t> my_array = RobotRaconteur::AllocateEmptyRRArray<uint32_t>(node[\"%s\"][\"value\"].size());\n"%(f[2]))
-                    file1.write("\t\t\t\t\tfor (int i = 0; i < node[\"%s\"][\"value\"].size(); i++) {\n"%(f[2]))
-                    file1.write("\t\t\t\t\t\tmy_array->at(i) = node[\"%s\"][\"value\"][i].as<uint32_t>();\n"%(f[2]))
-                    file1.write("\t\t\t\t\t}\n")
-                    file1.write("\t\t\t\t\tvarval=my_array;\n")
-                    file1.write("\t\t\t\t}\n")
-                    file1.write("\t\t\t\trhs->%s=varval;\n"%(f[2]))
-                    
-                    file1.write("\t\t\t}\n")
-                else:
-                    
-                    if(qualifiedname not in error_names):
-                        error_names.append(qualifiedname)"""                  
-        file1.write("\t\t\treturn true;\n")
-        file1.write("\t\t}\n")
-        file1.write("\t};\n\n\n")
+                    file6.write(f"\t\t// TODO: parse field {field_def.Type.ToString().split()[0]} {fieldname}\n") 
+        file6.write("\t\treturn true;\n")
+        file6.write("\t}\n")
 
         testfile.write("node.as<%s::%sPtr>();\n"%(name,e.Name))
     
@@ -762,6 +410,8 @@ file2.write("}\n")
 file2.write("}\n")
 file2.write("}\n")
 file2.write("}\n")
+
+file6.write("}\n")
 
 testfile.write("}\n\n")
 testfile.write("int main(int ac, char** av) // NOLINT\n{\n")
