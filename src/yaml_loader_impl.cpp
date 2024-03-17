@@ -7,7 +7,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::actuator::ActuatorStatePtr>::decode(const Node& node, com::robotraconteur::actuator::ActuatorStatePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::actuator::ActuatorState); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::actuator::ActuatorState);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->ts = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::datetime::TimeSpec3>(node,"ts",true);
 		rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 		rhs->actuator_state_flags = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"actuator_state_flags",true);
@@ -21,7 +23,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::actuator::ActuatorInfoPtr>::decode(const Node& node, com::robotraconteur::actuator::ActuatorInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::actuator::ActuatorInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::actuator::ActuatorInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 		rhs->actuator_type = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::actuator::ActuatorTypeCode::ActuatorTypeCode>(node,"actuator_type",true);
 		rhs->command_units = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::units::SIUnitPtr>(node,"command_units",true);
@@ -39,7 +43,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::bignum::BigNumPtr>::decode(const Node& node, com::robotraconteur::bignum::BigNumPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::bignum::BigNum); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::bignum::BigNum);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->data = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"data",true,true,0);
 		return true;
 	}
@@ -50,7 +56,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::bignum::UnsignedBigNumPtr>::decode(const Node& node, com::robotraconteur::bignum::UnsignedBigNumPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::bignum::UnsignedBigNum); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::bignum::UnsignedBigNum);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->data = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"data",true,true,0);
 		return true;
 	}
@@ -61,7 +69,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::bignum::BigFloatPtr>::decode(const Node& node, com::robotraconteur::bignum::BigFloatPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::bignum::BigFloat); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::bignum::BigFloat);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->num = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::bignum::BigNumPtr>(node,"num",true);
 		rhs->den = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::bignum::BigNumPtr>(node,"den",true);
 		rhs->radix = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::bignum::BigNumPtr>(node,"radix",true);
@@ -174,7 +184,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::datatype::DataTypePtr>::decode(const Node& node, com::robotraconteur::datatype::DataTypePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::datatype::DataType); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::datatype::DataType);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->name = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"name",true);
 		rhs->type_code = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::datatype::DataTypeCode::DataTypeCode>(node,"type_code",true);
 		rhs->type_string = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"type_string",true);
@@ -201,7 +213,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::datetime::DateTimeLocalPtr>::decode(const Node& node, com::robotraconteur::datetime::DateTimeLocalPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::datetime::DateTimeLocal); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::datetime::DateTimeLocal);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		// TODO: parse field ClockInfo clock_info
 		rhs->seconds = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int64_t>(node,"seconds",true);
 		rhs->nanoseconds = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int32_t>(node,"nanoseconds",true);
@@ -216,7 +230,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::datetime::clock::ClockDeviceInfoPtr>::decode(const Node& node, com::robotraconteur::datetime::clock::ClockDeviceInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::datetime::clock::ClockDeviceInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::datetime::clock::ClockDeviceInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 		rhs->clock_type = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::datetime::ClockTypeCode::ClockTypeCode>(node,"clock_type",true);
 		rhs->timezone_utc_offset_seconds = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int32_t>(node,"timezone_utc_offset_seconds",true);
@@ -231,7 +247,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::device::DeviceOptionPtr>::decode(const Node& node, com::robotraconteur::device::DeviceOptionPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceOption); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceOption);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->option_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"option_identifier",true);
 		rhs->suboptions = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::device::DeviceSubOptionPtr>(node,"suboptions",true);
 		return true;
@@ -243,7 +261,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::device::DeviceSubOptionPtr>::decode(const Node& node, com::robotraconteur::device::DeviceSubOptionPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceSubOption); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceSubOption);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->suboption_name = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"suboption_name",true);
 		rhs->suboption_level = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"suboption_level",true);
 		// TODO: parse field varvalue{string} extended
@@ -256,7 +276,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::device::DeviceCapabilityPtr>::decode(const Node& node, com::robotraconteur::device::DeviceCapabilityPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceCapability); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceCapability);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->capability_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"capability_identifier",true);
 		rhs->subcapabilities = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::device::DeviceSubCapabilityPtr>(node,"subcapabilities",true);
 		return true;
@@ -268,7 +290,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::device::DeviceSubCapabilityPtr>::decode(const Node& node, com::robotraconteur::device::DeviceSubCapabilityPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceSubCapability); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceSubCapability);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->subcapability_name = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"subcapability_name",true);
 		rhs->subcapability_level = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"subcapability_level",true);
 		// TODO: parse field varvalue{string} extended
@@ -281,7 +305,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::device::DeviceClassPtr>::decode(const Node& node, com::robotraconteur::device::DeviceClassPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceClass); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceClass);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->class_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"class_identifier",true);
 		rhs->subclasses = RobotRaconteur::Companion::InfoParser::yaml::parse_string_list(node,"subclasses",true);
 		return true;
@@ -293,7 +319,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::device::DeviceInfoPtr>::decode(const Node& node, com::robotraconteur::device::DeviceInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::device::DeviceInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->device = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"device",true);
 		rhs->parent_device = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_device",true);
 		rhs->manufacturer = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"manufacturer",true);
@@ -317,7 +345,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::device::isoch::IsochInfoPtr>::decode(const Node& node, com::robotraconteur::device::isoch::IsochInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::device::isoch::IsochInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::device::isoch::IsochInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->update_rate = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"update_rate",true);
 		// TODO: parse field com.robotraconteur.datetime.TimeSpec2 isoch_epoch
 		rhs->max_downsample = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"max_downsample",true);
@@ -330,7 +360,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::eventlog::EventLogTypePtr>::decode(const Node& node, com::robotraconteur::eventlog::EventLogTypePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogType); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogType);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->event_category = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"event_category",true);
 		rhs->event_type = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"event_type",true);
 		return true;
@@ -342,7 +374,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::eventlog::EventLogMessageHeaderPtr>::decode(const Node& node, com::robotraconteur::eventlog::EventLogMessageHeaderPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogMessageHeader); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogMessageHeader);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->type = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::eventlog::EventLogTypePtr>(node,"type",true);
 		rhs->level = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::eventlog::EventLogLevel::EventLogLevel>(node,"level",true);
 		rhs->source_device = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"source_device",true);
@@ -359,7 +393,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::eventlog::EventLogMessagePtr>::decode(const Node& node, com::robotraconteur::eventlog::EventLogMessagePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogMessage); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogMessage);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::eventlog::EventLogMessageHeaderPtr>(node,"header",true);
 		rhs->title = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"title",true);
 		rhs->message = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"message",true);
@@ -373,7 +409,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::eventlog::EventLogInfoPtr>::decode(const Node& node, com::robotraconteur::eventlog::EventLogInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::eventlog::EventLogInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 		rhs->logged_device = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"logged_device",true);
 		rhs->min_message_number = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"min_message_number",true);
@@ -388,7 +426,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::fiducial::FiducialPtr>::decode(const Node& node, com::robotraconteur::fiducial::FiducialPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::fiducial::Fiducial); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::fiducial::Fiducial);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->fiducial_marker_class = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"fiducial_marker_class",true);
 		rhs->fiducial_marker = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"fiducial_marker",true);
 		rhs->fiducial_pose = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::NamedPosePtr>(node,"fiducial_pose",true);
@@ -404,7 +444,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::fiducial::FiducialInfoPtr>::decode(const Node& node, com::robotraconteur::fiducial::FiducialInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::fiducial::FiducialInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::fiducial::FiducialInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->fiducial_marker_class = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"fiducial_marker_class",true);
 		rhs->fiducial_marker = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"fiducial_marker",true);
 		rhs->fiducial_marker_range = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"fiducial_marker_range",true);
@@ -423,7 +465,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::fiducial::RecognizedFiducialPtr>::decode(const Node& node, com::robotraconteur::fiducial::RecognizedFiducialPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::fiducial::RecognizedFiducial); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::fiducial::RecognizedFiducial);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->fiducial_marker_class = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"fiducial_marker_class",true);
 		rhs->fiducial_marker = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"fiducial_marker",true);
 		rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::NamedPoseWithCovariancePtr>(node,"pose",true);
@@ -438,7 +482,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::fiducial::RecognizedFiducialsPtr>::decode(const Node& node, com::robotraconteur::fiducial::RecognizedFiducialsPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::fiducial::RecognizedFiducials); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::fiducial::RecognizedFiducials);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->recognized_fiducials = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::fiducial::RecognizedFiducialPtr>(node,"recognized_fiducials",true);
 		// TODO: parse field varvalue source_data
 		// TODO: parse field varvalue{string} extended
@@ -451,7 +497,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::fiducial::FiducialSensorInfoPtr>::decode(const Node& node, com::robotraconteur::fiducial::FiducialSensorInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::fiducial::FiducialSensorInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::fiducial::FiducialSensorInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 		rhs->range = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::BoundingBoxPtr>(node,"range",true);
 		rhs->resolution = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector3>(node,"resolution",true);
@@ -467,7 +515,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::fiducial::FiducialSensorDataPtr>::decode(const Node& node, com::robotraconteur::fiducial::FiducialSensorDataPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::fiducial::FiducialSensorData); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::fiducial::FiducialSensorData);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->sensor_data = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"sensor_data",true);
 		rhs->fiducials = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::fiducial::RecognizedFiducialsPtr>(node,"fiducials",true);
 		return true;
@@ -692,7 +742,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::NamedTransformPtr>::decode(const Node& node, com::robotraconteur::geometry::NamedTransformPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedTransform); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedTransform);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 		rhs->child_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"child_frame",true);
 		rhs->transform = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Transform>(node,"transform",true);
@@ -705,7 +757,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::NamedPosePtr>::decode(const Node& node, com::robotraconteur::geometry::NamedPosePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedPose); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedPose);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 		rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 		rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Pose>(node,"pose",true);
@@ -718,7 +772,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::PoseWithCovariancePtr>::decode(const Node& node, com::robotraconteur::geometry::PoseWithCovariancePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::PoseWithCovariance); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::PoseWithCovariance);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Pose>(node,"pose",true);
 		rhs->covariance = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_multidimarray<double>(node,"covariance",true,6,6);
 		return true;
@@ -730,7 +786,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::NamedPoseWithCovariancePtr>::decode(const Node& node, com::robotraconteur::geometry::NamedPoseWithCovariancePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedPoseWithCovariance); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedPoseWithCovariance);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::NamedPosePtr>(node,"pose",true);
 		rhs->covariance = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_multidimarray<double>(node,"covariance",true,6,6);
 		return true;
@@ -742,7 +800,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::NamedPose2DPtr>::decode(const Node& node, com::robotraconteur::geometry::NamedPose2DPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedPose2D); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedPose2D);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 		rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 		rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Pose2D>(node,"pose",true);
@@ -755,7 +815,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::NamedSpatialVelocityPtr>::decode(const Node& node, com::robotraconteur::geometry::NamedSpatialVelocityPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedSpatialVelocity); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedSpatialVelocity);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 		rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 		rhs->velocity = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::SpatialVelocity>(node,"velocity",true);
@@ -768,7 +830,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::NamedSpatialAccelerationPtr>::decode(const Node& node, com::robotraconteur::geometry::NamedSpatialAccelerationPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedSpatialAcceleration); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedSpatialAcceleration);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 		rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 		rhs->acceleration = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::SpatialAcceleration>(node,"acceleration",true);
@@ -781,7 +845,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::NamedWrenchPtr>::decode(const Node& node, com::robotraconteur::geometry::NamedWrenchPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedWrench); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedWrench);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 		rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 		rhs->wrench = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Wrench>(node,"wrench",true);
@@ -794,7 +860,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::NamedSpatialInertiaPtr>::decode(const Node& node, com::robotraconteur::geometry::NamedSpatialInertiaPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedSpatialInertia); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::NamedSpatialInertia);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 		rhs->inertia = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::SpatialInertia>(node,"inertia",true);
 		return true;
@@ -806,7 +874,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::BoundingBox2DPtr>::decode(const Node& node, com::robotraconteur::geometry::BoundingBox2DPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::BoundingBox2D); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::BoundingBox2D);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->center = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::NamedPose2DPtr>(node,"center",true);
 		rhs->size = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Size2D>(node,"size",true);
 		return true;
@@ -818,7 +888,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::BoundingBoxPtr>::decode(const Node& node, com::robotraconteur::geometry::BoundingBoxPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::BoundingBox); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::BoundingBox);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->center = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::NamedPosePtr>(node,"center",true);
 		rhs->size = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Size>(node,"size",true);
 		return true;
@@ -842,7 +914,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::shapes::BoxPtr>::decode(const Node& node, com::robotraconteur::geometry::shapes::BoxPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Box); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Box);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->x = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"x",true);
 		rhs->y = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"y",true);
 		rhs->z = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"z",true);
@@ -855,7 +929,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::shapes::SpherePtr>::decode(const Node& node, com::robotraconteur::geometry::shapes::SpherePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Sphere); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Sphere);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->radius = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"radius",true);
 		return true;
 	}
@@ -866,7 +942,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::shapes::CylinderPtr>::decode(const Node& node, com::robotraconteur::geometry::shapes::CylinderPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Cylinder); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Cylinder);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->height = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"height",true);
 		rhs->radius = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"radius",true);
 		return true;
@@ -878,7 +956,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::shapes::ConePtr>::decode(const Node& node, com::robotraconteur::geometry::shapes::ConePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Cone); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Cone);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->height = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"height",true);
 		rhs->radius = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"radius",true);
 		return true;
@@ -890,7 +970,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::shapes::CapsulePtr>::decode(const Node& node, com::robotraconteur::geometry::shapes::CapsulePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Capsule); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Capsule);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->height = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"height",true);
 		rhs->radius = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"radius",true);
 		return true;
@@ -902,7 +984,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::shapes::PlanePtr>::decode(const Node& node, com::robotraconteur::geometry::shapes::PlanePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Plane); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Plane);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->a = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"a",true);
 		rhs->b = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"b",true);
 		rhs->c = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"c",true);
@@ -916,7 +1000,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::shapes::MeshTexturePtr>::decode(const Node& node, com::robotraconteur::geometry::shapes::MeshTexturePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::MeshTexture); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::MeshTexture);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->image = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::image::CompressedImagePtr>(node,"image",true);
 		rhs->uvs = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometry::Vector2>(node,"uvs",true,true,0);
 		return true;
@@ -928,7 +1014,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::shapes::MeshPtr>::decode(const Node& node, com::robotraconteur::geometry::shapes::MeshPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Mesh); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Mesh);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->triangles = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometry::shapes::MeshTriangle>(node,"triangles",true,true,0);
 		rhs->vertices = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometry::Point>(node,"vertices",true,true,0);
 		rhs->normals = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometry::Vector3>(node,"normals",true,true,0);
@@ -944,7 +1032,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::shapes::MaterialPtr>::decode(const Node& node, com::robotraconteur::geometry::shapes::MaterialPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Material); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Material);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->base_color_factor = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::color::ColorRGBA>(node,"base_color_factor",true);
 		rhs->metallic_factor = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"metallic_factor",true);
 		rhs->roughness_factor = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"roughness_factor",true);
@@ -959,7 +1049,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometry::shapes::ShapeObjectPtr>::decode(const Node& node, com::robotraconteur::geometry::shapes::ShapeObjectPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::ShapeObject); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::ShapeObject);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->name = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"name",true);
 		// TODO: parse field varvalue{list} shapes
 		// TODO: parse field com.robotraconteur.geometry.Pose{list} shape_poses
@@ -1189,7 +1281,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryf::NamedTransformPtr>::decode(const Node& node, com::robotraconteur::geometryf::NamedTransformPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedTransform); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedTransform);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 		rhs->child_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"child_frame",true);
 		rhs->transform = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::Transform>(node,"transform",true);
@@ -1202,7 +1296,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryf::NamedPosePtr>::decode(const Node& node, com::robotraconteur::geometryf::NamedPosePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedPose); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedPose);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 		rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 		rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::Pose>(node,"pose",true);
@@ -1215,7 +1311,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryf::PoseWithCovariancePtr>::decode(const Node& node, com::robotraconteur::geometryf::PoseWithCovariancePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::PoseWithCovariance); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::PoseWithCovariance);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::Pose>(node,"pose",true);
 		rhs->covariance = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_multidimarray<float>(node,"covariance",true,6,6);
 		return true;
@@ -1227,7 +1325,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryf::NamedPoseWithCovariancePtr>::decode(const Node& node, com::robotraconteur::geometryf::NamedPoseWithCovariancePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedPoseWithCovariance); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedPoseWithCovariance);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometryf::NamedPosePtr>(node,"pose",true);
 		rhs->covariance = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_multidimarray<float>(node,"covariance",true,6,6);
 		return true;
@@ -1239,7 +1339,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryf::NamedPose2DPtr>::decode(const Node& node, com::robotraconteur::geometryf::NamedPose2DPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedPose2D); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedPose2D);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 		rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 		rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::Pose2D>(node,"pose",true);
@@ -1252,7 +1354,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryf::NamedSpatialVelocityPtr>::decode(const Node& node, com::robotraconteur::geometryf::NamedSpatialVelocityPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedSpatialVelocity); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedSpatialVelocity);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 		rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 		rhs->velocity = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::SpatialVelocity>(node,"velocity",true);
@@ -1265,7 +1369,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryf::NamedSpatialAccelerationPtr>::decode(const Node& node, com::robotraconteur::geometryf::NamedSpatialAccelerationPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedSpatialAcceleration); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedSpatialAcceleration);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 		rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 		rhs->acceleration = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::SpatialAcceleration>(node,"acceleration",true);
@@ -1278,7 +1384,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryf::NamedWrenchPtr>::decode(const Node& node, com::robotraconteur::geometryf::NamedWrenchPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedWrench); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedWrench);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 		rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 		rhs->wrench = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::Wrench>(node,"wrench",true);
@@ -1291,7 +1399,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryf::NamedSpatialInertiaPtr>::decode(const Node& node, com::robotraconteur::geometryf::NamedSpatialInertiaPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedSpatialInertia); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedSpatialInertia);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 		rhs->inertia = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::SpatialInertia>(node,"inertia",true);
 		return true;
@@ -1303,7 +1413,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryf::BoundingBox2DPtr>::decode(const Node& node, com::robotraconteur::geometryf::BoundingBox2DPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::BoundingBox2D); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::BoundingBox2D);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->center = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometryf::NamedPose2DPtr>(node,"center",true);
 		rhs->size = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::Size2D>(node,"size",true);
 		return true;
@@ -1315,7 +1427,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryf::BoundingBoxPtr>::decode(const Node& node, com::robotraconteur::geometryf::BoundingBoxPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::BoundingBox); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryf::BoundingBox);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->center = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometryf::NamedPosePtr>(node,"center",true);
 		rhs->size = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::Size>(node,"size",true);
 		return true;
@@ -1540,7 +1654,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryi::NamedTransformPtr>::decode(const Node& node, com::robotraconteur::geometryi::NamedTransformPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::NamedTransform); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::NamedTransform);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 		rhs->child_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"child_frame",true);
 		rhs->transform = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryi::Transform>(node,"transform",true);
@@ -1553,7 +1669,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryi::NamedPosePtr>::decode(const Node& node, com::robotraconteur::geometryi::NamedPosePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::NamedPose); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::NamedPose);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 		rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 		rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryi::Pose>(node,"pose",true);
@@ -1566,7 +1684,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryi::PoseWithCovariancePtr>::decode(const Node& node, com::robotraconteur::geometryi::PoseWithCovariancePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::PoseWithCovariance); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::PoseWithCovariance);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryi::Pose>(node,"pose",true);
 		rhs->covariance = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_multidimarray<int32_t>(node,"covariance",true,6,6);
 		return true;
@@ -1578,7 +1698,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryi::NamedPoseWithCovariancePtr>::decode(const Node& node, com::robotraconteur::geometryi::NamedPoseWithCovariancePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::NamedPoseWithCovariance); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::NamedPoseWithCovariance);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometryi::NamedPosePtr>(node,"pose",true);
 		rhs->covariance = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_multidimarray<int32_t>(node,"covariance",true,6,6);
 		return true;
@@ -1590,7 +1712,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryi::NamedPose2DPtr>::decode(const Node& node, com::robotraconteur::geometryi::NamedPose2DPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::NamedPose2D); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::NamedPose2D);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 		rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 		rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryi::Pose2D>(node,"pose",true);
@@ -1603,7 +1727,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryi::NamedSpatialVelocityPtr>::decode(const Node& node, com::robotraconteur::geometryi::NamedSpatialVelocityPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::NamedSpatialVelocity); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::NamedSpatialVelocity);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 		rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 		rhs->velocity = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryi::SpatialVelocity>(node,"velocity",true);
@@ -1616,7 +1742,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryi::NamedSpatialAccelerationPtr>::decode(const Node& node, com::robotraconteur::geometryi::NamedSpatialAccelerationPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::NamedSpatialAcceleration); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::NamedSpatialAcceleration);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 		rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 		rhs->acceleration = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryi::SpatialAcceleration>(node,"acceleration",true);
@@ -1629,7 +1757,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryi::NamedWrenchPtr>::decode(const Node& node, com::robotraconteur::geometryi::NamedWrenchPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::NamedWrench); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::NamedWrench);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 		rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 		rhs->wrench = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryi::Wrench>(node,"wrench",true);
@@ -1642,7 +1772,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryi::NamedSpatialInertiaPtr>::decode(const Node& node, com::robotraconteur::geometryi::NamedSpatialInertiaPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::NamedSpatialInertia); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::NamedSpatialInertia);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 		rhs->inertia = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryi::SpatialInertia>(node,"inertia",true);
 		return true;
@@ -1654,7 +1786,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryi::BoundingBox2DPtr>::decode(const Node& node, com::robotraconteur::geometryi::BoundingBox2DPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::BoundingBox2D); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::BoundingBox2D);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->center = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometryi::NamedPose2DPtr>(node,"center",true);
 		rhs->size = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryi::Size2D>(node,"size",true);
 		return true;
@@ -1666,7 +1800,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::geometryi::BoundingBoxPtr>::decode(const Node& node, com::robotraconteur::geometryi::BoundingBoxPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::BoundingBox); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::geometryi::BoundingBox);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->center = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometryi::NamedPosePtr>(node,"center",true);
 		rhs->size = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryi::Size>(node,"size",true);
 		return true;
@@ -1678,7 +1814,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::gps::GpsStatusPtr>::decode(const Node& node, com::robotraconteur::gps::GpsStatusPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::gps::GpsStatus); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::gps::GpsStatus);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->satellites_used = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint16_t>(node,"satellites_used",true);
 		rhs->satellite_used_prn = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<int32_t>(node,"satellite_used_prn",true,true,0);
 		rhs->satellites_visible = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint16_t>(node,"satellites_visible",true);
@@ -1699,7 +1837,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::gps::GpsStatePtr>::decode(const Node& node, com::robotraconteur::gps::GpsStatePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::gps::GpsState); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::gps::GpsState);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->status = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::gps::GpsStatusPtr>(node,"status",true);
 		// TODO: parse field com.robotraconteur.datetime.DateTimeUTC time
 		rhs->latitude_deg = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"latitude_deg",true);
@@ -1736,7 +1876,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::hid::joystick::JoystickInfoPtr>::decode(const Node& node, com::robotraconteur::hid::joystick::JoystickInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::JoystickInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::JoystickInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 		rhs->id = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"id",true);
 		rhs->axes_count = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"axes_count",true);
@@ -1757,7 +1899,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::hid::joystick::JoystickStatePtr>::decode(const Node& node, com::robotraconteur::hid::joystick::JoystickStatePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::JoystickState); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::JoystickState);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->axes = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<int16_t>(node,"axes",true,true,0);
 		rhs->buttons = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"buttons",true,true,0);
 		rhs->hats = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"hats",true,true,0);
@@ -1770,7 +1914,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::hid::joystick::GamepadStatePtr>::decode(const Node& node, com::robotraconteur::hid::joystick::GamepadStatePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::GamepadState); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::GamepadState);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->left_x = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int16_t>(node,"left_x",true);
 		rhs->left_y = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int16_t>(node,"left_y",true);
 		rhs->right_x = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int16_t>(node,"right_x",true);
@@ -1787,7 +1933,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::hid::joystick::JoystickStateSensorDataPtr>::decode(const Node& node, com::robotraconteur::hid::joystick::JoystickStateSensorDataPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::JoystickStateSensorData); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::JoystickStateSensorData);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->data_header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"data_header",true);
 		rhs->joystick_state = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::hid::joystick::JoystickStatePtr>(node,"joystick_state",true);
 		rhs->gamepad_state = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::hid::joystick::GamepadStatePtr>(node,"gamepad_state",true);
@@ -1845,7 +1993,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::image::ImageInfoPtr>::decode(const Node& node, com::robotraconteur::image::ImageInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::image::ImageInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::image::ImageInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->data_header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"data_header",true);
 		rhs->height = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"height",true);
 		rhs->width = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"width",true);
@@ -1861,7 +2011,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::image::FreeformImageInfoPtr>::decode(const Node& node, com::robotraconteur::image::FreeformImageInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::image::FreeformImageInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::image::FreeformImageInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->image_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::image::ImageInfoPtr>(node,"image_info",true);
 		rhs->encoding = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"encoding",true);
 		// TODO: parse field varvalue{string} extended
@@ -1874,7 +2026,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::image::ImagePtr>::decode(const Node& node, com::robotraconteur::image::ImagePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::image::Image); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::image::Image);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->image_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::image::ImageInfoPtr>(node,"image_info",true);
 		rhs->data = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"data",true,true,0);
 		return true;
@@ -1886,7 +2040,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::image::CompressedImagePtr>::decode(const Node& node, com::robotraconteur::image::CompressedImagePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::image::CompressedImage); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::image::CompressedImage);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->image_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::image::ImageInfoPtr>(node,"image_info",true);
 		rhs->data = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"data",true,true,0);
 		return true;
@@ -1898,7 +2054,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::image::FreeformImagePtr>::decode(const Node& node, com::robotraconteur::image::FreeformImagePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::image::FreeformImage); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::image::FreeformImage);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->image_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::image::FreeformImageInfoPtr>(node,"image_info",true);
 		// TODO: parse field varvalue data
 		// TODO: parse field varvalue{string} extended
@@ -1911,7 +2069,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::image::ImagePartPtr>::decode(const Node& node, com::robotraconteur::image::ImagePartPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::image::ImagePart); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::image::ImagePart);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->image_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::image::ImageInfoPtr>(node,"image_info",true);
 		rhs->data_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_offset",true);
 		rhs->data_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_total_len",true);
@@ -1925,7 +2085,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::image::CompressedImagePartPtr>::decode(const Node& node, com::robotraconteur::image::CompressedImagePartPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::image::CompressedImagePart); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::image::CompressedImagePart);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->image_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::image::ImageInfoPtr>(node,"image_info",true);
 		rhs->data_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_offset",true);
 		rhs->data_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_total_len",true);
@@ -1939,7 +2101,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::image::FreeformImagePartPtr>::decode(const Node& node, com::robotraconteur::image::FreeformImagePartPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::image::FreeformImagePart); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::image::FreeformImagePart);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->image_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::image::FreeformImageInfoPtr>(node,"image_info",true);
 		rhs->data_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_offset",true);
 		rhs->data_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_total_len",true);
@@ -1954,7 +2118,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::image::ImageResourcePtr>::decode(const Node& node, com::robotraconteur::image::ImageResourcePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::image::ImageResource); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::image::ImageResource);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->image_resource = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::resource::ResourceIdentifierPtr>(node,"image_resource",true);
 		return true;
 	}
@@ -1965,7 +2131,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::imaging::CameraStatePtr>::decode(const Node& node, com::robotraconteur::imaging::CameraStatePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::imaging::CameraState); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::imaging::CameraState);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->ts = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::datetime::TimeSpec3>(node,"ts",true);
 		rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 		rhs->state_flags = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int32_t>(node,"state_flags",true);
@@ -1979,7 +2147,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::imaging::camerainfo::PlumbBobDistortionInfoPtr>::decode(const Node& node, com::robotraconteur::imaging::camerainfo::PlumbBobDistortionInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::imaging::camerainfo::PlumbBobDistortionInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::imaging::camerainfo::PlumbBobDistortionInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->k1 = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"k1",true);
 		rhs->k2 = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"k2",true);
 		rhs->p1 = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"p1",true);
@@ -1994,7 +2164,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::imaging::camerainfo::CameraCalibrationPtr>::decode(const Node& node, com::robotraconteur::imaging::camerainfo::CameraCalibrationPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::imaging::camerainfo::CameraCalibration); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::imaging::camerainfo::CameraCalibration);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->image_size = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryi::Size2D>(node,"image_size",true);
 		rhs->distortion_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::imaging::camerainfo::PlumbBobDistortionInfoPtr>(node,"distortion_info",true);
 		rhs->K = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_multidimarray<double>(node,"K",true,3,3);
@@ -2010,7 +2182,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::imaging::camerainfo::CameraInfoPtr>::decode(const Node& node, com::robotraconteur::imaging::camerainfo::CameraInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::imaging::camerainfo::CameraInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::imaging::camerainfo::CameraInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 		rhs->calibration = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::imaging::camerainfo::CameraCalibrationPtr>(node,"calibration",true);
 		// TODO: parse field varvalue{string} extended
@@ -2023,7 +2197,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::imaging::camerainfo::MultiCameraInfoPtr>::decode(const Node& node, com::robotraconteur::imaging::camerainfo::MultiCameraInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::imaging::camerainfo::MultiCameraInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::imaging::camerainfo::MultiCameraInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 		rhs->camera_info_all = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_map_int32<com::robotraconteur::imaging::camerainfo::CameraInfoPtr>(node,"camera_info_all",true);
 		// TODO: parse field varvalue{string} extended
@@ -2036,7 +2212,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::imu::ImuStatePtr>::decode(const Node& node, com::robotraconteur::imu::ImuStatePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::imu::ImuState); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::imu::ImuState);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->angular_velocity = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector3>(node,"angular_velocity",true);
 		rhs->angular_velocity_covariance = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_multidimarray<double>(node,"angular_velocity_covariance",true,3,3);
 		rhs->linear_acceleration = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector3>(node,"linear_acceleration",true);
@@ -2052,7 +2230,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::laserscan::LaserScanInfoPtr>::decode(const Node& node, com::robotraconteur::laserscan::LaserScanInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->data_header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"data_header",true);
 		rhs->angle_min = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"angle_min",true);
 		rhs->angle_max = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"angle_max",true);
@@ -2076,7 +2256,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::laserscan::LaserScanPtr>::decode(const Node& node, com::robotraconteur::laserscan::LaserScanPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScan); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScan);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->scan_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::laserscan::LaserScanInfoPtr>(node,"scan_info",true);
 		rhs->ranges = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<double>(node,"ranges",true,true,0);
 		rhs->intensities = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<double>(node,"intensities",true,true,0);
@@ -2092,7 +2274,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::laserscan::LaserScanInfofPtr>::decode(const Node& node, com::robotraconteur::laserscan::LaserScanInfofPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanInfof); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanInfof);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->data_header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"data_header",true);
 		rhs->angle_min = RobotRaconteur::Companion::InfoParser::yaml::parse_number<float>(node,"angle_min",true);
 		rhs->angle_max = RobotRaconteur::Companion::InfoParser::yaml::parse_number<float>(node,"angle_max",true);
@@ -2116,7 +2300,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::laserscan::LaserScanfPtr>::decode(const Node& node, com::robotraconteur::laserscan::LaserScanfPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanf); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanf);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->scan_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::laserscan::LaserScanInfofPtr>(node,"scan_info",true);
 		rhs->ranges = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<float>(node,"ranges",true,true,0);
 		rhs->intensities = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<float>(node,"intensities",true,true,0);
@@ -2132,7 +2318,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::laserscan::LaserScanPartPtr>::decode(const Node& node, com::robotraconteur::laserscan::LaserScanPartPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanPart); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanPart);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->scan_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::laserscan::LaserScanInfoPtr>(node,"scan_info",true);
 		rhs->data_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_offset",true);
 		rhs->data_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_total_len",true);
@@ -2150,7 +2338,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::laserscan::LaserScanPartfPtr>::decode(const Node& node, com::robotraconteur::laserscan::LaserScanPartfPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanPartf); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::laserscan::LaserScanPartf);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->scan_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::laserscan::LaserScanInfofPtr>(node,"scan_info",true);
 		rhs->data_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_offset",true);
 		rhs->data_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_total_len",true);
@@ -2168,7 +2358,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::laserscanner::LaserScannerInfoPtr>::decode(const Node& node, com::robotraconteur::laserscanner::LaserScannerInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::laserscanner::LaserScannerInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::laserscanner::LaserScannerInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 		rhs->scanner_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::laserscan::LaserScanInfofPtr>(node,"scanner_info",true);
 		rhs->scan_rate = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"scan_rate",true);
@@ -2183,7 +2375,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::lighting::LightInfoPtr>::decode(const Node& node, com::robotraconteur::lighting::LightInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::lighting::LightInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::lighting::LightInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 		rhs->max_lumens = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"max_lumens",true);
 		// TODO: parse field varvalue{string} extended
@@ -2196,7 +2390,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::objectrecognition::ObjectRecognitionTemplatePtr>::decode(const Node& node, com::robotraconteur::objectrecognition::ObjectRecognitionTemplatePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::ObjectRecognitionTemplate); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::ObjectRecognitionTemplate);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->object_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"object_identifier",true);
 		rhs->object_class = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceClassPtr>(node,"object_class",true);
 		rhs->object_shape = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::shapes::ShapeObjectPtr>(node,"object_shape",true);
@@ -2211,7 +2407,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::objectrecognition::RecognizedObjectPtr>::decode(const Node& node, com::robotraconteur::objectrecognition::RecognizedObjectPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::RecognizedObject); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::RecognizedObject);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->recognized_object = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"recognized_object",true);
 		rhs->recognized_object_class = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceClassPtr>(node,"recognized_object_class",true);
 		rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::NamedPoseWithCovariancePtr>(node,"pose",true);
@@ -2226,7 +2424,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::objectrecognition::RecognizedObjectsPtr>::decode(const Node& node, com::robotraconteur::objectrecognition::RecognizedObjectsPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::RecognizedObjects); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::RecognizedObjects);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->recognized_objects = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::objectrecognition::RecognizedObjectPtr>(node,"recognized_objects",true);
 		// TODO: parse field varvalue source_data
 		// TODO: parse field varvalue{string} extended
@@ -2239,7 +2439,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::objectrecognition::ObjectRecognitionSensorInfoPtr>::decode(const Node& node, com::robotraconteur::objectrecognition::ObjectRecognitionSensorInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::ObjectRecognitionSensorInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::ObjectRecognitionSensorInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 		rhs->range = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::BoundingBoxPtr>(node,"range",true);
 		rhs->resolution = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector3>(node,"resolution",true);
@@ -2256,7 +2458,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::objectrecognition::ObjectRecognitionSensorDataPtr>::decode(const Node& node, com::robotraconteur::objectrecognition::ObjectRecognitionSensorDataPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::ObjectRecognitionSensorData); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::objectrecognition::ObjectRecognitionSensorData);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->sensor_data = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"sensor_data",true);
 		rhs->recognized_objects = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::objectrecognition::RecognizedObjectsPtr>(node,"recognized_objects",true);
 		return true;
@@ -2268,7 +2472,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::octree::OcTreeInfoPtr>::decode(const Node& node, com::robotraconteur::octree::OcTreeInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::octree::OcTreeInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::octree::OcTreeInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->data_header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"data_header",true);
 		rhs->encoding = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::octree::OcTreeEncoding::OcTreeEncoding>(node,"encoding",true);
 		rhs->id = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"id",true);
@@ -2282,7 +2488,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::octree::OcTreePtr>::decode(const Node& node, com::robotraconteur::octree::OcTreePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::octree::OcTree); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::octree::OcTree);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->octree_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::octree::OcTreeInfoPtr>(node,"octree_info",true);
 		rhs->data = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"data",true,true,0);
 		// TODO: parse field varvalue{string} extended
@@ -2295,7 +2503,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::octree::OcTreePartPtr>::decode(const Node& node, com::robotraconteur::octree::OcTreePartPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::octree::OcTreePart); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::octree::OcTreePart);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->octree_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::octree::OcTreeInfoPtr>(node,"octree_info",true);
 		rhs->data_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_offset",true);
 		rhs->data_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_total_len",true);
@@ -2310,7 +2520,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::octree::OcTreeResourcePtr>::decode(const Node& node, com::robotraconteur::octree::OcTreeResourcePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::octree::OcTreeResource); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::octree::OcTreeResource);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->octree_resource = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::resource::ResourceIdentifierPtr>(node,"octree_resource",true);
 		return true;
 	}
@@ -2321,7 +2533,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::param::ParameterInfoPtr>::decode(const Node& node, com::robotraconteur::param::ParameterInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::param::ParameterInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::param::ParameterInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->parameter_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parameter_identifier",true);
 		rhs->parameter_class = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceClassPtr>(node,"parameter_class",true);
 		rhs->data_type = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::datatype::DataTypePtr>(node,"data_type",true);
@@ -2341,7 +2555,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::pid::PIDParamPtr>::decode(const Node& node, com::robotraconteur::pid::PIDParamPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::pid::PIDParam); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::pid::PIDParam);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->p = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"p",true);
 		rhs->i = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"i",true);
 		rhs->d = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"d",true);
@@ -2388,7 +2604,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::pointcloud::PointCloudPtr>::decode(const Node& node, com::robotraconteur::pointcloud::PointCloudPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloud); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloud);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::BoundingBoxPtr>(node,"bounds",true);
 		rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 		rhs->points = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometry::Point>(node,"points",true,true,0);
@@ -2402,7 +2620,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::pointcloud::PointCloudPartPtr>::decode(const Node& node, com::robotraconteur::pointcloud::PointCloudPartPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloudPart); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloudPart);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::BoundingBoxPtr>(node,"bounds",true);
 		rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 		rhs->points_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_offset",true);
@@ -2418,7 +2638,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::pointcloud::PointCloudfPtr>::decode(const Node& node, com::robotraconteur::pointcloud::PointCloudfPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloudf); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloudf);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometryf::BoundingBoxPtr>(node,"bounds",true);
 		rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 		rhs->points = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometryf::Point>(node,"points",true,true,0);
@@ -2432,7 +2654,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::pointcloud::PointCloudPartfPtr>::decode(const Node& node, com::robotraconteur::pointcloud::PointCloudPartfPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloudPartf); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloudPartf);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometryf::BoundingBoxPtr>(node,"bounds",true);
 		rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 		rhs->points_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_offset",true);
@@ -2448,7 +2672,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::pointcloud::PointCloud2Ptr>::decode(const Node& node, com::robotraconteur::pointcloud::PointCloud2Ptr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloud2); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloud2);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::BoundingBoxPtr>(node,"bounds",true);
 		rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 		rhs->points = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::pointcloud::PointCloud2Point>(node,"points",true,true,0);
@@ -2462,7 +2688,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::pointcloud::PointCloud2PartPtr>::decode(const Node& node, com::robotraconteur::pointcloud::PointCloud2PartPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloud2Part); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloud2Part);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::BoundingBoxPtr>(node,"bounds",true);
 		rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 		rhs->points_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_offset",true);
@@ -2478,7 +2706,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::pointcloud::PointCloud2fPtr>::decode(const Node& node, com::robotraconteur::pointcloud::PointCloud2fPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloud2f); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloud2f);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometryf::BoundingBoxPtr>(node,"bounds",true);
 		rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 		rhs->points = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::pointcloud::PointCloud2Pointf>(node,"points",true,true,0);
@@ -2492,7 +2722,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::pointcloud::PointCloud2PartfPtr>::decode(const Node& node, com::robotraconteur::pointcloud::PointCloud2PartfPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloud2Partf); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::PointCloud2Partf);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometryf::BoundingBoxPtr>(node,"bounds",true);
 		rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
 		rhs->points_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"points_offset",true);
@@ -2508,7 +2740,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::pointcloud::FreeformPointCloudPtr>::decode(const Node& node, com::robotraconteur::pointcloud::FreeformPointCloudPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::FreeformPointCloud); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::FreeformPointCloud);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::BoundingBoxPtr>(node,"bounds",true);
 		rhs->encoding = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"encoding",true);
 		rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
@@ -2523,7 +2757,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::pointcloud::FreeformPointCloudPartPtr>::decode(const Node& node, com::robotraconteur::pointcloud::FreeformPointCloudPartPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::FreeformPointCloudPart); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::FreeformPointCloudPart);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::BoundingBoxPtr>(node,"bounds",true);
 		rhs->encoding = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"encoding",true);
 		rhs->is_dense = RobotRaconteur::Companion::InfoParser::yaml::parse_bool(node,"is_dense",true);
@@ -2540,7 +2776,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::pointcloud::sensor::PointCloudSensorInfoPtr>::decode(const Node& node, com::robotraconteur::pointcloud::sensor::PointCloudSensorInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::sensor::PointCloudSensorInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::sensor::PointCloudSensorInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 		rhs->bounds = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometry::BoundingBoxPtr>(node,"bounds",true);
 		rhs->resolution = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Vector3>(node,"resolution",true);
@@ -2555,7 +2793,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::pointcloud::sensor::PointCloudSensorDataPtr>::decode(const Node& node, com::robotraconteur::pointcloud::sensor::PointCloudSensorDataPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::sensor::PointCloudSensorData); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::sensor::PointCloudSensorData);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->sensor_data = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensor::SensorDataPtr>(node,"sensor_data",true);
 		rhs->point_cloud = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::pointcloud::PointCloudfPtr>(node,"point_cloud",true);
 		return true;
@@ -2567,7 +2807,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::pointcloud::sensor::PointCloudPartSensorDataPtr>::decode(const Node& node, com::robotraconteur::pointcloud::sensor::PointCloudPartSensorDataPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::sensor::PointCloudPartSensorData); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::sensor::PointCloudPartSensorData);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->sensor_data = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensor::SensorDataPtr>(node,"sensor_data",true);
 		rhs->point_cloud = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::pointcloud::PointCloudPartfPtr>(node,"point_cloud",true);
 		return true;
@@ -2579,7 +2821,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::pointcloud::sensor::PointCloud2SensorDataPtr>::decode(const Node& node, com::robotraconteur::pointcloud::sensor::PointCloud2SensorDataPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::sensor::PointCloud2SensorData); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::sensor::PointCloud2SensorData);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->sensor_data = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensor::SensorDataPtr>(node,"sensor_data",true);
 		rhs->point_cloud = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::pointcloud::PointCloud2fPtr>(node,"point_cloud",true);
 		return true;
@@ -2591,7 +2835,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::pointcloud::sensor::PointCloud2PartSensorDataPtr>::decode(const Node& node, com::robotraconteur::pointcloud::sensor::PointCloud2PartSensorDataPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::sensor::PointCloud2PartSensorData); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::pointcloud::sensor::PointCloud2PartSensorData);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->sensor_data = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensor::SensorDataPtr>(node,"sensor_data",true);
 		rhs->point_cloud = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::pointcloud::PointCloud2PartfPtr>(node,"point_cloud",true);
 		return true;
@@ -2603,7 +2849,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::resource::ResourceIdentifierPtr>::decode(const Node& node, com::robotraconteur::resource::ResourceIdentifierPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::resource::ResourceIdentifier); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::resource::ResourceIdentifier);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->bucket = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"bucket",true);
 		rhs->key = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"key",true);
 		return true;
@@ -2615,7 +2863,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::resource::BucketInfoPtr>::decode(const Node& node, com::robotraconteur::resource::BucketInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::resource::BucketInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::resource::BucketInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"identifier",true);
 		rhs->keys = RobotRaconteur::Companion::InfoParser::yaml::parse_string_list(node,"keys",true);
 		rhs->description = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"description",true);
@@ -2629,7 +2879,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::resource::ResourceInfoPtr>::decode(const Node& node, com::robotraconteur::resource::ResourceInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::resource::ResourceInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::resource::ResourceInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::resource::ResourceIdentifierPtr>(node,"identifier",true);
 		rhs->key = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"key",true);
 		// TODO: parse field com.robotraconteur.datetime.DateTimeUTC created
@@ -2646,7 +2898,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::resource::ResourcePtr>::decode(const Node& node, com::robotraconteur::resource::ResourcePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::resource::Resource); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::resource::Resource);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::resource::ResourceInfoPtr>(node,"info",true);
 		rhs->data = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"data",true,true,0);
 		return true;
@@ -2658,7 +2912,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::resource::ResourcePartPtr>::decode(const Node& node, com::robotraconteur::resource::ResourcePartPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::resource::ResourcePart); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::resource::ResourcePart);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::resource::ResourceInfoPtr>(node,"info",true);
 		rhs->data_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"data_offset",true);
 		rhs->data = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"data",true,true,0);
@@ -2671,7 +2927,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::joints::JointLimitsPtr>::decode(const Node& node, com::robotraconteur::robotics::joints::JointLimitsPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::joints::JointLimits); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::joints::JointLimits);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->lower = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"lower",true);
 		rhs->upper = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"upper",true);
 		rhs->home = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"home",true);
@@ -2692,7 +2950,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::joints::JointInfoPtr>::decode(const Node& node, com::robotraconteur::robotics::joints::JointInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::joints::JointInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::joints::JointInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->joint_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"joint_identifier",true);
 		rhs->joint_type = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::robotics::joints::JointType::JointType>(node,"joint_type",true);
 		rhs->joint_limits = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::robotics::joints::JointLimitsPtr>(node,"joint_limits",true);
@@ -2709,7 +2969,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::payload::PayloadInfoPtr>::decode(const Node& node, com::robotraconteur::robotics::payload::PayloadInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::payload::PayloadInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::payload::PayloadInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 		rhs->inertia = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::SpatialInertia>(node,"inertia",true);
 		rhs->fiducials = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::fiducial::FiducialPtr>(node,"fiducials",true);
@@ -2723,7 +2985,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::robot::RobotKinChainInfoPtr>::decode(const Node& node, com::robotraconteur::robotics::robot::RobotKinChainInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotKinChainInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotKinChainInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->kin_chain_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"kin_chain_identifier",true);
 		rhs->H = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometry::Vector3>(node,"H",true,true,0);
 		rhs->P = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometry::Vector3>(node,"P",true,true,0);
@@ -2750,7 +3014,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::robot::RobotInfoPtr>::decode(const Node& node, com::robotraconteur::robotics::robot::RobotInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 		rhs->robot_type = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::robotics::robot::RobotTypeCode::RobotTypeCode>(node,"robot_type",true);
 		rhs->joint_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::robotics::joints::JointInfoPtr>(node,"joint_info",true);
@@ -2770,7 +3036,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::robot::RobotStatePtr>::decode(const Node& node, com::robotraconteur::robotics::robot::RobotStatePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotState); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotState);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->ts = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::datetime::TimeSpec3>(node,"ts",true);
 		rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 		rhs->command_mode = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::robotics::robot::RobotCommandMode::RobotCommandMode>(node,"command_mode",true);
@@ -2794,7 +3062,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::robot::AdvancedRobotStatePtr>::decode(const Node& node, com::robotraconteur::robotics::robot::AdvancedRobotStatePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::AdvancedRobotState); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::AdvancedRobotState);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->ts = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::datetime::TimeSpec3>(node,"ts",true);
 		rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 		rhs->command_mode = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::robotics::robot::RobotCommandMode::RobotCommandMode>(node,"command_mode",true);
@@ -2824,7 +3094,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::robot::RobotStateSensorDataPtr>::decode(const Node& node, com::robotraconteur::robotics::robot::RobotStateSensorDataPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotStateSensorData); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotStateSensorData);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->data_header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"data_header",true);
 		rhs->robot_state = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::robotics::robot::AdvancedRobotStatePtr>(node,"robot_state",true);
 		return true;
@@ -2836,7 +3108,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::robot::RobotJointCommandPtr>::decode(const Node& node, com::robotraconteur::robotics::robot::RobotJointCommandPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotJointCommand); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotJointCommand);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 		rhs->state_seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"state_seqno",true);
 		rhs->command = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<double>(node,"command",true,true,0);
@@ -2850,7 +3124,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::tool::ToolInfoPtr>::decode(const Node& node, com::robotraconteur::robotics::tool::ToolInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::tool::ToolInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::tool::ToolInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 		rhs->tool_type = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::robotics::tool::ToolTypeCode::ToolTypeCode>(node,"tool_type",true);
 		rhs->tool_capabilities = RobotRaconteur::Companion::InfoParser::yaml::parse_enum_flags<com::robotraconteur::robotics::tool::ToolCapabilities::ToolCapabilities>(node,"tool_capabilities",true);
@@ -2878,7 +3154,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::tool::ToolStatePtr>::decode(const Node& node, com::robotraconteur::robotics::tool::ToolStatePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::tool::ToolState); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::tool::ToolState);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->ts = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::datetime::TimeSpec3>(node,"ts",true);
 		rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 		rhs->tool_state_flags = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"tool_state_flags",true);
@@ -2894,7 +3172,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::tool::ToolStateSensorDataPtr>::decode(const Node& node, com::robotraconteur::robotics::tool::ToolStateSensorDataPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::tool::ToolStateSensorData); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::tool::ToolStateSensorData);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->data_header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"data_header",true);
 		rhs->robot_state = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::robotics::tool::ToolStatePtr>(node,"robot_state",true);
 		return true;
@@ -2906,7 +3186,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::trajectory::JointTrajectoryWaypointPtr>::decode(const Node& node, com::robotraconteur::robotics::trajectory::JointTrajectoryWaypointPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::trajectory::JointTrajectoryWaypoint); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::trajectory::JointTrajectoryWaypoint);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->joint_position = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<double>(node,"joint_position",true,true,0);
 		rhs->joint_velocity = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<double>(node,"joint_velocity",true,true,0);
 		rhs->position_tolerance = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<double>(node,"position_tolerance",true,true,0);
@@ -2923,7 +3205,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::trajectory::JointTrajectoryPtr>::decode(const Node& node, com::robotraconteur::robotics::trajectory::JointTrajectoryPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::trajectory::JointTrajectory); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::trajectory::JointTrajectory);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->joint_names = RobotRaconteur::Companion::InfoParser::yaml::parse_string_list(node,"joint_names",true);
 		rhs->joint_units = RobotRaconteur::Companion::InfoParser::yaml::parse_enum_list<com::robotraconteur::robotics::joints::JointPositionUnits::JointPositionUnits>(node,"joint_units",true);
 		rhs->waypoints = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::robotics::trajectory::JointTrajectoryWaypointPtr>(node,"waypoints",true);
@@ -2937,7 +3221,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::trajectory::TrajectoryStatusPtr>::decode(const Node& node, com::robotraconteur::robotics::trajectory::TrajectoryStatusPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::trajectory::TrajectoryStatus); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::trajectory::TrajectoryStatus);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 		rhs->action_status = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::action::ActionStatusCode::ActionStatusCode>(node,"action_status",true);
 		rhs->current_waypoint = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"current_waypoint",true);
@@ -2951,7 +3237,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::trajectory::AdvancedJointTrajectoryDeviceWaypointPtr>::decode(const Node& node, com::robotraconteur::robotics::trajectory::AdvancedJointTrajectoryDeviceWaypointPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::trajectory::AdvancedJointTrajectoryDeviceWaypoint); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::trajectory::AdvancedJointTrajectoryDeviceWaypoint);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->joint_position = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array_list<double>(node,"joint_position",true,true,0);
 		rhs->joint_velocity = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array_list<double>(node,"joint_velocity",true,true,0);
 		rhs->joint_acceleration = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array_list<double>(node,"joint_acceleration",true,true,0);
@@ -2971,7 +3259,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::trajectory::AdvancedJointTrajectoryWaypointPtr>::decode(const Node& node, com::robotraconteur::robotics::trajectory::AdvancedJointTrajectoryWaypointPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::trajectory::AdvancedJointTrajectoryWaypoint); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::trajectory::AdvancedJointTrajectoryWaypoint);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->joints = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::robotics::trajectory::AdvancedJointTrajectoryDeviceWaypointPtr>(node,"joints",true);
 		rhs->time_from_start = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"time_from_start",true);
 		return true;
@@ -2983,7 +3273,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::trajectory::AdvancedJointTrajectoryDevicePtr>::decode(const Node& node, com::robotraconteur::robotics::trajectory::AdvancedJointTrajectoryDevicePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::trajectory::AdvancedJointTrajectoryDevice); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::trajectory::AdvancedJointTrajectoryDevice);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->device = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"device",true);
 		rhs->joint_names = RobotRaconteur::Companion::InfoParser::yaml::parse_string_list(node,"joint_names",true);
 		rhs->joint_units = RobotRaconteur::Companion::InfoParser::yaml::parse_enum_list<com::robotraconteur::robotics::joints::JointPositionUnits::JointPositionUnits>(node,"joint_units",true);
@@ -2998,7 +3290,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::trajectory::AdvancedJointTrajectoryPtr>::decode(const Node& node, com::robotraconteur::robotics::trajectory::AdvancedJointTrajectoryPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::trajectory::AdvancedJointTrajectory); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::trajectory::AdvancedJointTrajectory);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->devices = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::robotics::trajectory::AdvancedJointTrajectoryDevicePtr>(node,"devices",true);
 		rhs->waypoints = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::robotics::trajectory::AdvancedJointTrajectoryWaypointPtr>(node,"waypoints",true);
 		// TODO: parse field varvalue{string} extended
@@ -3011,7 +3305,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::trajectory::FreeformJointTrajectoryWaypointPtr>::decode(const Node& node, com::robotraconteur::robotics::trajectory::FreeformJointTrajectoryWaypointPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::trajectory::FreeformJointTrajectoryWaypoint); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::trajectory::FreeformJointTrajectoryWaypoint);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		// TODO: parse field varvalue{list} joint_position
 		// TODO: parse field varvalue{list} joint_velocity
 		// TODO: parse field varvalue{list} position_tolerance
@@ -3029,7 +3325,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::robotics::trajectory::FreeformJointTrajectoryPtr>::decode(const Node& node, com::robotraconteur::robotics::trajectory::FreeformJointTrajectoryPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::robotics::trajectory::FreeformJointTrajectory); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::robotics::trajectory::FreeformJointTrajectory);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->joint_names = RobotRaconteur::Companion::InfoParser::yaml::parse_string_list(node,"joint_names",true);
 		rhs->joint_units = RobotRaconteur::Companion::InfoParser::yaml::parse_string_list(node,"joint_units",true);
 		rhs->waypoints = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::robotics::trajectory::FreeformJointTrajectoryWaypointPtr>(node,"waypoints",true);
@@ -3043,7 +3341,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::sensor::SensorInfoPtr>::decode(const Node& node, com::robotraconteur::sensor::SensorInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::sensor::SensorInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::sensor::SensorInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 		rhs->sensor_type = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::sensor::SensorTypeCode::SensorTypeCode>(node,"sensor_type",true);
 		rhs->units = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::units::SIUnitPtr>(node,"units",true);
@@ -3062,7 +3362,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::sensor::SensorDataPtr>::decode(const Node& node, com::robotraconteur::sensor::SensorDataPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::sensor::SensorData); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::sensor::SensorData);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->data_header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"data_header",true);
 		rhs->data_flags = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_flags",true);
 		rhs->data = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<double>(node,"data",true,true,0);
@@ -3079,7 +3381,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::sensordata::SensorDataHeaderPtr>::decode(const Node& node, com::robotraconteur::sensordata::SensorDataHeaderPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::sensordata::SensorDataHeader); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::sensordata::SensorDataHeader);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		// TODO: parse field com.robotraconteur.datetime.TimeSpec2 ts
 		rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 		rhs->source_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataSourceInfoPtr>(node,"source_info",true);
@@ -3092,7 +3396,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::sensordata::SensorDataSourceInfoPtr>::decode(const Node& node, com::robotraconteur::sensordata::SensorDataSourceInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::sensordata::SensorDataSourceInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::sensordata::SensorDataSourceInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->source = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"source",true);
 		rhs->source_world_pose = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Pose>(node,"source_world_pose",true);
 		rhs->source_config_nonce = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"source_config_nonce",true);
@@ -3107,7 +3413,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::servo::ServoInfoPtr>::decode(const Node& node, com::robotraconteur::servo::ServoInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::servo::ServoInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::servo::ServoInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 		rhs->servo_type = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::servo::ServoTypeCode::ServoTypeCode>(node,"servo_type",true);
 		rhs->capabilities = RobotRaconteur::Companion::InfoParser::yaml::parse_enum_flags<com::robotraconteur::servo::ServoCapabilities::ServoCapabilities>(node,"capabilities",true);
@@ -3137,7 +3445,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::servo::ServoStatePtr>::decode(const Node& node, com::robotraconteur::servo::ServoStatePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::servo::ServoState); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::servo::ServoState);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->ts = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::datetime::TimeSpec3>(node,"ts",true);
 		rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 		rhs->servo_state_flags = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"servo_state_flags",true);
@@ -3158,7 +3468,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::servo::ServoStateSensorDataPtr>::decode(const Node& node, com::robotraconteur::servo::ServoStateSensorDataPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::servo::ServoStateSensorData); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::servo::ServoStateSensorData);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->data_header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"data_header",true);
 		rhs->servo_state = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::servo::ServoStatePtr>(node,"servo_state",true);
 		// TODO: parse field varvalue{string} extended
@@ -3171,7 +3483,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::servo::ServoCommandPtr>::decode(const Node& node, com::robotraconteur::servo::ServoCommandPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::servo::ServoCommand); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::servo::ServoCommand);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 		rhs->status_seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"status_seqno",true);
 		rhs->command = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<double>(node,"command",true,true,0);
@@ -3184,7 +3498,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::signal::SignalInfoPtr>::decode(const Node& node, com::robotraconteur::signal::SignalInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::signal::SignalInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::signal::SignalInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->signal_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"signal_identifier",true);
 		rhs->signal_class = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceClassPtr>(node,"signal_class",true);
 		rhs->units = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::units::SIUnitPtr>(node,"units",true);
@@ -3205,7 +3521,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::signal::SignalDeviceStatePtr>::decode(const Node& node, com::robotraconteur::signal::SignalDeviceStatePtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::signal::SignalDeviceState); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::signal::SignalDeviceState);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->ts = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::datetime::TimeSpec3>(node,"ts",true);
 		rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 		rhs->signal_device_state_flags = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"signal_device_state_flags",true);
@@ -3218,7 +3536,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::signal::SignalGroupInfoPtr>::decode(const Node& node, com::robotraconteur::signal::SignalGroupInfoPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::signal::SignalGroupInfo); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::signal::SignalGroupInfo);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->signal_group_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"signal_group_identifier",true);
 		rhs->description = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"description",true);
 		return true;
@@ -3230,7 +3550,9 @@ namespace YAML {
 	}
 
 	bool convert<com::robotraconteur::units::SIUnitPtr>::decode(const Node& node, com::robotraconteur::units::SIUnitPtr& rhs){
-		if (!rhs) rhs.reset(new com::robotraconteur::units::SIUnit); // NOLINT(cppcoreguidelines-owning-memory)
+		// NOLINTBEGIN(cppcoreguidelines-owning-memory)
+		if (!rhs) rhs.reset(new com::robotraconteur::units::SIUnit);
+		// NOLINTEND(cppcoreguidelines-owning-memory)
 		rhs->display_units = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"display_units",true);
 		rhs->encoded_units = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"encoded_units",true);
 		return true;

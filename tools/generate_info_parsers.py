@@ -379,7 +379,9 @@ for key in my_service_defs_keys:
         file6.write("\t\treturn node;\n")
         file6.write("\t}\n\n")
         file6.write("\tbool convert<%s::%sPtr>::decode(const Node& node, %s::%sPtr& rhs){\n"%(name,e.Name,name,e.Name))
-        file6.write("\t\tif (!rhs) rhs.reset(new %s::%s); // NOLINT(cppcoreguidelines-owning-memory)\n"%(name,e.Name))
+        file6.write("\t\t// NOLINTBEGIN(cppcoreguidelines-owning-memory)\n")
+        file6.write("\t\tif (!rhs) rhs.reset(new %s::%s);\n"%(name,e.Name))
+        file6.write("\t\t// NOLINTEND(cppcoreguidelines-owning-memory)\n")
         qualifiedname=name+"::"+e.Name
         #usingdict[e.Name]=qualifiedname
         for i in range(len(e.Members)):
