@@ -141,4 +141,42 @@ jobs:
         -S src -B build
     - name: build
       run: cmake --build build --config Debug -- -j 4
+  cppcheck:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        path: src
+        submodules: recursive
+    - uses: actions/checkout@v3
+      with:
+        path: rr-src
+        repository: robotraconteur/robotraconteur
+    - name: apt update
+      run: sudo apt update
+    - name: apt
+      run: >
+        sudo apt-get install
+        zlib1g zlib1g-dev libssl-dev libusb-1.0-0 ninja-build cppcheck
+        libusb-1.0-0-dev libdbus-1-3 libdbus-1-dev libbluetooth3 libbluetooth-dev
+        git cmake g++ make libboost-all-dev autoconf libyaml-cpp-dev libeigen3-dev
+        automake libtool bison libpcre3-dev curl libgtest-dev -qq
+    - name: cmake rr
+      run: >
+        cmake -G Ninja -S rr-src -B rr-build 
+        -DCMAKE_BUILD_TYPE=Debug
+        -DBUILD_GEN=ON -DBUILD_TESTING=OFF
+        -DCMAKE_CXX_STANDARD=11
+    - name: cmake rr build
+      run: |
+        cmake --build rr-build --config Debug
+        sudo cmake --install rr-build --config Debug
+    - name: configure
+      run: >
+        cmake -G Ninja -DBUILD_TESTING=ON
+        -DCMAKE_DISABLE_PRECOMPILE_HEADERS=ON -DCMAKE_BUILD_TYPE=Debug
+        -DCMAKE_CXX_CPPCHECK="/usr/bin/cppcheck;--enable=warning;--inconclusive;--force;--inline-suppr;-DBOOST_ASIO_MOVE_ARG(a)=;--error-exitcode=1;--std=c++11;RobotRaconteurCompanion"
+        -S src -B build
+    - name: build
+      run: cmake --build build --config Debug -- -j 4
 
