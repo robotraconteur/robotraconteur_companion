@@ -5,43 +5,17 @@
 namespace YAML {
 
 	template<> 
-	struct convert<com::robotraconteur::sensordata::SensorDataHeaderPtr>{
-		static Node encode(const com::robotraconteur::sensordata::SensorDataHeaderPtr& rhs){
-			RR_UNUSED(rhs);
-			Node node;
-			return node;
-		}
-
-		static bool decode(const Node& node, com::robotraconteur::sensordata::SensorDataHeaderPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::sensordata::SensorDataHeader); // NOLINT(cppcoreguidelines-owning-memory)
-			// TODO: parse field com.robotraconteur.datetime.TimeSpec2 ts
-			rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
-			rhs->source_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataSourceInfoPtr>(node,"source_info",true);
-			return true;
-		}
+	struct ROBOTRACONTEUR_COMPANION_INFOPARSER_API convert<com::robotraconteur::sensordata::SensorDataHeaderPtr>{
+		static Node encode(const com::robotraconteur::sensordata::SensorDataHeaderPtr& rhs);
+		static bool decode(const Node& node, com::robotraconteur::sensordata::SensorDataHeaderPtr& rhs);
 	};
-
 
 
 	template<> 
-	struct convert<com::robotraconteur::sensordata::SensorDataSourceInfoPtr>{
-		static Node encode(const com::robotraconteur::sensordata::SensorDataSourceInfoPtr& rhs){
-			RR_UNUSED(rhs);
-			Node node;
-			return node;
-		}
-
-		static bool decode(const Node& node, com::robotraconteur::sensordata::SensorDataSourceInfoPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::sensordata::SensorDataSourceInfo); // NOLINT(cppcoreguidelines-owning-memory)
-			rhs->source = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"source",true);
-			rhs->source_world_pose = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometry::Pose>(node,"source_world_pose",true);
-			rhs->source_config_nonce = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"source_config_nonce",true);
-			// TODO: parse field varvalue{string} source_params
-			// TODO: parse field varvalue{string} extended
-			return true;
-		}
+	struct ROBOTRACONTEUR_COMPANION_INFOPARSER_API convert<com::robotraconteur::sensordata::SensorDataSourceInfoPtr>{
+		static Node encode(const com::robotraconteur::sensordata::SensorDataSourceInfoPtr& rhs);
+		static bool decode(const Node& node, com::robotraconteur::sensordata::SensorDataSourceInfoPtr& rhs);
 	};
-
 
 
 }

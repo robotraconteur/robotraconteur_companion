@@ -5,80 +5,31 @@
 namespace YAML {
 
 	template<> 
-	struct convert<com::robotraconteur::octree::OcTreeInfoPtr>{
-		static Node encode(const com::robotraconteur::octree::OcTreeInfoPtr& rhs){
-			RR_UNUSED(rhs);
-			Node node;
-			return node;
-		}
-
-		static bool decode(const Node& node, com::robotraconteur::octree::OcTreeInfoPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::octree::OcTreeInfo); // NOLINT(cppcoreguidelines-owning-memory)
-			rhs->data_header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"data_header",true);
-			rhs->encoding = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::octree::OcTreeEncoding::OcTreeEncoding>(node,"encoding",true);
-			rhs->id = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"id",true);
-			rhs->resolution = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"resolution",true);
-			return true;
-		}
+	struct ROBOTRACONTEUR_COMPANION_INFOPARSER_API convert<com::robotraconteur::octree::OcTreeInfoPtr>{
+		static Node encode(const com::robotraconteur::octree::OcTreeInfoPtr& rhs);
+		static bool decode(const Node& node, com::robotraconteur::octree::OcTreeInfoPtr& rhs);
 	};
-
 
 
 	template<> 
-	struct convert<com::robotraconteur::octree::OcTreePtr>{
-		static Node encode(const com::robotraconteur::octree::OcTreePtr& rhs){
-			RR_UNUSED(rhs);
-			Node node;
-			return node;
-		}
-
-		static bool decode(const Node& node, com::robotraconteur::octree::OcTreePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::octree::OcTree); // NOLINT(cppcoreguidelines-owning-memory)
-			rhs->octree_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::octree::OcTreeInfoPtr>(node,"octree_info",true);
-			rhs->data = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"data",true,true,0);
-			// TODO: parse field varvalue{string} extended
-			return true;
-		}
+	struct ROBOTRACONTEUR_COMPANION_INFOPARSER_API convert<com::robotraconteur::octree::OcTreePtr>{
+		static Node encode(const com::robotraconteur::octree::OcTreePtr& rhs);
+		static bool decode(const Node& node, com::robotraconteur::octree::OcTreePtr& rhs);
 	};
-
 
 
 	template<> 
-	struct convert<com::robotraconteur::octree::OcTreePartPtr>{
-		static Node encode(const com::robotraconteur::octree::OcTreePartPtr& rhs){
-			RR_UNUSED(rhs);
-			Node node;
-			return node;
-		}
-
-		static bool decode(const Node& node, com::robotraconteur::octree::OcTreePartPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::octree::OcTreePart); // NOLINT(cppcoreguidelines-owning-memory)
-			rhs->octree_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::octree::OcTreeInfoPtr>(node,"octree_info",true);
-			rhs->data_offset = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_offset",true);
-			rhs->data_total_len = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"data_total_len",true);
-			rhs->data = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"data",true,true,0);
-			// TODO: parse field varvalue{string} extended
-			return true;
-		}
+	struct ROBOTRACONTEUR_COMPANION_INFOPARSER_API convert<com::robotraconteur::octree::OcTreePartPtr>{
+		static Node encode(const com::robotraconteur::octree::OcTreePartPtr& rhs);
+		static bool decode(const Node& node, com::robotraconteur::octree::OcTreePartPtr& rhs);
 	};
-
 
 
 	template<> 
-	struct convert<com::robotraconteur::octree::OcTreeResourcePtr>{
-		static Node encode(const com::robotraconteur::octree::OcTreeResourcePtr& rhs){
-			RR_UNUSED(rhs);
-			Node node;
-			return node;
-		}
-
-		static bool decode(const Node& node, com::robotraconteur::octree::OcTreeResourcePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::octree::OcTreeResource); // NOLINT(cppcoreguidelines-owning-memory)
-			rhs->octree_resource = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::resource::ResourceIdentifierPtr>(node,"octree_resource",true);
-			return true;
-		}
+	struct ROBOTRACONTEUR_COMPANION_INFOPARSER_API convert<com::robotraconteur::octree::OcTreeResourcePtr>{
+		static Node encode(const com::robotraconteur::octree::OcTreeResourcePtr& rhs);
+		static bool decode(const Node& node, com::robotraconteur::octree::OcTreeResourcePtr& rhs);
 	};
-
 
 
 }
