@@ -76,7 +76,7 @@ ROBOTRACONTEUR_GENERATE_THUNK(RR_THUNK_SRCS RR_THUNK_HDRS
 
 add_library(RobotRaconteurCompanion ${RR_THUNK_SRCS} ${RR_THUNK_HDRS} src/StdRobDefAll.cpp src/yaml_loader_enums.cpp 
 src/LocalIdentifiersManager.cpp src/UuidUtil.cpp src/yaml_loader_impl.cpp src/EigenConverters.cpp
-src/AttributesUtil.cpp src/DateTimeUtil.cpp)
+src/AttributesUtil.cpp src/DateTimeUtil.cpp src/IdentifierUtil.cpp)
 SET_TARGET_PROPERTIES(RobotRaconteurCompanion PROPERTIES PREFIX lib)
 
 target_link_libraries(RobotRaconteurCompanion PUBLIC RobotRaconteurCore Eigen3::Eigen)
