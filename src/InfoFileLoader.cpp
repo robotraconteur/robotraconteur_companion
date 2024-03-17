@@ -32,9 +32,12 @@ namespace Util
 namespace detail
 {
 
-bool LoadInfoFile_traits<com::robotraconteur::device::DeviceInfoPtr>::LoadDeviceIdentifier(const com::robotraconteur::device::DeviceInfoPtr& info_file, const std::string& category, std::vector<LocalIdentifierLockPtr>& locks,  const boost::shared_ptr<RobotRaconteur::RobotRaconteurNode>& node)
+bool LoadInfoFile_traits<com::robotraconteur::device::DeviceInfoPtr>::LoadDeviceIdentifier(
+    const com::robotraconteur::device::DeviceInfoPtr& info_file, const std::string& category,
+    std::vector<LocalIdentifierLockPtr>& locks, const boost::shared_ptr<RobotRaconteur::RobotRaconteurNode>& node)
 {
-    if (info_file && info_file && info_file->device && !IsIdentifierAnyName(info_file->device) && IsIdentifierAnyUuid(info_file->device))
+    if (info_file && info_file && info_file->device && !IsIdentifierAnyName(info_file->device) &&
+        IsIdentifierAnyUuid(info_file->device))
     {
         LocalIdentifierLockPtr l = GetIdentifierForNameAndLock(category, info_file->device->name, node);
         info_file->device = l->GetIdentifier();
@@ -44,7 +47,7 @@ bool LoadInfoFile_traits<com::robotraconteur::device::DeviceInfoPtr>::LoadDevice
     return false;
 }
 
-}
-}
-}
-}
+} // namespace detail
+} // namespace Util
+} // namespace Companion
+} // namespace RobotRaconteur

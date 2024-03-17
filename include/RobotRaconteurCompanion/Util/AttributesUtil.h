@@ -36,32 +36,36 @@ namespace Util
 {
 namespace detail
 {
-    ROBOTRACONTEUR_COMPANION_UTIL_API bool TryAddIdentifier(std::map<std::string,RobotRaconteur::RRValuePtr>& o, const std::string& name, const com::robotraconteur::identifier::IdentifierPtr& id);
+ROBOTRACONTEUR_COMPANION_UTIL_API bool TryAddIdentifier(std::map<std::string, RobotRaconteur::RRValuePtr>& o,
+                                                        const std::string& name,
+                                                        const com::robotraconteur::identifier::IdentifierPtr& id);
 
-    ROBOTRACONTEUR_COMPANION_UTIL_API bool TryAddString(std::map<std::string,RobotRaconteur::RRValuePtr>& o, const std::string& name, const std::string& str);
-}
+ROBOTRACONTEUR_COMPANION_UTIL_API bool TryAddString(std::map<std::string, RobotRaconteur::RRValuePtr>& o,
+                                                    const std::string& name, const std::string& str);
+} // namespace detail
 
 /**
  * @brief Get the Default Service Attributes From Device Info object
- * 
+ *
  * Get the default attributes from a DeviceInfo object. These attributes are
  * used to populate the default service attributes when registering a service
  * with a device.
- * 
+ *
  * The following attributes are used:
- * 
+ *
  * - device
  * - parent_device
  * - manufacturer
  * - model
  * - serial_number
  * - user_description
- *  
+ *
  * @param info The DeviceInfo object
  * @return std::map<std::string,RobotRaconteur::RRValuePtr> The default attributes
  */
-ROBOTRACONTEUR_COMPANION_UTIL_API std::map<std::string,RobotRaconteur::RRValuePtr> GetDefaultServiceAttributesFromDeviceInfo(const com::robotraconteur::device::DeviceInfoPtr& info);
+ROBOTRACONTEUR_COMPANION_UTIL_API std::map<std::string, RobotRaconteur::RRValuePtr>
+GetDefaultServiceAttributesFromDeviceInfo(const com::robotraconteur::device::DeviceInfoPtr& info);
 
-}
-}
-}
+} // namespace Util
+} // namespace Companion
+} // namespace RobotRaconteur

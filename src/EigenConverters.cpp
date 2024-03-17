@@ -66,7 +66,7 @@ com::robotraconteur::geometry::Vector3 ToVector3(const ::Eigen::Ref<const ::Eige
     return o;
 }
 
-com::robotraconteur::geometry::Vector6 ToVector6(const ::Eigen::Ref<const ::Eigen::Matrix<double,6,1> >& vs)
+com::robotraconteur::geometry::Vector6 ToVector6(const ::Eigen::Ref<const ::Eigen::Matrix<double, 6, 1> >& vs)
 {
     com::robotraconteur::geometry::Vector6 o{};
     o.s.alpha = vs[0];
@@ -78,9 +78,9 @@ com::robotraconteur::geometry::Vector6 ToVector6(const ::Eigen::Ref<const ::Eige
     return o;
 }
 
-::Eigen::Matrix<double,6,1> ToVector(const com::robotraconteur::geometry::Vector6& vs)
+::Eigen::Matrix<double, 6, 1> ToVector(const com::robotraconteur::geometry::Vector6& vs)
 {
-    ::Eigen::Matrix<double,6,1> o;
+    ::Eigen::Matrix<double, 6, 1> o;
     o[0] = vs.s.alpha;
     o[1] = vs.s.beta;
     o[2] = vs.s.gamma;
@@ -180,7 +180,7 @@ com::robotraconteur::geometry::Quaternion ToQuaternion(const ::Eigen::Quaternion
 
 ::Eigen::Isometry3d ToIsometry(const com::robotraconteur::geometry::Transform& t)
 {
-    return ::Eigen::Translation3d(ToVector(t.s.translation)) * ToQuaternion(t.s.rotation);        
+    return ::Eigen::Translation3d(ToVector(t.s.translation)) * ToQuaternion(t.s.rotation);
 }
 
 com::robotraconteur::geometry::Transform ToTransform(const ::Eigen::Isometry3d& iso)
@@ -195,7 +195,7 @@ com::robotraconteur::geometry::Transform ToTransform(const ::Eigen::Isometry3d& 
 
 ::Eigen::Isometry3d ToIsometry(const com::robotraconteur::geometry::Pose& t)
 {
-    return ::Eigen::Translation3d(ToVector(t.s.position)) * ToQuaternion(t.s.orientation);        
+    return ::Eigen::Translation3d(ToVector(t.s.position)) * ToQuaternion(t.s.orientation);
 }
 
 com::robotraconteur::geometry::Pose ToPose(const ::Eigen::Isometry3d& iso)
@@ -208,7 +208,8 @@ com::robotraconteur::geometry::Pose ToPose(const ::Eigen::Isometry3d& iso)
     return o;
 }
 
-com::robotraconteur::geometry::SpatialVelocity ToSpatialVelocity(const ::Eigen::Ref<const ::Eigen::Matrix<double,6,1> >& vs)
+com::robotraconteur::geometry::SpatialVelocity ToSpatialVelocity(
+    const ::Eigen::Ref<const ::Eigen::Matrix<double, 6, 1> >& vs)
 {
     com::robotraconteur::geometry::SpatialVelocity o{};
     o.s.angular.s.x = vs[0];
@@ -220,9 +221,9 @@ com::robotraconteur::geometry::SpatialVelocity ToSpatialVelocity(const ::Eigen::
     return o;
 }
 
-::Eigen::Matrix<double,6,1> ToVector(const com::robotraconteur::geometry::SpatialVelocity& vs)
+::Eigen::Matrix<double, 6, 1> ToVector(const com::robotraconteur::geometry::SpatialVelocity& vs)
 {
-    ::Eigen::Matrix<double,6,1> o;
+    ::Eigen::Matrix<double, 6, 1> o;
     o[0] = vs.s.angular.s.x;
     o[1] = vs.s.angular.s.y;
     o[2] = vs.s.angular.s.z;
@@ -232,7 +233,8 @@ com::robotraconteur::geometry::SpatialVelocity ToSpatialVelocity(const ::Eigen::
     return o;
 }
 
-com::robotraconteur::geometry::SpatialAcceleration ToSpatialAcceleration(const ::Eigen::Ref<const ::Eigen::Matrix<double,6,1> >& vs)
+com::robotraconteur::geometry::SpatialAcceleration ToSpatialAcceleration(
+    const ::Eigen::Ref<const ::Eigen::Matrix<double, 6, 1> >& vs)
 {
     com::robotraconteur::geometry::SpatialAcceleration o{};
     o.s.angular.s.x = vs[0];
@@ -244,9 +246,9 @@ com::robotraconteur::geometry::SpatialAcceleration ToSpatialAcceleration(const :
     return o;
 }
 
-::Eigen::Matrix<double,6,1> ToVector(const com::robotraconteur::geometry::SpatialAcceleration& vs)
+::Eigen::Matrix<double, 6, 1> ToVector(const com::robotraconteur::geometry::SpatialAcceleration& vs)
 {
-    ::Eigen::Matrix<double,6,1> o;
+    ::Eigen::Matrix<double, 6, 1> o;
     o[0] = vs.s.angular.s.x;
     o[1] = vs.s.angular.s.y;
     o[2] = vs.s.angular.s.z;
@@ -256,7 +258,7 @@ com::robotraconteur::geometry::SpatialAcceleration ToSpatialAcceleration(const :
     return o;
 }
 
-com::robotraconteur::geometry::Wrench ToWrench(const ::Eigen::Ref<const ::Eigen::Matrix<double,6,1> >& vs)
+com::robotraconteur::geometry::Wrench ToWrench(const ::Eigen::Ref<const ::Eigen::Matrix<double, 6, 1> >& vs)
 {
     com::robotraconteur::geometry::Wrench o{};
     o.s.torque.s.x = vs[0];
@@ -268,9 +270,9 @@ com::robotraconteur::geometry::Wrench ToWrench(const ::Eigen::Ref<const ::Eigen:
     return o;
 }
 
-::Eigen::Matrix<double,6,1> ToVector(const com::robotraconteur::geometry::Wrench& vs)
+::Eigen::Matrix<double, 6, 1> ToVector(const com::robotraconteur::geometry::Wrench& vs)
 {
-    ::Eigen::Matrix<double,6,1> o;
+    ::Eigen::Matrix<double, 6, 1> o;
     o[0] = vs.s.torque.s.x;
     o[1] = vs.s.torque.s.y;
     o[2] = vs.s.torque.s.z;
@@ -280,7 +282,7 @@ com::robotraconteur::geometry::Wrench ToWrench(const ::Eigen::Ref<const ::Eigen:
     return o;
 }
 
-}
-}
-}
-}
+} // namespace Eigen
+} // namespace Converters
+} // namespace Companion
+} // namespace RobotRaconteur

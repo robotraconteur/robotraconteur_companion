@@ -2,6 +2,7 @@
 
 #pragma once
 
-namespace YAML {
+namespace YAML
+{
 
 }

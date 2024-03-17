@@ -30,12 +30,13 @@ namespace Companion
 namespace Util
 {
 
-com::robotraconteur::datetime::DateTimeUTC UtcNow(const RobotRaconteur::RobotRaconteurNodePtr& node, const com::robotraconteur::device::DeviceInfoPtr& info)
+com::robotraconteur::datetime::DateTimeUTC UtcNow(const RobotRaconteur::RobotRaconteurNodePtr& node,
+                                                  const com::robotraconteur::device::DeviceInfoPtr& info)
 {
     RobotRaconteur::RobotRaconteurNodePtr node1 = node;
     if (!node1)
     {
-        node1 = RobotRaconteur::RobotRaconteurNode::sp();        
+        node1 = RobotRaconteur::RobotRaconteurNode::sp();
     }
 
     RobotRaconteur::TimeSpec now = RobotRaconteur::ptimeToTimeSpec(node1->NowUTC());
@@ -51,15 +52,16 @@ com::robotraconteur::datetime::DateTimeUTC UtcNow(const RobotRaconteur::RobotRac
         }
     }
 
-    return ret;    
+    return ret;
 }
 
-com::robotraconteur::datetime::TimeSpec2 TimeSpec2Now(const RobotRaconteur::RobotRaconteurNodePtr& node, const com::robotraconteur::device::DeviceInfoPtr& info)
+com::robotraconteur::datetime::TimeSpec2 TimeSpec2Now(const RobotRaconteur::RobotRaconteurNodePtr& node,
+                                                      const com::robotraconteur::device::DeviceInfoPtr& info)
 {
     RobotRaconteur::RobotRaconteurNodePtr node1 = node;
     if (!node1)
     {
-        node1 = RobotRaconteur::RobotRaconteurNode::sp();        
+        node1 = RobotRaconteur::RobotRaconteurNode::sp();
     }
 
     RobotRaconteur::TimeSpec now = node1->NowTimeSpec();
@@ -75,7 +77,7 @@ com::robotraconteur::datetime::TimeSpec2 TimeSpec2Now(const RobotRaconteur::Robo
         }
     }
 
-    return ret;    
+    return ret;
 }
 
 com::robotraconteur::datetime::TimeSpec3 TimeSpec3Now(const RobotRaconteur::RobotRaconteurNodePtr& node)
@@ -83,16 +85,18 @@ com::robotraconteur::datetime::TimeSpec3 TimeSpec3Now(const RobotRaconteur::Robo
     RobotRaconteur::RobotRaconteurNodePtr node1 = node;
     if (!node1)
     {
-        node1 = RobotRaconteur::RobotRaconteurNode::sp();        
+        node1 = RobotRaconteur::RobotRaconteurNode::sp();
     }
 
     RobotRaconteur::TimeSpec now = node1->NowTimeSpec();
     com::robotraconteur::datetime::TimeSpec3 ret{};
-    ret.s.microseconds = now.seconds*1000000 + now.nanoseconds/1000;    
+    ret.s.microseconds = now.seconds * 1000000 + now.nanoseconds / 1000;
     return ret;
 }
 
-com::robotraconteur::device::clock::DeviceTime FillDeviceTime(const RobotRaconteur::RobotRaconteurNodePtr& node, const com::robotraconteur::device::DeviceInfoPtr& device_info, uint64_t seqno)
+com::robotraconteur::device::clock::DeviceTime FillDeviceTime(
+    const RobotRaconteur::RobotRaconteurNodePtr& node, const com::robotraconteur::device::DeviceInfoPtr& device_info,
+    uint64_t seqno)
 {
     com::robotraconteur::device::clock::DeviceTime ret{};
     ret.device_seqno = seqno;
@@ -101,6 +105,6 @@ com::robotraconteur::device::clock::DeviceTime FillDeviceTime(const RobotRaconte
     return ret;
 }
 
-}
-}
-}
+} // namespace Util
+} // namespace Companion
+} // namespace RobotRaconteur
