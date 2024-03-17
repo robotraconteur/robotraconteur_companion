@@ -67,9 +67,9 @@ namespace Util
          * @param next_timeout The timeout to return from the Next() function.
          * @param watchdog_timeout The timeout for the watchdog. -1 to disable.
          */
-        AsyncTaskGenerator(RR_SHARED_PTR<RobotRaconteur::RobotRaconteurNode> node, int32_t next_timeout, int32_t watchdog_timeout)
+        AsyncTaskGenerator(const RR_SHARED_PTR<RobotRaconteur::RobotRaconteurNode>& node, int32_t next_timeout, int32_t watchdog_timeout)
+            : node(node), next_timeout(next_timeout), watchdog_timeout(watchdog_timeout)
         {
-            this->node = node;
             started = false;
             closed = false;
             aborted = false;
@@ -85,13 +85,12 @@ namespace Util
             {
                 throw RobotRaconteur::InvalidArgumentException("watchdog_timeout must be >= next_timeout");
             }
-            this->next_timeout = next_timeout;
-            this->watchdog_timeout = watchdog_timeout;
         }
 
         RR_OVIRTUAL void AsyncNext(boost::function<void(const RR_INTRUSIVE_PTR<StatusType>&,
                 const RobotRaconteur::RobotRaconteurExceptionPtr&)> handler, int32_t timeout = RR_TIMEOUT_INFINITE ) RR_OVERRIDE
         {
+            RR_UNUSED(timeout);
             boost::mutex::scoped_lock lock(this_lock);
             if (watchdog_timer)
             {
@@ -163,6 +162,7 @@ namespace Util
         RR_OVIRTUAL void AsyncClose(boost::function<void(const RobotRaconteur::RobotRaconteurExceptionPtr& err)> handler,
                         int32_t timeout = RR_TIMEOUT_INFINITE) RR_OVERRIDE
         {
+            RR_UNUSED(timeout);
             boost::mutex::scoped_lock lock(this_lock);
             if (closed || aborted)
             {
@@ -182,6 +182,7 @@ namespace Util
         RR_OVIRTUAL void AsyncAbort(boost::function<void(const RobotRaconteur::RobotRaconteurExceptionPtr& err)> handler,
                         int32_t timeout = RR_TIMEOUT_INFINITE) RR_OVERRIDE
         {
+            RR_UNUSED(timeout);
             boost::mutex::scoped_lock lock(this_lock);
             if (closed || aborted)
             {
@@ -338,6 +339,7 @@ namespace Util
 
         static void next_timer_handler(RR_WEAK_PTR<AsyncTaskGenerator> weak_this, const RobotRaconteur::TimerEvent& evt)
         {
+            RR_UNUSED(evt);
             RR_SHARED_PTR<AsyncTaskGenerator> shared_this = weak_this.lock();
             if (!shared_this) return;
             boost::mutex::scoped_lock lock(shared_this->this_lock);

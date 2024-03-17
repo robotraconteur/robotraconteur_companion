@@ -21,7 +21,7 @@ namespace yaml
         {
             auto string_uuid = node[key].as<std::string>();
             auto boost_uuid = boost::lexical_cast<boost::uuids::uuid>(string_uuid);
-            boost::array<uint8_t,16> ret;
+            boost::array<uint8_t,16> ret{};
             std::copy(boost_uuid.begin(),boost_uuid.end(),ret.begin());
             return ret;
         }
@@ -41,6 +41,7 @@ namespace YAML
     template<> 
 	struct convert<com::robotraconteur::uuid::UUID>{
 		static Node encode(const com::robotraconteur::uuid::UUID& rhs){
+            RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -56,12 +57,13 @@ namespace YAML
     template<> 
 	struct convert<com::robotraconteur::identifier::IdentifierPtr>{
 		static Node encode(const com::robotraconteur::identifier::IdentifierPtr& rhs){
+            RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::identifier::IdentifierPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::identifier::Identifier);
+			if (!rhs) rhs.reset(new com::robotraconteur::identifier::Identifier); // NOLINT(cppcoreguidelines-owning-memory)
             if (node.IsScalar())
             {
                 rhs->name = node.as<std::string>();

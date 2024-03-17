@@ -53,7 +53,7 @@ namespace detail
     class LoadInfoFile_traits<com::robotraconteur::device::DeviceInfoPtr>
     {
     public:
-        static bool LoadDeviceIdentifier(const com::robotraconteur::device::DeviceInfoPtr& info_file, const std::string& category, std::vector<LocalIdentifierLockPtr>& locks,  boost::shared_ptr<RobotRaconteur::RobotRaconteurNode> node)
+        static bool LoadDeviceIdentifier(const com::robotraconteur::device::DeviceInfoPtr& info_file, const std::string& category, std::vector<LocalIdentifierLockPtr>& locks,  const boost::shared_ptr<RobotRaconteur::RobotRaconteurNode>& node)
         {
             if (info_file && info_file && info_file->device && !IsIdentifierAnyName(info_file->device) && IsIdentifierAnyUuid(info_file->device))
             {

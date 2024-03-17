@@ -7,12 +7,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::robotics::robot::RobotKinChainInfoPtr>{
 		static Node encode(const com::robotraconteur::robotics::robot::RobotKinChainInfoPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::robotics::robot::RobotKinChainInfoPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotKinChainInfo);
+			if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotKinChainInfo); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->kin_chain_identifier = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"kin_chain_identifier",true);
 			rhs->H = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometry::Vector3>(node,"H",true,true,0);
 			rhs->P = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometry::Vector3>(node,"P",true,true,0);
@@ -39,12 +40,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::robotics::robot::RobotInfoPtr>{
 		static Node encode(const com::robotraconteur::robotics::robot::RobotInfoPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::robotics::robot::RobotInfoPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotInfo);
+			if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotInfo); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 			rhs->robot_type = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::robotics::robot::RobotTypeCode::RobotTypeCode>(node,"robot_type",true);
 			rhs->joint_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_list<com::robotraconteur::robotics::joints::JointInfoPtr>(node,"joint_info",true);
@@ -64,12 +66,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::robotics::robot::RobotStatePtr>{
 		static Node encode(const com::robotraconteur::robotics::robot::RobotStatePtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::robotics::robot::RobotStatePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotState);
+			if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotState); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->ts = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::datetime::TimeSpec3>(node,"ts",true);
 			rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 			rhs->command_mode = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::robotics::robot::RobotCommandMode::RobotCommandMode>(node,"command_mode",true);
@@ -93,12 +96,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::robotics::robot::AdvancedRobotStatePtr>{
 		static Node encode(const com::robotraconteur::robotics::robot::AdvancedRobotStatePtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::robotics::robot::AdvancedRobotStatePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::AdvancedRobotState);
+			if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::AdvancedRobotState); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->ts = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::datetime::TimeSpec3>(node,"ts",true);
 			rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 			rhs->command_mode = RobotRaconteur::Companion::InfoParser::yaml::parse_enum<com::robotraconteur::robotics::robot::RobotCommandMode::RobotCommandMode>(node,"command_mode",true);
@@ -128,12 +132,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::robotics::robot::RobotStateSensorDataPtr>{
 		static Node encode(const com::robotraconteur::robotics::robot::RobotStateSensorDataPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::robotics::robot::RobotStateSensorDataPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotStateSensorData);
+			if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotStateSensorData); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->data_header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"data_header",true);
 			rhs->robot_state = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::robotics::robot::AdvancedRobotStatePtr>(node,"robot_state",true);
 			return true;
@@ -145,12 +150,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::robotics::robot::RobotJointCommandPtr>{
 		static Node encode(const com::robotraconteur::robotics::robot::RobotJointCommandPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::robotics::robot::RobotJointCommandPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotJointCommand);
+			if (!rhs) rhs.reset(new com::robotraconteur::robotics::robot::RobotJointCommand); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"seqno",true);
 			rhs->state_seqno = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint64_t>(node,"state_seqno",true);
 			rhs->command = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<double>(node,"command",true,true,0);

@@ -5,7 +5,7 @@ namespace RobotRaconteur
 namespace Companion
 {
 
-    void RegisterStdRobDefServiceTypes(RR_SHARED_PTR<RobotRaconteurNode> node)
+    void RegisterStdRobDefServiceTypes(const RR_SHARED_PTR<RobotRaconteurNode>& node)
     {
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::action::com__robotraconteur__actionFactory>());
         node->RegisterServiceType(RR_MAKE_SHARED<com::robotraconteur::actuator::com__robotraconteur__actuatorFactory>());

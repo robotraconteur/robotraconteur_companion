@@ -18,7 +18,7 @@ namespace Util
 LocalIdentifierLock::LocalIdentifierLock(const com::robotraconteur::identifier::IdentifierPtr& id, boost::shared_ptr<RobotRaconteur::NodeDirectoriesFD> fd)
 {
     this->id = id;
-    this->fd = fd;
+    this->fd = std::move(fd);
 }
 
 com::robotraconteur::identifier::IdentifierPtr LocalIdentifierLock::GetIdentifier()

@@ -7,12 +7,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::hid::joystick::JoystickInfoPtr>{
 		static Node encode(const com::robotraconteur::hid::joystick::JoystickInfoPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::hid::joystick::JoystickInfoPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::JoystickInfo);
+			if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::JoystickInfo); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->device_info = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::device::DeviceInfoPtr>(node,"device_info",true);
 			rhs->id = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"id",true);
 			rhs->axes_count = RobotRaconteur::Companion::InfoParser::yaml::parse_number<uint32_t>(node,"axes_count",true);
@@ -33,12 +34,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::hid::joystick::JoystickStatePtr>{
 		static Node encode(const com::robotraconteur::hid::joystick::JoystickStatePtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::hid::joystick::JoystickStatePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::JoystickState);
+			if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::JoystickState); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->axes = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<int16_t>(node,"axes",true,true,0);
 			rhs->buttons = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"buttons",true,true,0);
 			rhs->hats = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_array<uint8_t>(node,"hats",true,true,0);
@@ -51,12 +53,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::hid::joystick::GamepadStatePtr>{
 		static Node encode(const com::robotraconteur::hid::joystick::GamepadStatePtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::hid::joystick::GamepadStatePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::GamepadState);
+			if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::GamepadState); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->left_x = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int16_t>(node,"left_x",true);
 			rhs->left_y = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int16_t>(node,"left_y",true);
 			rhs->right_x = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int16_t>(node,"right_x",true);
@@ -73,12 +76,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::hid::joystick::JoystickStateSensorDataPtr>{
 		static Node encode(const com::robotraconteur::hid::joystick::JoystickStateSensorDataPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::hid::joystick::JoystickStateSensorDataPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::JoystickStateSensorData);
+			if (!rhs) rhs.reset(new com::robotraconteur::hid::joystick::JoystickStateSensorData); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->data_header = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::sensordata::SensorDataHeaderPtr>(node,"data_header",true);
 			rhs->joystick_state = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::hid::joystick::JoystickStatePtr>(node,"joystick_state",true);
 			rhs->gamepad_state = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::hid::joystick::GamepadStatePtr>(node,"gamepad_state",true);

@@ -6,6 +6,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::Vector2>{
 		static Node encode(const com::robotraconteur::geometryf::Vector2& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -20,6 +21,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::Vector3>{
 		static Node encode(const com::robotraconteur::geometryf::Vector3& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -35,6 +37,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::Vector6>{
 		static Node encode(const com::robotraconteur::geometryf::Vector6& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -53,6 +56,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::Point2D>{
 		static Node encode(const com::robotraconteur::geometryf::Point2D& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -67,6 +71,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::Point>{
 		static Node encode(const com::robotraconteur::geometryf::Point& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -82,6 +87,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::Size2D>{
 		static Node encode(const com::robotraconteur::geometryf::Size2D& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -96,6 +102,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::Size>{
 		static Node encode(const com::robotraconteur::geometryf::Size& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -111,6 +118,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::Rect>{
 		static Node encode(const com::robotraconteur::geometryf::Rect& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -125,6 +133,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::Box>{
 		static Node encode(const com::robotraconteur::geometryf::Box& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -139,6 +148,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::Quaternion>{
 		static Node encode(const com::robotraconteur::geometryf::Quaternion& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -155,6 +165,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::Plane>{
 		static Node encode(const com::robotraconteur::geometryf::Plane& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -169,6 +180,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::Transform>{
 		static Node encode(const com::robotraconteur::geometryf::Transform& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -183,6 +195,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::Pose>{
 		static Node encode(const com::robotraconteur::geometryf::Pose& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -197,6 +210,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::Pose2D>{
 		static Node encode(const com::robotraconteur::geometryf::Pose2D& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -211,6 +225,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::SpatialVelocity>{
 		static Node encode(const com::robotraconteur::geometryf::SpatialVelocity& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -225,6 +240,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::SpatialAcceleration>{
 		static Node encode(const com::robotraconteur::geometryf::SpatialAcceleration& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -239,6 +255,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::Wrench>{
 		static Node encode(const com::robotraconteur::geometryf::Wrench& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -253,6 +270,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::SpatialInertia>{
 		static Node encode(const com::robotraconteur::geometryf::SpatialInertia& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -274,12 +292,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::NamedTransformPtr>{
 		static Node encode(const com::robotraconteur::geometryf::NamedTransformPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometryf::NamedTransformPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedTransform);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedTransform); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 			rhs->child_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"child_frame",true);
 			rhs->transform = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::Transform>(node,"transform",true);
@@ -292,12 +311,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::NamedPosePtr>{
 		static Node encode(const com::robotraconteur::geometryf::NamedPosePtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometryf::NamedPosePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedPose);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedPose); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 			rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 			rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::Pose>(node,"pose",true);
@@ -310,12 +330,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::PoseWithCovariancePtr>{
 		static Node encode(const com::robotraconteur::geometryf::PoseWithCovariancePtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometryf::PoseWithCovariancePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::PoseWithCovariance);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::PoseWithCovariance); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::Pose>(node,"pose",true);
 			rhs->covariance = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_multidimarray<float>(node,"covariance",true,6,6);
 			return true;
@@ -327,12 +348,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::NamedPoseWithCovariancePtr>{
 		static Node encode(const com::robotraconteur::geometryf::NamedPoseWithCovariancePtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometryf::NamedPoseWithCovariancePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedPoseWithCovariance);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedPoseWithCovariance); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometryf::NamedPosePtr>(node,"pose",true);
 			rhs->covariance = RobotRaconteur::Companion::InfoParser::yaml::parse_numeric_multidimarray<float>(node,"covariance",true,6,6);
 			return true;
@@ -344,12 +366,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::NamedPose2DPtr>{
 		static Node encode(const com::robotraconteur::geometryf::NamedPose2DPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometryf::NamedPose2DPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedPose2D);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedPose2D); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 			rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 			rhs->pose = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::Pose2D>(node,"pose",true);
@@ -362,12 +385,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::NamedSpatialVelocityPtr>{
 		static Node encode(const com::robotraconteur::geometryf::NamedSpatialVelocityPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometryf::NamedSpatialVelocityPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedSpatialVelocity);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedSpatialVelocity); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 			rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 			rhs->velocity = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::SpatialVelocity>(node,"velocity",true);
@@ -380,12 +404,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::NamedSpatialAccelerationPtr>{
 		static Node encode(const com::robotraconteur::geometryf::NamedSpatialAccelerationPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometryf::NamedSpatialAccelerationPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedSpatialAcceleration);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedSpatialAcceleration); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 			rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 			rhs->acceleration = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::SpatialAcceleration>(node,"acceleration",true);
@@ -398,12 +423,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::NamedWrenchPtr>{
 		static Node encode(const com::robotraconteur::geometryf::NamedWrenchPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometryf::NamedWrenchPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedWrench);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedWrench); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->parent_frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"parent_frame",true);
 			rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 			rhs->wrench = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::Wrench>(node,"wrench",true);
@@ -416,12 +442,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::NamedSpatialInertiaPtr>{
 		static Node encode(const com::robotraconteur::geometryf::NamedSpatialInertiaPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometryf::NamedSpatialInertiaPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedSpatialInertia);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::NamedSpatialInertia); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->frame = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"frame",true);
 			rhs->inertia = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::SpatialInertia>(node,"inertia",true);
 			return true;
@@ -433,12 +460,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::BoundingBox2DPtr>{
 		static Node encode(const com::robotraconteur::geometryf::BoundingBox2DPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometryf::BoundingBox2DPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::BoundingBox2D);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::BoundingBox2D); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->center = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometryf::NamedPose2DPtr>(node,"center",true);
 			rhs->size = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::Size2D>(node,"size",true);
 			return true;
@@ -450,12 +478,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometryf::BoundingBoxPtr>{
 		static Node encode(const com::robotraconteur::geometryf::BoundingBoxPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometryf::BoundingBoxPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::BoundingBox);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometryf::BoundingBox); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->center = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::geometryf::NamedPosePtr>(node,"center",true);
 			rhs->size = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::geometryf::Size>(node,"size",true);
 			return true;

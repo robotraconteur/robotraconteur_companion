@@ -6,6 +6,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometry::shapes::MeshTriangle>{
 		static Node encode(const com::robotraconteur::geometry::shapes::MeshTriangle& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -22,12 +23,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometry::shapes::BoxPtr>{
 		static Node encode(const com::robotraconteur::geometry::shapes::BoxPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::shapes::BoxPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Box);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Box); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->x = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"x",true);
 			rhs->y = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"y",true);
 			rhs->z = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"z",true);
@@ -40,12 +42,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometry::shapes::SpherePtr>{
 		static Node encode(const com::robotraconteur::geometry::shapes::SpherePtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::shapes::SpherePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Sphere);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Sphere); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->radius = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"radius",true);
 			return true;
 		}
@@ -56,12 +59,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometry::shapes::CylinderPtr>{
 		static Node encode(const com::robotraconteur::geometry::shapes::CylinderPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::shapes::CylinderPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Cylinder);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Cylinder); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->height = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"height",true);
 			rhs->radius = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"radius",true);
 			return true;
@@ -73,12 +77,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometry::shapes::ConePtr>{
 		static Node encode(const com::robotraconteur::geometry::shapes::ConePtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::shapes::ConePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Cone);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Cone); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->height = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"height",true);
 			rhs->radius = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"radius",true);
 			return true;
@@ -90,12 +95,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometry::shapes::CapsulePtr>{
 		static Node encode(const com::robotraconteur::geometry::shapes::CapsulePtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::shapes::CapsulePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Capsule);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Capsule); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->height = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"height",true);
 			rhs->radius = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"radius",true);
 			return true;
@@ -107,12 +113,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometry::shapes::PlanePtr>{
 		static Node encode(const com::robotraconteur::geometry::shapes::PlanePtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::shapes::PlanePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Plane);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Plane); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->a = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"a",true);
 			rhs->b = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"b",true);
 			rhs->c = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"c",true);
@@ -126,12 +133,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometry::shapes::MeshTexturePtr>{
 		static Node encode(const com::robotraconteur::geometry::shapes::MeshTexturePtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::shapes::MeshTexturePtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::MeshTexture);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::MeshTexture); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->image = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::image::CompressedImagePtr>(node,"image",true);
 			rhs->uvs = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometry::Vector2>(node,"uvs",true,true,0);
 			return true;
@@ -143,12 +151,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometry::shapes::MeshPtr>{
 		static Node encode(const com::robotraconteur::geometry::shapes::MeshPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::shapes::MeshPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Mesh);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Mesh); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->triangles = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometry::shapes::MeshTriangle>(node,"triangles",true,true,0);
 			rhs->vertices = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometry::Point>(node,"vertices",true,true,0);
 			rhs->normals = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray_array<com::robotraconteur::geometry::Vector3>(node,"normals",true,true,0);
@@ -164,12 +173,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometry::shapes::MaterialPtr>{
 		static Node encode(const com::robotraconteur::geometry::shapes::MaterialPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::shapes::MaterialPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Material);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::Material); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->base_color_factor = RobotRaconteur::Companion::InfoParser::yaml::parse_namedarray<com::robotraconteur::color::ColorRGBA>(node,"base_color_factor",true);
 			rhs->metallic_factor = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"metallic_factor",true);
 			rhs->roughness_factor = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"roughness_factor",true);
@@ -184,12 +194,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::geometry::shapes::ShapeObjectPtr>{
 		static Node encode(const com::robotraconteur::geometry::shapes::ShapeObjectPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::geometry::shapes::ShapeObjectPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::ShapeObject);
+			if (!rhs) rhs.reset(new com::robotraconteur::geometry::shapes::ShapeObject); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->name = RobotRaconteur::Companion::InfoParser::yaml::parse_structure<com::robotraconteur::identifier::IdentifierPtr>(node,"name",true);
 			// TODO: parse field varvalue{list} shapes
 			// TODO: parse field com.robotraconteur.geometry.Pose{list} shape_poses

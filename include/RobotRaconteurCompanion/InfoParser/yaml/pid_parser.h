@@ -7,12 +7,13 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::pid::PIDParamPtr>{
 		static Node encode(const com::robotraconteur::pid::PIDParamPtr& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
 
 		static bool decode(const Node& node, com::robotraconteur::pid::PIDParamPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::pid::PIDParam);
+			if (!rhs) rhs.reset(new com::robotraconteur::pid::PIDParam); // NOLINT(cppcoreguidelines-owning-memory)
 			rhs->p = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"p",true);
 			rhs->i = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"i",true);
 			rhs->d = RobotRaconteur::Companion::InfoParser::yaml::parse_number<double>(node,"d",true);

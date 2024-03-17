@@ -6,6 +6,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::color::ColorRGBA>{
 		static Node encode(const com::robotraconteur::color::ColorRGBA& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -22,6 +23,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::color::ColorRGBAf>{
 		static Node encode(const com::robotraconteur::color::ColorRGBAf& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -38,6 +40,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::color::ColorRGBAu>{
 		static Node encode(const com::robotraconteur::color::ColorRGBAu& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -54,6 +57,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::color::ColorRGBAh>{
 		static Node encode(const com::robotraconteur::color::ColorRGBAh& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -70,6 +74,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::color::ColorRGB>{
 		static Node encode(const com::robotraconteur::color::ColorRGB& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -85,6 +90,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::color::ColorRGBf>{
 		static Node encode(const com::robotraconteur::color::ColorRGBf& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -100,6 +106,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::color::ColorRGBu>{
 		static Node encode(const com::robotraconteur::color::ColorRGBu& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
@@ -115,6 +122,7 @@ namespace YAML {
 	template<> 
 	struct convert<com::robotraconteur::color::ColorRGBh>{
 		static Node encode(const com::robotraconteur::color::ColorRGBh& rhs){
+			RR_UNUSED(rhs);
 			Node node;
 			return node;
 		}
