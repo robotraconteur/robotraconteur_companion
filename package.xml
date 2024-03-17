@@ -17,8 +17,8 @@
   <depend>robotraconteur</depend>
   <depend>eigen</depend>
   <depend>yaml-cpp</depend>
-        
-  <export>    
+
+  <export>
     <build_type>cmake</build_type>
   </export>
 </package>

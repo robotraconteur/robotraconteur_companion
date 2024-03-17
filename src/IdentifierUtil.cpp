@@ -37,7 +37,7 @@ bool IsIdentifierAnyUuid(const com::robotraconteur::identifier::IdentifierPtr& i
         return true;
     }
 
-    return std::all_of(identifier->uuid.a.begin(), identifier->uuid.a.end(), [](uint8_t b){ return b == 0; });
+    return std::all_of(identifier->uuid.a.begin(), identifier->uuid.a.end(), [](uint8_t b) { return b == 0; });
 }
 
 bool IsIdentifierAnyName(const com::robotraconteur::identifier::IdentifierPtr& identifier)
@@ -67,7 +67,8 @@ bool IsIdentifierAny(const com::robotraconteur::identifier::IdentifierPtr& ident
     return true;
 }
 
-bool IsIdentifierMatch(const com::robotraconteur::identifier::IdentifierPtr& expected, const com::robotraconteur::identifier::IdentifierPtr& test)
+bool IsIdentifierMatch(const com::robotraconteur::identifier::IdentifierPtr& expected,
+                       const com::robotraconteur::identifier::IdentifierPtr& test)
 {
     if (IsIdentifierAny(expected) || IsIdentifierAny(test))
     {
@@ -76,7 +77,7 @@ bool IsIdentifierMatch(const com::robotraconteur::identifier::IdentifierPtr& exp
 
     bool name_match = false;
     bool uuid_match = false;
-    
+
     if (IsIdentifierAnyName(expected) || IsIdentifierAnyName(test))
     {
         name_match = true;
@@ -113,7 +114,8 @@ com::robotraconteur::identifier::IdentifierPtr CreateIdentifier(const std::strin
     return ret;
 }
 
-com::robotraconteur::identifier::IdentifierPtr CreateIdentifier(const std::string& name, const boost::uuids::uuid& boost_uuid)
+com::robotraconteur::identifier::IdentifierPtr CreateIdentifier(const std::string& name,
+                                                                const boost::uuids::uuid& boost_uuid)
 {
     com::robotraconteur::identifier::IdentifierPtr ret(new com::robotraconteur::identifier::Identifier());
     ret->name = name;
@@ -153,8 +155,10 @@ std::string IdentifierToString(const com::robotraconteur::identifier::Identifier
 com::robotraconteur::identifier::IdentifierPtr StringToIdentifier(const std::string& string_id)
 {
     static std::string name_regex_str = "(?:[a-zA-Z](?:\\w*[a-zA-Z0-9])?)(?:\\.[a-zA-Z](?:\\w*[a-zA-Z0-9])?)*";
-    static std::string uuid_regex_str = "\\{?[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\\}?";
-    static std::string identifier_regex = "(?:(" + name_regex_str + ")\\|(" + uuid_regex_str + "))|(" + name_regex_str + ")|(" + uuid_regex_str + ")";
+    static std::string uuid_regex_str =
+        "\\{?[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\\}?";
+    static std::string identifier_regex =
+        "(?:(" + name_regex_str + ")\\|(" + uuid_regex_str + "))|(" + name_regex_str + ")|(" + uuid_regex_str + ")";
     static boost::regex r_identifier = boost::regex(identifier_regex);
 
     boost::smatch r_res;
@@ -163,7 +167,7 @@ com::robotraconteur::identifier::IdentifierPtr StringToIdentifier(const std::str
         throw RobotRaconteur::InvalidArgumentException("Invalid identifier string");
     }
 
-    if(r_res[1].matched && r_res[2].matched)
+    if (r_res[1].matched && r_res[2].matched)
     {
         return CreateIdentifier(r_res[1].str(), r_res[2].str());
     }
@@ -181,6 +185,6 @@ com::robotraconteur::identifier::IdentifierPtr StringToIdentifier(const std::str
     throw RobotRaconteur::InvalidArgumentException("Invalid identifier string");
 }
 
-}
-}
-}
+} // namespace Util
+} // namespace Companion
+} // namespace RobotRaconteur

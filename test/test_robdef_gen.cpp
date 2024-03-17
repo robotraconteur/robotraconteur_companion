@@ -2,5 +2,5 @@
 
 int main(int ac, char** av) // NOLINT
 {
-	return 0;
+    return 0;
 }

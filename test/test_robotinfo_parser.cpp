@@ -12,7 +12,10 @@ int main(int ac, char** av) // NOLINT
     auto robot_info = map.as<RobotInfoPtr>();
 
     std::vector<RobotRaconteur::Companion::Util::LocalIdentifierLockPtr> identifier_locks;
-    auto robot_info2 = RobotRaconteur::Companion::Util::LoadInfoFile<RobotInfoPtr>("sawyer_robot_default_config.yml", identifier_locks, "robot");
-    auto dev_info2 = RobotRaconteur::Companion::Util::LoadInfoFileFromString<com::robotraconteur::device::DeviceInfoPtr>("{}", identifier_locks);
+    auto robot_info2 = RobotRaconteur::Companion::Util::LoadInfoFile<RobotInfoPtr>("sawyer_robot_default_config.yml",
+                                                                                   identifier_locks, "robot");
+    auto dev_info2 =
+        RobotRaconteur::Companion::Util::LoadInfoFileFromString<com::robotraconteur::device::DeviceInfoPtr>(
+            "{}", identifier_locks);
     return 0;
 }

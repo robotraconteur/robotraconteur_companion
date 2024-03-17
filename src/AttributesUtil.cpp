@@ -31,7 +31,8 @@ namespace Util
 {
 namespace detail
 {
-bool TryAddIdentifier(std::map<std::string,RobotRaconteur::RRValuePtr>& o, const std::string& name, const com::robotraconteur::identifier::IdentifierPtr& id)
+bool TryAddIdentifier(std::map<std::string, RobotRaconteur::RRValuePtr>& o, const std::string& name,
+                      const com::robotraconteur::identifier::IdentifierPtr& id)
 {
     if (!IsIdentifierAny(id))
     {
@@ -41,7 +42,7 @@ bool TryAddIdentifier(std::map<std::string,RobotRaconteur::RRValuePtr>& o, const
     return false;
 }
 
-bool TryAddString(std::map<std::string,RobotRaconteur::RRValuePtr>& o, const std::string& name, const std::string& str)
+bool TryAddString(std::map<std::string, RobotRaconteur::RRValuePtr>& o, const std::string& name, const std::string& str)
 {
     if (!str.empty())
     {
@@ -50,12 +51,13 @@ bool TryAddString(std::map<std::string,RobotRaconteur::RRValuePtr>& o, const std
     }
     return false;
 }
-}
+} // namespace detail
 
-std::map<std::string,RobotRaconteur::RRValuePtr> GetDefaultServiceAttributesFromDeviceInfo(const com::robotraconteur::device::DeviceInfoPtr& info)
+std::map<std::string, RobotRaconteur::RRValuePtr> GetDefaultServiceAttributesFromDeviceInfo(
+    const com::robotraconteur::device::DeviceInfoPtr& info)
 {
-    std::map<std::string,RobotRaconteur::RRValuePtr> o;
-    detail::TryAddIdentifier(o,"device", info->device);
+    std::map<std::string, RobotRaconteur::RRValuePtr> o;
+    detail::TryAddIdentifier(o, "device", info->device);
     detail::TryAddIdentifier(o, "parent_device", info->parent_device);
     detail::TryAddIdentifier(o, "manufacturer", info->manufacturer);
     detail::TryAddIdentifier(o, "model", info->model);
@@ -64,6 +66,6 @@ std::map<std::string,RobotRaconteur::RRValuePtr> GetDefaultServiceAttributesFrom
     return o;
 }
 
-}
-}
-}
+} // namespace Util
+} // namespace Companion
+} // namespace RobotRaconteur

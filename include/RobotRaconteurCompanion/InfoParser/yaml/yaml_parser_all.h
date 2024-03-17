@@ -21,7 +21,6 @@
  * limitations under the License.
  */
 
-
 #pragma once
 #include "action_parser.h"
 #include "actuator_parser.h"

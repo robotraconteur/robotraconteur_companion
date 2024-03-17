@@ -2,13 +2,14 @@
 
 #pragma once
 
-namespace YAML {
+namespace YAML
+{
 
-	template<> 
-	struct ROBOTRACONTEUR_COMPANION_INFOPARSER_API convert<com::robotraconteur::laserscanner::LaserScannerInfoPtr>{
-		static Node encode(const com::robotraconteur::laserscanner::LaserScannerInfoPtr& rhs);
-		static bool decode(const Node& node, com::robotraconteur::laserscanner::LaserScannerInfoPtr& rhs);
-	};
+template <>
+struct ROBOTRACONTEUR_COMPANION_INFOPARSER_API convert<com::robotraconteur::laserscanner::LaserScannerInfoPtr>
+{
+    static Node encode(const com::robotraconteur::laserscanner::LaserScannerInfoPtr& rhs);
+    static bool decode(const Node& node, com::robotraconteur::laserscanner::LaserScannerInfoPtr& rhs);
+};
 
-
-}
+} // namespace YAML
