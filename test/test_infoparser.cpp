@@ -19,16 +19,16 @@ node.as<com::robotraconteur::color::ColorRGBf>();
 node.as<com::robotraconteur::color::ColorRGBu>();
 node.as<com::robotraconteur::color::ColorRGBh>();
 node.as<com::robotraconteur::datatype::DataTypePtr>();
-node.as<com::robotraconteur::datetime::clock::ClockDeviceInfoPtr>();
 node.as<com::robotraconteur::datetime::TimeSpec3>();
 node.as<com::robotraconteur::datetime::DateTimeLocalPtr>();
-node.as<com::robotraconteur::device::isoch::IsochInfoPtr>();
+node.as<com::robotraconteur::datetime::clock::ClockDeviceInfoPtr>();
 node.as<com::robotraconteur::device::DeviceOptionPtr>();
 node.as<com::robotraconteur::device::DeviceSubOptionPtr>();
 node.as<com::robotraconteur::device::DeviceCapabilityPtr>();
 node.as<com::robotraconteur::device::DeviceSubCapabilityPtr>();
 node.as<com::robotraconteur::device::DeviceClassPtr>();
 node.as<com::robotraconteur::device::DeviceInfoPtr>();
+node.as<com::robotraconteur::device::isoch::IsochInfoPtr>();
 node.as<com::robotraconteur::eventlog::EventLogTypePtr>();
 node.as<com::robotraconteur::eventlog::EventLogMessageHeaderPtr>();
 node.as<com::robotraconteur::eventlog::EventLogMessagePtr>();
@@ -156,11 +156,11 @@ node.as<com::robotraconteur::image::ImagePartPtr>();
 node.as<com::robotraconteur::image::CompressedImagePartPtr>();
 node.as<com::robotraconteur::image::FreeformImagePartPtr>();
 node.as<com::robotraconteur::image::ImageResourcePtr>();
+node.as<com::robotraconteur::imaging::CameraStatePtr>();
 node.as<com::robotraconteur::imaging::camerainfo::PlumbBobDistortionInfoPtr>();
 node.as<com::robotraconteur::imaging::camerainfo::CameraCalibrationPtr>();
 node.as<com::robotraconteur::imaging::camerainfo::CameraInfoPtr>();
 node.as<com::robotraconteur::imaging::camerainfo::MultiCameraInfoPtr>();
-node.as<com::robotraconteur::imaging::CameraStatePtr>();
 node.as<com::robotraconteur::imu::ImuStatePtr>();
 node.as<com::robotraconteur::laserscan::LaserScanInfoPtr>();
 node.as<com::robotraconteur::laserscan::LaserScanPtr>();
@@ -238,7 +238,7 @@ node.as<com::robotraconteur::signal::SignalGroupInfoPtr>();
 node.as<com::robotraconteur::units::SIUnitPtr>();
 }
 
-int main(int ac, char** av)
+int main(int ac, char** av) // NOLINT
 {
 return 0;
 }

@@ -219,14 +219,17 @@ file5.write("#pragma once\n")
 file5.write("#include <string>\n")
 file5.write("#include \"yaml-cpp/yaml.h\"\n")
 file5.write("#include <RobotRaconteurCompanion/StdRobDef/StdRobDefAll.h>\n")
+file5.write("#include <RobotRaconteurCompanion/InfoParser/InfoParserMacros.h>\n")
 
 file5.write("namespace RobotRaconteur{\n")
 file5.write("namespace Companion{\n")
 file5.write("namespace InfoParser{\n")
 file5.write("namespace yaml{\n")
 file5.write("template<typename T> struct string_to_enum_traits { };\n")
-for entry in enum_list:
-    file5.write("int string_to_enum_%s(const std::string &input, const YAML::Node& node);\n"%(entry[0]))
+enum_list2 = enum_list.copy()
+enum_list2.sort(key=lambda x: x[0])
+for entry in enum_list2:
+    file5.write("ROBOTRACONTEUR_COMPANION_INFOPARSER_API int string_to_enum_%s(const std::string &input, const YAML::Node& node);\n"%(entry[0]))
     file5.write("template<> struct string_to_enum_traits<%s::%s> { static %s::%s string_to_enum(const std::string& s, const YAML::Node& node) { return (%s::%s)string_to_enum_%s(s,node); } };\n"%(entry[1], entry[0], entry[1], entry[0], entry[1], entry[0], entry[0]))
 file5.write("}\n")
 file5.write("}\n")
@@ -243,6 +246,28 @@ file2.write("namespace Companion{\n")
 file2.write("namespace InfoParser{\n")
 file2.write("namespace yaml{\n")
 
+file4.write("""/**
+ * @file yaml_parser_all.h
+ *
+ * @author John Wason, PhD
+ *
+ * @copyright Copyright 2023 Wason Technology, LLC
+ *
+ * @par License
+ * Software License Agreement (Apache License)
+ * @par
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * @par
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * @par
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */\n\n\n""")
 file4.write("#pragma once\n")
 
 test_dir = source_dir.joinpath("test")
@@ -254,7 +279,10 @@ testfile.write("void testfunction()\n{\n")
 testfile.write("// Not a full test, just make sure everything compiles\n")
 testfile.write("YAML::Node node = YAML::Load(\"[1, 2, 3]\");\n")
 
-for key in my_service_defs:
+my_service_defs_keys = list(my_service_defs.keys())
+my_service_defs_keys.sort()
+
+for key in my_service_defs_keys:
    
         
     usingdict={}
@@ -736,7 +764,7 @@ file2.write("}\n")
 file2.write("}\n")
 
 testfile.write("}\n\n")
-testfile.write("int main(int ac, char** av)\n{\n")
+testfile.write("int main(int ac, char** av) // NOLINT\n{\n")
 testfile.write("return 0;\n}\n")
 
 print(error_names)

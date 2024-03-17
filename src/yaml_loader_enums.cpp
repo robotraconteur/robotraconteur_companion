@@ -6,6 +6,7 @@ namespace Companion{
 namespace InfoParser{
 namespace yaml{
 int string_to_enum_ActionStatusCode(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="error") return -3;
 	if(input =="failed") return -2;
 	if(input =="cancelled") return -1;
@@ -17,6 +18,7 @@ int string_to_enum_ActionStatusCode(const std::string &input, const YAML::Node& 
 }
 
 int string_to_enum_ActuatorTypeCode(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="generic") return 1;
 	if(input =="position") return 2;
@@ -44,6 +46,7 @@ int string_to_enum_ActuatorTypeCode(const std::string &input, const YAML::Node& 
 }
 
 int string_to_enum_ActuatorMode(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="error") return -2;
 	if(input =="disabled") return -1;
 	if(input =="halt") return 0;
@@ -53,6 +56,7 @@ int string_to_enum_ActuatorMode(const std::string &input, const YAML::Node& node
 }
 
 int string_to_enum_ActuatorStateFlags(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="ready") return 1;
 	if(input =="streaming") return 2;
@@ -69,6 +73,7 @@ int string_to_enum_ActuatorStateFlags(const std::string &input, const YAML::Node
 }
 
 int string_to_enum_DataTypeCode(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="void_c") return 0;
 	if(input =="double_c") return 1;
 	if(input =="single_c") return 2;
@@ -104,6 +109,7 @@ int string_to_enum_DataTypeCode(const std::string &input, const YAML::Node& node
 }
 
 int string_to_enum_ArrayTypeCode(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="none_c") return 0;
 	if(input =="array_c") return 1;
 	if(input =="multidimarray_c") return 2;
@@ -111,6 +117,7 @@ int string_to_enum_ArrayTypeCode(const std::string &input, const YAML::Node& nod
 }
 
 int string_to_enum_ContainerTypeCode(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="none_c") return 0;
 	if(input =="list_c") return 1;
 	if(input =="map_int32_c") return 2;
@@ -120,6 +127,7 @@ int string_to_enum_ContainerTypeCode(const std::string &input, const YAML::Node&
 }
 
 int string_to_enum_ClockTypeCode(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="default") return 1;
 	if(input =="system_rtc_clock") return 2;
@@ -151,6 +159,7 @@ int string_to_enum_ClockTypeCode(const std::string &input, const YAML::Node& nod
 }
 
 int string_to_enum_EventLogLevel(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="undefined") return 0;
 	if(input =="trace") return 1;
 	if(input =="debug") return 2;
@@ -165,6 +174,7 @@ int string_to_enum_EventLogLevel(const std::string &input, const YAML::Node& nod
 }
 
 int string_to_enum_MeshType(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="mesh") return 0;
 	if(input =="convex_mesh") return 1;
 	if(input =="sdf_mesh") return 2;
@@ -172,6 +182,7 @@ int string_to_enum_MeshType(const std::string &input, const YAML::Node& node){
 }
 
 int string_to_enum_GpsMeasurementStatusCode(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="no_fix") return -1;
 	if(input =="fix") return 0;
 	if(input =="sbas_fix") return 1;
@@ -182,6 +193,7 @@ int string_to_enum_GpsMeasurementStatusCode(const std::string &input, const YAML
 }
 
 int string_to_enum_GpsMeasureSourceFlags(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="none") return 0;
 	if(input =="gps") return 1;
 	if(input =="points") return 2;
@@ -194,6 +206,7 @@ int string_to_enum_GpsMeasureSourceFlags(const std::string &input, const YAML::N
 }
 
 int string_to_enum_GpsCovarianceTypeCode(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="approximated") return 1;
 	if(input =="diagonal_known") return 2;
@@ -202,6 +215,7 @@ int string_to_enum_GpsCovarianceTypeCode(const std::string &input, const YAML::N
 }
 
 int string_to_enum_JoystickCapabilities(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="none") return 0;
 	if(input =="rumble") return 1;
 	if(input =="force_feedback") return 2;
@@ -210,6 +224,7 @@ int string_to_enum_JoystickCapabilities(const std::string &input, const YAML::No
 }
 
 int string_to_enum_GamepadButtons(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="button_A") return 1;
 	if(input =="button_B") return 2;
 	if(input =="button_X") return 4;
@@ -229,6 +244,7 @@ int string_to_enum_GamepadButtons(const std::string &input, const YAML::Node& no
 }
 
 int string_to_enum_JoystickHatState(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="hat_centered") return 0;
 	if(input =="hat_up") return 1;
 	if(input =="hat_right") return 2;
@@ -242,6 +258,7 @@ int string_to_enum_JoystickHatState(const std::string &input, const YAML::Node& 
 }
 
 int string_to_enum_ImageEncoding(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="rgb888") return 4096;
 	if(input =="rgba8888") return 4097;
@@ -274,6 +291,7 @@ int string_to_enum_ImageEncoding(const std::string &input, const YAML::Node& nod
 }
 
 int string_to_enum_TriggerMode(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="software") return 1;
 	if(input =="continuous") return 2;
@@ -286,6 +304,7 @@ int string_to_enum_TriggerMode(const std::string &input, const YAML::Node& node)
 }
 
 int string_to_enum_Capabilities(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="still") return 1;
 	if(input =="stream") return 2;
@@ -298,6 +317,7 @@ int string_to_enum_Capabilities(const std::string &input, const YAML::Node& node
 }
 
 int string_to_enum_CameraStateFlags(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="ready") return 1;
 	if(input =="streaming") return 2;
@@ -308,6 +328,7 @@ int string_to_enum_CameraStateFlags(const std::string &input, const YAML::Node& 
 }
 
 int string_to_enum_OcTreeEncoding(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="octomap_ot") return 1;
 	if(input =="octomap_bt") return 2;
@@ -316,6 +337,7 @@ int string_to_enum_OcTreeEncoding(const std::string &input, const YAML::Node& no
 }
 
 int string_to_enum_JointPositionUnits(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="implicit") return 0;
 	if(input =="meter") return 1;
 	if(input =="radian") return 2;
@@ -328,6 +350,7 @@ int string_to_enum_JointPositionUnits(const std::string &input, const YAML::Node
 }
 
 int string_to_enum_JointVelocityUnits(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="implicit") return 0;
 	if(input =="meter_second") return 16;
 	if(input =="radian_second") return 17;
@@ -340,6 +363,7 @@ int string_to_enum_JointVelocityUnits(const std::string &input, const YAML::Node
 }
 
 int string_to_enum_JointAccelerationUnits(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="implicit") return 0;
 	if(input =="meter_second2") return 32;
 	if(input =="radian_second2") return 33;
@@ -352,6 +376,7 @@ int string_to_enum_JointAccelerationUnits(const std::string &input, const YAML::
 }
 
 int string_to_enum_JointJerkUnits(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="implicit") return 0;
 	if(input =="meter_second2") return 48;
 	if(input =="radian_second3") return 49;
@@ -364,6 +389,7 @@ int string_to_enum_JointJerkUnits(const std::string &input, const YAML::Node& no
 }
 
 int string_to_enum_JointEffortUnits(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="implicit") return 0;
 	if(input =="newton") return 64;
 	if(input =="newton_meter") return 65;
@@ -380,6 +406,7 @@ int string_to_enum_JointEffortUnits(const std::string &input, const YAML::Node& 
 }
 
 int string_to_enum_JointType(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="revolute") return 1;
 	if(input =="continuous") return 2;
@@ -398,6 +425,7 @@ int string_to_enum_JointType(const std::string &input, const YAML::Node& node){
 }
 
 int string_to_enum_RobotTypeCode(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="serial") return 1;
 	if(input =="dual_arm") return 2;
@@ -410,6 +438,7 @@ int string_to_enum_RobotTypeCode(const std::string &input, const YAML::Node& nod
 }
 
 int string_to_enum_RobotCommandMode(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="invalid_state") return -1;
 	if(input =="halt") return 0;
 	if(input =="jog") return 1;
@@ -421,6 +450,7 @@ int string_to_enum_RobotCommandMode(const std::string &input, const YAML::Node& 
 }
 
 int string_to_enum_RobotOperationalMode(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="undefined") return 0;
 	if(input =="manual_reduced_speed") return 1;
 	if(input =="manual_full_speed") return 2;
@@ -430,6 +460,7 @@ int string_to_enum_RobotOperationalMode(const std::string &input, const YAML::No
 }
 
 int string_to_enum_RobotControllerState(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="undefined") return 0;
 	if(input =="init") return 1;
 	if(input =="motor_on") return 2;
@@ -441,6 +472,7 @@ int string_to_enum_RobotControllerState(const std::string &input, const YAML::No
 }
 
 int string_to_enum_RobotCapabilities(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="jog_command") return 1;
 	if(input =="trajectory_command") return 2;
@@ -457,6 +489,7 @@ int string_to_enum_RobotCapabilities(const std::string &input, const YAML::Node&
 }
 
 int string_to_enum_RobotStateFlags(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="error") return 1;
 	if(input =="fatal_error") return 2;
@@ -487,6 +520,7 @@ int string_to_enum_RobotStateFlags(const std::string &input, const YAML::Node& n
 }
 
 int string_to_enum_ToolTypeCode(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="basic_gripper") return 1;
 	if(input =="basic_continuous_gripper") return 2;
@@ -502,6 +536,7 @@ int string_to_enum_ToolTypeCode(const std::string &input, const YAML::Node& node
 }
 
 int string_to_enum_ToolCapabilities(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="open_close_command") return 1;
 	if(input =="continuous_command") return 2;
@@ -513,6 +548,7 @@ int string_to_enum_ToolCapabilities(const std::string &input, const YAML::Node& 
 }
 
 int string_to_enum_ToolStateFlags(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="error") return 1;
 	if(input =="fatal_error") return 2;
@@ -533,6 +569,7 @@ int string_to_enum_ToolStateFlags(const std::string &input, const YAML::Node& no
 }
 
 int string_to_enum_InterpolationMode(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="default") return 0;
 	if(input =="joint") return 1;
 	if(input =="linear") return 2;
@@ -545,6 +582,7 @@ int string_to_enum_InterpolationMode(const std::string &input, const YAML::Node&
 }
 
 int string_to_enum_TrajectoryWaypointType(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unspecified") return 0;
 	if(input =="start") return 1;
 	if(input =="path") return 2;
@@ -556,6 +594,7 @@ int string_to_enum_TrajectoryWaypointType(const std::string &input, const YAML::
 }
 
 int string_to_enum_SensorTypeCode(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="generic_digital") return 1;
 	if(input =="generic_analog") return 2;
@@ -637,6 +676,7 @@ int string_to_enum_SensorTypeCode(const std::string &input, const YAML::Node& no
 }
 
 int string_to_enum_SensorDataFlags(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="enabled") return 1;
 	if(input =="streaming") return 2;
@@ -653,6 +693,7 @@ int string_to_enum_SensorDataFlags(const std::string &input, const YAML::Node& n
 }
 
 int string_to_enum_ServoTypeCode(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="generic_revolute") return 1;
 	if(input =="generic_prismatic") return 2;
@@ -663,6 +704,7 @@ int string_to_enum_ServoTypeCode(const std::string &input, const YAML::Node& nod
 }
 
 int string_to_enum_ServoCapabilities(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="position_command") return 1;
 	if(input =="velocity_command") return 2;
@@ -673,6 +715,7 @@ int string_to_enum_ServoCapabilities(const std::string &input, const YAML::Node&
 }
 
 int string_to_enum_ServoMode(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="error") return -2;
 	if(input =="disabled") return -1;
 	if(input =="halt") return 0;
@@ -684,6 +727,7 @@ int string_to_enum_ServoMode(const std::string &input, const YAML::Node& node){
 }
 
 int string_to_enum_ServoStateFlags(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="ready") return 1;
 	if(input =="streaming") return 2;
@@ -700,6 +744,7 @@ int string_to_enum_ServoStateFlags(const std::string &input, const YAML::Node& n
 }
 
 int string_to_enum_SignalType(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="digital") return 1;
 	if(input =="analog") return 2;
@@ -715,6 +760,7 @@ int string_to_enum_SignalType(const std::string &input, const YAML::Node& node){
 }
 
 int string_to_enum_SignalAccessLevel(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="undefined") return 0;
 	if(input =="internal") return 1;
 	if(input =="restricted") return 2;
@@ -724,6 +770,7 @@ int string_to_enum_SignalAccessLevel(const std::string &input, const YAML::Node&
 }
 
 int string_to_enum_SignalDeviceStateFlags(const std::string &input, const YAML::Node& node){
+	RR_UNUSED(node);
 	if(input =="unknown") return 0;
 	if(input =="ready") return 1;
 	if(input =="streaming") return 2;
