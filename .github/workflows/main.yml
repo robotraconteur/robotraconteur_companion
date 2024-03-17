@@ -181,6 +181,8 @@ jobs:
       run: cmake --build build --config Debug -- -j 4
   pre-commit:
     runs-on: ubuntu-22.04
+    env:
+      SKIP: no-commit-to-branch
     steps:
     - uses: actions/checkout@v3
     - uses: actions/setup-python@v3
