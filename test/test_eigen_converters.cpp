@@ -70,6 +70,7 @@ TEST(EigenConverters,Matrices)
     eigen_ca(b1,b1_a);
 
     ::Eigen::Matrix3d c1(3,3);
+    // cppcheck-suppress constStatement
     c1 << 7,8,9,10,11,12,13,14,15;
     RR::RRMultiDimArrayPtr<double> c1_a = RREigen::EigenToRRMultiDimArray(c1);
 
