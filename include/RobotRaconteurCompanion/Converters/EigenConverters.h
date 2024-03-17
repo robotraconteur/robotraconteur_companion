@@ -25,6 +25,7 @@
 #include <Eigen/Dense>
 #include <Eigen/Core>
 #include <RobotRaconteur/DataTypes.h>
+#include <RobotRaconteurCompanion/Util/UtilMacros.h>
 
 #include <com__robotraconteur__geometry.h>
 
@@ -168,13 +169,7 @@ namespace Eigen
      * @param vs The Eigen vector with 2 elements
      * @return com::robotraconteur::geometry::Vector2 The result vector
      */
-    static com::robotraconteur::geometry::Vector2 ToVector2(const ::Eigen::Ref<const ::Eigen::Vector2d>& vs)
-    {
-        com::robotraconteur::geometry::Vector2 o{};
-        o.s.x = vs[0];
-        o.s.y = vs[1];
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::geometry::Vector2 ToVector2(const ::Eigen::Ref<const ::Eigen::Vector2d>& vs);
 
     /**
      * @brief Convert com::robotraconteur::geometry::Vector2 to Eigen vector
@@ -182,13 +177,7 @@ namespace Eigen
      * @param vs The com::robotraconteur::geometry::Vector2
      * @return ::Eigen::Vector2d The result vector
      */
-    static ::Eigen::Vector2d ToVector(const com::robotraconteur::geometry::Vector2& vs)
-    {
-        ::Eigen::Vector2d o;
-        o[0] = vs.s.x;
-        o[1] = vs.s.y;
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API ::Eigen::Vector2d ToVector(const com::robotraconteur::geometry::Vector2& vs);
 
     /**
      * @brief Convert Eigen vector to com::robotraconteur::geometry::Vector3
@@ -196,14 +185,7 @@ namespace Eigen
      * @param vs The Eigen vector with 3 elements
      * @return com::robotraconteur::geometry::Vector3 The result vector
      */
-    static com::robotraconteur::geometry::Vector3 ToVector3(const ::Eigen::Ref<const ::Eigen::Vector3d>& vs)
-    {
-        com::robotraconteur::geometry::Vector3 o{};
-        o.s.x = vs[0];
-        o.s.y = vs[1];
-        o.s.z = vs[2];
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::geometry::Vector3 ToVector3(const ::Eigen::Ref<const ::Eigen::Vector3d>& vs);
 
     /**
      * @brief Convert com::robotraconteur::geometry::Vector3 to Eigen vector
@@ -211,14 +193,7 @@ namespace Eigen
      * @param vs The com::robotraconteur::geometry::Vector3
      * @return ::Eigen::Vector3d The result vector
      */
-    static ::Eigen::Vector3d ToVector(const com::robotraconteur::geometry::Vector3& vs)
-    {
-        ::Eigen::Vector3d o;
-        o[0] = vs.s.x;
-        o[1] = vs.s.y;
-        o[2] = vs.s.z;
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API ::Eigen::Vector3d ToVector(const com::robotraconteur::geometry::Vector3& vs);
 
     /**
      * @brief Convert Eigen vector to com::robotraconteur::geometry::Vector6
@@ -226,17 +201,7 @@ namespace Eigen
      * @param vs The Eigen vector with 6 elements
      * @return com::robotraconteur::geometry::Vector6 The result vector
      */
-    static com::robotraconteur::geometry::Vector6 ToVector6(const ::Eigen::Ref<const ::Eigen::Matrix<double,6,1> >& vs)
-    {
-        com::robotraconteur::geometry::Vector6 o{};
-        o.s.alpha = vs[0];
-        o.s.beta = vs[1];
-        o.s.gamma = vs[2];
-        o.s.x = vs[3];
-        o.s.y = vs[4];
-        o.s.y = vs[5];
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::geometry::Vector6 ToVector6(const ::Eigen::Ref<const ::Eigen::Matrix<double,6,1> >& vs);
 
     /**
      * @brief Convert com::robotraconteur::geometry::Vector6 to Eigen vector
@@ -244,17 +209,7 @@ namespace Eigen
      * @param vs The com::robotraconteur::geometry::Vector6
      * @return ::Eigen::Matrix<double,6,1> The result vector
      */
-    static ::Eigen::Matrix<double,6,1> ToVector(const com::robotraconteur::geometry::Vector6& vs)
-    {
-        ::Eigen::Matrix<double,6,1> o;
-        o[0] = vs.s.alpha;
-        o[1] = vs.s.beta;
-        o[2] = vs.s.gamma;
-        o[3] = vs.s.x;
-        o[4] = vs.s.y;
-        o[5] = vs.s.z;
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API ::Eigen::Matrix<double,6,1> ToVector(const com::robotraconteur::geometry::Vector6& vs);
 
     /**
      * @brief Convert Eigen vector with 2 elements to com::robotraconteur::geometry::Point2D
@@ -262,13 +217,7 @@ namespace Eigen
      * @param vs The Eigen vector with 2 elements
      * @return com::robotraconteur::geometry::Point2D The result point
      */
-    static com::robotraconteur::geometry::Point2D ToPoint2D(const ::Eigen::Ref<const ::Eigen::Vector2d>& vs)
-    {
-        com::robotraconteur::geometry::Point2D o{};
-        o.s.x = vs[0];
-        o.s.y = vs[1];
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::geometry::Point2D ToPoint2D(const ::Eigen::Ref<const ::Eigen::Vector2d>& vs);
 
     /**
      * @brief Convert com::robotraconteur::geometry::Point2D to Eigen vector
@@ -276,13 +225,7 @@ namespace Eigen
      * @param vs The com::robotraconteur::geometry::Point2D
      * @return ::Eigen::Vector2d The result vector
      */
-    static ::Eigen::Vector2d ToVector(const com::robotraconteur::geometry::Point2D& vs)
-    {
-        ::Eigen::Vector2d o;
-        o[0] = vs.s.x;
-        o[1] = vs.s.y;
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API ::Eigen::Vector2d ToVector(const com::robotraconteur::geometry::Point2D& vs);
 
     /**
      * @brief Convert Eigen vector with 3 elements to com::robotraconteur::geometry::Point
@@ -290,14 +233,7 @@ namespace Eigen
      * @param vs The Eigen vector with 3 elements
      * @return com::robotraconteur::geometry::Point The result point
      */
-    static com::robotraconteur::geometry::Point ToPoint(const ::Eigen::Ref<const ::Eigen::Vector3d>& vs)
-    {
-        com::robotraconteur::geometry::Point o{};
-        o.s.x = vs[0];
-        o.s.y = vs[1];
-        o.s.z = vs[2];
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::geometry::Point ToPoint(const ::Eigen::Ref<const ::Eigen::Vector3d>& vs);
 
     /**
      * @brief Convert com::robotraconteur::geometry::Point to Eigen vector with 3 elements
@@ -305,14 +241,7 @@ namespace Eigen
      * @param vs The com::robotraconteur::geometry::Point
      * @return ::Eigen::Vector3d The result vector
      */
-    static ::Eigen::Vector3d ToVector(const com::robotraconteur::geometry::Point& vs)
-    {
-        ::Eigen::Vector3d o;
-        o[0] = vs.s.x;
-        o[1] = vs.s.y;
-        o[2] = vs.s.z;
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API ::Eigen::Vector3d ToVector(const com::robotraconteur::geometry::Point& vs);
 
     /**
      * @brief Convert Eigen vector with 2 elements to com::robotraconteur::geometry::Size2D
@@ -320,13 +249,7 @@ namespace Eigen
      * @param vs The Eigen vector with 2 elements
      * @return com::robotraconteur::geometry::Size2D The result size
      */
-    static com::robotraconteur::geometry::Size2D ToSize2D(const ::Eigen::Ref<const ::Eigen::Vector2d>& vs)
-    {
-        com::robotraconteur::geometry::Size2D o{};
-        o.s.width = vs[0];
-        o.s.height = vs[1];
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::geometry::Size2D ToSize2D(const ::Eigen::Ref<const ::Eigen::Vector2d>& vs);
 
     /**
      * @brief Convert com::robotraconteur::geometry::Size2D to Eigen vector with 2 elements
@@ -334,13 +257,7 @@ namespace Eigen
      * @param vs The com::robotraconteur::geometry::Size2D
      * @return ::Eigen::Vector2d The result vector
      */
-    static ::Eigen::Vector2d ToVector(const com::robotraconteur::geometry::Size2D& vs)
-    {
-        ::Eigen::Vector2d o;
-        o[0] = vs.s.width;
-        o[1] = vs.s.height;
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API ::Eigen::Vector2d ToVector(const com::robotraconteur::geometry::Size2D& vs);
 
     /**
      * @brief Convert Eigen vector with 3 elements to com::robotraconteur::geometry::Size
@@ -348,14 +265,7 @@ namespace Eigen
      * @param vs The Eigen vector with 3 elements
      * @return com::robotraconteur::geometry::Size The result size
      */
-    static com::robotraconteur::geometry::Size ToSize(const ::Eigen::Ref<const ::Eigen::Vector3d>& vs)
-    {
-        com::robotraconteur::geometry::Size o{};
-        o.s.width = vs[0];
-        o.s.height = vs[1];
-        o.s.depth = vs[2];
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::geometry::Size ToSize(const ::Eigen::Ref<const ::Eigen::Vector3d>& vs);
 
     /**
      * @brief Convert com::robotraconteur::geometry::Size to Eigen vector with 3 elements
@@ -363,14 +273,7 @@ namespace Eigen
      * @param vs The com::robotraconteur::geometry::Size
      * @return ::Eigen::Vector3d The result vector
      */
-    static ::Eigen::Vector3d ToVector(const com::robotraconteur::geometry::Size& vs)
-    {
-        ::Eigen::Vector3d o;
-        o[0] = vs.s.width;
-        o[1] = vs.s.depth;
-        o[2] = vs.s.height;
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API ::Eigen::Vector3d ToVector(const com::robotraconteur::geometry::Size& vs);
 
     /**
      * @brief Convert com::robotraconteur::geometry::Quaternion to Eigen Quaternion
@@ -378,15 +281,7 @@ namespace Eigen
      * @param q The com::robotraconteur::geometry::Quaternion
      * @return ::Eigen::Quaterniond The result Eigen Quaternion
      */
-    static ::Eigen::Quaterniond ToQuaternion(const com::robotraconteur::geometry::Quaternion& q)
-    {
-        if (q.s.x == 0 && q.s.y == 0 && q.s.z == 0 && q.s.w == 0)
-        {
-            return ::Eigen::Quaterniond();
-        }
-
-        return ::Eigen::Quaterniond(q.s.w, q.s.x, q.s.y, q.s.z);
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API ::Eigen::Quaterniond ToQuaternion(const com::robotraconteur::geometry::Quaternion& q);
 
     /**
      * @brief Convert Eigen Quaternion to com::robotraconteur::geometry::Quaternion
@@ -394,15 +289,7 @@ namespace Eigen
      * @param q The Eigen Quaternion
      * @return com::robotraconteur::geometry::Quaternion The result com::robotraconteur::geometry::Quaternion
      */
-    static com::robotraconteur::geometry::Quaternion ToQuaternion(const ::Eigen::Quaterniond& q)
-    {
-        com::robotraconteur::geometry::Quaternion o{};
-        o.s.w = q.w();
-        o.s.x = q.x();
-        o.s.y = q.y();
-        o.s.z = q.z();
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::geometry::Quaternion ToQuaternion(const ::Eigen::Quaterniond& q);
 
     /**
      * @brief Convert com::robotraconteur::geometry::Transform to Eigen Isometry
@@ -410,10 +297,7 @@ namespace Eigen
      * @param t The com::robotraconteur::geometry::Transform
      * @return ::Eigen::Isometry3d The result Eigen Isometry
      */
-    static ::Eigen::Isometry3d ToIsometry(const com::robotraconteur::geometry::Transform& t)
-    {
-        return ::Eigen::Translation3d(ToVector(t.s.translation)) * ToQuaternion(t.s.rotation);        
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API ::Eigen::Isometry3d ToIsometry(const com::robotraconteur::geometry::Transform& t);
 
     /**
      * @brief Convert Eigen Isometry to com::robotraconteur::geometry::Transform
@@ -421,15 +305,7 @@ namespace Eigen
      * @param iso The Eigen Isometry
      * @return com::robotraconteur::geometry::Transform The result com::robotraconteur::geometry::Transform
      */
-    static com::robotraconteur::geometry::Transform ToTransform(const ::Eigen::Isometry3d& iso)
-    {
-        com::robotraconteur::geometry::Transform o{};
-        ::Eigen::Quaterniond q = (::Eigen::Quaterniond)iso.linear();
-        o.s.rotation = ToQuaternion(q);
-        ::Eigen::Vector3d p = (::Eigen::Vector3d)iso.translation();
-        o.s.translation = ToVector3(p);
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::geometry::Transform ToTransform(const ::Eigen::Isometry3d& iso);
 
     /**
      * @brief Convert com::robotraconteur::geometry::Pose to Eigen Isometry
@@ -437,10 +313,7 @@ namespace Eigen
      * @param t The com::robotraconteur::geometry::Pose
      * @return ::Eigen::Isometry3d The result Eigen Isometry
      */
-    static ::Eigen::Isometry3d ToIsometry(const com::robotraconteur::geometry::Pose& t)
-    {
-        return ::Eigen::Translation3d(ToVector(t.s.position)) * ToQuaternion(t.s.orientation);        
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API ::Eigen::Isometry3d ToIsometry(const com::robotraconteur::geometry::Pose& t);
 
     /**
      * @brief Convert Eigen Isometry to com::robotraconteur::geometry::Pose
@@ -448,15 +321,7 @@ namespace Eigen
      * @param iso The Eigen Isometry
      * @return com::robotraconteur::geometry::Pose The result com::robotraconteur::geometry::Pose
      */
-    static com::robotraconteur::geometry::Pose ToPose(const ::Eigen::Isometry3d& iso)
-    {
-        com::robotraconteur::geometry::Pose o{};
-        ::Eigen::Quaterniond q = (::Eigen::Quaterniond)iso.linear();
-        o.s.orientation = ToQuaternion(q);
-        ::Eigen::Vector3d p = (::Eigen::Vector3d)iso.translation();
-        o.s.position = ToPoint(p);
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::geometry::Pose ToPose(const ::Eigen::Isometry3d& iso);
 
     /**
      * @brief Convert Eigen Vector with 6 elements to com::robotraconteur::geometry::SpatialVelocity
@@ -464,17 +329,7 @@ namespace Eigen
      * @param vs The Eigen vector with 6 elements
      * @return com::robotraconteur::geometry::SpatialVelocity The result com::robotraconteur::geometry::SpatialVelocity
      */
-    static com::robotraconteur::geometry::SpatialVelocity ToSpatialVelocity(const ::Eigen::Ref<const ::Eigen::Matrix<double,6,1> >& vs)
-    {
-        com::robotraconteur::geometry::SpatialVelocity o{};
-        o.s.angular.s.x = vs[0];
-        o.s.angular.s.y = vs[1];
-        o.s.angular.s.z = vs[2];
-        o.s.linear.s.x = vs[3];
-        o.s.linear.s.y = vs[4];
-        o.s.linear.s.z = vs[5];
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::geometry::SpatialVelocity ToSpatialVelocity(const ::Eigen::Ref<const ::Eigen::Matrix<double,6,1> >& vs);
 
     /**
      * @brief Convert com::robotraconteur::geometry::SpatialVelocity to Eigen vector with 6 elements
@@ -482,17 +337,7 @@ namespace Eigen
      * @param vs The com::robotraconteur::geometry::SpatialVelocity
      * @return ::Eigen::Matrix<double,6,1> The result vector
      */
-    static ::Eigen::Matrix<double,6,1> ToVector(const com::robotraconteur::geometry::SpatialVelocity& vs)
-    {
-        ::Eigen::Matrix<double,6,1> o;
-        o[0] = vs.s.angular.s.x;
-        o[1] = vs.s.angular.s.y;
-        o[2] = vs.s.angular.s.z;
-        o[3] = vs.s.linear.s.x;
-        o[4] = vs.s.linear.s.y;
-        o[5] = vs.s.linear.s.z;
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API ::Eigen::Matrix<double,6,1> ToVector(const com::robotraconteur::geometry::SpatialVelocity& vs);
 
     /**
      * @brief Convert Eigen Vector with 6 elements to com::robotraconteur::geometry::SpatialAcceleration
@@ -500,17 +345,7 @@ namespace Eigen
      * @param vs The Eigen vector with 6 elements
      * @return com::robotraconteur::geometry::SpatialAcceleration The result com::robotraconteur::geometry::SpatialAcceleration
      */
-    static com::robotraconteur::geometry::SpatialAcceleration ToSpatialAcceleration(const ::Eigen::Ref<const ::Eigen::Matrix<double,6,1> >& vs)
-    {
-        com::robotraconteur::geometry::SpatialAcceleration o{};
-        o.s.angular.s.x = vs[0];
-        o.s.angular.s.y = vs[1];
-        o.s.angular.s.z = vs[2];
-        o.s.linear.s.x = vs[3];
-        o.s.linear.s.y = vs[4];
-        o.s.linear.s.z = vs[5];
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::geometry::SpatialAcceleration ToSpatialAcceleration(const ::Eigen::Ref<const ::Eigen::Matrix<double,6,1> >& vs);
 
     /**
      * @brief Convert com::robotraconteur::geometry::SpatialAcceleration to Eigen vector with 6 elements
@@ -518,17 +353,7 @@ namespace Eigen
      * @param vs The com::robotraconteur::geometry::SpatialAcceleration
      * @return ::Eigen::Matrix<double,6,1> The result vector
      */
-    static ::Eigen::Matrix<double,6,1> ToVector(const com::robotraconteur::geometry::SpatialAcceleration& vs)
-    {
-        ::Eigen::Matrix<double,6,1> o;
-        o[0] = vs.s.angular.s.x;
-        o[1] = vs.s.angular.s.y;
-        o[2] = vs.s.angular.s.z;
-        o[3] = vs.s.linear.s.x;
-        o[4] = vs.s.linear.s.y;
-        o[5] = vs.s.linear.s.z;
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API ::Eigen::Matrix<double,6,1> ToVector(const com::robotraconteur::geometry::SpatialAcceleration& vs);
 
     /**
      * @brief Convert Eigen Vector with 6 elements to com::robotraconteur::geometry::Wrench
@@ -536,17 +361,7 @@ namespace Eigen
      * @param vs The Eigen vector with 6 elements
      * @return com::robotraconteur::geometry::Wrench The result com::robotraconteur::geometry::Wrench
      */
-    static com::robotraconteur::geometry::Wrench ToWrench(const ::Eigen::Ref<const ::Eigen::Matrix<double,6,1> >& vs)
-    {
-        com::robotraconteur::geometry::Wrench o{};
-        o.s.torque.s.x = vs[0];
-        o.s.torque.s.y = vs[1];
-        o.s.torque.s.z = vs[2];
-        o.s.force.s.x = vs[3];
-        o.s.force.s.y = vs[4];
-        o.s.force.s.z = vs[5];
-        return o;
-    }
+    ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::geometry::Wrench ToWrench(const ::Eigen::Ref<const ::Eigen::Matrix<double,6,1> >& vs);
 
     /**
      * @brief Convert com::robotraconteur::geometry::Wrench to Eigen vector with 6 elements
@@ -554,20 +369,7 @@ namespace Eigen
      * @param vs The com::robotraconteur::geometry::Wrench
      * @return ::Eigen::Matrix<double,6,1> The result vector
      */
-    static ::Eigen::Matrix<double,6,1> ToVector(const com::robotraconteur::geometry::Wrench& vs)
-    {
-        ::Eigen::Matrix<double,6,1> o;
-        o[0] = vs.s.torque.s.x;
-        o[1] = vs.s.torque.s.y;
-        o[2] = vs.s.torque.s.z;
-        o[3] = vs.s.force.s.x;
-        o[4] = vs.s.force.s.y;
-        o[5] = vs.s.force.s.z;
-        return o;
-    }
-
-
-
+    ROBOTRACONTEUR_COMPANION_UTIL_API ::Eigen::Matrix<double,6,1> ToVector(const com::robotraconteur::geometry::Wrench& vs);
 
 }
 }

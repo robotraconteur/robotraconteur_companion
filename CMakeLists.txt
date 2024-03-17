@@ -5,6 +5,7 @@ set (CMAKE_CXX_STANDARD 11)
 
 find_package(RobotRaconteur 0.17.0 REQUIRED)
 find_package(yaml-cpp REQUIRED)
+find_package (Eigen3 3.3 REQUIRED NO_MODULE)
 
 if(NOT IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/robdef/group1")
 	message(FATAL_ERROR "RobotRaconteurCompanion must use git clone --recursive, currently missing robdef files")
@@ -73,10 +74,11 @@ ROBOTRACONTEUR_GENERATE_THUNK(RR_THUNK_SRCS RR_THUNK_HDRS
 	CPP_EXTRA_INCLUDE "RobotRaconteurCompanion/StdRobDef/StdRobDef_Macros.h"
 )
 
-add_library(RobotRaconteurCompanion ${RR_THUNK_SRCS} ${RR_THUNK_HDRS} src/StdRobDefAll.cpp src/yaml_loader_enums.cpp src/LocalIdentifiersManager.cpp src/UuidUtil.cpp src/yaml_loader_impl.cpp)
+add_library(RobotRaconteurCompanion ${RR_THUNK_SRCS} ${RR_THUNK_HDRS} src/StdRobDefAll.cpp src/yaml_loader_enums.cpp 
+src/LocalIdentifiersManager.cpp src/UuidUtil.cpp src/yaml_loader_impl.cpp src/EigenConverters.cpp)
 SET_TARGET_PROPERTIES(RobotRaconteurCompanion PROPERTIES PREFIX lib)
 
-target_link_libraries(RobotRaconteurCompanion PUBLIC RobotRaconteurCore)
+target_link_libraries(RobotRaconteurCompanion PUBLIC RobotRaconteurCore Eigen3::Eigen)
 target_include_directories(RobotRaconteurCompanion PUBLIC
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/robdef_gen/>

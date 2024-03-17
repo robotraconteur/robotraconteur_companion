@@ -88,7 +88,7 @@ jobs:
       run: >
         cmake -G Ninja -S src -B build 
         ${{ steps.vcpkg.outputs.vcpkg-cmake-config }}
-        -DCMAKE_BUILD_TYPE=Release
+        -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON
         -DBULID_TESTING=ON
     - name: cmake build
       run: cmake --build build --config Release
