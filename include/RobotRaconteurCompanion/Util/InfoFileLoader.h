@@ -23,6 +23,9 @@
 
 #include "IdentifierUtil.h"
 #include "LocalIdentifiersManager.h"
+#include "UtilMacros.h"
+
+#include <RobotRaconteurCompanion/InfoParser/yaml/yaml_parser_all.h>
 
 namespace RobotRaconteur
 {
@@ -50,20 +53,10 @@ namespace detail
     };
 
     template <>
-    class LoadInfoFile_traits<com::robotraconteur::device::DeviceInfoPtr>
+    class ROBOTRACONTEUR_COMPANION_UTIL_API LoadInfoFile_traits<com::robotraconteur::device::DeviceInfoPtr>
     {
     public:
-        static bool LoadDeviceIdentifier(const com::robotraconteur::device::DeviceInfoPtr& info_file, const std::string& category, std::vector<LocalIdentifierLockPtr>& locks,  const boost::shared_ptr<RobotRaconteur::RobotRaconteurNode>& node)
-        {
-            if (info_file && info_file && info_file->device && !IsIdentifierAnyName(info_file->device) && IsIdentifierAnyUuid(info_file->device))
-            {
-                LocalIdentifierLockPtr l = GetIdentifierForNameAndLock(category, info_file->device->name, node);
-                info_file->device = l->GetIdentifier();
-                locks.push_back(l);
-                return true;
-            }
-            return false;
-        }
+        static bool LoadDeviceIdentifier(const com::robotraconteur::device::DeviceInfoPtr& info_file, const std::string& category, std::vector<LocalIdentifierLockPtr>& locks,  const boost::shared_ptr<RobotRaconteur::RobotRaconteurNode>& node);
     };
 }
 
