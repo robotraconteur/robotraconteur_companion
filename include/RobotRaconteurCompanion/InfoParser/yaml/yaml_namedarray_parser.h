@@ -48,14 +48,11 @@ RobotRaconteur::RRNamedArrayPtr<T> parse_namedarray_array(const YAML::Node& node
                 {
                     throw RobotRaconteur::InvalidArgumentException("Bad conversion");
                 }                
-            }
-            else if (len != 0)
+            }            
+            if (vec.size() >= len)
             {
-                if (vec.size() >= len)
-                {
-                    throw RobotRaconteur::InvalidArgumentException("Bad conversion");
-                } 
-            }
+                throw RobotRaconteur::InvalidArgumentException("Bad conversion");
+            }            
         }
         auto ret = RobotRaconteur::AllocateEmptyRRNamedArray<T>(vec.size());
         for (size_t i=0; i<vec.size(); i++)

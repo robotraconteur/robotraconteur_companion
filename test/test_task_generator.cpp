@@ -250,26 +250,26 @@ void run_sync_task_gen_test(int32_t done_time, int32_t fail_time, int32_t next_t
 
 TEST(CompanionUtil, AsyncTaskGenerator)
 {
-    EXPECT_NO_THROW(run_task_gen_test(100, 1000, 5000, 1000, -1, 0););
-    EXPECT_NO_THROW(run_task_gen_test(200, 1000, 5000, 10, -1, 1200););
-    EXPECT_NO_THROW(run_task_gen_test(1000, 2000, 5000, 10, -1, 1););
+    EXPECT_NO_THROW(run_task_gen_test(100, 1000, 5000, 1000, -1, 0));
+    EXPECT_NO_THROW(run_task_gen_test(200, 1000, 5000, 10, -1, 1200));
+    EXPECT_NO_THROW(run_task_gen_test(1000, 2000, 5000, 10, -1, 1));
     EXPECT_THROW(run_task_gen_test(1000, 2000, 5000, 10, 150, 200),RR::OperationAbortedException);
     EXPECT_THROW(run_task_gen_test(1000, 300, 5000, 500, 2000, 0),RR::OperationFailedException);
     EXPECT_THROW(run_task_gen_test(1000, 100, 5000, 10, 2000, 200),RR::OperationFailedException);
-    EXPECT_NO_THROW(run_task_gen_test(2000, 5000, 5000, 50, 200, 25););
+    EXPECT_NO_THROW(run_task_gen_test(2000, 5000, 5000, 50, 200, 25));
     run_task_gen_test_status_update();
     run_task_gen_test_status_update2();
 }
 
 TEST(CompanionUtil, SyncTaskGenerator)
 {
-    EXPECT_NO_THROW(run_sync_task_gen_test(100, 1000, 1000, -1, 0););
-    EXPECT_NO_THROW(run_sync_task_gen_test(200, 1000, 10, -1, 1200););
-    EXPECT_NO_THROW(run_sync_task_gen_test(1000, 2000, 10, -1, 1););
+    EXPECT_NO_THROW(run_sync_task_gen_test(100, 1000, 1000, -1, 0));
+    EXPECT_NO_THROW(run_sync_task_gen_test(200, 1000, 10, -1, 1200));
+    EXPECT_NO_THROW(run_sync_task_gen_test(1000, 2000, 10, -1, 1));
     EXPECT_THROW(run_sync_task_gen_test(1000, 2000, 10, 150, 200),RR::OperationAbortedException);
     EXPECT_THROW(run_sync_task_gen_test(1000, 300, 500, 2000, 0),RR::OperationFailedException);
     EXPECT_THROW(run_sync_task_gen_test(1000, 100, 10, 2000, 200),RR::OperationFailedException);
-    EXPECT_NO_THROW(run_sync_task_gen_test(2000, 5000, 50, 200, 25););
+    EXPECT_NO_THROW(run_sync_task_gen_test(2000, 5000, 50, 200, 25));
 }
 
 int main(int argc, char **argv)

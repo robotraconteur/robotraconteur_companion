@@ -46,14 +46,11 @@ RobotRaconteur::RRArrayPtr<T> parse_numeric_array(const YAML::Node& node, const 
                 {
                     throw RobotRaconteur::InvalidArgumentException("Bad conversion");
                 }                
-            }
-            else if (len != 0)
+            }            
+            if (vec.size() >= len)
             {
-                if (vec.size() >= len)
-                {
-                    throw RobotRaconteur::InvalidArgumentException("Bad conversion");
-                } 
-            }
+                throw RobotRaconteur::InvalidArgumentException("Bad conversion");
+            }            
         }
         return RobotRaconteur::VectorToRRArray<T>(vec);
     }
@@ -185,14 +182,11 @@ RobotRaconteur::RRListPtr<RobotRaconteur::RRArray<T> > parse_numeric_array_list(
                     {
                         throw RobotRaconteur::InvalidArgumentException("Bad conversion");
                     }                
-                }
-                else if (len != 0)
+                }                
+                if (vec.size() >= len)
                 {
-                    if (vec.size() >= len)
-                    {
-                        throw RobotRaconteur::InvalidArgumentException("Bad conversion");
-                    } 
-                }
+                    throw RobotRaconteur::InvalidArgumentException("Bad conversion");
+                }                
             }
             ret->push_back(RobotRaconteur::VectorToRRArray<T>(vec));
         }
@@ -234,14 +228,11 @@ RobotRaconteur::RRMapPtr<std::string,RobotRaconteur::RRArray<T> > parse_numeric_
                     {
                         throw RobotRaconteur::InvalidArgumentException("Bad conversion");
                     }                
-                }
-                else if (len != 0)
+                }                
+                if (vec.size() >= len)
                 {
-                    if (vec.size() >= len)
-                    {
-                        throw RobotRaconteur::InvalidArgumentException("Bad conversion");
-                    } 
-                }
+                    throw RobotRaconteur::InvalidArgumentException("Bad conversion");
+                }                
             }
             ret->insert(std::make_pair(e.first.as<std::string>(), RobotRaconteur::VectorToRRArray<T>(vec)));
         }
