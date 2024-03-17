@@ -1,4 +1,3 @@
-
 #include <RobotRaconteur.h>
 #include "RobotRaconteurCompanion/Converters/EigenConverters.h"
 #include "RobotRaconteurCompanion/Util/IdentifierUtil.h"
@@ -32,11 +31,13 @@ void test_vectors()
     eigen_ca(a1_e2,a1);
 
     Eigen::Vector3d b1;
+    // cppcheck-suppress constStatement
     b1 << 3,4,6;
     RR::RRArrayPtr<double> b1_a = RREigen::EigenToRRArray(b1);
     eigen_ca(b1,b1_a);
 
     Eigen::VectorXd b2(4);
+    // cppcheck-suppress constStatement
     b2 << 7,8,9,10;
     RR::RRArrayPtr<double> b2_a = RREigen::EigenToRRArray(b2);
     eigen_ca(b2,b2_a);
@@ -52,6 +53,7 @@ void test_matrices()
     std::cout << a1_e << std::endl;
 
     ::Eigen::MatrixXd b1(3,3);
+    // cppcheck-suppress constStatement
     b1 << 7,8,9,10,11,12,13,14,15;
     RR::RRMultiDimArrayPtr<double> b1_a = RREigen::EigenToRRMultiDimArray(b1);
 
