@@ -179,3 +179,13 @@ jobs:
         -S src -B build
     - name: build
       run: cmake --build build --config Debug -- -j 4
+  pre-commit:
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
+    - name: apt
+      run: |
+        sudo apt update
+        sudo apt install -y dos2unix
+    - uses: pre-commit/action@v3.0.1
