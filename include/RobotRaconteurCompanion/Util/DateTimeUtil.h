@@ -43,7 +43,7 @@ namespace Util
  * @param info The device info to use. If null, the default clock is used
  * @return com::robotraconteur::datetime::DateTimeUTC The current UTC time
  */
-ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::datetime::DateTimeUTC UtcNow(RobotRaconteur::RobotRaconteurNodePtr node, com::robotraconteur::device::DeviceInfoPtr info);
+ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::datetime::DateTimeUTC UtcNow(const RobotRaconteur::RobotRaconteurNodePtr& node, const com::robotraconteur::device::DeviceInfoPtr& info);
 
 /**
  * @brief Get the current TimeSpec from the node, stored as TimeSpec2
@@ -57,7 +57,7 @@ ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::datetime::DateTimeUTC Utc
  * @param info The device info to use. If null, the default clock is used
  * @return com::robotraconteur::datetime::TimeSpec2 The current TimeSpec as TimeSpec2
  */
-ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::datetime::TimeSpec2 TimeSpec2Now(RobotRaconteur::RobotRaconteurNodePtr node, com::robotraconteur::device::DeviceInfoPtr info);
+ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::datetime::TimeSpec2 TimeSpec2Now(const RobotRaconteur::RobotRaconteurNodePtr& node, const com::robotraconteur::device::DeviceInfoPtr& info);
 
 /**
  * @brief Get the current TimeSpec from the node, stored as TimeSpec3
@@ -74,7 +74,7 @@ ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::datetime::TimeSpec2 TimeS
  * @param node The node to use. If null, the default node is used
  * @return com::robotraconteur::datetime::TimeSpec3 The current TimeSpec as TimeSpec3
  */
-ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::datetime::TimeSpec3 TimeSpec3Now(RobotRaconteur::RobotRaconteurNodePtr node);
+ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::datetime::TimeSpec3 TimeSpec3Now(const RobotRaconteur::RobotRaconteurNodePtr& node);
 
 /**
  * @brief Fill a DeviceTime structure with the current time
@@ -84,7 +84,7 @@ ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::datetime::TimeSpec3 TimeS
  * @param seqno The current sequence number of the device
  * @return com::robotraconteur::device::clock::DeviceTime 
  */
-ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::device::clock::DeviceTime FillDeviceTime(RobotRaconteur::RobotRaconteurNodePtr node, com::robotraconteur::device::DeviceInfoPtr device_info, uint64_t seqno);
+ROBOTRACONTEUR_COMPANION_UTIL_API com::robotraconteur::device::clock::DeviceTime FillDeviceTime(const RobotRaconteur::RobotRaconteurNodePtr& node, const com::robotraconteur::device::DeviceInfoPtr& device_info, uint64_t seqno);
 
 }
 }

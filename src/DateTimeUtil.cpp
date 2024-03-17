@@ -30,16 +30,16 @@ namespace Companion
 namespace Util
 {
 
-com::robotraconteur::datetime::DateTimeUTC UtcNow(RobotRaconteur::RobotRaconteurNodePtr node, com::robotraconteur::device::DeviceInfoPtr info)
+com::robotraconteur::datetime::DateTimeUTC UtcNow(const RobotRaconteur::RobotRaconteurNodePtr& node, const com::robotraconteur::device::DeviceInfoPtr& info)
 {
-    if (!node)
+    RobotRaconteur::RobotRaconteurNodePtr node1 = node;
+    if (!node1)
     {
-        node = RobotRaconteur::RobotRaconteurNode::sp();        
+        node1 = RobotRaconteur::RobotRaconteurNode::sp();        
     }
 
-    RobotRaconteur::TimeSpec now = RobotRaconteur::ptimeToTimeSpec(node->NowUTC());
-    com::robotraconteur::datetime::DateTimeUTC ret;
-    memset(&ret, 0, sizeof(ret));
+    RobotRaconteur::TimeSpec now = RobotRaconteur::ptimeToTimeSpec(node1->NowUTC());
+    com::robotraconteur::datetime::DateTimeUTC ret{};
     ret.seconds = now.seconds;
     ret.nanoseconds = now.nanoseconds;
     ret.clock_info.clock_type = (int)com::robotraconteur::datetime::ClockTypeCode::default_;
@@ -54,16 +54,16 @@ com::robotraconteur::datetime::DateTimeUTC UtcNow(RobotRaconteur::RobotRaconteur
     return ret;    
 }
 
-com::robotraconteur::datetime::TimeSpec2 TimeSpec2Now(RobotRaconteur::RobotRaconteurNodePtr node, com::robotraconteur::device::DeviceInfoPtr info)
+com::robotraconteur::datetime::TimeSpec2 TimeSpec2Now(const RobotRaconteur::RobotRaconteurNodePtr& node, const com::robotraconteur::device::DeviceInfoPtr& info)
 {
-    if (!node)
+    RobotRaconteur::RobotRaconteurNodePtr node1 = node;
+    if (!node1)
     {
-        node = RobotRaconteur::RobotRaconteurNode::sp();        
+        node1 = RobotRaconteur::RobotRaconteurNode::sp();        
     }
 
-    RobotRaconteur::TimeSpec now = node->NowTimeSpec();
-    com::robotraconteur::datetime::TimeSpec2 ret;
-    memset(&ret, 0, sizeof(ret));
+    RobotRaconteur::TimeSpec now = node1->NowTimeSpec();
+    com::robotraconteur::datetime::TimeSpec2 ret{};
     ret.seconds = now.seconds;
     ret.nanoseconds = now.nanoseconds;
     ret.clock_info.clock_type = (int)com::robotraconteur::datetime::ClockTypeCode::default_;
@@ -78,22 +78,23 @@ com::robotraconteur::datetime::TimeSpec2 TimeSpec2Now(RobotRaconteur::RobotRacon
     return ret;    
 }
 
-com::robotraconteur::datetime::TimeSpec3 TimeSpec3Now(RobotRaconteur::RobotRaconteurNodePtr node)
+com::robotraconteur::datetime::TimeSpec3 TimeSpec3Now(const RobotRaconteur::RobotRaconteurNodePtr& node)
 {
-    if (!node)
+    RobotRaconteur::RobotRaconteurNodePtr node1 = node;
+    if (!node1)
     {
-        node = RobotRaconteur::RobotRaconteurNode::sp();        
+        node1 = RobotRaconteur::RobotRaconteurNode::sp();        
     }
 
-    RobotRaconteur::TimeSpec now = node->NowTimeSpec();
-    com::robotraconteur::datetime::TimeSpec3 ret;
+    RobotRaconteur::TimeSpec now = node1->NowTimeSpec();
+    com::robotraconteur::datetime::TimeSpec3 ret{};
     ret.s.microseconds = now.seconds*1000000 + now.nanoseconds/1000;    
     return ret;
 }
 
-com::robotraconteur::device::clock::DeviceTime FillDeviceTime(RobotRaconteur::RobotRaconteurNodePtr node, com::robotraconteur::device::DeviceInfoPtr device_info, uint64_t seqno)
+com::robotraconteur::device::clock::DeviceTime FillDeviceTime(const RobotRaconteur::RobotRaconteurNodePtr& node, const com::robotraconteur::device::DeviceInfoPtr& device_info, uint64_t seqno)
 {
-    com::robotraconteur::device::clock::DeviceTime ret;
+    com::robotraconteur::device::clock::DeviceTime ret{};
     ret.device_seqno = seqno;
     ret.device_ts = TimeSpec2Now(node, device_info);
     ret.device_utc = UtcNow(node, device_info);

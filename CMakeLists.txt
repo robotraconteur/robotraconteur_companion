@@ -79,7 +79,7 @@ src/LocalIdentifiersManager.cpp src/UuidUtil.cpp src/yaml_loader_impl.cpp src/Ei
 src/AttributesUtil.cpp src/DateTimeUtil.cpp src/IdentifierUtil.cpp src/InfoFileLoader.cpp)
 SET_TARGET_PROPERTIES(RobotRaconteurCompanion PROPERTIES PREFIX lib)
 
-target_link_libraries(RobotRaconteurCompanion PUBLIC RobotRaconteurCore Eigen3::Eigen)
+target_link_libraries(RobotRaconteurCompanion PUBLIC RobotRaconteurCore Eigen3::Eigen yaml-cpp)
 target_include_directories(RobotRaconteurCompanion PUBLIC
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>
 	$<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}/robdef_gen/>
