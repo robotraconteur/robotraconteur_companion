@@ -26,3 +26,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 add_executable(test_task_generator test_task_generator.cpp ${TASK_GEN_RR_SRC} ${TASK_GEN_RR_HDR})
 target_link_libraries(test_task_generator RobotRaconteurCompanion RobotRaconteurCore GTest::Main)
 add_test(NAME test_task_generator COMMAND test_task_generator)
+
+add_executable(test_image_util test_image_util.cpp ${TASK_GEN_RR_SRC} ${TASK_GEN_RR_HDR})
+target_link_libraries(test_image_util RobotRaconteurCompanion RobotRaconteurCore GTest::Main)
+add_test(NAME test_image_util COMMAND test_image_util)

@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 11)
 find_package(RobotRaconteur 0.17.0 REQUIRED)
 find_package(yaml-cpp REQUIRED)
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
+find_package(OpenCV)
 
 if(NOT IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/robdef/group1")
     message(FATAL_ERROR "RobotRaconteurCompanion must use git clone --recursive, currently missing robdef files")
