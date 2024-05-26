@@ -77,9 +77,9 @@ static cv::Mat ImageToMat(const com::robotraconteur::image::ImagePtr& image)
         throw InvalidArgumentException("Image data is empty");
     }
 
-    int32_t width = image->image_info->width;
-    int32_t height = image->image_info->height;
-    int32_t step = image->image_info->step;
+    size_t width = image->image_info->width;
+    size_t height = image->image_info->height;
+    size_t step = image->image_info->step;
 
     if (width <= 0 || height <= 0)
     {
@@ -183,7 +183,7 @@ static cv::Mat ImageToMat(const com::robotraconteur::image::ImagePtr& image)
         throw InvalidArgumentException("Image data size does not match expected size");
     }
 
-    cv::Mat mat(height, width, mat_type, image->data->data(), step);
+    cv::Mat mat(boost::numeric_cast<int>(height), boost::numeric_cast<int>(width), mat_type, image->data->data(), step);
 
     switch (image->image_info->encoding)
     {
