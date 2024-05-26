@@ -359,7 +359,7 @@ for key in my_service_defs_keys:
 
             # print(f)
             if (isinstance(field_def, RR.PropertyDefinition)):
-                file6.write(f"\t\trhs.s.{fieldname} = {parse_namedarray_field(field_def,my_service_defs[key])};\n")
+                file6.write(f"\t\trhs.s.{fieldname} = {parse_namedarray_field(field_def, my_service_defs[key])};\n")
             count += 1
         file6.write("\t\treturn true;\n")
         file6.write("\t}\n")

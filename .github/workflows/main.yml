@@ -30,7 +30,7 @@ jobs:
         zlib1g zlib1g-dev libssl-dev libusb-1.0-0 ninja-build
         libusb-1.0-0-dev libdbus-1-3 libdbus-1-dev libbluetooth3 libbluetooth-dev zlib1g zlib1g-dev
         git cmake g++ make libboost-all-dev curl libgtest-dev doxygen libyaml-cpp-dev libeigen3-dev
-        ninja-build -qq
+        ninja-build libopencv-dev -qq
     - name: cmake rr
       run: >
         cmake -G Ninja -S rr-src -B rr-build
@@ -76,7 +76,7 @@ jobs:
       uses: johnwason/vcpkg-action@v6
       id: vcpkg
       with:
-        pkgs: robotraconteur yaml-cpp eigen3 gtest
+        pkgs: robotraconteur yaml-cpp eigen3 gtest opencv
         triplet: x64-windows-release
         token: ${{ github.token }}
         extra-args: --overlay-ports=${{ github.workspace }}/vcpkg-robotraconteur/ports
@@ -117,7 +117,7 @@ jobs:
         zlib1g zlib1g-dev libssl-dev libusb-1.0-0 ninja-build
         libusb-1.0-0-dev libdbus-1-3 libdbus-1-dev libbluetooth3 libbluetooth-dev
         git cmake g++ make libboost-all-dev autoconf libyaml-cpp-dev libeigen3-dev
-        automake libtool bison libpcre3-dev curl libgtest-dev -qq
+        automake libtool bison libpcre3-dev curl libgtest-dev libopencv-dev -qq
     - name: clang-tidy-14
       run: |
         wget https://apt.llvm.org/llvm.sh
@@ -160,7 +160,7 @@ jobs:
         zlib1g zlib1g-dev libssl-dev libusb-1.0-0 ninja-build cppcheck
         libusb-1.0-0-dev libdbus-1-3 libdbus-1-dev libbluetooth3 libbluetooth-dev
         git cmake g++ make libboost-all-dev autoconf libyaml-cpp-dev libeigen3-dev
-        automake libtool bison libpcre3-dev curl libgtest-dev -qq
+        automake libtool bison libpcre3-dev curl libgtest-dev libopencv-dev -qq
     - name: cmake rr
       run: >
         cmake -G Ninja -S rr-src -B rr-build
