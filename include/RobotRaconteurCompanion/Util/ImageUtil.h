@@ -1,3 +1,26 @@
+/**
+ * @file ImageUtil.h
+ *
+ * @author John Wason, PhD
+ *
+ * @copyright Copyright 2024 Wason Technology, LLC
+ *
+ * @par License
+ * Software License Agreement (Apache License)
+ * @par
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * @par
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * @par
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 #include "com__robotraconteur__image.h"
 
 #include <opencv2/core/mat.hpp>
@@ -17,6 +40,26 @@ namespace Companion
 {
 namespace Util
 { 
+    /**
+     * @brief Convert a Robot Raconteur standard image to an OpenCV Mat
+     * 
+     * Converts a com.robotraconteur.image.Image to an OpenCV Mat
+     * 
+     * Currently supported Robot Raconteur encodings:
+     * - rgb888
+     * - rgba8888
+     * - bgr888
+     * - bgra8888
+     * - mono8
+     * - mono16, depth_u16
+     * - mono32, depth_u32
+     * - mono_f16
+     * - mono_f32, depth_f32
+     * - mono_f64, depth_f64
+     * 
+     * @param image The com.robotraconteur.imaging.Image to convert
+     * @return cv::Mat The OpenCV Mat
+     */
     static cv::Mat ImageToMat(const com::robotraconteur::image::ImagePtr& image)
     {
         if (!image)
@@ -171,6 +214,30 @@ namespace Util
 
         return mat.clone();
     }
+
+    /**
+        * @brief Convert an OpenCV Mat to a Robot Raconteur standard image
+        * 
+        * Converts an OpenCV Mat to a com.robotraconteur.image.Image
+        * 
+        * Currently supported Robot Raconteur encodings:
+        * - rgb888
+        * - rgba8888
+        * - bgr888
+        * - bgra8888
+        * - mono8
+        * - mono16, depth_u16
+        * - mono32, depth_u32
+        * - mono_f16
+        * - mono_f32, depth_f32
+        * - mono_f64, depth_f64
+        * 
+        * The format of the input Mat must match the specified encoding
+        * 
+        * @param mat The OpenCV Mat to convert
+        * @param encoding The desired Robot Raconteur image encoding
+        * @return com::robotraconteur::image::ImagePtr The Robot Raconteur image
+        */
 
     static com::robotraconteur::image::ImagePtr MatToImage(const cv::Mat& mat, com::robotraconteur::image::ImageEncoding::ImageEncoding encoding)
     {
