@@ -80,7 +80,6 @@ static cv::Mat ImageToMat(const com::robotraconteur::image::ImagePtr& image)
     int32_t width = image->image_info->width;
     int32_t height = image->image_info->height;
     int32_t step = image->image_info->step;
-    size_t expected_bytes = 0;
 
     if (width <= 0 || height <= 0)
     {
@@ -96,7 +95,6 @@ static cv::Mat ImageToMat(const com::robotraconteur::image::ImagePtr& image)
             step = width * 3;
         }
         mat_type = CV_8UC3;
-        expected_bytes = width * height * 3;
         break;
     }
     case com::robotraconteur::image::ImageEncoding::rgba8888: {
@@ -105,7 +103,6 @@ static cv::Mat ImageToMat(const com::robotraconteur::image::ImagePtr& image)
             step = width * 4;
         }
         mat_type = CV_8UC4;
-        expected_bytes = width * height * 4;
         break;
     }
     case com::robotraconteur::image::ImageEncoding::bgr888: {
@@ -114,7 +111,6 @@ static cv::Mat ImageToMat(const com::robotraconteur::image::ImagePtr& image)
             step = width * 3;
         }
         mat_type = CV_8UC3;
-        expected_bytes = width * height * 3;
         break;
     }
     case com::robotraconteur::image::ImageEncoding::bgra8888: {
@@ -123,7 +119,6 @@ static cv::Mat ImageToMat(const com::robotraconteur::image::ImagePtr& image)
             step = width * 4;
         }
         mat_type = CV_8UC4;
-        expected_bytes = width * height * 4;
         break;
     }
     case com::robotraconteur::image::ImageEncoding::mono8: {
@@ -132,7 +127,6 @@ static cv::Mat ImageToMat(const com::robotraconteur::image::ImagePtr& image)
             step = width;
         }
         mat_type = CV_8UC1;
-        expected_bytes = width * height;
         break;
     }
     case com::robotraconteur::image::ImageEncoding::mono16:
@@ -142,7 +136,6 @@ static cv::Mat ImageToMat(const com::robotraconteur::image::ImagePtr& image)
             step = width * 2;
         }
         mat_type = CV_16UC1;
-        expected_bytes = width * height * 2;
         break;
     }
     case com::robotraconteur::image::ImageEncoding::mono32:
@@ -152,7 +145,6 @@ static cv::Mat ImageToMat(const com::robotraconteur::image::ImagePtr& image)
             step = width * 4;
         }
         mat_type = CV_32SC1;
-        expected_bytes = width * height * 4;
         break;
     }
     case com::robotraconteur::image::ImageEncoding::mono_f16: {
@@ -161,7 +153,6 @@ static cv::Mat ImageToMat(const com::robotraconteur::image::ImagePtr& image)
             step = width * 2;
         }
         mat_type = CV_16FC1;
-        expected_bytes = width * height * 2;
         break;
     }
     case com::robotraconteur::image::ImageEncoding::depth_f32:
@@ -171,7 +162,6 @@ static cv::Mat ImageToMat(const com::robotraconteur::image::ImagePtr& image)
             step = width * 4;
         }
         mat_type = CV_32FC1;
-        expected_bytes = width * height * 4;
         break;
     }
     case com::robotraconteur::image::ImageEncoding::mono_f64:
@@ -181,11 +171,16 @@ static cv::Mat ImageToMat(const com::robotraconteur::image::ImagePtr& image)
             step = width * 8;
         }
         mat_type = CV_64FC1;
-        expected_bytes = width * height * 8;
         break;
     }
     default:
         throw InvalidArgumentException("Unsupported image encoding");
+    }
+
+    size_t expected_bytes = step * height;
+    if (expected_bytes != image->data->size())
+    {
+        throw InvalidArgumentException("Image data size does not match expected size");
     }
 
     cv::Mat mat(height, width, mat_type, image->data->data(), step);
@@ -263,56 +258,46 @@ static com::robotraconteur::image::ImagePtr MatToImage(
     {
     case com::robotraconteur::image::ImageEncoding::rgb888: {
         mat_type = CV_8UC3;
-        element_size = 3;
         break;
     }
     case com::robotraconteur::image::ImageEncoding::rgba8888: {
         mat_type = CV_8UC4;
-        element_size = 4;
         break;
     }
     case com::robotraconteur::image::ImageEncoding::bgr888: {
         mat_type = CV_8UC3;
-        element_size = 3;
         break;
     }
     case com::robotraconteur::image::ImageEncoding::bgra8888: {
         mat_type = CV_8UC4;
-        element_size = 4;
         break;
     }
     case com::robotraconteur::image::ImageEncoding::mono8: {
         mat_type = CV_8UC1;
-        element_size = 1;
         break;
     }
     case com::robotraconteur::image::ImageEncoding::mono16:
     case com::robotraconteur::image::ImageEncoding::depth_u16: {
         mat_type = CV_16UC1;
-        element_size = 2;
         break;
     }
     case com::robotraconteur::image::ImageEncoding::mono32:
     case com::robotraconteur::image::ImageEncoding::depth_u32: {
         mat_type = CV_32SC1;
-        element_size = 4;
         break;
     }
     case com::robotraconteur::image::ImageEncoding::mono_f16: {
         mat_type = CV_16FC1;
-        element_size = 2;
         break;
     }
     case com::robotraconteur::image::ImageEncoding::mono_f32:
     case com::robotraconteur::image::ImageEncoding::depth_f32: {
         mat_type = CV_32FC1;
-        element_size = 4;
         break;
     }
     case com::robotraconteur::image::ImageEncoding::mono_f64:
     case com::robotraconteur::image::ImageEncoding::depth_f64: {
         mat_type = CV_64FC1;
-        element_size = 4;
         break;
     }
     default:
