@@ -1,4 +1,6 @@
-find_package(GTest)
+find_package(GTest REQUIRED)
+find_package(OpenCV REQUIRED)
+
 
 include_directories(${RobotRaconteur_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/../robdef_gen)
 add_executable(test_robdef_gen test_robdef_gen.cpp)
@@ -28,5 +30,5 @@ target_link_libraries(test_task_generator RobotRaconteurCompanion RobotRaconteur
 add_test(NAME test_task_generator COMMAND test_task_generator)
 
 add_executable(test_image_util test_image_util.cpp ${TASK_GEN_RR_SRC} ${TASK_GEN_RR_HDR})
-target_link_libraries(test_image_util RobotRaconteurCompanion RobotRaconteurCore GTest::Main)
+target_link_libraries(test_image_util RobotRaconteurCompanion RobotRaconteurCore GTest::Main opencv_core opencv_imgproc)
 add_test(NAME test_image_util COMMAND test_image_util)
