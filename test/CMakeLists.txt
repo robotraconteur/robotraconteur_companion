@@ -1,7 +1,6 @@
 find_package(GTest REQUIRED)
 find_package(OpenCV REQUIRED)
 
-
 include_directories(${RobotRaconteur_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/../robdef_gen)
 add_executable(test_robdef_gen test_robdef_gen.cpp)
 target_link_libraries(test_robdef_gen RobotRaconteurCompanion RobotRaconteurCore)

@@ -13,8 +13,8 @@ void compare_mat(const cv::Mat& img1, const cv::Mat& img2)
     ASSERT_EQ(memcmp(img1.data, img2.data, img1.total() * img1.elemSize()), 0);
 }
 
-void compare_image_info(const com::robotraconteur::image::ImageInfoPtr& info1, const cv::Mat& mat2, 
-    com::robotraconteur::image::ImageEncoding::ImageEncoding expected_encoding)
+void compare_image_info(const com::robotraconteur::image::ImageInfoPtr& info1, const cv::Mat& mat2,
+                        com::robotraconteur::image::ImageEncoding::ImageEncoding expected_encoding)
 {
     ASSERT_EQ(info1->width, mat2.cols);
     ASSERT_EQ(info1->height, mat2.rows);
@@ -36,8 +36,8 @@ void compare_image_bytes_cvt_color(const com::robotraconteur::image::ImagePtr& i
     ASSERT_EQ(memcmp(img1->data->data(), img2_cvt.data, img2_cvt.total() * img2_cvt.elemSize()), 0);
 }
 
-
-void run_image_test(const cv::Mat& img, com::robotraconteur::image::ImageEncoding::ImageEncoding encoding, int cvt_color = -1)
+void run_image_test(const cv::Mat& img, com::robotraconteur::image::ImageEncoding::ImageEncoding encoding,
+                    int cvt_color = -1)
 {
     // Convert to ImagePtr
     auto img_ptr = RRC_Util::MatToImage(img, encoding);
@@ -55,7 +55,7 @@ void run_image_test(const cv::Mat& img, com::robotraconteur::image::ImageEncodin
         // Compare bytes
         compare_image_bytes(img_ptr, img);
     }
-    
+
     // Convert back
     auto img2 = RRC_Util::ImageToMat(img_ptr);
 
@@ -156,8 +156,6 @@ TEST(ImageUtil, TestImageUtil_MonoF64)
     run_image_test(img, com::robotraconteur::image::ImageEncoding::mono_f64);
     run_image_test(img, com::robotraconteur::image::ImageEncoding::depth_f64);
 }
-    
-
 
 int main(int argc, char** argv) // NOLINT
 {
