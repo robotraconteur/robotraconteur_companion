@@ -60,6 +60,8 @@ FIELD_OVERRIDES = {
 
 OVERRIDE_TYPES = ["com::robotraconteur::uuid::UUID", "com::robotraconteur::identifier::Identifier"]
 
+EXTRA_PROCESSING = {"com::robotraconteur::device::DeviceInfo": "RobotRaconteur::Companion::InfoParser::yaml::device_info_extra_parse(node,rhs);"}
+
 
 def parse_namedarray_field(field_def, service_def, optional=False):
     fieldname = field_def.Name
@@ -359,7 +361,7 @@ for key in my_service_defs_keys:
 
             # print(f)
             if (isinstance(field_def, RR.PropertyDefinition)):
-                file6.write(f"\t\trhs.s.{fieldname} = {parse_namedarray_field(field_def,my_service_defs[key])};\n")
+                file6.write(f"\t\trhs.s.{fieldname} = {parse_namedarray_field(field_def, my_service_defs[key])};\n")
             count += 1
         file6.write("\t\treturn true;\n")
         file6.write("\t}\n")
@@ -399,6 +401,8 @@ for key in my_service_defs_keys:
                     file6.write(f"\t\trhs->{fieldname} = {field_parse_str};\n")
                 else:
                     file6.write(f"\t\t// TODO: parse field {field_def.Type.ToString().split()[0]} {fieldname}\n")
+        if (name + "::" + e.Name) in EXTRA_PROCESSING:
+            file6.write(EXTRA_PROCESSING[name + "::" + e.Name] + "\n")
         file6.write("\t\treturn true;\n")
         file6.write("\t}\n")
 

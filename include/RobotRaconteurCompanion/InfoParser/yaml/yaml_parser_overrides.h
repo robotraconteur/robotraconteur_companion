@@ -31,6 +31,46 @@ static boost::array<uint8_t, 16> parse_uuid_bytes_override(const YAML::Node& nod
     }
 }
 
+static void device_info_extra_parse(const YAML::Node& node, com::robotraconteur::device::DeviceInfoPtr& rhs)
+{
+    RobotRaconteur::RRListPtr<RobotRaconteur::RRValue> tags_out =
+        RobotRaconteur::AllocateEmptyRRList<RobotRaconteur::RRValue>();
+
+    if (node["tags"])
+    {
+        auto tags = node["tags"].as<std::vector<com::robotraconteur::identifier::IdentifierPtr> >();
+        for (auto& e : tags)
+        {
+            tags_out->push_back(e);
+        }
+    }
+
+    if (node["extended"])
+    {
+        auto extended = node["extended"];
+        if (extended["tags"])
+        {
+            auto tags = extended["tags"].as<std::vector<com::robotraconteur::identifier::IdentifierPtr> >();
+            for (auto& e : tags)
+            {
+                tags_out->push_back(e);
+            }
+        }
+    }
+
+    if (tags_out->empty())
+    {
+        return;
+    }
+
+    if (!rhs->extended)
+    {
+        rhs->extended = RobotRaconteur::AllocateEmptyRRMap<std::string, RobotRaconteur::RRValue>();
+    }
+
+    rhs->extended->insert(std::make_pair("tags", tags_out));
+}
+
 } // namespace yaml
 } // namespace InfoParser
 } // namespace Companion

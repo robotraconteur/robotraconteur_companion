@@ -484,6 +484,7 @@ bool convert<com::robotraconteur::device::DeviceInfoPtr>::decode(const Node& nod
     rhs->associated_devices = RobotRaconteur::Companion::InfoParser::yaml::parse_structure_map_string<
         com::robotraconteur::identifier::IdentifierPtr>(node, "associated_devices", true);
     // TODO: parse field varvalue{string} extended
+    RobotRaconteur::Companion::InfoParser::yaml::device_info_extra_parse(node, rhs);
     return true;
 }
 Node convert<com::robotraconteur::device::isoch::IsochInfoPtr>::encode(
