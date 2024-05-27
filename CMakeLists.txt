@@ -90,7 +90,8 @@ add_library(
     src/AttributesUtil.cpp
     src/DateTimeUtil.cpp
     src/IdentifierUtil.cpp
-    src/InfoFileLoader.cpp)
+    src/InfoFileLoader.cpp
+    src/DeviceConnector.cpp)
 set_target_properties(RobotRaconteurCompanion PROPERTIES PREFIX lib)
 
 target_link_libraries(RobotRaconteurCompanion PUBLIC RobotRaconteurCore Eigen3::Eigen yaml-cpp)

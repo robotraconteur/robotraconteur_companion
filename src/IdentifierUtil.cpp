@@ -141,7 +141,7 @@ std::string IdentifierToString(const com::robotraconteur::identifier::Identifier
     {
         return id->name + "|" + UuidToString(id->uuid);
     }
-    if (!IsIdentifierAny(id))
+    if (!IsIdentifierAnyName(id))
     {
         return id->name;
     }

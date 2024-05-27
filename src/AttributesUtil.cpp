@@ -51,6 +51,31 @@ bool TryAddString(std::map<std::string, RobotRaconteur::RRValuePtr>& o, const st
     }
     return false;
 }
+
+bool TryAddIdentifierList(std::map<std::string, RobotRaconteur::RRValuePtr>& o, const std::string& name,
+                          const RobotRaconteur::RRValuePtr& id)
+{
+    if (!id)
+    {
+        return false;
+    }
+    RobotRaconteur::RRListPtr<RobotRaconteur::RRValue> id2 =
+        RobotRaconteur::rr_cast<RobotRaconteur::RRList<RobotRaconteur::RRValue> >(id);
+    if (!id2->empty())
+    {
+        std::vector<std::string> id_list;
+        for (auto& e : *id2)
+        {
+            auto e2 = RobotRaconteur::rr_cast<com::robotraconteur::identifier::Identifier>(e);
+            id_list.push_back(IdentifierToString(e2));
+        }
+        std::string id_str = boost::join(id_list, ",");
+        o.insert(std::make_pair(name, RobotRaconteur::stringToRRArray(id_str)));
+        return true;
+    }
+    return false;
+}
+
 } // namespace detail
 
 std::map<std::string, RobotRaconteur::RRValuePtr> GetDefaultServiceAttributesFromDeviceInfo(
@@ -63,6 +88,10 @@ std::map<std::string, RobotRaconteur::RRValuePtr> GetDefaultServiceAttributesFro
     detail::TryAddIdentifier(o, "model", info->model);
     detail::TryAddString(o, "serial_number", info->serial_number);
     detail::TryAddString(o, "user_description", info->user_description);
+    if (info->extended)
+    {
+        detail::TryAddIdentifierList(o, "tags", info->extended->at("tags"));
+    }
     return o;
 }
 
