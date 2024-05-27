@@ -1,7 +1,7 @@
 #include <RobotRaconteur/Subscription.h>
 #include <RobotRaconteur/RobotRaconteurNode.h>
 #include "com__robotraconteur__identifier.h"
-#include <yaml-cpp.hpp>
+#include <yaml-cpp/yaml.h>
 
 #include "UtilMacros.h"
 
@@ -28,6 +28,7 @@ struct ROBOTRACONTEUR_COMPANION_UTIL_API DeviceConnectorDetails
     int32_t MaxConnections = 0;
     RobotRaconteur::ServiceSubscriptionFilterAttributeGroupOperation TagMatchOperation;
 
+    DeviceConnectorDetails() = default;
     DeviceConnectorDetails(const std::string& device_nickname);
     DeviceConnectorDetails(const std::string& device_nickname,
                            const com::robotraconteur::identifier::IdentifierPtr& device,
@@ -47,7 +48,7 @@ class ROBOTRACONTEUR_COMPANION_UTIL_API DeviceConnector
     void Init();
     void Init(const std::vector<DeviceConnectorDetails>& devices);
     void InitFromYamlStr(const std::string& yaml);
-    void InitFromYamlFile(const std::istream& file);
+    void InitFromYamlFile(std::istream& file);
     void InitFromYamlFile(const boost::filesystem::path& filename);
 
     void AddDevice(const DeviceConnectorDetails& device_details, bool force_connect = false);

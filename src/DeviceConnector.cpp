@@ -1,6 +1,8 @@
 #include <RobotRaconteurCompanion/Util/DeviceConnector.h>
 #include <RobotRaconteurCompanion/Util/IdentifierUtil.h>
 
+#include <RobotRaconteurCompanion/InfoParser/yaml/yaml_parser_all.h>
+
 namespace RR = RobotRaconteur;
 
 namespace RobotRaconteur
@@ -165,10 +167,32 @@ RR::ServiceSubscriptionManagerDetails device_details_to_subscription_details(
         return d;
     }
 }
+
+struct DeviceConnectorDetailsFile
+{
+    std::map<std::string, DeviceConnectorDetails> devices;
+
+    std::vector<DeviceConnectorDetails> GetDevices()
+    {
+        std::vector<DeviceConnectorDetails> o;
+        for (auto& e : devices)
+        {
+            o.push_back(e.second);
+        }
+        return o;
+    }
+};
+
 } // namespace detail
+} // namespace Util
+} // namespace Companion
+} // namespace RobotRaconteur
 
 namespace YAML
 {
+
+using namespace RobotRaconteur::Companion::Util;
+using namespace RobotRaconteur::Companion::Util::detail;
 template <>
 struct convert<DeviceConnectorDetails>
 {
@@ -212,21 +236,6 @@ struct convert<DeviceConnectorDetails>
     }
 };
 
-struct DeviceConnectorDetailsFile
-{
-    std::map<std::string, DeviceConnectorDetails> devices;
-
-    std::vector<DeviceConnectorDetails> GetDevices()
-    {
-        std::vector<DeviceConnectorDetails> o;
-        for (auto& e : devices)
-        {
-            o.push_back(e.second);
-        }
-        return o;
-    }
-};
-
 template <>
 struct convert<DeviceConnectorDetailsFile>
 {
@@ -254,27 +263,34 @@ struct convert<DeviceConnectorDetailsFile>
 
 } // namespace YAML
 
+namespace RobotRaconteur
+{
+namespace Companion
+{
+namespace Util
+{
+
 std::vector<DeviceConnectorDetails> LoadDeviceDetailsFromFile(const boost::filesystem::path& filename)
 {
-    auto map = YAML::LoadFile(filename.string());
-    return map.as<DeviceConnectorDetailsFile>().GetDevices();
+    auto map = ::YAML::LoadFile(filename.string());
+    return map.as<detail::DeviceConnectorDetailsFile>().GetDevices();
 }
 
 std::vector<DeviceConnectorDetails> LoadDeviceDetailsFromString(const std::string& yaml_str)
 {
-    auto map = YAML::Load(yaml_str);
-    return map.as<DeviceConnectorDetailsFile>().GetDevices();
+    auto map = ::YAML::Load(yaml_str);
+    return map.as<detail::DeviceConnectorDetailsFile>().GetDevices();
 }
 
 std::vector<DeviceConnectorDetails> LoadDeviceDetailsFromStream(std::istream& stream)
 {
-    auto map = YAML::Load(stream);
-    return map.as<DeviceConnectorDetailsFile>().GetDevices();
+    auto map = ::YAML::Load(stream);
+    return map.as<detail::DeviceConnectorDetailsFile>().GetDevices();
 }
 
 std::vector<DeviceConnectorDetails> LoadDeviceDetailsFromYAMLNode(const YAML::Node& node)
 {
-    return node.as<DeviceConnectorDetailsFile>().GetDevices();
+    return node.as<detail::DeviceConnectorDetailsFile>().GetDevices();
 }
 
 DeviceConnector::DeviceConnector(RobotRaconteur::RobotRaconteurNodePtr node, bool autoconnect)
@@ -306,7 +322,7 @@ void DeviceConnector::InitFromYamlStr(const std::string& yaml)
     Init(devices);
 }
 
-void DeviceConnector::InitFromYamlFile(const std::istream& file)
+void DeviceConnector::InitFromYamlFile(std::istream& file)
 {
     auto devices = LoadDeviceDetailsFromStream(file);
     Init(devices);
@@ -347,7 +363,7 @@ bool DeviceConnector::TryGetDevice(const std::string& device_nickname, RobotRaco
 {
     try
     {
-        device = subscription_manager->GetSubscription(device_nickname, device);
+        device = subscription_manager->GetSubscription(device_nickname, false);
         return true;
     }
     catch (const std::exception&)
