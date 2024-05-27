@@ -814,7 +814,7 @@ WARN_LOGFILE           =
 # Note: If this tag is empty the current directory is searched.
 
 INPUT                  = @CMAKE_SOURCE_DIR@/include/ @CMAKE_SOURCE_DIR@/README.md @CMAKE_SOURCE_DIR@/docs/main_page_cpp.md
-                         
+
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses
@@ -2179,7 +2179,8 @@ PREDEFINED             = GENERATING_DOCUMENTATION \
                          RR_INTRUSIVE_PTR=boost::intrusive_ptr \
                          RR_ENABLE_SHARED_FROM_THIS=boost::enable_shared_from_this \
                          ROBOTRACONTEUR_CORE_API= \
-                         RR_BOOST_ASIO_IO_CONTEXT=boost::asio::io_context
+                         RR_BOOST_ASIO_IO_CONTEXT=boost::asio::io_context \
+                         ROBOTRACONTEUR_COMPANION_UTIL_API \
 
 
 # If the MACRO_EXPANSION and EXPAND_ONLY_PREDEF tags are set to YES then this

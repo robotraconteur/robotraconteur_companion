@@ -2,39 +2,20 @@
 
 #pragma once
 
-namespace YAML {
-	template<> 
-	struct convert<com::robotraconteur::datetime::TimeSpec3>{
-		static Node encode(const com::robotraconteur::datetime::TimeSpec3& rhs){
-			Node node;
-			return node;
-		}
+namespace YAML
+{
+template <>
+struct ROBOTRACONTEUR_COMPANION_INFOPARSER_API convert<com::robotraconteur::datetime::TimeSpec3>
+{
+    static Node encode(const com::robotraconteur::datetime::TimeSpec3& rhs);
+    static bool decode(const Node& node, com::robotraconteur::datetime::TimeSpec3& rhs);
+};
 
-		static bool decode(const Node& node, com::robotraconteur::datetime::TimeSpec3& rhs){
-			rhs.s.microseconds = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int64_t>(node,"microseconds",false);
-			return true;
-		}
-	};
+template <>
+struct ROBOTRACONTEUR_COMPANION_INFOPARSER_API convert<com::robotraconteur::datetime::DateTimeLocalPtr>
+{
+    static Node encode(const com::robotraconteur::datetime::DateTimeLocalPtr& rhs);
+    static bool decode(const Node& node, com::robotraconteur::datetime::DateTimeLocalPtr& rhs);
+};
 
-
-	template<> 
-	struct convert<com::robotraconteur::datetime::DateTimeLocalPtr>{
-		static Node encode(const com::robotraconteur::datetime::DateTimeLocalPtr& rhs){
-			Node node;
-			return node;
-		}
-
-		static bool decode(const Node& node, com::robotraconteur::datetime::DateTimeLocalPtr& rhs){
-			if (!rhs) rhs.reset(new com::robotraconteur::datetime::DateTimeLocal);
-			// TODO: parse field ClockInfo clock_info
-			rhs->seconds = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int64_t>(node,"seconds",true);
-			rhs->nanoseconds = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int32_t>(node,"nanoseconds",true);
-			rhs->utc_offset_seconds = RobotRaconteur::Companion::InfoParser::yaml::parse_number<int32_t>(node,"utc_offset_seconds",true);
-			rhs->timezone_name = RobotRaconteur::Companion::InfoParser::yaml::parse_string(node,"timezone_name",true);
-			return true;
-		}
-	};
-
-
-
-}
+} // namespace YAML

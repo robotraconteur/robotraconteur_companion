@@ -119,31 +119,32 @@ namespace RobotRaconteur
 namespace Companion
 {
 
-    /**
-     * @brief Register standard robdef service types to the specified node
-     * 
-     * Service types must be registered to the node before they can be used in C++.
-     * When generating files directly with the `ROBOTRACONTEUR_GEN_THUNK_SOURCE`, the 
-     * master header will contain the types that were generated, but not imported types.
-     * Since the standard types are typically imported using the `AUTO_IMPORT` option,
-     * they will not be included in the master header. Use this function before node
-     * setup to register the standard types.
-     * 
-     * @param node The node to register service types to
-     */
-    ROBOTRACONTEUR_COMPANION_STDROBDEF_API void RegisterStdRobDefServiceTypes(RR_SHARED_PTR<RobotRaconteurNode> node);
+/**
+ * @brief Register standard robdef service types to the specified node
+ *
+ * Service types must be registered to the node before they can be used in C++.
+ * When generating files directly with the `ROBOTRACONTEUR_GEN_THUNK_SOURCE`, the
+ * master header will contain the types that were generated, but not imported types.
+ * Since the standard types are typically imported using the `AUTO_IMPORT` option,
+ * they will not be included in the master header. Use this function before node
+ * setup to register the standard types.
+ *
+ * @param node The node to register service types to
+ */
+ROBOTRACONTEUR_COMPANION_STDROBDEF_API void RegisterStdRobDefServiceTypes(
+    const RR_SHARED_PTR<RobotRaconteurNode>& node);
 
-    /**
-     * @brief Register standard robdef service types to the default singleton node
-     * 
-     * Service types must be registered to the node before they can be used in C++.
-     * When generating files directly with the `ROBOTRACONTEUR_GEN_THUNK_SOURCE`, the 
-     * master header will contain the types that were generated, but not imported types.
-     * Since the standard types are typically imported using the `AUTO_IMPORT` option,
-     * they will not be included in the master header. Use this function before node
-     * setup to register the standard types.
-     */
-    ROBOTRACONTEUR_COMPANION_STDROBDEF_API void RegisterStdRobDefServiceTypes();
+/**
+ * @brief Register standard robdef service types to the default singleton node
+ *
+ * Service types must be registered to the node before they can be used in C++.
+ * When generating files directly with the `ROBOTRACONTEUR_GEN_THUNK_SOURCE`, the
+ * master header will contain the types that were generated, but not imported types.
+ * Since the standard types are typically imported using the `AUTO_IMPORT` option,
+ * they will not be included in the master header. Use this function before node
+ * setup to register the standard types.
+ */
+ROBOTRACONTEUR_COMPANION_STDROBDEF_API void RegisterStdRobDefServiceTypes();
 
-}
-}
+} // namespace Companion
+} // namespace RobotRaconteur

@@ -9,7 +9,7 @@ C++11 and later.
 
 Robot Raconteur Core focuses on the core capabilities of Robot Raconteur, such as transport, discovery, and
 communication. The companion contains a number of miscellaneous utilities that are useful for working with other libraries
-such as Eigen, and for working with standard Robot Raconteur service types 
+such as Eigen, and for working with standard Robot Raconteur service types
 (https://github.com/robotraconteur/robotraconteur_standard_robdef).
 
 The companion library is not required to use Robot Raconteur, but is recommended for most users.
@@ -61,7 +61,7 @@ If custom service types are being used in the program, use the following:
 ```cmake
 find_package(RobotRaconteurCompanion REQUIRED)
 ROBOTRACONTEUR_GENERATE_THUNK(RR_THUNK_SRCS RR_THUNK_HDRS
-    experimental.my_custom_types.robdef    
+    experimental.my_custom_types.robdef
     MASTER_HEADER
     IMPORT_DIRS ${CMAKE_CURRENT_SOURCE_DIR} ${RobotRaconteur_STANDARD_ROBDEF_DIRS}
     AUTO_IMPORT
@@ -85,8 +85,8 @@ RobotRaconteur::ClientNodeSetup node_setup(ROBOTRACONTEUR_SERVICE_TYPES); // or 
 ## Device Info Structure YAML Parsers
 
 Device Info structures are used to describe devices and their capabilities. The structures are provided
-to clients at runtime, typically through a property of a device service. For example, the 
-`com.robotraconteur.device.Device` standard type defines the `device_info` property. The 
+to clients at runtime, typically through a property of a device service. For example, the
+`com.robotraconteur.device.Device` standard type defines the `device_info` property. The
 `com.robotraconteur.robotics.robot.Robot` standard type defines both `device_info` and `robot_info` properties.
 These structures can be used to describe a wide variety of devices, including robots, sensors, and other devices.
 YAML files are used to store the contents of these structures to make it easier to create and edit them. The
@@ -127,11 +127,11 @@ are supported:
 * `com.robotraconteur.signal.SignalInfo`
 * `com.robotraconteur.signal.SignalGroupInfo`
 
-The parsers can be accessed using the `RobotRaconteur::Companion::Util::LoadInfoFileFromString()`, 
+The parsers can be accessed using the `RobotRaconteur::Companion::Util::LoadInfoFileFromString()`,
 `RobotRaconteur::Companion::Util::LoadInfoFile()`, or `RobotRaconteur::Companion::Util::LoadInfoFromNode()` functions.
-These functions are in the `RobotRaconteurCompanion/Util/LoadInfoFile.h` header. The header file 
-`RobotRaconteurCompanion/Util/InfoParser/yaml/yaml_parser_all.h` should be included to include all of the parser 
-implementations. 
+These functions are in the `RobotRaconteurCompanion/Util/LoadInfoFile.h` header. The header file
+`RobotRaconteurCompanion/Util/InfoParser/yaml/yaml_parser_all.h` should be included to include all of the parser
+implementations.
 
 A typical program will include:
 
@@ -163,7 +163,7 @@ The Robot Raconteur companion library provides converters for date/time types to
 The comanian library supports several time representations:
 
 * `com.robotraconteur.datetime.DateTimeUTC` - Used to represent a date and time in UTC, based on the system real time clock
-* `com.robotraconteur.datetime.TimeSpec2` - Used to represent a timestamp based on the system performance clock, which is not 
+* `com.robotraconteur.datetime.TimeSpec2` - Used to represent a timestamp based on the system performance clock, which is not
     not guaranteed to be synchronized between systems or the real-time clock, and is expected to be stable.
 * `com.robotraconteur.datetime.TimeSpec3` - A compact representation of a timestamp
 
@@ -248,7 +248,7 @@ See the doxygen documentation for `RobotRaconteurCompanion/Util/SensorDataUtil.h
 
 The companion library can be built using the standard CMake build process.
 
-`vcpkg` can also be used to build the companion library for use with your application. 
+`vcpkg` can also be used to build the companion library for use with your application.
 See https://github.com/microsoft/vcpkg for installation instructions.
 
 To build Robot Raconteur, clone the `vcpkg-robotraconteur` overlay repo in the vcpkg directory:

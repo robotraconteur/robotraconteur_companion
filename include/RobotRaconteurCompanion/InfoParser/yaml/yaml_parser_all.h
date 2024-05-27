@@ -21,18 +21,17 @@
  * limitations under the License.
  */
 
-
 #pragma once
 #include "action_parser.h"
 #include "actuator_parser.h"
 #include "bignum_parser.h"
 #include "color_parser.h"
 #include "datatype_parser.h"
-#include "datetime__clock_parser.h"
 #include "datetime_parser.h"
+#include "datetime__clock_parser.h"
+#include "device_parser.h"
 #include "device__clock_parser.h"
 #include "device__isoch_parser.h"
-#include "device_parser.h"
 #include "eventlog_parser.h"
 #include "fiducial_parser.h"
 #include "geometry_parser.h"
@@ -43,8 +42,8 @@
 #include "hid__joystick_parser.h"
 #include "identifier_parser.h"
 #include "image_parser.h"
-#include "imaging__camerainfo_parser.h"
 #include "imaging_parser.h"
+#include "imaging__camerainfo_parser.h"
 #include "imu_parser.h"
 #include "laserscan_parser.h"
 #include "laserscanner_parser.h"
@@ -55,8 +54,8 @@
 #include "pid_parser.h"
 #include "pointcloud_parser.h"
 #include "pointcloud__sensor_parser.h"
-#include "resource__device_parser.h"
 #include "resource_parser.h"
+#include "resource__device_parser.h"
 #include "robotics__joints_parser.h"
 #include "robotics__payload_parser.h"
 #include "robotics__robot_parser.h"

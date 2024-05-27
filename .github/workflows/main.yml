@@ -5,7 +5,7 @@ on:
   pull_request:
   release:
     types:
-      - created
+    - created
   workflow_dispatch:
 
 jobs:
@@ -26,14 +26,14 @@ jobs:
       run: sudo apt update
     - name: apt
       run: >
-        sudo apt-get install 
-        zlib1g zlib1g-dev libssl-dev libusb-1.0-0
-        libusb-1.0-0-dev libdbus-1-3 libdbus-1-dev libbluetooth3 libbluetooth-dev zlib1g zlib1g-dev 
+        sudo apt-get install
+        zlib1g zlib1g-dev libssl-dev libusb-1.0-0 ninja-build
+        libusb-1.0-0-dev libdbus-1-3 libdbus-1-dev libbluetooth3 libbluetooth-dev zlib1g zlib1g-dev
         git cmake g++ make libboost-all-dev curl libgtest-dev doxygen libyaml-cpp-dev libeigen3-dev
-        ninja-build -qq    
+        ninja-build libopencv-dev -qq
     - name: cmake rr
       run: >
-        cmake -G Ninja -S rr-src -B rr-build 
+        cmake -G Ninja -S rr-src -B rr-build
         -DCMAKE_BUILD_TYPE=Release
         -DBUILD_GEN=ON -DBUILD_TESTING=OFF
     - name: cmake rr build
@@ -42,7 +42,7 @@ jobs:
         sudo cmake --install rr-build --config Release
     - name: cmake
       run: >
-        cmake -G Ninja -S src -B build 
+        cmake -G Ninja -S src -B build
         -DCMAKE_BUILD_TYPE=Release
         -DBUILD_DOCUMENATION=ON
         -DBULID_TESTING=ON
@@ -50,6 +50,11 @@ jobs:
       run: cmake --build build --config Release
     - name: cmake build docs
       run: cmake --build build --config Release --target RobotRaconteurCompanion_doc
+    - name: run ctest
+      working-directory: build
+      run: |
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GITHUB_WORKSPACE/build
+        ctest . -C Release --output-on-failure
     - name: archive docs
       uses: actions/upload-artifact@v2
       with:
@@ -68,21 +73,123 @@ jobs:
         path: vcpkg-robotraconteur
         repository: robotraconteur/vcpkg-robotraconteur
     - name: vcpkg build
-      uses: johnwason/vcpkg-action@v5
+      uses: johnwason/vcpkg-action@v6
       id: vcpkg
       with:
-        pkgs: robotraconteur yaml-cpp eigen3
+        pkgs: robotraconteur yaml-cpp eigen3 gtest opencv
         triplet: x64-windows-release
         token: ${{ github.token }}
         extra-args: --overlay-ports=${{ github.workspace }}/vcpkg-robotraconteur/ports
+        github-binarycache: true
     - uses: ilammy/msvc-dev-cmd@v1
       with:
         arch: x64
     - name: cmake
       run: >
-        cmake -G Ninja -S src -B build 
+        cmake -G Ninja -S src -B build
         ${{ steps.vcpkg.outputs.vcpkg-cmake-config }}
-        -DCMAKE_BUILD_TYPE=Release
+        -DCMAKE_BUILD_TYPE=Release -DBUILD_SHARED_LIBS=ON
         -DBULID_TESTING=ON
     - name: cmake build
       run: cmake --build build --config Release
+    - name: run ctest
+      working-directory: build
+      shell: cmd
+      run: |
+        set PATH=%PATH%;%GITHUB_WORKSPACE%\build
+        ctest . -C Release --output-on-failure
+  clang-tidy:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        path: src
+        submodules: recursive
+    - uses: actions/checkout@v3
+      with:
+        path: rr-src
+        repository: robotraconteur/robotraconteur
+    - name: apt update
+      run: sudo apt update
+    - name: apt
+      run: >
+        sudo apt-get install
+        zlib1g zlib1g-dev libssl-dev libusb-1.0-0 ninja-build
+        libusb-1.0-0-dev libdbus-1-3 libdbus-1-dev libbluetooth3 libbluetooth-dev
+        git cmake g++ make libboost-all-dev autoconf libyaml-cpp-dev libeigen3-dev
+        automake libtool bison libpcre3-dev curl libgtest-dev libopencv-dev -qq
+    - name: clang-tidy-14
+      run: |
+        wget https://apt.llvm.org/llvm.sh
+        chmod +x llvm.sh
+        sudo ./llvm.sh 14 all
+    - name: cmake rr
+      run: >
+        cmake -G Ninja -S rr-src -B rr-build
+        -DCMAKE_BUILD_TYPE=Debug
+        -DBUILD_GEN=ON -DBUILD_TESTING=OFF
+        -DCMAKE_CXX_STANDARD=11
+    - name: cmake rr build
+      run: |
+        cmake --build rr-build --config Debug
+        sudo cmake --install rr-build --config Debug
+    - name: configure
+      run: >
+        cmake -G Ninja -DBUILD_TESTING=ON
+        -DCMAKE_DISABLE_PRECOMPILE_HEADERS=ON -DCMAKE_CXX_CLANG_TIDY=clang-tidy-14
+        -DCMAKE_BUILD_TYPE=Debug
+        -S src -B build
+    - name: build
+      run: cmake --build build --config Debug -- -j 4
+  cppcheck:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        path: src
+        submodules: recursive
+    - uses: actions/checkout@v3
+      with:
+        path: rr-src
+        repository: robotraconteur/robotraconteur
+    - name: apt update
+      run: sudo apt update
+    - name: apt
+      run: >
+        sudo apt-get install
+        zlib1g zlib1g-dev libssl-dev libusb-1.0-0 ninja-build cppcheck
+        libusb-1.0-0-dev libdbus-1-3 libdbus-1-dev libbluetooth3 libbluetooth-dev
+        git cmake g++ make libboost-all-dev autoconf libyaml-cpp-dev libeigen3-dev
+        automake libtool bison libpcre3-dev curl libgtest-dev libopencv-dev -qq
+    - name: cmake rr
+      run: >
+        cmake -G Ninja -S rr-src -B rr-build
+        -DCMAKE_BUILD_TYPE=Debug
+        -DBUILD_GEN=ON -DBUILD_TESTING=OFF
+        -DCMAKE_CXX_STANDARD=11
+    - name: cmake rr build
+      run: |
+        cmake --build rr-build --config Debug
+        sudo cmake --install rr-build --config Debug
+    - name: configure
+      run: >
+        cmake -G Ninja -DBUILD_TESTING=ON
+        -DCMAKE_DISABLE_PRECOMPILE_HEADERS=ON -DCMAKE_BUILD_TYPE=Debug
+        -DCMAKE_CXX_CPPCHECK="/usr/bin/cppcheck;--enable=warning;--inconclusive;--force;--inline-suppr;-DBOOST_ASIO_MOVE_ARG(a)=;--error-exitcode=1;--std=c++11;RobotRaconteurCompanion"
+        -S src -B build
+    - name: build
+      run: cmake --build build --config Debug -- -j 4
+  pre-commit:
+    runs-on: ubuntu-22.04
+    env:
+      SKIP: no-commit-to-branch
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v3
+      with:
+        python-version: '3.10'
+    - name: apt
+      run: |
+        sudo apt update
+        sudo apt install -y dos2unix
+    - uses: pre-commit/action@v3.0.1

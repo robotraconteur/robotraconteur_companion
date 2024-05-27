@@ -12,7 +12,7 @@ namespace InfoParser
 namespace yaml
 {
 
-template<typename T>
+template <typename T>
 T parse_number(const YAML::Node& node, const std::string& key, bool optional)
 {
     if (node[key])
@@ -32,12 +32,13 @@ T parse_number(const YAML::Node& node, const std::string& key, bool optional)
     }
 }
 
-template<typename T>
-RobotRaconteur::RRArrayPtr<T> parse_numeric_array(const YAML::Node& node, const std::string& key, bool optional, bool varlength=true, size_t len=0)
+template <typename T>
+RobotRaconteur::RRArrayPtr<T> parse_numeric_array(const YAML::Node& node, const std::string& key, bool optional,
+                                                  bool varlength = true, size_t len = 0)
 {
     if (node[key])
     {
-        auto vec = node[key].as<std::vector<T>>();
+        auto vec = node[key].as<std::vector<T> >();
         if (len != 0)
         {
             if (!varlength)
@@ -45,14 +46,11 @@ RobotRaconteur::RRArrayPtr<T> parse_numeric_array(const YAML::Node& node, const 
                 if (vec.size() != len)
                 {
                     throw RobotRaconteur::InvalidArgumentException("Bad conversion");
-                }                
+                }
             }
-            else if (len != 0)
+            if (vec.size() >= len)
             {
-                if (vec.size() >= len)
-                {
-                    throw RobotRaconteur::InvalidArgumentException("Bad conversion");
-                } 
+                throw RobotRaconteur::InvalidArgumentException("Bad conversion");
             }
         }
         return RobotRaconteur::VectorToRRArray<T>(vec);
@@ -62,7 +60,7 @@ RobotRaconteur::RRArrayPtr<T> parse_numeric_array(const YAML::Node& node, const 
         if (optional)
         {
             if (varlength)
-            {            
+            {
                 return RobotRaconteur::AllocateRRArray<T>(0);
             }
             else
@@ -77,32 +75,31 @@ RobotRaconteur::RRArrayPtr<T> parse_numeric_array(const YAML::Node& node, const 
     }
 }
 
-template<typename T, int N>
-boost::array<T,N> parse_numeric_array_na(const YAML::Node& node, const std::string& key)
+template <typename T, int N>
+boost::array<T, N> parse_numeric_array_na(const YAML::Node& node, const std::string& key)
 {
     if (node[key])
     {
-        auto arr = node[key].as<std::vector<T>>();
-        if (arr.size()!=N)
+        auto arr = node[key].as<std::vector<T> >();
+        if (arr.size() != N)
         {
             throw RobotRaconteur::InvalidArgumentException("Invalid array length");
         }
-        boost::array<T,N> ret;
-        std::copy(arr.begin(),arr.end(),ret.begin());
+        boost::array<T, N> ret{};
+        std::copy(arr.begin(), arr.end(), ret.begin());
         return ret;
     }
     else
-    {        
+    {
         throw RobotRaconteur::InvalidArgumentException("Key not found: " + key);
     }
 }
 
-
-RobotRaconteur::rr_bool parse_bool(const YAML::Node& node, const std::string& key, bool optional)
+static RobotRaconteur::rr_bool parse_bool(const YAML::Node& node, const std::string& key, bool optional)
 {
     if (node[key])
     {
-        bool val =  node[key].as<bool>();
+        bool val = node[key].as<bool>();
         RobotRaconteur::rr_bool ret;
         ret.value = (val) ? 1 : 0;
         return ret;
@@ -122,12 +119,11 @@ RobotRaconteur::rr_bool parse_bool(const YAML::Node& node, const std::string& ke
     }
 }
 
-std::string parse_string(const YAML::Node& node, const std::string& key, bool optional)
+static std::string parse_string(const YAML::Node& node, const std::string& key, bool optional)
 {
     if (node[key])
     {
         return node[key].as<std::string>();
-        
     }
     else
     {
@@ -142,12 +138,12 @@ std::string parse_string(const YAML::Node& node, const std::string& key, bool op
     }
 }
 
-RobotRaconteur::RRListPtr<RRArray<char> > parse_string_list(const YAML::Node& node, const std::string& key, bool optional)
+static RobotRaconteur::RRListPtr<RRArray<char> > parse_string_list(const YAML::Node& node, const std::string& key,
+                                                                   bool optional)
 {
     if (node[key])
     {
         return RobotRaconteur::stringVectorToRRList(node[key].as<std::vector<std::string> >());
-        
     }
     else
     {
@@ -162,8 +158,10 @@ RobotRaconteur::RRListPtr<RRArray<char> > parse_string_list(const YAML::Node& no
     }
 }
 
-template<typename T>
-RobotRaconteur::RRListPtr<RobotRaconteur::RRArray<T> > parse_numeric_array_list(const YAML::Node& node, const std::string& key, bool optional, bool varlength=true, size_t len=0)
+template <typename T>
+RobotRaconteur::RRListPtr<RobotRaconteur::RRArray<T> > parse_numeric_array_list(const YAML::Node& node,
+                                                                                const std::string& key, bool optional,
+                                                                                bool varlength = true, size_t len = 0)
 {
     if (node[key])
     {
@@ -176,7 +174,7 @@ RobotRaconteur::RRListPtr<RobotRaconteur::RRArray<T> > parse_numeric_array_list(
         for (auto e : node[key])
         {
 
-            auto vec = e.as<std::vector<T>>();
+            auto vec = e.as<std::vector<T> >();
             if (len != 0)
             {
                 if (!varlength)
@@ -184,14 +182,11 @@ RobotRaconteur::RRListPtr<RobotRaconteur::RRArray<T> > parse_numeric_array_list(
                     if (vec.size() != len)
                     {
                         throw RobotRaconteur::InvalidArgumentException("Bad conversion");
-                    }                
+                    }
                 }
-                else if (len != 0)
+                if (vec.size() >= len)
                 {
-                    if (vec.size() >= len)
-                    {
-                        throw RobotRaconteur::InvalidArgumentException("Bad conversion");
-                    } 
+                    throw RobotRaconteur::InvalidArgumentException("Bad conversion");
                 }
             }
             ret->push_back(RobotRaconteur::VectorToRRArray<T>(vec));
@@ -201,8 +196,8 @@ RobotRaconteur::RRListPtr<RobotRaconteur::RRArray<T> > parse_numeric_array_list(
     else
     {
         if (optional)
-        {                      
-            return RobotRaconteur::AllocateEmptyRRList<RRArray<T> >();            
+        {
+            return RobotRaconteur::AllocateEmptyRRList<RRArray<T> >();
         }
         else
         {
@@ -211,8 +206,9 @@ RobotRaconteur::RRListPtr<RobotRaconteur::RRArray<T> > parse_numeric_array_list(
     }
 }
 
-template<typename T>
-RobotRaconteur::RRMapPtr<std::string,RobotRaconteur::RRArray<T> > parse_numeric_array_map_string(const YAML::Node& node, const std::string& key, bool optional, bool varlength=true, size_t len=0)
+template <typename T>
+RobotRaconteur::RRMapPtr<std::string, RobotRaconteur::RRArray<T> > parse_numeric_array_map_string(
+    const YAML::Node& node, const std::string& key, bool optional, bool varlength = true, size_t len = 0)
 {
     if (node[key])
     {
@@ -221,11 +217,11 @@ RobotRaconteur::RRMapPtr<std::string,RobotRaconteur::RRArray<T> > parse_numeric_
             throw RobotRaconteur::InvalidArgumentException("Bad conversion");
         }
 
-        auto ret = RobotRaconteur::AllocateEmptyRRMap<std::string,RRArray<double> >();
+        auto ret = RobotRaconteur::AllocateEmptyRRMap<std::string, RRArray<double> >();
         for (auto e : node[key])
         {
-            
-            auto vec = e.second.as<std::vector<T>>();
+
+            auto vec = e.second.as<std::vector<T> >();
             if (len != 0)
             {
                 if (!varlength)
@@ -233,14 +229,11 @@ RobotRaconteur::RRMapPtr<std::string,RobotRaconteur::RRArray<T> > parse_numeric_
                     if (vec.size() != len)
                     {
                         throw RobotRaconteur::InvalidArgumentException("Bad conversion");
-                    }                
+                    }
                 }
-                else if (len != 0)
+                if (vec.size() >= len)
                 {
-                    if (vec.size() >= len)
-                    {
-                        throw RobotRaconteur::InvalidArgumentException("Bad conversion");
-                    } 
+                    throw RobotRaconteur::InvalidArgumentException("Bad conversion");
                 }
             }
             ret->insert(std::make_pair(e.first.as<std::string>(), RobotRaconteur::VectorToRRArray<T>(vec)));
@@ -251,7 +244,7 @@ RobotRaconteur::RRMapPtr<std::string,RobotRaconteur::RRArray<T> > parse_numeric_
     {
         if (optional)
         {
-            return RobotRaconteur::AllocateEmptyRRMap<std::string,RobotRaconteur::RRArray<T> >();
+            return RobotRaconteur::AllocateEmptyRRMap<std::string, RobotRaconteur::RRArray<T> >();
         }
         else
         {
@@ -260,28 +253,29 @@ RobotRaconteur::RRMapPtr<std::string,RobotRaconteur::RRArray<T> > parse_numeric_
     }
 }
 
-template<typename T>
-RobotRaconteur::RRMultiDimArrayPtr<T> parse_numeric_multidimarray(const YAML::Node& node, const std::string& key, bool optional, uint32_t m, uint32_t n)
+template <typename T>
+RobotRaconteur::RRMultiDimArrayPtr<T> parse_numeric_multidimarray(const YAML::Node& node, const std::string& key,
+                                                                  bool optional, uint32_t m, uint32_t n)
 {
     if (node[key])
     {
-        auto vec = node[key].as<std::vector<T>>();
-        if (vec.size() != m*n)
+        auto vec = node[key].as<std::vector<T> >();
+        if (vec.size() != m * n)
         {
             throw RobotRaconteur::InvalidArgumentException("Bad conversion");
         }
-        std::vector<uint32_t> dims = {m,n};
+        std::vector<uint32_t> dims = {m, n};
         auto ret = RobotRaconteur::AllocateEmptyRRMultiDimArray<T>(dims);
-        std::copy(vec.begin(),vec.end(),ret->Array->begin());
-        
+        std::copy(vec.begin(), vec.end(), ret->Array->begin());
+
         return ret;
     }
     else
     {
         if (optional)
-        {                     
-            std::vector<uint32_t> dims = {m,n};      
-            return RobotRaconteur::AllocateEmptyRRMultiDimArray<T>(dims);     
+        {
+            std::vector<uint32_t> dims = {m, n};
+            return RobotRaconteur::AllocateEmptyRRMultiDimArray<T>(dims);
         }
         else
         {
@@ -290,7 +284,7 @@ RobotRaconteur::RRMultiDimArrayPtr<T> parse_numeric_multidimarray(const YAML::No
     }
 }
 
-}
-}
-}
-}
+} // namespace yaml
+} // namespace InfoParser
+} // namespace Companion
+} // namespace RobotRaconteur

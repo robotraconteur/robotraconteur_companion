@@ -1,0 +1,18 @@
+service experimental.testing.companion.test_task_generator
+
+stdver 0.10
+
+import com.robotraconteur.action
+
+using com.robotraconteur.action.ActionStatusCode
+
+struct TestGenStatus
+    field ActionStatusCode action_status
+    field string message
+    field varvalue{string} data
+end
+
+object TestGenObject
+    function TestGenStatus{generator} test_task_generator(int32 done_time, int32 fail_time, int32 status_update_time, int32 next_timeout, int32 watchdog_timeout)
+    function TestGenStatus{generator} test_sync_task_generator(int32 done_time, int32 fail_time, int32 next_timeout, int32 watchdog_timeout)
+end
