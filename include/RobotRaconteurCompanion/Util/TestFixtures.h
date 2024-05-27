@@ -118,9 +118,10 @@ class IntraTestFixture
      * @param type The service type
      * @param obj The service object
      */
-    void RegisterService(const std::string& name, const std::string& type, const RR_SHARED_PTR<RRObject>& obj) const
+    RobotRaconteur::ServerContextPtr RegisterService(const std::string& name, const std::string& type,
+                                                     const RR_SHARED_PTR<RRObject>& obj) const
     {
-        server_node->RegisterService(name, type, obj);
+        return server_node->RegisterService(name, type, obj);
     }
 
     /**
