@@ -51,6 +51,7 @@ RR::ServiceSubscriptionFilterAttribute DeviceDetailsIdentifierToFilterAttribute(
 boost::tuple<std::vector<std::string>, RR::ServiceSubscriptionFilterPtr> DeviceDetailsToSubscriptionFilter(
     const RR::RobotRaconteurNodePtr& node, const DeviceConnectorDetails& device_details)
 {
+    RR_UNUSED(node);
     if (device_details.DeviceNickname.empty())
     {
         throw RR::InvalidArgumentException("Device details to filter must contain device_nickname");
@@ -97,7 +98,7 @@ boost::tuple<std::vector<std::string>, RR::ServiceSubscriptionFilterPtr> DeviceD
         if (!device_details.Tags.empty())
         {
             RR::ServiceSubscriptionFilterAttributeGroup tag_grp;
-            for (auto& e : device_details.Tags)
+            for (const auto& e : device_details.Tags)
             {
                 tag_grp.Attributes.push_back(DeviceDetailsIdentifierToFilterAttribute(e));
             }
@@ -324,7 +325,7 @@ void DeviceConnector::Init()
 void DeviceConnector::Init(const std::vector<DeviceConnectorDetails>& devices)
 {
     Init();
-    for (auto& e : devices)
+    for (const auto& e : devices)
     {
         AddDevice(e);
     }
