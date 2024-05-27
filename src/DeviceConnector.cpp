@@ -15,9 +15,11 @@ DeviceConnectorDetails::DeviceConnectorDetails(const std::string& device_nicknam
 
 DeviceConnectorDetails::DeviceConnectorDetails(
     const std::string& device_nickname, const com::robotraconteur::identifier::IdentifierPtr& device,
+    const std::vector<std::string>& root_object_type,
     const std::vector<com::robotraconteur::identifier::IdentifierPtr>& tags,
     const std::vector<RobotRaconteur::ServiceSubscriptionFilterNodePtr>& service_nodes)
-    : DeviceNickname(device_nickname), Device(device), Tags(tags), ServiceNodes(service_nodes)
+    : DeviceNickname(device_nickname), Device(device), RootObjectType(root_object_type), Tags(tags),
+      ServiceNodes(service_nodes)
 {}
 
 DeviceConnectorDetails::DeviceConnectorDetails(const std::string& device_nickname, const std::string& url,
@@ -125,8 +127,9 @@ boost::tuple<std::vector<std::string>, RR::ServiceSubscriptionFilterPtr> DeviceD
     }
 }
 
-RR::ServiceSubscriptionManagerDetails device_details_to_subscription_details(
-    const RR::RobotRaconteurNodePtr& node, const std::string& nickname, const DeviceConnectorDetails& device_details)
+RR::ServiceSubscriptionManagerDetails DeviceDetailsToSubscriptionDetails(const RR::RobotRaconteurNodePtr& node,
+                                                                         const std::string& nickname,
+                                                                         const DeviceConnectorDetails& device_details)
 {
     if (!device_details.Urls.empty())
     {
@@ -229,6 +232,17 @@ struct convert<DeviceConnectorDetails>
             else
             {
                 rhs.Urls.push_back(node["urls"].as<std::string>());
+            }
+        }
+        if (node["root_object_type"])
+        {
+            if (node["root_object_type"].IsSequence())
+            {
+                rhs.RootObjectType = node["root_object_type"].as<std::vector<std::string> >();
+            }
+            else
+            {
+                rhs.RootObjectType.push_back(node["root_object_type"].as<std::string>());
             }
         }
 
@@ -379,6 +393,13 @@ std::vector<std::string> DeviceConnector::GetDeviceNicknames() { return subscrip
 RR_SHARED_PTR<RobotRaconteur::ServiceSubscriptionManager> DeviceConnector::GetServiceSubscriptionManager()
 {
     return subscription_manager;
+}
+
+void DeviceConnector::DoUpdateDevice(const DeviceConnectorDetails& device_details, bool force_connect)
+{
+    auto d = detail::DeviceDetailsToSubscriptionDetails(node, device_details.DeviceNickname, device_details);
+    d.Enabled = autoconnect || force_connect;
+    subscription_manager->AddSubscription(d);
 }
 
 } // namespace Util

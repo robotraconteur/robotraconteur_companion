@@ -1,5 +1,5 @@
-#include <RobotRaconteur/Subscription.h>
 #include <RobotRaconteur/RobotRaconteurNode.h>
+#include <RobotRaconteur/Subscription.h>
 #include "com__robotraconteur__identifier.h"
 #include <yaml-cpp/yaml.h>
 
@@ -26,12 +26,14 @@ struct ROBOTRACONTEUR_COMPANION_UTIL_API DeviceConnectorDetails
     std::vector<std::string> TransportSchemes;
     RobotRaconteur::ServiceSubscriptionFilterNodePtr UrlAuth;
     int32_t MaxConnections = 0;
-    RobotRaconteur::ServiceSubscriptionFilterAttributeGroupOperation TagMatchOperation;
+    RobotRaconteur::ServiceSubscriptionFilterAttributeGroupOperation TagMatchOperation =
+        RobotRaconteur::ServiceSubscriptionFilterAttributeGroupOperation_AND;
 
     DeviceConnectorDetails() = default;
     DeviceConnectorDetails(const std::string& device_nickname);
     DeviceConnectorDetails(const std::string& device_nickname,
                            const com::robotraconteur::identifier::IdentifierPtr& device,
+                           const std::vector<std::string>& root_object_type,
                            const std::vector<com::robotraconteur::identifier::IdentifierPtr>& tags = {},
                            const std::vector<RobotRaconteur::ServiceSubscriptionFilterNodePtr>& service_nodes = {});
     DeviceConnectorDetails(const std::string& device_nickname, const std::string& url,
@@ -77,13 +79,16 @@ class ROBOTRACONTEUR_COMPANION_UTIL_API DeviceConnector
     RR_SHARED_PTR<RobotRaconteur::ServiceSubscriptionManager> subscription_manager;
 };
 
-std::vector<DeviceConnectorDetails> LoadDeviceDetailsFromFile(const boost::filesystem::path& filename);
+ROBOTRACONTEUR_COMPANION_UTIL_API std::vector<DeviceConnectorDetails> LoadDeviceDetailsFromFile(
+    const boost::filesystem::path& filename);
 
-std::vector<DeviceConnectorDetails> LoadDeviceDetailsFromString(const std::string& yaml_str);
+ROBOTRACONTEUR_COMPANION_UTIL_API std::vector<DeviceConnectorDetails> LoadDeviceDetailsFromString(
+    const std::string& yaml_str);
 
-std::vector<DeviceConnectorDetails> LoadDeviceDetailsFromStream(std::istream& stream);
+ROBOTRACONTEUR_COMPANION_UTIL_API std::vector<DeviceConnectorDetails> LoadDeviceDetailsFromStream(std::istream& stream);
 
-std::vector<DeviceConnectorDetails> LoadDeviceDetailsFromYAMLNode(const YAML::Node& node);
+ROBOTRACONTEUR_COMPANION_UTIL_API std::vector<DeviceConnectorDetails> LoadDeviceDetailsFromYAMLNode(
+    const YAML::Node& node);
 
 } // namespace Util
 } // namespace Companion
