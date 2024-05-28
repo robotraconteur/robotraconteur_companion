@@ -10,7 +10,30 @@ on:
 
 jobs:
   build-ubuntu:
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.config.runs_on }}
+    container: ${{ matrix.config.container }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - os: ubuntu-18.04
+          runs_on: ubuntu-latest
+          container: ubuntu:bionic
+        - os: ubuntu-20.04
+          runs_on: ubuntu-20.04
+          container: ""
+        - os: ubuntu-22.04
+          runs_on: ubuntu-22.04
+          container: ""
+        - os: ubuntu-16.04
+          runs_on: ubuntu-latest
+          container: ubuntu:xenial
+        - os: debian-10
+          runs_on: ubuntu-latest
+          container: debian:buster-slim
+        - os: debian-11
+          runs_on: ubuntu-latest
+          container: debian:bullseye-slim
     env:
       DEBIAN_FRONTEND: noninteractive
     steps:
@@ -22,6 +45,13 @@ jobs:
       with:
         path: rr-src
         repository: robotraconteur/robotraconteur
+    - name: install sudo and tzdata
+      if: ${{ matrix.config.container != '' }}
+      run: |
+        apt update
+        apt install sudo tzdata python3 -y
+        ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime
+        dpkg-reconfigure --frontend noninteractive tzdata
     - name: apt update
       run: sudo apt update
     - name: apt
