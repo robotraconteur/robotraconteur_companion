@@ -45,7 +45,6 @@ jobs:
         ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime
         dpkg-reconfigure --frontend noninteractive tzdata
     - uses: actions/checkout@v3
-      if: ${{ matrix.config.container == '' }}
       with:
         path: src
         submodules: recursive
