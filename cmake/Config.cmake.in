@@ -9,4 +9,4 @@ set(RobotRaconteur_STANDARD_ROBDEF_FILES @RR_INSTALLED_ROBDEF@)
 set(RobotRaconteur_STANDARD_ROBDEF_DIRS @RR_INSTALLED_ROBDEF_DIRS@)
 
 find_package(yaml-cpp REQUIRED)
-find_package(Eigen3 3.2 REQUIRED NO_MODULE)
+find_package(Eigen3 3.3 REQUIRED NO_MODULE)
