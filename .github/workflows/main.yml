@@ -72,20 +72,19 @@ jobs:
         git cmake g++ make libboost-all-dev curl libgtest-dev doxygen libyaml-cpp-dev libeigen3-dev
         ninja-build libopencv-dev -qq
     - name: cmake rr
-      run: >
-        cmake -G Ninja -S rr-src -B rr-build
-        -DCMAKE_BUILD_TYPE=Release
-        -DBUILD_GEN=ON -DBUILD_TESTING=OFF
+      run: |
+        mkdir rr-build
+        cd rr-build
+        cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_GEN=ON -DBUILD_TESTING=OFF ../rr-src
     - name: cmake rr build
       run: |
         cmake --build rr-build --config Release
         sudo cmake --build rr-build --target install --config Release
     - name: cmake
-      run: >
-        cmake -G Ninja -S src -B build
-        -DCMAKE_BUILD_TYPE=Release
-        -DBUILD_DOCUMENATION=ON
-        -DBULID_TESTING=ON
+      run: |
+        mkdir build
+        cd build
+        cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_DOCUMENATION=ON -DBULID_TESTING=ON ../src
     - name: cmake build
       run: cmake --build build --config Release
     - name: cmake build docs
