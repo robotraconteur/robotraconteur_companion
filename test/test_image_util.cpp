@@ -128,6 +128,7 @@ TEST(ImageUtil, TestImageUtil_Mono32)
     run_image_test(img, com::robotraconteur::image::ImageEncoding::depth_u32);
 }
 
+#if CV_VERSION_MAJOR >= 4
 TEST(ImageUtil, TestImageUtil_MonoF16)
 {
     // Populate random image
@@ -136,6 +137,7 @@ TEST(ImageUtil, TestImageUtil_MonoF16)
 
     run_image_test(img, com::robotraconteur::image::ImageEncoding::mono_f16);
 }
+#endif
 
 TEST(ImageUtil, TestImageUtil_MonoF32)
 {
