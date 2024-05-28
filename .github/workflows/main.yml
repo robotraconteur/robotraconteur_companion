@@ -25,9 +25,9 @@ jobs:
         - os: ubuntu-22.04
           runs_on: ubuntu-22.04
           container: ""
-        # - os: ubuntu-16.04
-        #   runs_on: ubuntu-latest
-        #   container: ubuntu:xenial
+        - os: ubuntu-16.04
+          runs_on: ubuntu-latest
+          container: ubuntu:xenial
         - os: debian-10
           runs_on: ubuntu-latest
           container: debian:buster-slim
@@ -89,6 +89,10 @@ jobs:
       run: |
         cmake --build rr-build --config Release
         sudo cmake --build rr-build --target install --config Release
+    - name: xenial eigen3 workaround
+      if: ${{ matrix.config.os == 'ubuntu-16.04' }}
+      working-directory: src
+      run: find ./ -type f -regex ".*\.\(txt\|cmake\.in\)" -exec sed -i -e 's/Eigen3 3.3/Eigen3/g' {} \;
     - name: cmake
       run: |
         mkdir build
