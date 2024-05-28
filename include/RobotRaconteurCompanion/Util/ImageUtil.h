@@ -23,7 +23,9 @@
 
 #include "com__robotraconteur__image.h"
 
-#if CV_VERSION_MAJOR >= 4
+#include <opencv2/core/version.hpp>
+
+#if !defined(CV_VERSION_EPOCH) && CV_VERSION_MAJOR >= 4
 #include <opencv2/core/mat.hpp>
 #include <opencv2/imgproc.hpp>
 #else
@@ -151,7 +153,7 @@ static cv::Mat ImageToMat(const com::robotraconteur::image::ImagePtr& image)
         mat_type = CV_32SC1;
         break;
     }
-#if CV_VERSION_MAJOR >= 4
+#if !defined(CV_VERSION_EPOCH) && CV_VERSION_MAJOR >= 4
     case com::robotraconteur::image::ImageEncoding::mono_f16: {
         if (step <= 0)
         {
@@ -292,7 +294,7 @@ static com::robotraconteur::image::ImagePtr MatToImage(
         mat_type = CV_32SC1;
         break;
     }
-#if CV_VERSION_MAJOR >= 4
+#if !defined(CV_VERSION_EPOCH) && CV_VERSION_MAJOR >= 4
     case com::robotraconteur::image::ImageEncoding::mono_f16: {
         mat_type = CV_16FC1;
         break;
