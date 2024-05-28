@@ -10,14 +10,54 @@ on:
 
 jobs:
   build-ubuntu:
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.config.runs_on }}
+    container: ${{ matrix.config.container }}
+    strategy:
+      fail-fast: false
+      matrix:
+        config:
+        - os: ubuntu-18.04
+          runs_on: ubuntu-latest
+          container: ubuntu:bionic
+        - os: ubuntu-20.04
+          runs_on: ubuntu-20.04
+          container: ""
+        - os: ubuntu-22.04
+          runs_on: ubuntu-22.04
+          container: ""
+        - os: ubuntu-16.04
+          runs_on: ubuntu-latest
+          container: ubuntu:xenial
+        - os: debian-10
+          runs_on: ubuntu-latest
+          container: debian:buster-slim
+        - os: debian-11
+          runs_on: ubuntu-latest
+          container: debian:bullseye-slim
     env:
       DEBIAN_FRONTEND: noninteractive
     steps:
+    - name: install sudo and tzdata
+      if: ${{ matrix.config.container != '' }}
+      run: |
+        apt update
+        apt install sudo tzdata python3 git -y
+        ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime
+        dpkg-reconfigure --frontend noninteractive tzdata
     - uses: actions/checkout@v3
+      if: ${{ matrix.config.container == '' }}
       with:
         path: src
         submodules: recursive
+    - uses: actions/checkout@v3
+      if: ${{ matrix.config.container != '' }}
+      with:
+        path: src
+    - uses: actions/checkout@v3
+      if: ${{ matrix.config.container != '' }}
+      with:
+        path: src/robdef
+        repository: robotraconteur/robotraconteur_standard_robdef
     - uses: actions/checkout@v3
       with:
         path: rr-src
@@ -31,21 +71,41 @@ jobs:
         libusb-1.0-0-dev libdbus-1-3 libdbus-1-dev libbluetooth3 libbluetooth-dev zlib1g zlib1g-dev
         git cmake g++ make libboost-all-dev curl libgtest-dev doxygen libyaml-cpp-dev libeigen3-dev
         ninja-build libopencv-dev -qq
+    - name: install gtest
+      if: ${{ matrix.config.os == 'ubuntu-16.04' || matrix.config.os == 'ubuntu-18.04' }}
+      run: |
+        git clone https://github.com/google/googletest
+        cd googletest
+        git checkout release-1.8.1
+        cmake -DCMAKE_CXX_FLAGS="-fPIC" .
+        cmake --build .
+        sudo cmake --build . --target install
     - name: cmake rr
-      run: >
-        cmake -G Ninja -S rr-src -B rr-build
-        -DCMAKE_BUILD_TYPE=Release
-        -DBUILD_GEN=ON -DBUILD_TESTING=OFF
+      run: |
+        mkdir rr-build
+        cd rr-build
+        cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_GEN=ON -DBUILD_TESTING=OFF ../rr-src
     - name: cmake rr build
       run: |
         cmake --build rr-build --config Release
-        sudo cmake --install rr-build --config Release
+        sudo cmake --build rr-build --target install --config Release
+    - name: xenial eigen3 workaround
+      if: ${{ matrix.config.os == 'ubuntu-16.04' }}
+      working-directory: src
+      run: |
+        sudo apt-get remove libeigen3-dev -y
+        git clone https://gitlab.com/libeigen/eigen
+        cd eigen
+        git checkout 3.3.7
+        mkdir build
+        cd build
+        cmake ..
+        sudo make install
     - name: cmake
-      run: >
-        cmake -G Ninja -S src -B build
-        -DCMAKE_BUILD_TYPE=Release
-        -DBUILD_DOCUMENATION=ON
-        -DBULID_TESTING=ON
+      run: |
+        mkdir build
+        cd build
+        cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_DOCUMENATION=ON -DBULID_TESTING=ON ../src
     - name: cmake build
       run: cmake --build build --config Release
     - name: cmake build docs
@@ -60,6 +120,14 @@ jobs:
       with:
         name: 'docs'
         path: build/docs/html/*
+    - name: archive source archive
+      if: ${{ matrix.config.os == 'ubuntu-20.04' }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: 'source'
+        path: |
+          build/*.tar.gz
+          build/*.zip
 
   build-windows:
     runs-on: windows-2019

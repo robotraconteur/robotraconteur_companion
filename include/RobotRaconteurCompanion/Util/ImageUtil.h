@@ -23,8 +23,14 @@
 
 #include "com__robotraconteur__image.h"
 
+#include <opencv2/core/version.hpp>
+
+#if !defined(CV_VERSION_EPOCH) && CV_VERSION_MAJOR >= 4
 #include <opencv2/core/mat.hpp>
 #include <opencv2/imgproc.hpp>
+#else
+#include <opencv2/opencv.hpp>
+#endif
 
 #pragma once
 
@@ -147,6 +153,7 @@ static cv::Mat ImageToMat(const com::robotraconteur::image::ImagePtr& image)
         mat_type = CV_32SC1;
         break;
     }
+#if !defined(CV_VERSION_EPOCH) && CV_VERSION_MAJOR >= 4
     case com::robotraconteur::image::ImageEncoding::mono_f16: {
         if (step <= 0)
         {
@@ -155,6 +162,7 @@ static cv::Mat ImageToMat(const com::robotraconteur::image::ImagePtr& image)
         mat_type = CV_16FC1;
         break;
     }
+#endif
     case com::robotraconteur::image::ImageEncoding::depth_f32:
     case com::robotraconteur::image::ImageEncoding::mono_f32: {
         if (step <= 0)
@@ -286,10 +294,12 @@ static com::robotraconteur::image::ImagePtr MatToImage(
         mat_type = CV_32SC1;
         break;
     }
+#if !defined(CV_VERSION_EPOCH) && CV_VERSION_MAJOR >= 4
     case com::robotraconteur::image::ImageEncoding::mono_f16: {
         mat_type = CV_16FC1;
         break;
     }
+#endif
     case com::robotraconteur::image::ImageEncoding::mono_f32:
     case com::robotraconteur::image::ImageEncoding::depth_f32: {
         mat_type = CV_32FC1;
