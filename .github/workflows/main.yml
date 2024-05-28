@@ -99,6 +99,14 @@ jobs:
       with:
         name: 'docs'
         path: build/docs/html/*
+    - name: archive source archive
+      if: ${{ matrix.config.os == 'ubuntu-20.04' }}
+      uses: actions/upload-artifact@v2
+      with:
+        name: 'source'
+        path: |
+          build/*.tar.gz
+          build/*.zip
 
   build-windows:
     runs-on: windows-2019
