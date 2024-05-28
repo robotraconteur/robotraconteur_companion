@@ -151,6 +151,7 @@ jobs:
         token: ${{ github.token }}
         extra-args: --overlay-ports=${{ github.workspace }}/vcpkg-robotraconteur/ports
         github-binarycache: true
+        revision: 2024.04.26
     - uses: ilammy/msvc-dev-cmd@v1
       with:
         arch: x64
