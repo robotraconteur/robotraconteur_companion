@@ -45,10 +45,20 @@ jobs:
         ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime
         dpkg-reconfigure --frontend noninteractive tzdata
     - uses: actions/checkout@v3
+      if: ${{ matrix.config.container == '' }}
       with:
         path: src
+        submodules: recursive
+    - uses: actions/checkout@v3
+      if: ${{ matrix.config.container != '' }}
+      with:
+        path: src
+    - uses: actions/checkout@v3
+      if: ${{ matrix.config.container != '' }}
+      with:
+        path: src/robdef
+        repository: robotraconteur/robotraconteur_standard_robdef
     - run: git submodule update --init --recursive
-      working-directory: src
     - uses: actions/checkout@v3
       with:
         path: rr-src
@@ -70,7 +80,7 @@ jobs:
     - name: cmake rr build
       run: |
         cmake --build rr-build --config Release
-        sudo cmake --install rr-build --config Release
+        sudo cmake --build rr-build --target install --config Release
     - name: cmake
       run: >
         cmake -G Ninja -S src -B build
