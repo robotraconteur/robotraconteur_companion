@@ -89,15 +89,11 @@ jobs:
       run: |
         cmake --build rr-build --config Release
         sudo cmake --build rr-build --target install --config Release
-    - name: xenial eigen3 workaround
+    - name: Install Eigen3 on xenial
       if: ${{ matrix.config.os == 'ubuntu-16.04' }}
-      working-directory: src
-      run: |
-        sudo apt-get remove libeigen3-dev -y
-        git clone https://gitlab.com/libeigen/eigen
-        cd eigen
-        git checkout 3.3.7
-        sudo cp -r Eigen /usr/include
+      uses: kupns-aka-kupa/setup-eigen3@v1
+      with:
+        version: 3.3.0
     - name: cmake
       run: |
         mkdir build
