@@ -176,10 +176,10 @@ struct DeviceConnectorDetailsFile
 {
     std::map<std::string, DeviceConnectorDetails> devices;
 
-    std::vector<DeviceConnectorDetails> GetDevices()
+    std::vector<DeviceConnectorDetails> GetDevices() const
     {
         std::vector<DeviceConnectorDetails> o;
-        for (auto& e : devices)
+        for (const auto& e : devices)
         {
             o.push_back(e.second);
         }
