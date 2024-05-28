@@ -23,11 +23,11 @@
 
 #include "com__robotraconteur__image.h"
 
-#include <opencv2/core/mat.hpp>
 #if CV_VERSION_MAJOR >= 4
+#include <opencv2/core/mat.hpp>
 #include <opencv2/imgproc.hpp>
 #else
-#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv2/opencv.hpp>
 #endif
 
 #pragma once
