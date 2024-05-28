@@ -37,30 +37,22 @@ jobs:
     env:
       DEBIAN_FRONTEND: noninteractive
     steps:
+    - name: install sudo and tzdata
+      if: ${{ matrix.config.container != '' }}
+      run: |
+        apt update
+        apt install sudo tzdata python3 git -y
+        ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime
+        dpkg-reconfigure --frontend noninteractive tzdata
     - uses: actions/checkout@v3
       if: ${{ matrix.config.container == '' }}
       with:
         path: src
         submodules: recursive
     - uses: actions/checkout@v3
-      if: ${{ matrix.config.container != '' }}
-      with:
-        path: src
-    - run: |
-        git submodule update --init --recursive
-      if: ${{ matrix.config.container != '' }}
-      working-directory: src
-    - uses: actions/checkout@v3
       with:
         path: rr-src
         repository: robotraconteur/robotraconteur
-    - name: install sudo and tzdata
-      if: ${{ matrix.config.container != '' }}
-      run: |
-        apt update
-        apt install sudo tzdata python3 -y
-        ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime
-        dpkg-reconfigure --frontend noninteractive tzdata
     - name: apt update
       run: sudo apt update
     - name: apt
