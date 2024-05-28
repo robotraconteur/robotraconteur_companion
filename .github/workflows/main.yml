@@ -38,9 +38,18 @@ jobs:
       DEBIAN_FRONTEND: noninteractive
     steps:
     - uses: actions/checkout@v3
+      if: ${{ matrix.config.container == '' }}
       with:
         path: src
         submodules: recursive
+    - uses: actions/checkout@v3
+      if: ${{ matrix.config.container != '' }}
+      with:
+        path: src
+    - run: |
+        git submodule update --init --recursive
+      if: ${{ matrix.config.container != '' }}
+      working-directory: src
     - uses: actions/checkout@v3
       with:
         path: rr-src
