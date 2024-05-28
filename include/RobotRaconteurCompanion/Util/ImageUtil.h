@@ -147,6 +147,7 @@ static cv::Mat ImageToMat(const com::robotraconteur::image::ImagePtr& image)
         mat_type = CV_32SC1;
         break;
     }
+#if CV_VERSION_MAJOR >= 4
     case com::robotraconteur::image::ImageEncoding::mono_f16: {
         if (step <= 0)
         {
@@ -155,6 +156,7 @@ static cv::Mat ImageToMat(const com::robotraconteur::image::ImagePtr& image)
         mat_type = CV_16FC1;
         break;
     }
+#endif
     case com::robotraconteur::image::ImageEncoding::depth_f32:
     case com::robotraconteur::image::ImageEncoding::mono_f32: {
         if (step <= 0)
@@ -286,10 +288,12 @@ static com::robotraconteur::image::ImagePtr MatToImage(
         mat_type = CV_32SC1;
         break;
     }
+#if CV_VERSION_MAJOR >= 4
     case com::robotraconteur::image::ImageEncoding::mono_f16: {
         mat_type = CV_16FC1;
         break;
     }
+#endif
     case com::robotraconteur::image::ImageEncoding::mono_f32:
     case com::robotraconteur::image::ImageEncoding::depth_f32: {
         mat_type = CV_32FC1;
