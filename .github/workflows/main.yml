@@ -58,7 +58,6 @@ jobs:
       with:
         path: src/robdef
         repository: robotraconteur/robotraconteur_standard_robdef
-    - run: git submodule update --init --recursive
     - uses: actions/checkout@v3
       with:
         path: rr-src
