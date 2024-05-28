@@ -110,6 +110,8 @@ jobs:
       run: cmake --build build --config Release
     - name: cmake build docs
       run: cmake --build build --config Release --target RobotRaconteurCompanion_doc
+    - name: cmake package source
+      run: cmake --build build --config Release --target package_source
     - name: run ctest
       working-directory: build
       run: |
