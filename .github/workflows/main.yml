@@ -16,18 +16,15 @@ jobs:
       fail-fast: false
       matrix:
         config:
-        - os: ubuntu-18.04
-          runs_on: ubuntu-latest
-          container: ubuntu:bionic
         - os: ubuntu-20.04
           runs_on: ubuntu-20.04
           container: ""
         - os: ubuntu-22.04
           runs_on: ubuntu-22.04
           container: ""
-        - os: ubuntu-16.04
-          runs_on: ubuntu-latest
-          container: ubuntu:xenial
+        - os: ubuntu-24.04
+          runs_on: ubuntu-24.04
+          container: ""
         - os: debian-10
           runs_on: ubuntu-latest
           container: debian:buster-slim
