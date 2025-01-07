@@ -118,6 +118,7 @@ jobs:
         export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GITHUB_WORKSPACE/build
         ctest . -C Release --output-on-failure
     - name: archive docs
+      if: ${{ matrix.config.os == 'ubuntu-20.04' }}
       uses: actions/upload-artifact@v4
       with:
         name: 'docs'
