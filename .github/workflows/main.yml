@@ -44,21 +44,21 @@ jobs:
         apt install sudo tzdata python3 git -y
         ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime
         dpkg-reconfigure --frontend noninteractive tzdata
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       if: ${{ matrix.config.container == '' }}
       with:
         path: src
         submodules: recursive
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       if: ${{ matrix.config.container != '' }}
       with:
         path: src
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       if: ${{ matrix.config.container != '' }}
       with:
         path: src/robdef
         repository: robotraconteur/robotraconteur_standard_robdef
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         path: rr-src
         repository: robotraconteur/robotraconteur
@@ -144,11 +144,11 @@ jobs:
   build-windows:
     runs-on: windows-2019
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         path: src
         submodules: recursive
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         path: vcpkg-robotraconteur
         repository: robotraconteur/vcpkg-robotraconteur
@@ -182,11 +182,11 @@ jobs:
   clang-tidy:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         path: src
         submodules: recursive
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         path: rr-src
         repository: robotraconteur/robotraconteur
@@ -225,11 +225,11 @@ jobs:
   cppcheck:
     runs-on: ubuntu-20.04
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         path: src
         submodules: recursive
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         path: rr-src
         repository: robotraconteur/robotraconteur
@@ -265,7 +265,7 @@ jobs:
     env:
       SKIP: no-commit-to-branch
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: actions/setup-python@v3
       with:
         python-version: '3.10'
