@@ -129,14 +129,13 @@ jobs:
         path: vcpkg-robotraconteur
         repository: robotraconteur/vcpkg-robotraconteur
     - name: vcpkg build
-      uses: johnwason/vcpkg-action@v6
+      uses: johnwason/vcpkg-action@v7
       id: vcpkg
       with:
         pkgs: robotraconteur yaml-cpp eigen3 gtest opencv
         triplet: x64-windows-release
         token: ${{ github.token }}
         extra-args: --overlay-ports=${{ github.workspace }}/vcpkg-robotraconteur/ports
-        github-binarycache: true
     - uses: ilammy/msvc-dev-cmd@v1
       with:
         arch: x64
