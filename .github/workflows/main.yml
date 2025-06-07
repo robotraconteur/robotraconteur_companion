@@ -17,8 +17,8 @@ jobs:
       matrix:
         config:
         - os: ubuntu-20.04
-          runs_on: ubuntu-20.04
-          container: ""
+          runs_on: ubuntu-22.04
+          container: "ubuntu:focal"
         - os: ubuntu-22.04
           runs_on: ubuntu-22.04
           container: ""
@@ -68,15 +68,6 @@ jobs:
         libusb-1.0-0-dev libdbus-1-3 libdbus-1-dev libbluetooth3 libbluetooth-dev zlib1g zlib1g-dev
         git cmake g++ make libboost-all-dev curl libgtest-dev doxygen libyaml-cpp-dev libeigen3-dev
         ninja-build libopencv-dev -qq
-    - name: install gtest
-      if: ${{ matrix.config.os == 'ubuntu-16.04' || matrix.config.os == 'ubuntu-18.04' }}
-      run: |
-        git clone https://github.com/google/googletest
-        cd googletest
-        git checkout release-1.8.1
-        cmake -DCMAKE_CXX_FLAGS="-fPIC" .
-        cmake --build .
-        sudo cmake --build . --target install
     - name: cmake rr
       run: |
         mkdir rr-build
@@ -86,18 +77,6 @@ jobs:
       run: |
         cmake --build rr-build --config Release
         sudo cmake --build rr-build --target install --config Release
-    - name: xenial eigen3 workaround
-      if: ${{ matrix.config.os == 'ubuntu-16.04' }}
-      working-directory: src
-      run: |
-        sudo apt-get remove libeigen3-dev -y
-        git clone https://gitlab.com/libeigen/eigen
-        cd eigen
-        git checkout 3.3.7
-        mkdir build
-        cd build
-        cmake ..
-        sudo make install
     - name: cmake
       run: |
         mkdir build
@@ -115,13 +94,13 @@ jobs:
         export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GITHUB_WORKSPACE/build
         ctest . -C Release --output-on-failure
     - name: archive docs
-      if: ${{ matrix.config.os == 'ubuntu-20.04' }}
+      if: ${{ matrix.config.os == 'ubuntu-22.04' }}
       uses: actions/upload-artifact@v4
       with:
         name: 'docs'
         path: build/docs/html/*
     - name: archive source archive
-      if: ${{ matrix.config.os == 'ubuntu-20.04' }}
+      if: ${{ matrix.config.os == 'ubuntu-22.04' }}
       uses: actions/upload-artifact@v4
       with:
         name: 'source'
@@ -139,7 +118,7 @@ jobs:
           build/*.zip
 
   build-windows:
-    runs-on: windows-2019
+    runs-on: windows-2022
     steps:
     - uses: actions/checkout@v4
       with:
@@ -150,15 +129,13 @@ jobs:
         path: vcpkg-robotraconteur
         repository: robotraconteur/vcpkg-robotraconteur
     - name: vcpkg build
-      uses: johnwason/vcpkg-action@v6
+      uses: johnwason/vcpkg-action@v7
       id: vcpkg
       with:
         pkgs: robotraconteur yaml-cpp eigen3 gtest opencv
         triplet: x64-windows-release
         token: ${{ github.token }}
         extra-args: --overlay-ports=${{ github.workspace }}/vcpkg-robotraconteur/ports
-        github-binarycache: true
-        revision: 2024.04.26
     - uses: ilammy/msvc-dev-cmd@v1
       with:
         arch: x64
@@ -177,7 +154,7 @@ jobs:
         set PATH=%PATH%;%GITHUB_WORKSPACE%\build
         ctest . -C Release --output-on-failure
   clang-tidy:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
       with:
@@ -220,7 +197,7 @@ jobs:
     - name: build
       run: cmake --build build --config Debug -- -j 4
   cppcheck:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
     - uses: actions/checkout@v4
       with:
