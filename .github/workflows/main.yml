@@ -294,6 +294,7 @@ jobs:
     - uses: actions/checkout@v4
       with:
         path: src/robotraconteur_companion
+        submodules: recursive
     - uses: actions/checkout@v4
       with:
         path: src/robotraconteur
@@ -333,6 +334,7 @@ jobs:
     - uses: actions/checkout@v4
       with:
         path: src/robotraconteur_companion
+        submodules: recursive
     - uses: actions/checkout@v4
       with:
         path: src/robotraconteur
