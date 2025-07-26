@@ -131,6 +131,22 @@ if(WIN32)
     endif()
 endif()
 
+option(ROBOTRACONTEUR_COMPANION_SOVERSION_MAJOR_ONLY "Only include major version in SOVERSION" OFF)
+
+if(ROBOTRACONTEUR_COMPANION_SOVERSION_MAJOR_ONLY)
+    if(PROJECT_VERSION_MAJOR VERSION_EQUAL 0)
+        # If major version is 0, we use the major and minor version as the SOVERSION
+        set(_ROBOTRACONTEUR_COMPANION_SOVERSION "0.${PROJECT_VERSION_MINOR}")
+    else()
+        set(_ROBOTRACONTEUR_COMPANION_SOVERSION "${PROJECT_VERSION_MAJOR}")
+    endif()
+else()
+    set(_ROBOTRACONTEUR_COMPANION_SOVERSION
+        "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
+endif()
+set_target_properties(RobotRaconteurCompanion PROPERTIES VERSION ${PROJECT_VERSION}
+                                                         SOVERSION ${_ROBOTRACONTEUR_COMPANION_SOVERSION})
+
 export(TARGETS RobotRaconteurCompanion FILE ${CMAKE_BINARY_DIR}/RobotRaconteurCompanionTargets.cmake)
 
 include(GNUInstallDirs)
