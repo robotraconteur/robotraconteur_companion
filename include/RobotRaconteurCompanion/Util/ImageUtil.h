@@ -384,7 +384,7 @@ static cv::Mat CompressedImageToMat(const com::robotraconteur::image::Compressed
     }
 
     // Create mat from the encoded data
-    cv::Mat encoded_buffer(1, image->data->size(), CV_8UC1, (void*)image->data->data());
+    cv::Mat encoded_buffer(1, boost::numeric_cast<int>(image->data->size()), CV_8UC1, (void*)image->data->data());
     cv::Mat mat = cv::imdecode(encoded_buffer, cv::IMREAD_UNCHANGED);
     if (mat.empty())
     {
