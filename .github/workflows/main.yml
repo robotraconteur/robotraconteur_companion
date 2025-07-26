@@ -293,11 +293,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        path: src/robotraconteur_companion
+        path: ws/src/robotraconteur_companion
         submodules: recursive
     - uses: actions/checkout@v4
       with:
-        path: src/robotraconteur
+        path: upstream_ws/src/robotraconteur
         repository: robotraconteur/robotraconteur
     - name: apt update
       run: sudo apt update
@@ -309,16 +309,18 @@ jobs:
         git cmake g++ make libboost-all-dev autoconf
         automake libtool bison libpcre3-dev curl libgtest-dev -qq
     - run: ./tools/build_files/generated_src/populate_generated_src.bash
-      working-directory: src/robotraconteur
+      working-directory: upstream_ws/src/robotraconteur
     - run: cp tools/build_files/ros/cmake_config_options.cmake .
-      working-directory: src/robotraconteur
+      working-directory: upstream_ws/src/robotraconteur
     - run: cp tools/build_files/ros/cmake_config_options.cmake .
-      working-directory: src/robotraconteur_companion
+      working-directory: ws/src/robotraconteur_companion
     - name: ros industrial-ci
       uses: ros-industrial/industrial_ci@master
       env:
         ROS_DISTRO: ${{ matrix.ROS_DISTRO }}
         ROS_REPO: main
+        TARGET_WORKSPACE: ws
+        UPSTREAM_WORKSPACE: upstream_ws
 
   build-ros-prerelease:
     runs-on: ubuntu-latest
@@ -333,11 +335,11 @@ jobs:
     steps:
     - uses: actions/checkout@v4
       with:
-        path: src/robotraconteur_companion
+        path: ws/src/robotraconteur_companion
         submodules: recursive
     - uses: actions/checkout@v4
       with:
-        path: src/robotraconteur
+        path: upstream_ws/src/robotraconteur
         repository: robotraconteur/robotraconteur
     - name: apt update
       run: sudo apt update
@@ -349,11 +351,11 @@ jobs:
         git cmake g++ make libboost-all-dev autoconf
         automake libtool bison libpcre3-dev curl libgtest-dev -qq
     - run: ./tools/build_files/generated_src/populate_generated_src.bash
-      working-directory: src/robotraconteur
+      working-directory: upstream_ws/src/robotraconteur
     - run: cp tools/build_files/ros/cmake_config_options.cmake .
-      working-directory: src/robotraconteur
+      working-directory: upstream_ws/src/robotraconteur
     - run: cp tools/build_files/ros/cmake_config_options.cmake .
-      working-directory: src/robotraconteur_companion
+      working-directory: ws/src/robotraconteur_companion
     - name: ros industrial-ci
       uses: ros-industrial/industrial_ci@master
       env:
@@ -361,3 +363,5 @@ jobs:
         ROS_REPO: main
         PRERELEASE: true
         ROSDEP_SKIP_KEYS: python3-setuptools
+        TARGET_WORKSPACE: ws
+        UPSTREAM_WORKSPACE: upstream_ws
