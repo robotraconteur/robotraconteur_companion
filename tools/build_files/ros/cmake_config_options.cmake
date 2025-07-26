@@ -1,0 +1,6 @@
+# Config options for ROS 1 and 2
+
+set(ROBOTRACONTEUR_ROS ON CACHE BOOL "Enable ROS support")
+set(CMAKE_DISABLE_PRECOMPILE_HEADERS ON)
+set(ROBOTRACONTEUR_COMPANION_SOVERSION_MAJOR_ONLY ON CACHE BOOL "Only include major version in SOVERSION")
+set(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries")

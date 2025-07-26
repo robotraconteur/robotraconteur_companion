@@ -7,6 +7,10 @@ project(RobotRaconteurCompanion VERSION 0.4.2 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 
+if(EXISTS ${CMAKE_CURRENT_LIST_DIR}/cmake_config_options.cmake)
+    include(${CMAKE_CURRENT_LIST_DIR}/cmake_config_options.cmake)
+endif()
+
 find_package(RobotRaconteur 0.17.0 REQUIRED)
 find_package(yaml-cpp REQUIRED)
 find_package(Eigen3 3.3 REQUIRED NO_MODULE)
