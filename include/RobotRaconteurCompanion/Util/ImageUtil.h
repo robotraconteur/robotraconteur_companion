@@ -25,7 +25,7 @@
 
 #include <opencv2/core/version.hpp>
 
-#if !defined(CV_VERSION_EPOCH) && CV_VERSION_MAJOR >= 4
+#if !defined(CV_VERSION_EPOCH) && CV_VERSION_MAJOR >= 3
 #include <opencv2/core/mat.hpp>
 #include <opencv2/imgproc.hpp>
 #include <opencv2/imgcodecs.hpp>
@@ -339,6 +339,8 @@ static com::robotraconteur::image::ImagePtr MatToImage(
     return image;
 }
 
+#if !defined(CV_VERSION_EPOCH) && CV_VERSION_MAJOR >= 3
+
 static com::robotraconteur::image::CompressedImagePtr MatToCompressedImage(
     const std::string& ext, const cv::Mat& mat, const std::vector<int>& params = std::vector<int>())
 {
@@ -406,6 +408,7 @@ static cv::Mat CompressedImageToMat(const com::robotraconteur::image::Compressed
 
     return mat.clone();
 }
+#endif
 } // namespace Util
 } // namespace Companion
 } // namespace RobotRaconteur

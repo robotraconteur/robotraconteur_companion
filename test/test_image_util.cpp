@@ -74,22 +74,6 @@ void run_image_test(const cv::Mat& img, com::robotraconteur::image::ImageEncodin
     compare_mat(img, img2);
 }
 
-void run_image_test_compressed(const cv::Mat& img, const std::string& ext, bool compare_data = true,
-                               const std::vector<int>& params = std::vector<int>())
-{
-    // Convert to CompressedImagePtr
-    auto img_ptr = RRC_Util::MatToCompressedImage(ext, img, params);
-
-    // Check image_info
-    compare_image_info_no_step(img_ptr->image_info, img, com::robotraconteur::image::ImageEncoding::compressed);
-
-    // Convert back
-    auto img2 = RRC_Util::CompressedImageToMat(img_ptr);
-
-    // Compare images
-    compare_mat(img, img2, compare_data);
-}
-
 TEST(ImageUtil, TestImageUtil_BGR)
 {
     // Populate random image
@@ -186,6 +170,24 @@ TEST(ImageUtil, TestImageUtil_MonoF64)
     run_image_test(img, com::robotraconteur::image::ImageEncoding::depth_f64);
 }
 
+#if !defined(CV_VERSION_EPOCH) && CV_VERSION_MAJOR >= 3
+
+void run_image_test_compressed(const cv::Mat& img, const std::string& ext, bool compare_data = true,
+                               const std::vector<int>& params = std::vector<int>())
+{
+    // Convert to CompressedImagePtr
+    auto img_ptr = RRC_Util::MatToCompressedImage(ext, img, params);
+
+    // Check image_info
+    compare_image_info_no_step(img_ptr->image_info, img, com::robotraconteur::image::ImageEncoding::compressed);
+
+    // Convert back
+    auto img2 = RRC_Util::CompressedImageToMat(img_ptr);
+
+    // Compare images
+    compare_mat(img, img2, compare_data);
+}
+
 TEST(ImageUtil, TestImageUtilCompressed_JPEG)
 {
     // Populate random image
@@ -212,6 +214,7 @@ TEST(ImageUtil, TestImageUtilCompressed_JPEG_75percent)
 
     run_image_test_compressed(img, "*.jpg", false, {cv::IMWRITE_JPEG_QUALITY, 75});
 }
+#endif
 
 int main(int argc, char** argv) // NOLINT
 {
