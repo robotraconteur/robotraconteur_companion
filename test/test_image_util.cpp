@@ -26,7 +26,7 @@ void compare_image_info(const com::robotraconteur::image::ImageInfoPtr& info1, c
 }
 
 void compare_image_info_no_step(const com::robotraconteur::image::ImageInfoPtr& info1, const cv::Mat& mat2,
-                        com::robotraconteur::image::ImageEncoding::ImageEncoding expected_encoding)
+                                com::robotraconteur::image::ImageEncoding::ImageEncoding expected_encoding)
 {
     ASSERT_EQ(info1->width, mat2.cols);
     ASSERT_EQ(info1->height, mat2.rows);
@@ -75,7 +75,7 @@ void run_image_test(const cv::Mat& img, com::robotraconteur::image::ImageEncodin
 }
 
 void run_image_test_compressed(const cv::Mat& img, const std::string& ext, bool compare_data = true,
-                            const std::vector<int>& params = std::vector<int>())
+                               const std::vector<int>& params = std::vector<int>())
 {
     // Convert to CompressedImagePtr
     auto img_ptr = RRC_Util::MatToCompressedImage(ext, img, params);

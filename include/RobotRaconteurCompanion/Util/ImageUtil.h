@@ -339,35 +339,32 @@ static com::robotraconteur::image::ImagePtr MatToImage(
     return image;
 }
 
-static com::robotraconteur::image::CompressedImagePtr
-MatToCompressedImage(const std::string &ext, const cv::Mat &mat,
-                         const std::vector<int> &params = std::vector<int>()) {
-  std::vector<uchar> encoded_buffer;
-  bool success = cv::imencode(ext, mat, encoded_buffer, params);
-  if (!success) {
-    throw InvalidArgumentException("Failed to encode image to compressed format");
-  }
+static com::robotraconteur::image::CompressedImagePtr MatToCompressedImage(
+    const std::string& ext, const cv::Mat& mat, const std::vector<int>& params = std::vector<int>())
+{
+    std::vector<uchar> encoded_buffer;
+    bool success = cv::imencode(ext, mat, encoded_buffer, params);
+    if (!success)
+    {
+        throw InvalidArgumentException("Failed to encode image to compressed format");
+    }
 
-  com::robotraconteur::image::CompressedImagePtr image(
-      new com::robotraconteur::image::CompressedImage());
-  com::robotraconteur::image::ImageInfoPtr image_info(
-      new com::robotraconteur::image::ImageInfo());
-  image->image_info = image_info;
+    com::robotraconteur::image::CompressedImagePtr image(new com::robotraconteur::image::CompressedImage());
+    com::robotraconteur::image::ImageInfoPtr image_info(new com::robotraconteur::image::ImageInfo());
+    image->image_info = image_info;
 
-  image_info->width = mat.cols;
-  image_info->height = mat.rows;
-  image_info->step = 0;
-  image_info->encoding = com::robotraconteur::image::ImageEncoding::compressed;
+    image_info->width = mat.cols;
+    image_info->height = mat.rows;
+    image_info->step = 0;
+    image_info->encoding = com::robotraconteur::image::ImageEncoding::compressed;
 
-  image->data = RobotRaconteur::AttachRRArrayCopy<uint8_t>((uint8_t *)&encoded_buffer[0],
-                                                  encoded_buffer.size());
+    image->data = RobotRaconteur::AttachRRArrayCopy<uint8_t>((uint8_t*)&encoded_buffer[0], encoded_buffer.size());
 
-  return image;
+    return image;
 }
 
 // CompressedImageToMat
-static cv::Mat CompressedImageToMat(
-    const com::robotraconteur::image::CompressedImagePtr &image)
+static cv::Mat CompressedImageToMat(const com::robotraconteur::image::CompressedImagePtr& image)
 {
     if (!image)
     {
@@ -384,10 +381,8 @@ static cv::Mat CompressedImageToMat(
         throw InvalidArgumentException("CompressedImage data is empty");
     }
 
-    
     // Create mat from the encoded data
-    cv::Mat encoded_buffer(
-        1, image->data->size(), CV_8UC1, (void *)image->data->data());
+    cv::Mat encoded_buffer(1, image->data->size(), CV_8UC1, (void*)image->data->data());
     cv::Mat mat = cv::imdecode(encoded_buffer, cv::IMREAD_UNCHANGED);
     if (mat.empty())
     {
@@ -410,7 +405,6 @@ static cv::Mat CompressedImageToMat(
     }
 
     return mat.clone();
-
 }
 } // namespace Util
 } // namespace Companion
