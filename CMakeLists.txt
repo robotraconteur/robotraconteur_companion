@@ -1,5 +1,9 @@
-cmake_minimum_required(VERSION 3.3)
-project(RobotRaconteurCompanion VERSION 0.4.1 LANGUAGES CXX)
+if((CMAKE_VERSION VERSION_GREATER 3.12 OR CMAKE_VERSION VERSION_EQUAL 3.12))
+    cmake_minimum_required(VERSION 3.12...3.31)
+else()
+    cmake_minimum_required(VERSION 3.5)
+endif()
+project(RobotRaconteurCompanion VERSION 0.4.2 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 

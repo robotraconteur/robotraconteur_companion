@@ -25,9 +25,6 @@ jobs:
         - os: ubuntu-24.04
           runs_on: ubuntu-24.04
           container: ""
-        - os: debian-10
-          runs_on: ubuntu-latest
-          container: debian:buster-slim
         - os: debian-11
           runs_on: ubuntu-latest
           container: debian:bullseye-slim
