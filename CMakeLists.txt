@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.3)
-project(RobotRaconteurCompanion VERSION 0.4.1 LANGUAGES CXX)
+project(RobotRaconteurCompanion VERSION 0.4.2 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 11)
 
