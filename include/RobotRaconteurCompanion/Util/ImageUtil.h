@@ -28,6 +28,7 @@
 #if !defined(CV_VERSION_EPOCH) && CV_VERSION_MAJOR >= 4
 #include <opencv2/core/mat.hpp>
 #include <opencv2/imgproc.hpp>
+#include <opencv2/imgcodecs.hpp>
 #else
 #include <opencv2/opencv.hpp>
 #endif
@@ -336,6 +337,80 @@ static com::robotraconteur::image::ImagePtr MatToImage(
     image->data = rr_data;
 
     return image;
+}
+
+static com::robotraconteur::image::CompressedImagePtr
+MatToCompressedImage(const std::string &ext, const cv::Mat &mat,
+                         const std::vector<int> &params = std::vector<int>()) {
+  std::vector<uchar> encoded_buffer;
+  bool success = cv::imencode(ext, mat, encoded_buffer, params);
+  if (!success) {
+    throw InvalidArgumentException("Failed to encode image to compressed format");
+  }
+
+  com::robotraconteur::image::CompressedImagePtr image(
+      new com::robotraconteur::image::CompressedImage());
+  com::robotraconteur::image::ImageInfoPtr image_info(
+      new com::robotraconteur::image::ImageInfo());
+  image->image_info = image_info;
+
+  image_info->width = mat.cols;
+  image_info->height = mat.rows;
+  image_info->step = 0;
+  image_info->encoding = com::robotraconteur::image::ImageEncoding::compressed;
+
+  image->data = RobotRaconteur::AttachRRArrayCopy<uint8_t>((uint8_t *)&encoded_buffer[0],
+                                                  encoded_buffer.size());
+
+  return image;
+}
+
+// CompressedImageToMat
+static cv::Mat CompressedImageToMat(
+    const com::robotraconteur::image::CompressedImagePtr &image)
+{
+    if (!image)
+    {
+        throw InvalidArgumentException("CompressedImage is null");
+    }
+
+    if (!image->image_info)
+    {
+        throw InvalidArgumentException("ImageInfo is null");
+    }
+
+    if (image->data->size() == 0)
+    {
+        throw InvalidArgumentException("CompressedImage data is empty");
+    }
+
+    
+    // Create mat from the encoded data
+    cv::Mat encoded_buffer(
+        1, image->data->size(), CV_8UC1, (void *)image->data->data());
+    cv::Mat mat = cv::imdecode(encoded_buffer, cv::IMREAD_UNCHANGED);
+    if (mat.empty())
+    {
+        throw InvalidArgumentException("Failed to decode CompressedImage data");
+    }
+
+    if (mat.cols != image->image_info->width || mat.rows != image->image_info->height)
+    {
+        throw InvalidArgumentException("Decoded image dimensions do not match ImageInfo");
+    }
+
+    if (mat.channels() <= 0)
+    {
+        throw InvalidArgumentException("Decoded image has invalid number of channels");
+    }
+
+    if (mat.step[0] <= 0)
+    {
+        throw InvalidArgumentException("Decoded image has invalid step");
+    }
+
+    return mat.clone();
+
 }
 } // namespace Util
 } // namespace Companion

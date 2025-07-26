@@ -4,13 +4,16 @@
 
 namespace RRC_Util = RobotRaconteur::Companion::Util;
 
-void compare_mat(const cv::Mat& img1, const cv::Mat& img2)
+void compare_mat(const cv::Mat& img1, const cv::Mat& img2, bool compare_data = true)
 {
     ASSERT_EQ(img1.cols, img2.cols);
     ASSERT_EQ(img1.rows, img2.rows);
     ASSERT_EQ(img1.step[0], img2.step[0]);
     ASSERT_EQ(img1.type(), img2.type());
-    ASSERT_EQ(memcmp(img1.data, img2.data, img1.total() * img1.elemSize()), 0);
+    if (compare_data)
+    {
+        ASSERT_EQ(memcmp(img1.data, img2.data, img1.total() * img1.elemSize()), 0);
+    }
 }
 
 void compare_image_info(const com::robotraconteur::image::ImageInfoPtr& info1, const cv::Mat& mat2,
@@ -19,6 +22,14 @@ void compare_image_info(const com::robotraconteur::image::ImageInfoPtr& info1, c
     ASSERT_EQ(info1->width, mat2.cols);
     ASSERT_EQ(info1->height, mat2.rows);
     ASSERT_EQ(info1->step, mat2.step[0]);
+    ASSERT_EQ(info1->encoding, expected_encoding);
+}
+
+void compare_image_info_no_step(const com::robotraconteur::image::ImageInfoPtr& info1, const cv::Mat& mat2,
+                        com::robotraconteur::image::ImageEncoding::ImageEncoding expected_encoding)
+{
+    ASSERT_EQ(info1->width, mat2.cols);
+    ASSERT_EQ(info1->height, mat2.rows);
     ASSERT_EQ(info1->encoding, expected_encoding);
 }
 
@@ -61,6 +72,22 @@ void run_image_test(const cv::Mat& img, com::robotraconteur::image::ImageEncodin
 
     // Compare images
     compare_mat(img, img2);
+}
+
+void run_image_test_compressed(const cv::Mat& img, const std::string& ext, bool compare_data = true,
+                            const std::vector<int>& params = std::vector<int>())
+{
+    // Convert to CompressedImagePtr
+    auto img_ptr = RRC_Util::MatToCompressedImage(ext, img, params);
+
+    // Check image_info
+    compare_image_info_no_step(img_ptr->image_info, img, com::robotraconteur::image::ImageEncoding::compressed);
+
+    // Convert back
+    auto img2 = RRC_Util::CompressedImageToMat(img_ptr);
+
+    // Compare images
+    compare_mat(img, img2, compare_data);
 }
 
 TEST(ImageUtil, TestImageUtil_BGR)
@@ -157,6 +184,33 @@ TEST(ImageUtil, TestImageUtil_MonoF64)
 
     run_image_test(img, com::robotraconteur::image::ImageEncoding::mono_f64);
     run_image_test(img, com::robotraconteur::image::ImageEncoding::depth_f64);
+}
+
+TEST(ImageUtil, TestImageUtilCompressed_JPEG)
+{
+    // Populate random image
+    cv::Mat img(100, 110, CV_8UC3);
+    cv::randu(img, cv::Scalar(0, 0, 0), cv::Scalar(255, 255, 255));
+
+    run_image_test_compressed(img, "*.jpg", false);
+}
+
+TEST(ImageUtil, TestImageUtilCompressed_PNG)
+{
+    // Populate random image
+    cv::Mat img(100, 110, CV_8UC3);
+    cv::randu(img, cv::Scalar(0, 0, 0), cv::Scalar(255, 255, 255));
+
+    run_image_test_compressed(img, "*.png", true);
+}
+
+TEST(ImageUtil, TestImageUtilCompressed_JPEG_75percent)
+{
+    // Populate random image
+    cv::Mat img(100, 110, CV_8UC3);
+    cv::randu(img, cv::Scalar(0, 0, 0), cv::Scalar(255, 255, 255));
+
+    run_image_test_compressed(img, "*.jpg", false, {cv::IMWRITE_JPEG_QUALITY, 75});
 }
 
 int main(int argc, char** argv) // NOLINT

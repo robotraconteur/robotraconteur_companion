@@ -33,5 +33,5 @@ target_link_libraries(test_device_connector RobotRaconteurCompanion RobotRaconte
 add_test(NAME test_device_connector COMMAND test_device_connector WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_executable(test_image_util test_image_util.cpp ${TASK_GEN_RR_SRC} ${TASK_GEN_RR_HDR})
-target_link_libraries(test_image_util RobotRaconteurCompanion RobotRaconteurCore GTest::Main opencv_core opencv_imgproc)
+target_link_libraries(test_image_util RobotRaconteurCompanion RobotRaconteurCore GTest::Main opencv_core opencv_imgproc opencv_imgcodecs)
 add_test(NAME test_image_util COMMAND test_image_util)
