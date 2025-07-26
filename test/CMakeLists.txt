@@ -20,7 +20,7 @@ add_test(NAME test_robdef_gen COMMAND test_robdef_gen)
 add_test(NAME test_eigen_converters COMMAND test_eigen_converters)
 
 robotraconteur_generate_thunk(TASK_GEN_RR_SRC TASK_GEN_RR_HDR experimental.testing.companion.test_task_generator.robdef
-                              AUTO_IMPORT IMPORT_DIRS ${CMAKE_SOURCE_DIR}/robdef/group1)
+                              AUTO_IMPORT INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/robdef/group1)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
