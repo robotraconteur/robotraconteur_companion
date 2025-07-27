@@ -85,7 +85,7 @@ jobs:
       working-directory: src/robotraconteur_companion
       run: >
         ./tools/build_files/packaging/packaging_test.py ${{ matrix.config.pkg_opts }} --out-dir=$GITHUB_WORKSPACE/out
-        -rr-pkgs-dir=$GITHUB_WORKSPACE/rr_pkgs
+        --rr-pkgs-dir=$GITHUB_WORKSPACE/rr_pkgs
 
     - name: List out dir
       run: ls -lR out || true
