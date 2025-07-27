@@ -56,10 +56,10 @@ jobs:
       with:
         script: |
           const runs = await github.rest.actions.listWorkflowRuns({
-            owner: 'johnwason',
+            owner: 'robotraconteur',
             repo: 'robotraconteur',
             workflow_id: 'linux_packaging_test.yml',
-            branch: 'packaging-test/package_test_script2',
+            branch: 'master',
             status: 'success'
           });
           core.setOutput('run_id', runs.data.workflow_runs[0].id);
