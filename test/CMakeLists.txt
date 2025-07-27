@@ -1,3 +1,16 @@
+if(ROBOTRACONTEUR_COMPANION_DIST_TEST_BUILD)
+    if((CMAKE_VERSION VERSION_GREATER 3.12 OR CMAKE_VERSION VERSION_EQUAL 3.12))
+        cmake_minimum_required(VERSION 3.12...3.31)
+    else()
+        cmake_minimum_required(VERSION 3.5)
+    endif()
+    project(RobotRaconteurCompanion_Dist_Test VERSION LANGUAGES CXX)
+
+    find_package(RobotRaconteur REQUIRED)
+    find_package(RobotRaconteurCompanion REQUIRED)
+    include(CTest)
+endif()
+
 find_package(GTest REQUIRED)
 find_package(OpenCV REQUIRED)
 
@@ -19,8 +32,15 @@ target_link_libraries(test_eigen_converters RobotRaconteurCompanion RobotRaconte
 add_test(NAME test_robdef_gen COMMAND test_robdef_gen)
 add_test(NAME test_eigen_converters COMMAND test_eigen_converters)
 
-robotraconteur_generate_thunk(TASK_GEN_RR_SRC TASK_GEN_RR_HDR experimental.testing.companion.test_task_generator.robdef
-                              AUTO_IMPORT INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/robdef/group1)
+if(NOT ROBOTRACONTEUR_COMPANION_DIST_TEST_BUILD)
+    robotraconteur_generate_thunk(
+        TASK_GEN_RR_SRC TASK_GEN_RR_HDR experimental.testing.companion.test_task_generator.robdef AUTO_IMPORT
+        INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/robdef/group1)
+else()
+    robotraconteur_generate_thunk(
+        TASK_GEN_RR_SRC TASK_GEN_RR_HDR experimental.testing.companion.test_task_generator.robdef AUTO_IMPORT
+        INCLUDE_DIRS ${RobotRaconteur_STANDARD_ROBDEF_DIRS})
+endif()
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
