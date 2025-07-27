@@ -341,6 +341,21 @@ static com::robotraconteur::image::ImagePtr MatToImage(
 
 #if !defined(CV_VERSION_EPOCH) && CV_VERSION_MAJOR >= 3
 
+// doc
+/**
+ * @brief Convert an OpenCV Mat to a Robot Raconteur compressed image
+ *
+ * Converts an OpenCV Mat to a com.robotraconteur.image.CompressedImage
+ *
+ * The format of the input Mat must match the specified encoding
+ *
+ * Uses cv::imencode to compress the image
+ *
+ * @param ext The file extension for the desired encoding (e.g., ".jpg", ".png")
+ * @param mat The OpenCV Mat to convert
+ * @param params Optional parameters for cv::imencode
+ * @return com::robotraconteur::image::CompressedImagePtr The Robot Raconteur compressed image
+ */
 static com::robotraconteur::image::CompressedImagePtr MatToCompressedImage(
     const std::string& ext, const cv::Mat& mat, const std::vector<int>& params = std::vector<int>())
 {
@@ -365,7 +380,18 @@ static com::robotraconteur::image::CompressedImagePtr MatToCompressedImage(
     return image;
 }
 
-// CompressedImageToMat
+/**
+ * @brief Convert a Robot Raconteur compressed image to an OpenCV Mat
+ *
+ * Converts a com.robotraconteur.image.CompressedImage to an OpenCV Mat
+ *
+ * The encoding must be supported by cv::imdecode
+ *
+ * Uses cv::imdecode to decompress the image
+ *
+ * @param image The com.robotraconteur.image.CompressedImage to convert
+ * @return cv::Mat The OpenCV Mat
+ */
 static cv::Mat CompressedImageToMat(const com::robotraconteur::image::CompressedImagePtr& image)
 {
     if (!image)
