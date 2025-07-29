@@ -14,10 +14,22 @@
 
   <buildtool_depend>cmake</buildtool_depend>
   <buildtool_depend condition="$ROS_VERSION == 1">catkin</buildtool_depend>
-  <depend>boost</depend>
-  <depend>robotraconteur</depend>
-  <depend>eigen</depend>
-  <depend>yaml-cpp</depend>
+  <build_depend>boost</build_depend>
+  <build_depend>robotraconteur</build_depend>
+  <build_depend>eigen</build_depend>
+  <build_depend>yaml-cpp</build_depend>
+
+  <exec_depend condition="($CONDA_PREFIX == '') and ($HOMEBREW_PREFIX == '')">libboost-date-time</exec_depend>
+  <exec_depend condition="($CONDA_PREFIX == '') and ($HOMEBREW_PREFIX == '')">libboost-filesystem</exec_depend>
+  <exec_depend condition="($CONDA_PREFIX == '') and ($HOMEBREW_PREFIX == '')">libboost-system</exec_depend>
+  <exec_depend condition="($CONDA_PREFIX == '') and ($HOMEBREW_PREFIX == '')">libboost-regex</exec_depend>
+  <exec_depend condition="($CONDA_PREFIX == '') and ($HOMEBREW_PREFIX == '')">libboost-chrono</exec_depend>
+  <exec_depend condition="($CONDA_PREFIX == '') and ($HOMEBREW_PREFIX == '')">libboost-atomic</exec_depend>
+  <exec_depend condition="($CONDA_PREFIX == '') and ($HOMEBREW_PREFIX == '')">libboost-thread</exec_depend>
+  <exec_depend condition="($CONDA_PREFIX == '') and ($HOMEBREW_PREFIX == '')">libboost-random</exec_depend>
+  <exec_depend condition="($CONDA_PREFIX == '') and ($HOMEBREW_PREFIX == '')">libboost-program-options</exec_depend>
+  <exec_depend condition="($CONDA_PREFIX != '') or ($HOMEBREW_PREFIX != '')">boost</exec_depend>
+  <exec_depend>yaml-cpp</exec_depend>
 
   <test_depend>gtest</test_depend>
   <test_depend>libopencv-dev</test_depend>
