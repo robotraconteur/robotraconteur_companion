@@ -266,3 +266,11 @@ imencode
 imdecode
 imread
 lvds
+SRCS
+CPACK
+ctest
+nosubgrouping
+NSPACES
+DHTML
+Ssymbols
+unindexed

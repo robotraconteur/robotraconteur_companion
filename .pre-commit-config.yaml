@@ -1,7 +1,7 @@
 exclude: (^robdef)
 repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
-  rev: "v5.0.0"
+  rev: "v6.0.0"
   hooks:
   - id: check-added-large-files
   - id: check-case-conflict
@@ -41,7 +41,7 @@ repos:
   hooks:
   - id: cmake-format
 - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
-  rev: v2.15.0
+  rev: v2.16.0
   hooks:
   - id: pretty-format-yaml
     args: [--autofix, --indent, '2', '--preserve-quotes']
@@ -60,7 +60,7 @@ repos:
     files: '\.(c|cpp|h|hpp|java|cs|i|m|cmake|txt|css|js|ts|html|md|txt|py|yaml|yml|csproj|rst|py\.in|csproj\.in)$'
     language: system
 - repo: https://github.com/streetsidesoftware/cspell-cli
-  rev: v9.2.0
+  rev: v9.6.0
   hooks:
   - id: cspell   # Spell check changed files
     args:
