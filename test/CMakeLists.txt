@@ -25,7 +25,7 @@ endif()
 add_executable(test_robotinfo_parser test_robotinfo_parser.cpp)
 target_link_libraries(test_robotinfo_parser RobotRaconteurCompanion RobotRaconteurCore yaml-cpp)
 
-find_package(Eigen3 3.3 REQUIRED NO_MODULE)
+# find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 add_executable(test_eigen_converters test_eigen_converters.cpp)
 target_link_libraries(test_eigen_converters RobotRaconteurCompanion RobotRaconteurCore Eigen3::Eigen GTest::Main)
 

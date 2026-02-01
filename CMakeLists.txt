@@ -13,9 +13,9 @@ endif()
 
 find_package(RobotRaconteur 0.17.0 REQUIRED)
 find_package(yaml-cpp REQUIRED)
-find_package(Eigen3 3.3 NO_MODULE)
+find_package(Eigen3 3.3 NO_MODULE QUIET)
 if(NOT Eigen3_FOUND)
-    find_package(Eigen3 3.3...5 REQUIRED NO_MODULE)
+    find_package(Eigen3 3.3...<6 REQUIRED NO_MODULE)
 endif()
 find_package(OpenCV)
 
