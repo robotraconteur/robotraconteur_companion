@@ -52,7 +52,7 @@ jobs:
         submodules: recursive
     - name: Get latest run-id for workflow on branch
       id: get_run_id
-      uses: actions/github-script@v7
+      uses: actions/github-script@v8
       with:
         script: |
           const runs = await github.rest.actions.listWorkflowRuns({
