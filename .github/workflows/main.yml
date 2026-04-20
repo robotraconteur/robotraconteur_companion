@@ -92,13 +92,13 @@ jobs:
         ctest . -C Release --output-on-failure
     - name: archive docs
       if: ${{ matrix.config.os == 'ubuntu-22.04' }}
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: 'docs'
         path: build/docs/html/*
     - name: archive source archive
       if: ${{ matrix.config.os == 'ubuntu-22.04' }}
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: 'source'
         path: |
