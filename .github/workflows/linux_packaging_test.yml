@@ -65,7 +65,7 @@ jobs:
           core.setOutput('run_id', runs.data.workflow_runs[0].id);
           console.log(`Latest run ID: ${runs.data.workflow_runs[0].id}`);
     - name: download Robot Raconteur workflow outputs
-      uses: actions/download-artifact@v5
+      uses: actions/download-artifact@v6
       with:
         path: rr_pkgs
         repository: robotraconteur/robotraconteur
