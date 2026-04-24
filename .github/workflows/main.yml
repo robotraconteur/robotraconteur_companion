@@ -297,7 +297,7 @@ jobs:
       run: >
         cmake -G Ninja -DBUILD_TESTING=ON
         -DCMAKE_DISABLE_PRECOMPILE_HEADERS=ON -DCMAKE_BUILD_TYPE=Debug
-        -DCMAKE_CXX_CPPCHECK="/usr/bin/cppcheck;--enable=warning;--inconclusive;--force;--inline-suppr;-DBOOST_ASIO_MOVE_ARG(a)=;--error-exitcode=1;--std=c++11;RobotRaconteurCompanion"
+        -DCMAKE_CXX_CPPCHECK="/usr/bin/cppcheck;--enable=warning;--inconclusive;--force;--inline-suppr;-D__cppcheck__;-DBOOST_ASIO_MOVE_ARG(a)=;--error-exitcode=1;--std=c++11;RobotRaconteurCompanion"
         -S src -B build
     - name: build
       run: cmake --build build --config Debug -- -j 4
