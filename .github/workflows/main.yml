@@ -120,6 +120,56 @@ jobs:
           build/*.tar.gz
           build/*.zip
 
+  build-fedora:
+    runs-on: ubuntu-latest
+    container: ${{ matrix.config.container }}
+    strategy:
+      matrix:
+        config:
+        - container: fedora:latest
+        - container: fedora:rawhide
+
+    steps:
+    - uses: actions/checkout@v5
+      with:
+        path: robotraconteur
+        repository: robotraconteur/robotraconteur
+    - name: install-pkgs
+      run: >-
+        yum install -y boost-devel cmake ninja-build
+        gcc gcc-c++ make openssl-devel dbus-devel
+        libusb1-devel bluez-libs-devel gtest-devel
+        python3-devel python3-pip python3-numpy
+        python3-pytest zlib-devel swig redhat-rpm-config
+        yaml-cpp-devel eigen3-devel opencv-devel
+    - name: cmake rr
+      run: |
+        mkdir rr-build
+        cd rr-build
+        eval $(rpm --eval '%{set_build_flags}')
+        cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_GEN=ON -DBUILD_TESTING=OFF ../rr-src
+    - name: cmake rr build
+      run: |
+        cmake --build rr-build --config Release
+        sudo cmake --build rr-build --target install --config Release
+    - name: cmake
+      run: |
+        mkdir build
+        cd build
+        eval $(rpm --eval '%{set_build_flags}')
+        cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_DOCUMENATION=ON -DBULID_TESTING=ON ../src
+    - name: cmake build
+      run: cmake --build build --config Release
+    - name: cmake build docs
+      run: cmake --build build --config Release --target RobotRaconteurCompanion_doc
+    - name: cmake package source
+      run: cmake --build build --config Release --target package_source
+    - name: run ctest
+      working-directory: build
+      run: |
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GITHUB_WORKSPACE/build
+        ctest . -C Release --output-on-failure
+
   build-windows:
     runs-on: windows-2022
     steps:
