@@ -28,6 +28,12 @@ jobs:
         - os: debian-11
           runs_on: ubuntu-latest
           container: debian:bullseye-slim
+        - os: debian-13
+          runs_on: ubuntu-latest
+          container: debian:trixie-slim
+        - os: debian-sid
+          runs_on: ubuntu-latest
+          container: debian:sid-slim
     env:
       DEBIAN_FRONTEND: noninteractive
     steps:
@@ -113,6 +119,66 @@ jobs:
         files: |
           build/*.tar.gz
           build/*.zip
+
+  build-fedora:
+    runs-on: ubuntu-latest
+    container: ${{ matrix.config.container }}
+    strategy:
+      matrix:
+        config:
+        - container: fedora:latest
+        - container: fedora:rawhide
+
+    steps:
+    - uses: actions/checkout@v5
+      if: ${{ matrix.config.container == '' }}
+      with:
+        path: src
+        submodules: recursive
+    - uses: actions/checkout@v5
+      if: ${{ matrix.config.container != '' }}
+      with:
+        path: src
+    - uses: actions/checkout@v5
+      if: ${{ matrix.config.container != '' }}
+      with:
+        path: src/robdef
+        repository: robotraconteur/robotraconteur_standard_robdef
+    - uses: actions/checkout@v5
+      with:
+        path: rr-src
+        repository: robotraconteur/robotraconteur
+    - name: install-pkgs
+      run: >-
+        yum install -y boost-devel cmake ninja-build
+        gcc gcc-c++ make openssl-devel dbus-devel
+        libusb1-devel bluez-libs-devel gtest-devel
+        python3-devel python3-pip python3-numpy
+        python3-pytest zlib-devel swig redhat-rpm-config
+        yaml-cpp-devel eigen3-devel opencv-devel
+    - name: cmake rr
+      run: |
+        mkdir rr-build
+        cd rr-build
+        eval $(rpm --eval '%{set_build_flags}')
+        cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_GEN=ON -DBUILD_TESTING=OFF ../rr-src
+    - name: cmake rr build
+      run: |
+        cmake --build rr-build --config Release
+        sudo cmake --build rr-build --target install --config Release
+    - name: cmake
+      run: |
+        mkdir build
+        cd build
+        eval $(rpm --eval '%{set_build_flags}')
+        cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_DOCUMENATION=OFF -DBULID_TESTING=ON ../src
+    - name: cmake build
+      run: cmake --build build --config Release
+    - name: run ctest
+      working-directory: build
+      run: |
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GITHUB_WORKSPACE/build
+        ctest . -C Release --output-on-failure
 
   build-windows:
     runs-on: windows-2022
@@ -227,7 +293,7 @@ jobs:
       run: >
         cmake -G Ninja -DBUILD_TESTING=ON
         -DCMAKE_DISABLE_PRECOMPILE_HEADERS=ON -DCMAKE_BUILD_TYPE=Debug
-        -DCMAKE_CXX_CPPCHECK="/usr/bin/cppcheck;--enable=warning;--inconclusive;--force;--inline-suppr;-DBOOST_ASIO_MOVE_ARG(a)=;--error-exitcode=1;--std=c++11;RobotRaconteurCompanion"
+        -DCMAKE_CXX_CPPCHECK="/usr/bin/cppcheck;--enable=warning;--inconclusive;--force;--inline-suppr;-D__cppcheck__;-DRR_GCC_DISABLE_WARNING(a)=;-DRR_GCC_ENABLE_WARNING();-DBOOST_ASIO_MOVE_ARG(a)=;--error-exitcode=1;--std=c++11;RobotRaconteurCompanion"
         -S src -B build
     - name: build
       run: cmake --build build --config Debug -- -j 4
