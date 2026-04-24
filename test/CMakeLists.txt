@@ -18,7 +18,7 @@ include_directories(${RobotRaconteur_INCLUDE_DIR} ${CMAKE_CURRENT_BINARY_DIR}/..
 add_executable(test_robdef_gen test_robdef_gen.cpp)
 target_link_libraries(test_robdef_gen RobotRaconteurCompanion RobotRaconteurCore)
 add_executable(test_infoparser test_infoparser.cpp)
-target_link_libraries(test_infoparser RobotRaconteurCompanion RobotRaconteurCore-cpp)
+target_link_libraries(test_infoparser RobotRaconteurCompanion RobotRaconteurCore)
 if(TARGET yaml-cpp::yaml-cpp)
     target_link_libraries(test_infoparser yaml-cpp::yaml-cpp)
 else()
