@@ -28,6 +28,12 @@ jobs:
         - os: debian-11
           runs_on: ubuntu-latest
           container: debian:bullseye-slim
+        - os: debian-13
+          runs_on: ubuntu-latest
+          container: debian:trixie-slim
+        - os: debian-sid
+          runs_on: ubuntu-latest
+          container: debian:sid-slim
     env:
       DEBIAN_FRONTEND: noninteractive
     steps:
