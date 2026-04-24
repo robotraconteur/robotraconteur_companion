@@ -131,8 +131,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v5
+      if: ${{ matrix.config.container == '' }}
       with:
-        path: robotraconteur
+        path: src
+        submodules: recursive
+    - uses: actions/checkout@v5
+      if: ${{ matrix.config.container != '' }}
+      with:
+        path: src
+    - uses: actions/checkout@v5
+      if: ${{ matrix.config.container != '' }}
+      with:
+        path: src/robdef
+        repository: robotraconteur/robotraconteur_standard_robdef
+    - uses: actions/checkout@v5
+      with:
+        path: rr-src
         repository: robotraconteur/robotraconteur
     - name: install-pkgs
       run: >-
