@@ -105,7 +105,13 @@ add_library(
     src/DeviceConnector.cpp)
 set_target_properties(RobotRaconteurCompanion PROPERTIES PREFIX lib)
 
-target_link_libraries(RobotRaconteurCompanion PUBLIC RobotRaconteurCore Eigen3::Eigen yaml-cpp)
+target_link_libraries(RobotRaconteurCompanion PUBLIC RobotRaconteurCore Eigen3::Eigen)
+if(TARGET yaml-cpp::yaml-cpp)
+    target_link_libraries(RobotRaconteurCompanion PUBLIC yaml-cpp::yaml-cpp)
+else()
+    target_link_libraries(RobotRaconteurCompanion PUBLIC yaml-cpp)
+endif()
+
 target_include_directories(
     RobotRaconteurCompanion
     PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include/>
