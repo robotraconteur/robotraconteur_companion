@@ -17,7 +17,7 @@ jobs:
         run_number: ${{ github.event.inputs.run_number }}
         name: 'docs'
         path: 'docs'
-    - uses: actions/upload-pages-artifact@v3
+    - uses: actions/upload-pages-artifact@v4
       with:
         path: 'docs'
   deploy_documentation:
