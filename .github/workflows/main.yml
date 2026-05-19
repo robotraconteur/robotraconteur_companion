@@ -44,21 +44,21 @@ jobs:
         apt install sudo tzdata python3 git -y
         ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime
         dpkg-reconfigure --frontend noninteractive tzdata
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       if: ${{ matrix.config.container == '' }}
       with:
         path: src
         submodules: recursive
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       if: ${{ matrix.config.container != '' }}
       with:
         path: src
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       if: ${{ matrix.config.container != '' }}
       with:
         path: src/robdef
         repository: robotraconteur/robotraconteur_standard_robdef
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         path: rr-src
         repository: robotraconteur/robotraconteur
@@ -130,21 +130,21 @@ jobs:
         - container: fedora:rawhide
 
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       if: ${{ matrix.config.container == '' }}
       with:
         path: src
         submodules: recursive
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       if: ${{ matrix.config.container != '' }}
       with:
         path: src
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       if: ${{ matrix.config.container != '' }}
       with:
         path: src/robdef
         repository: robotraconteur/robotraconteur_standard_robdef
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         path: rr-src
         repository: robotraconteur/robotraconteur
@@ -183,11 +183,11 @@ jobs:
   build-windows:
     runs-on: windows-2022
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         path: src
         submodules: recursive
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         path: vcpkg-robotraconteur
         repository: robotraconteur/vcpkg-robotraconteur
@@ -219,11 +219,11 @@ jobs:
   clang-tidy:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         path: src
         submodules: recursive
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         path: rr-src
         repository: robotraconteur/robotraconteur
@@ -262,11 +262,11 @@ jobs:
   cppcheck:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         path: src
         submodules: recursive
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         path: rr-src
         repository: robotraconteur/robotraconteur
@@ -302,7 +302,7 @@ jobs:
     env:
       SKIP: no-commit-to-branch
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - uses: actions/setup-python@v6
       with:
         python-version: '3.10'
@@ -327,11 +327,11 @@ jobs:
     env:
       DEBIAN_FRONTEND: noninteractive
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         path: src/robotraconteur
         repository: robotraconteur/robotraconteur
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         submodules: recursive
         path: src/robotraconteur_companion
@@ -362,11 +362,11 @@ jobs:
         # - ROS_DISTRO: rolling
         #   OS_CODE_NAME: resolute
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         path: ws/src/robotraconteur_companion
         submodules: recursive
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         path: upstream_ws/src/robotraconteur
         repository: robotraconteur/robotraconteur
@@ -409,7 +409,7 @@ jobs:
         - ROS_DISTRO: rolling
           OS_CODE_NAME: resolute
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
       with:
         path: src/robotraconteur_companion
         submodules: recursive
