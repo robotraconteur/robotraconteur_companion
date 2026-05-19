@@ -192,7 +192,7 @@ jobs:
         path: vcpkg-robotraconteur
         repository: robotraconteur/vcpkg-robotraconteur
     - name: vcpkg build
-      uses: johnwason/vcpkg-action@v7
+      uses: johnwason/vcpkg-action@v8
       id: vcpkg
       with:
         pkgs: robotraconteur yaml-cpp eigen3 gtest opencv
