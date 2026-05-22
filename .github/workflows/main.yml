@@ -28,6 +28,12 @@ jobs:
         - os: debian-11
           runs_on: ubuntu-latest
           container: debian:bullseye-slim
+        - os: debian-13
+          runs_on: ubuntu-latest
+          container: debian:trixie-slim
+        - os: debian-sid
+          runs_on: ubuntu-latest
+          container: debian:sid-slim
     env:
       DEBIAN_FRONTEND: noninteractive
     steps:
@@ -38,21 +44,21 @@ jobs:
         apt install sudo tzdata python3 git -y
         ln -fs /usr/share/zoneinfo/Etc/UTC /etc/localtime
         dpkg-reconfigure --frontend noninteractive tzdata
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       if: ${{ matrix.config.container == '' }}
       with:
         path: src
         submodules: recursive
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       if: ${{ matrix.config.container != '' }}
       with:
         path: src
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       if: ${{ matrix.config.container != '' }}
       with:
         path: src/robdef
         repository: robotraconteur/robotraconteur_standard_robdef
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         path: rr-src
         repository: robotraconteur/robotraconteur
@@ -92,13 +98,13 @@ jobs:
         ctest . -C Release --output-on-failure
     - name: archive docs
       if: ${{ matrix.config.os == 'ubuntu-22.04' }}
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: 'docs'
         path: build/docs/html/*
     - name: archive source archive
       if: ${{ matrix.config.os == 'ubuntu-22.04' }}
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v7
       with:
         name: 'source'
         path: |
@@ -114,19 +120,79 @@ jobs:
           build/*.tar.gz
           build/*.zip
 
-  build-windows:
-    runs-on: windows-2022
+  build-fedora:
+    runs-on: ubuntu-latest
+    container: ${{ matrix.config.container }}
+    strategy:
+      matrix:
+        config:
+        - container: fedora:latest
+        - container: fedora:rawhide
+
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
+      if: ${{ matrix.config.container == '' }}
       with:
         path: src
         submodules: recursive
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
+      if: ${{ matrix.config.container != '' }}
+      with:
+        path: src
+    - uses: actions/checkout@v6
+      if: ${{ matrix.config.container != '' }}
+      with:
+        path: src/robdef
+        repository: robotraconteur/robotraconteur_standard_robdef
+    - uses: actions/checkout@v6
+      with:
+        path: rr-src
+        repository: robotraconteur/robotraconteur
+    - name: install-pkgs
+      run: >-
+        yum install -y boost-devel cmake ninja-build
+        gcc gcc-c++ make openssl-devel dbus-devel
+        libusb1-devel bluez-libs-devel gtest-devel
+        python3-devel python3-pip python3-numpy
+        python3-pytest zlib-devel swig redhat-rpm-config
+        yaml-cpp-devel eigen3-devel opencv-devel
+    - name: cmake rr
+      run: |
+        mkdir rr-build
+        cd rr-build
+        eval $(rpm --eval '%{set_build_flags}')
+        cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_GEN=ON -DBUILD_TESTING=OFF ../rr-src
+    - name: cmake rr build
+      run: |
+        cmake --build rr-build --config Release
+        sudo cmake --build rr-build --target install --config Release
+    - name: cmake
+      run: |
+        mkdir build
+        cd build
+        eval $(rpm --eval '%{set_build_flags}')
+        cmake -G Ninja -DCMAKE_BUILD_TYPE=Release -DBUILD_DOCUMENATION=OFF -DBULID_TESTING=ON ../src
+    - name: cmake build
+      run: cmake --build build --config Release
+    - name: run ctest
+      working-directory: build
+      run: |
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$GITHUB_WORKSPACE/build
+        ctest . -C Release --output-on-failure
+
+  build-windows:
+    runs-on: windows-2022
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        path: src
+        submodules: recursive
+    - uses: actions/checkout@v6
       with:
         path: vcpkg-robotraconteur
         repository: robotraconteur/vcpkg-robotraconteur
     - name: vcpkg build
-      uses: johnwason/vcpkg-action@v7
+      uses: johnwason/vcpkg-action@v8
       id: vcpkg
       with:
         pkgs: robotraconteur yaml-cpp eigen3 gtest opencv
@@ -153,11 +219,11 @@ jobs:
   clang-tidy:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         path: src
         submodules: recursive
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         path: rr-src
         repository: robotraconteur/robotraconteur
@@ -196,11 +262,11 @@ jobs:
   cppcheck:
     runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         path: src
         submodules: recursive
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         path: rr-src
         repository: robotraconteur/robotraconteur
@@ -227,7 +293,7 @@ jobs:
       run: >
         cmake -G Ninja -DBUILD_TESTING=ON
         -DCMAKE_DISABLE_PRECOMPILE_HEADERS=ON -DCMAKE_BUILD_TYPE=Debug
-        -DCMAKE_CXX_CPPCHECK="/usr/bin/cppcheck;--enable=warning;--inconclusive;--force;--inline-suppr;-DBOOST_ASIO_MOVE_ARG(a)=;--error-exitcode=1;--std=c++11;RobotRaconteurCompanion"
+        -DCMAKE_CXX_CPPCHECK="/usr/bin/cppcheck;--enable=warning;--inconclusive;--force;--inline-suppr;-D__cppcheck__;-DRR_GCC_DISABLE_WARNING(a)=;-DRR_GCC_ENABLE_WARNING();-DBOOST_ASIO_MOVE_ARG(a)=;--error-exitcode=1;--std=c++11;RobotRaconteurCompanion"
         -S src -B build
     - name: build
       run: cmake --build build --config Debug -- -j 4
@@ -236,8 +302,8 @@ jobs:
     env:
       SKIP: no-commit-to-branch
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
+    - uses: actions/checkout@v6
+    - uses: actions/setup-python@v6
       with:
         python-version: '3.10'
     - name: apt
@@ -261,11 +327,11 @@ jobs:
     env:
       DEBIAN_FRONTEND: noninteractive
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         path: src/robotraconteur
         repository: robotraconteur/robotraconteur
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         submodules: recursive
         path: src/robotraconteur_companion
@@ -284,18 +350,23 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ROS_DISTRO:
-        - noetic
-        - humble
-        - jazzy
-        - kilted
-        - rolling
+        config:
+        - ROS_DISTRO: noetic
+          OS_CODE_NAME: focal
+        - ROS_DISTRO: humble
+          OS_CODE_NAME: jammy
+        - ROS_DISTRO: jazzy
+          OS_CODE_NAME: noble
+        - ROS_DISTRO: kilted
+          OS_CODE_NAME: noble
+        # - ROS_DISTRO: rolling
+        #   OS_CODE_NAME: resolute
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         path: ws/src/robotraconteur_companion
         submodules: recursive
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         path: upstream_ws/src/robotraconteur
         repository: robotraconteur/robotraconteur
@@ -317,7 +388,8 @@ jobs:
     - name: ros industrial-ci
       uses: ros-industrial/industrial_ci@master
       env:
-        ROS_DISTRO: ${{ matrix.ROS_DISTRO }}
+        ROS_DISTRO: ${{ matrix.config.ROS_DISTRO }}
+        OS_CODE_NAME: ${{ matrix.config.OS_CODE_NAME }}
         ROS_REPO: main
         TARGET_WORKSPACE: ws
         UPSTREAM_WORKSPACE: upstream_ws
@@ -327,13 +399,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ROS_DISTRO:
-        - humble
-        - jazzy
-        - kilted
-        - rolling
+        config:
+        - ROS_DISTRO: humble
+          OS_CODE_NAME: jammy
+        - ROS_DISTRO: jazzy
+          OS_CODE_NAME: noble
+        - ROS_DISTRO: kilted
+          OS_CODE_NAME: noble
+        - ROS_DISTRO: rolling
+          OS_CODE_NAME: resolute
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
       with:
         path: src/robotraconteur_companion
         submodules: recursive
@@ -351,7 +427,8 @@ jobs:
     - name: ros industrial-ci
       uses: ros-industrial/industrial_ci@master
       env:
-        ROS_DISTRO: ${{ matrix.ROS_DISTRO }}
+        ROS_DISTRO: ${{ matrix.config.ROS_DISTRO }}
+        OS_CODE_NAME: ${{ matrix.config.OS_CODE_NAME }}
         ROS_REPO: main
         PRERELEASE: true
         ROSDEP_SKIP_KEYS: python3-setuptools

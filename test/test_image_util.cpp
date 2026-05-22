@@ -74,6 +74,8 @@ void run_image_test(const cv::Mat& img, com::robotraconteur::image::ImageEncodin
     compare_mat(img, img2);
 }
 
+// cspell: ignore IMWRITE randu
+
 TEST(ImageUtil, TestImageUtil_BGR)
 {
     // Populate random image

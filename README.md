@@ -160,7 +160,7 @@ provides converters for Eigen types to and from Robot Raconteur types. See the d
 
 The Robot Raconteur companion library provides converters for date/time types to and from Robot Raconteur types.
 
-The comanian library supports several time representations:
+The companian library supports several time representations:
 
 * `com.robotraconteur.datetime.DateTimeUTC` - Used to represent a date and time in UTC, based on the system real time clock
 * `com.robotraconteur.datetime.TimeSpec2` - Used to represent a timestamp based on the system performance clock, which is not
