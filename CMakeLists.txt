@@ -5,8 +5,6 @@ else()
 endif()
 project(RobotRaconteurCompanion VERSION 0.4.3 LANGUAGES CXX C)
 
-set(CMAKE_CXX_STANDARD 11)
-
 if(EXISTS ${CMAKE_CURRENT_LIST_DIR}/cmake_config_options.cmake)
     include(${CMAKE_CURRENT_LIST_DIR}/cmake_config_options.cmake)
 endif()
