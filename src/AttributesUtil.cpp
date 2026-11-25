@@ -90,7 +90,11 @@ std::map<std::string, RobotRaconteur::RRValuePtr> GetDefaultServiceAttributesFro
     detail::TryAddString(o, "user_description", info->user_description);
     if (info->extended)
     {
-        detail::TryAddIdentifierList(o, "tags", info->extended->at("tags"));
+        auto tags_entry = info->extended->find("tags");
+        if (tags_entry != info->extended->end())
+        {
+            detail::TryAddIdentifierList(o, "tags", tags_entry->second);
+        }
     }
     return o;
 }

@@ -172,6 +172,27 @@ TEST(ImageUtil, TestImageUtil_MonoF64)
     run_image_test(img, com::robotraconteur::image::ImageEncoding::depth_f64);
 }
 
+TEST(ImageUtil, TestImageUtil_PaddedMat)
+{
+    // ROI of a wider Mat: rows are padded (step[0] > cols * elemSize)
+    cv::Mat big(100, 130, CV_8UC3);
+    cv::randu(big, cv::Scalar(0, 0, 0), cv::Scalar(255, 255, 255));
+    cv::Mat img = big(cv::Rect(0, 0, 110, 100));
+    ASSERT_FALSE(img.isContinuous());
+
+    auto img_ptr = RRC_Util::MatToImage(img, com::robotraconteur::image::ImageEncoding::bgr888);
+    ASSERT_EQ(img_ptr->image_info->width, 110U);
+    ASSERT_EQ(img_ptr->image_info->height, 100U);
+    ASSERT_EQ(img_ptr->image_info->step, 110U * 3U);
+    ASSERT_EQ(img_ptr->data->size(), 110U * 3U * 100U);
+
+    cv::Mat img_continuous = img.clone();
+    compare_image_bytes(img_ptr, img_continuous);
+
+    auto img2 = RRC_Util::ImageToMat(img_ptr);
+    compare_mat(img_continuous, img2);
+}
+
 #if !defined(CV_VERSION_EPOCH) && CV_VERSION_MAJOR >= 3
 
 void run_image_test_compressed(const cv::Mat& img, const std::string& ext, bool compare_data = true,

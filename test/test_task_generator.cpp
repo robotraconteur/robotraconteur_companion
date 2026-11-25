@@ -293,6 +293,16 @@ TEST(CompanionUtil, SyncTaskGenerator)
     EXPECT_NO_THROW(run_sync_task_gen_test(2000, 5000, 50, 200, 25));
 }
 
+// Must be the last test in this file: it shuts down the default node RobotRaconteurNode::s().
+// The generators run on the fixture's own nodes, so their timers must not use the default node.
+TEST(CompanionUtil, AsyncTaskGeneratorNonDefaultNode)
+{
+    RR::RobotRaconteurNode::s()->Shutdown();
+    EXPECT_NO_THROW(run_task_gen_test(200, 1000, 5000, 10, -1, 1));
+    EXPECT_THROW(run_task_gen_test(1000, 2000, 5000, 10, 150, 200), RR::OperationAbortedException);
+    EXPECT_NO_THROW(run_sync_task_gen_test(200, 1000, 10, -1, 1));
+}
+
 int main(int argc, char** argv)
 {
     testing::InitGoogleTest(&argc, argv);

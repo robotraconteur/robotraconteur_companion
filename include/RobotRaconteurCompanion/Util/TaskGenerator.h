@@ -148,16 +148,22 @@ class AsyncTaskGenerator : public virtual RobotRaconteur::Generator<RR_INTRUSIVE
             return;
         }
 
+        RR_SHARED_PTR<RobotRaconteur::RobotRaconteurNode> node1 = node.lock();
+        if (!node1)
+        {
+            throw RobotRaconteur::InvalidOperationException("Node has been released");
+        }
+
         next_handler = handler;
 
         RR_WEAK_PTR<AsyncTaskGenerator<StatusType> > weak_this = this->shared_from_this();
-        next_timer = RobotRaconteur::RobotRaconteurNode::s()->CreateTimer(
+        next_timer = node1->CreateTimer(
             boost::posix_time::milliseconds(next_timeout),
             boost::bind(&AsyncTaskGenerator::next_timer_handler, weak_this, RR_BOOST_PLACEHOLDERS(_1)), true);
         next_timer->Start();
         if (watchdog_timeout > 0)
         {
-            watchdog_timer = RobotRaconteur::RobotRaconteurNode::s()->CreateTimer(
+            watchdog_timer = node1->CreateTimer(
                 boost::posix_time::milliseconds(watchdog_timeout),
                 boost::bind(&AsyncTaskGenerator::watchdog_timer_handler, weak_this, RR_BOOST_PLACEHOLDERS(_1)), true);
             watchdog_timer->Start();

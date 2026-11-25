@@ -74,7 +74,7 @@ com::robotraconteur::geometry::Vector6 ToVector6(const ::Eigen::Ref<const ::Eige
     o.s.gamma = vs[2];
     o.s.x = vs[3];
     o.s.y = vs[4];
-    o.s.y = vs[5];
+    o.s.z = vs[5];
     return o;
 }
 
@@ -153,8 +153,8 @@ com::robotraconteur::geometry::Size ToSize(const ::Eigen::Ref<const ::Eigen::Vec
 {
     ::Eigen::Vector3d o;
     o[0] = vs.s.width;
-    o[1] = vs.s.depth;
-    o[2] = vs.s.height;
+    o[1] = vs.s.height;
+    o[2] = vs.s.depth;
     return o;
 }
 
@@ -162,7 +162,7 @@ com::robotraconteur::geometry::Size ToSize(const ::Eigen::Ref<const ::Eigen::Vec
 {
     if (q.s.x == 0 && q.s.y == 0 && q.s.z == 0 && q.s.w == 0)
     {
-        return ::Eigen::Quaterniond();
+        return ::Eigen::Quaterniond::Identity();
     }
 
     return ::Eigen::Quaterniond(q.s.w, q.s.x, q.s.y, q.s.z);

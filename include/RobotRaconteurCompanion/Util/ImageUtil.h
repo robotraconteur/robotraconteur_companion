@@ -257,7 +257,9 @@ static com::robotraconteur::image::ImagePtr MatToImage(
 
     image_info->width = mat.cols;
     image_info->height = mat.rows;
-    image_info->step = boost::numeric_cast<uint32_t>((size_t)mat.step[0]);
+    // The output data is always packed (no row padding), even if the input Mat is not continuous
+    size_t packed_step = (size_t)mat.cols * mat.elemSize();
+    image_info->step = boost::numeric_cast<uint32_t>(packed_step);
     image_info->encoding = encoding;
 
     int32_t mat_type = -1;
@@ -321,7 +323,7 @@ static com::robotraconteur::image::ImagePtr MatToImage(
     }
     RobotRaconteur::RRArrayPtr<uint8_t> rr_data =
         RobotRaconteur::AllocateRRArray<uint8_t>(mat.total() * mat.elemSize());
-    cv::Mat rr_mat_target(mat.rows, mat.cols, mat_type, rr_data->data(), mat.step[0]);
+    cv::Mat rr_mat_target(mat.rows, mat.cols, mat_type, rr_data->data(), packed_step);
     switch (encoding)
     {
     case com::robotraconteur::image::ImageEncoding::rgb888:

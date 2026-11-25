@@ -78,6 +78,85 @@ TEST(EigenConverters, Matrices)
     eigen_ca(c1, c1_a);
 }
 
+TEST(EigenConverters, MatrixLengthMismatch)
+{
+    // More elements than the dimensions describe must not be copied past the end of the matrix
+    const double a1_1[]{1, 2, 3, 4, 5, 6, 7, 8}; // NOLINT
+    const uint32_t a1_dims[] = {3, 2};           // NOLINT
+    RR::RRMultiDimArrayPtr<double> a1 =
+        RR::AllocateRRMultiDimArray<double>(RR::AttachRRArrayCopy(a1_dims, 2), RR::AttachRRArrayCopy(a1_1, 8));
+    EXPECT_THROW(RREigen::RRMultiDimArrayToEigen(a1), RR::InvalidArgumentException);
+
+    // Fewer elements than the dimensions describe
+    RR::RRMultiDimArrayPtr<double> a2 =
+        RR::AllocateRRMultiDimArray<double>(RR::AttachRRArrayCopy(a1_dims, 2), RR::AttachRRArrayCopy(a1_1, 4));
+    EXPECT_THROW(RREigen::RRMultiDimArrayToEigen(a2), RR::InvalidArgumentException);
+}
+
+TEST(EigenConverters, EmptyMatrix)
+{
+    ::Eigen::MatrixXd b1(0, 3);
+    RR::RRMultiDimArrayPtr<double> b1_a = RREigen::EigenToRRMultiDimArray(b1);
+    EXPECT_EQ(b1_a->Dims->at(0), 0U);
+    EXPECT_EQ(b1_a->Dims->at(1), 3U);
+    EXPECT_EQ(b1_a->Array->size(), 0U);
+}
+
+TEST(EigenConverters, Vector6)
+{
+    Eigen::Matrix<double, 6, 1> v;
+    // cppcheck-suppress constStatement
+    v << 1, 2, 3, 4, 5, 6;
+    com::robotraconteur::geometry::Vector6 rr_v = RREigen::ToVector6(v);
+    EXPECT_EQ(rr_v.s.alpha, 1);
+    EXPECT_EQ(rr_v.s.beta, 2);
+    EXPECT_EQ(rr_v.s.gamma, 3);
+    EXPECT_EQ(rr_v.s.x, 4);
+    EXPECT_EQ(rr_v.s.y, 5);
+    EXPECT_EQ(rr_v.s.z, 6);
+    EXPECT_EQ(RREigen::ToVector(rr_v), v);
+}
+
+TEST(EigenConverters, Size)
+{
+    Eigen::Vector3d v(1, 2, 3);
+    com::robotraconteur::geometry::Size rr_s = RREigen::ToSize(v);
+    EXPECT_EQ(rr_s.s.width, 1);
+    EXPECT_EQ(rr_s.s.height, 2);
+    EXPECT_EQ(rr_s.s.depth, 3);
+    EXPECT_EQ(RREigen::ToVector(rr_s), v);
+}
+
+TEST(EigenConverters, ZeroQuaternionIsIdentity)
+{
+    // An all-zero quaternion, as in a default constructed structure, converts to the identity
+    com::robotraconteur::geometry::Quaternion q{};
+    Eigen::Quaterniond eq = RREigen::ToQuaternion(q);
+    EXPECT_EQ(eq.w(), 1);
+    EXPECT_EQ(eq.x(), 0);
+    EXPECT_EQ(eq.y(), 0);
+    EXPECT_EQ(eq.z(), 0);
+
+    com::robotraconteur::geometry::Transform t{};
+    t.s.translation.s.x = 1;
+    t.s.translation.s.y = 2;
+    t.s.translation.s.z = 3;
+    Eigen::Isometry3d iso = RREigen::ToIsometry(t);
+    EXPECT_TRUE(iso.linear().isIdentity());
+    EXPECT_EQ(iso.translation(), Eigen::Vector3d(1, 2, 3));
+
+    com::robotraconteur::geometry::Pose p{};
+    EXPECT_TRUE(RREigen::ToIsometry(p).isApprox(Eigen::Isometry3d::Identity()));
+}
+
+TEST(EigenConverters, TransformRoundTrip)
+{
+    Eigen::Isometry3d iso =
+        Eigen::Translation3d(0.9, -0.3, 1.455) * Eigen::AngleAxisd(0.3, Eigen::Vector3d(1, 2, 3).normalized());
+    EXPECT_TRUE(RREigen::ToIsometry(RREigen::ToTransform(iso)).isApprox(iso));
+    EXPECT_TRUE(RREigen::ToIsometry(RREigen::ToPose(iso)).isApprox(iso));
+}
+
 int main(int argc, char** argv) // NOLINT
 {
     testing::InitGoogleTest(&argc, argv);

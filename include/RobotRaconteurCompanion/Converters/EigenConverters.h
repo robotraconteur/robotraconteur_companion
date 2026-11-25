@@ -126,7 +126,10 @@ RobotRaconteur::RRMultiDimArrayPtr<T> EigenToRRMultiDimArray(const ::Eigen::Matr
     RobotRaconteur::RRMultiDimArrayPtr<T> out = RobotRaconteur::AllocateEmptyRRMultiDimArray<T>(dims);
     ::Eigen::Matrix<T, ::Eigen::Dynamic, ::Eigen::Dynamic, ::Eigen::ColMajor> eigen_in2 = eigen_in;
     size_t total_elems = eigen_in.rows() * eigen_in.cols();
-    memcpy(&out->Array->at(0), eigen_in2.data(), sizeof(T) * total_elems);
+    if (total_elems > 0)
+    {
+        memcpy(out->Array->data(), eigen_in2.data(), sizeof(T) * total_elems);
+    }
     return out;
 }
 
@@ -144,6 +147,16 @@ template <typename T>
     RobotRaconteur::rr_null_check(array_in);
     RobotRaconteur::rr_null_check(array_in->Dims);
     RobotRaconteur::rr_null_check(array_in->Array);
+
+    size_t expected_elems = 1;
+    for (size_t i = 0; i < array_in->Dims->size(); i++)
+    {
+        expected_elems *= array_in->Dims->at(i);
+    }
+    if (array_in->Array->size() != expected_elems)
+    {
+        throw RobotRaconteur::InvalidArgumentException("Matrix array length does not match dimensions");
+    }
 
     switch (array_in->Dims->size())
     {
